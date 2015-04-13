@@ -1,0 +1,316 @@
+<zk>
+	<style src="/public/Estilo.css" />
+	<div id="divMorbilidad" apply="controlador.reporte.CMorbilidad">
+		<groupbox width="75%" mold="3d" title="Reporte de Morbilidad">
+			<grid width="100%">
+				<columns visible="false">
+					<column label="" width="18%" />
+					<column label="" width="32%" />
+					<column label="" width="18%" />
+					<column label="" width="32%" />
+				</columns>
+				<rows>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Desde:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<datebox width="100%" readonly="true" id="dtbDesde"
+							constraint="no future" onCreate="self.value = new Date()"
+							tooltiptext="Seleccione el inicio del Periodo a buscar" />
+						<hbox>
+							<label class="etiqueta" value="Hasta:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<datebox width="100%" readonly="true" id="dtbHasta"
+							onCreate="self.value = new Date()" tooltiptext="Seleccione el fin del Periodo a buscar" />
+					</row>
+					<row id="rowArea">
+						<hbox>
+							<label class="etiqueta" value="Area:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox tooltiptext="Seleccione un Area" placeholder="Seleccione un Area"
+							id="cmbArea" readonly="true" width="100%" value="TODAS">
+							<template name="model">
+								<comboitem label="${each.nombre}" context="${each.idArea}" />
+							</template>
+						</combobox>
+						<hbox visible="false">
+							<label class="etiqueta" value="Cargo:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox visible="false" tooltiptext="Seleccione un Cargo"
+							placeholder="Seleccione un Cargo" id="cmbCargo" readonly="true"
+							width="100%">
+							<template name="model">
+								<comboitem label="${each.nombre}" context="${each.idCargo}" />
+							</template>
+						</combobox>
+					</row>
+					<row id="rowTipoConsulta">
+						<hbox>
+							<label class="etiqueta" value="Tipo de Consulta:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox tooltiptext="Seleccione el Tipo de la Consulta"
+							placeholder="Seleccione el Tipo" id="cmbTipoConsulta" width="100%"
+							readonly="true" value="TODAS">
+							<comboitem label="TODAS" />
+							<comboitem label="Preventiva" />
+							<comboitem label="Curativa" />
+						</combobox>
+						<hbox>
+							<label class="etiqueta" value="Sub-Tipo de Consulta:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox tooltiptext="Seleccione el Tipo de Consulta"
+							placeholder="Seleccione el Tipo" id="cmbTipoPreventiva" width="100%"
+							value="TODAS" readonly="true">
+							<template name="model">
+								<comboitem label="${each}" />
+							</template>
+						</combobox>
+
+					</row>
+					<row id="rowDiagnostico">
+						<hbox>
+							<label class="etiqueta" value="Tipo de Diagnostico:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox tooltiptext="Seleccione el Tipo de Diagnostico"
+							value="TODOS" placeholder="Seleccione el Tipo" width="98%"
+							readonly="true" id="cmbDiagnostico">
+							<comboitem label="TODOS" />
+							<comboitem label="Accidente Laboral" />
+							<comboitem label="Accidente Comun" />
+							<comboitem label="Enfermedad Laboral" />
+							<comboitem label="Enfermedad Comun" />
+							<comboitem label="Otro" />
+						</combobox>
+						<hbox>
+							<label class="etiqueta" value="Grupo Etario:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<hbox width="100%" widths="10%,30%,10%,30%,20%">
+							<label class="etiqueta" value="De:" width="100%" />
+							<spinner id="spnDe" step="1" constraint="min 0 max 1000"
+								value="1" width="80%" />
+							<label class="etiqueta" value="A:" width="100%" />
+							<spinner width="80%" value="100" id="spnA" step="1"
+								constraint="min 0 max 100" />
+							<label class="etiqueta" value="Años" width="100%" />
+						</hbox>
+					</row>
+					<row id="rowDoctor">
+						<hbox>
+							<label class="etiqueta" value="Doctor:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<hbox>
+							<button id="btnBuscarDoctor" label="Buscar" class="btn"
+								image="/public/imagenes/botones/buscar.png" />
+							<label id="lblNombreDoctor" />
+						</hbox>
+						<hbox>
+							<label class="etiqueta" value="Unidad:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox id="cmbUnidad" readonly="true" tabindex="1"
+							value="TODAS" width="100%" tooltiptext="Seleccione una Unidad"
+							placeholder="Seleccione una Unidad">
+							<comboitem label="TODAS" />
+							<comboitem label="Foraneo" />
+							<comboitem label="Planta" />
+						</combobox>
+					</row>
+					<row id="rowFamiliar">
+						<hbox>
+							<label class="etiqueta" value="Consulta de:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<cell colspan="3">
+							<hbox>
+								<radiogroup id="rdgFamiliar">
+									<hbox>
+										<radio label="Familiares" value="familiares" id="rdoFamiliares" />
+										<separator />
+										<radio label="Trabajadores" value="trabajadores" id="rdoTrabajadores" />
+										<separator />
+										<radio label="Todos" value="todos" id="rdoTodos" />
+									</hbox>
+								</radiogroup>
+							</hbox>
+						</cell>
+					</row>
+					<row id="rowPaciente">
+						<hbox>
+							<label class="etiqueta" value="Paciente:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<label id="lblPaciente" />
+						<button id="btnBuscarPaciente" label="Buscar" class="btn"
+							image="/public/imagenes/botones/buscar.png" />
+						<hbox />
+					</row>
+					<row id="rowCargo" visible="false">
+						<hbox>
+							<label class="etiqueta" value="Cargo:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox hflex="1" id="cmbCargo2" value="TODOS" placeholder="Seleccione un Cargo"
+							readonly="true" tooltiptext="Seleccione un Cargo" width="100%">
+							<template name="model">
+								<comboitem label="${each.nombre}" context="${each.idCargo}" />
+							</template>
+						</combobox>
+						<hbox />
+						<hbox />
+					</row>
+					<row id="rowEmpresa" visible="false">
+						<hbox>
+							<label class="etiqueta" value="Empresa:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox hflex="1" id="cmbEmpresa" value="TODAS" placeholder="Seleccione una Empresa"
+							readonly="true" tooltiptext="Seleccione una Empresa" width="100%">
+							<template name="model">
+								<comboitem label="${each.nombre}" context="${each.idEmpresa}" />
+							</template>
+						</combobox>
+						<hbox />
+						<hbox />
+					</row>
+					<row id="rowNomina" visible="false">
+						<hbox>
+							<label class="etiqueta" value="Nomina:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox hflex="1" id="cmbNomina" value="TODAS" placeholder="Seleccione una Nomina"
+							readonly="true" tooltiptext="Seleccione una Nomina" width="100%">
+							<template name="model">
+								<comboitem label="${each.nombre}" context="${each.idNomina}" />
+							</template>
+						</combobox>
+						<hbox />
+						<hbox />
+					</row>
+					<row id="rowClasificacion" visible="false">
+						<hbox>
+							<label class="etiqueta" value="Clasificacion Categoria:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox hflex="1" id="cmbClasificacion" value="TODAS" placeholder="Seleccione una Clasificacion"
+							readonly="true" tooltiptext="Seleccione una Clasificacion" width="100%">
+							<template name="model">
+								<comboitem label="${each.nombre}" context="${each.idClasificacion}" />
+							</template>
+						</combobox>
+						<hbox>
+							<label class="etiqueta" value="Categoria:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox hflex="1" id="cmbCategoria" value="TODAS" placeholder="Seleccione una Categoria"
+							readonly="true" tooltiptext="Seleccione una Categoria" width="100%">
+							<template name="model">
+								<comboitem label="${each.nombre}" context="${each.idCategoriaDiagnostico}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Reporte de Tipo:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox id="cmbTipo" readonly="true" tabindex="1"
+							value="PDF" width="100%" tooltiptext="Seleccione un Tipo"
+							placeholder="Seleccione un Tipo">
+							<comboitem label="PDF" />
+							<comboitem label="EXCEL" />
+						</combobox>
+						<hbox />
+						<hbox />
+					</row>
+				</rows>
+			</grid>
+			<separator />
+			<hbox id="box2" visible="false">
+				<textbox tooltiptext="Ingrese el Nombre del Diagnostico"
+					placeholder="Ingrese el Diagnostico a Buscar" width="195px"
+					id="txtBuscadorDiagnostico"></textbox>
+				<separator />
+				<button class="abrir" id="btnAbrirDiagnostico" label=""
+					tooltiptext="Crear un Nuevo Diagnostico" image="/public/imagenes/botones/agregar.png" />
+				<button class="abrir" id="btnRefrescarDiagnostico" label=""
+					tooltiptext="Presione para actualizar la lista de los diagnosticos (actualizara tambien la lista de los diagnosticos agregados)"
+					image="/public/imagenes/botones/refresh2.png" />
+			</hbox>
+			<hbox id="box" widths="48%,4%,48%" visible="false">
+				<listbox mold="paging" pageSize="8" id="ltbDiagnosticos"
+					height="370px" width="100%" emptyMessage="No hay Diagnosticos Registrados">
+					<listhead>
+						<listheader label="Diagnostico" width="100%" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="${each.nombre}">
+							</listcell>
+							<listcell>
+								<spinner inplace="true" width="98%" value="${each.idDiagnostico}"
+									visible="false" disabled="true" />
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+				<vbox>
+					<button class="abrir" id="pasar1"
+						image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Diagnostico"
+						width="30px" />
+					<separator />
+					<button class="abrir" id="pasar2"
+						image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Diagnostico"
+						width="30px" />
+				</vbox>
+				<listbox id="ltbDiagnosticosAgregados" width="100%" height="370px"
+					emptyMessage="No ha Seleccionado Ningún Diagnostico">
+					<listhead>
+						<listheader label="Diagnostico" width="100%" />
+						<listheader label="id" visible="false" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="${each.nombre}">
+							</listcell>
+							<listcell>
+								<spinner value="${each.idDiagnostico}" width="98%"
+									visible="false" disabled="true" />
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+			</hbox>
+			<separator />
+			<div id="botoneraMorbilidad" />
+			<div id="divCatalogoPaciente" />
+			<div id="catalogoUsuarios" />
+		</groupbox>
+	</div>
+</zk>

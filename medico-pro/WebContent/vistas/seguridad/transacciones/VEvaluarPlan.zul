@@ -1,0 +1,162 @@
+<zk>
+	<script src="/public/progress.js" />
+	<div id="divEvaluar" apply="controlador.seguridad.CEvaluarPlan">
+		<groupbox width="100%" mold="3d" title="Evaluar Plan de Accion">
+			<grid width="100%">
+				<columns visible="false">
+					<column label="" width="25%" />
+					<column label="" width="25%" />
+					<column label="" width="25%" />
+					<column label="" width="25%" />
+				</columns>
+				<rows>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Buscar Informe Registrado:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<button autodisable="self" id="btnBuscar" class="btn"
+							label="Buscar" tooltiptext="Catalogo" image="/public/imagenes/botones/buscar.png" />
+						<hbox />
+						<hbox />
+					</row>
+					<row>
+						<label class="etiqueta" value="Codigo de Informe:" />
+						<label id="lblCodigo" />
+						<label class="etiqueta" value="Fecha del Accidente:" />
+						<datebox width="100%" readonly="true" id="dtbFecha"
+							tooltiptext="Fecha del Accidente" />
+					</row>
+					<row>
+						<label class="etiqueta" value="Tipo de Accidente:" />
+						<label id="lblTipo" />
+						<label class="etiqueta" value="Descripcion del Accidente:" />
+						<label id="lblDescripcion" />
+					</row>
+					<row>
+						<cell colspan="4">
+							<label class="etiqueta" value="Datos del trabajador accidentado:" />
+						</cell>
+					</row>
+					<row>
+						<label class="etiqueta" value="Ficha:" />
+						<label id="lblFicha" />
+						<label class="etiqueta" value="Cedula:" />
+						<label id="lblCedula" />
+					</row>
+					<row>
+						<label class="etiqueta" value="Nombre y Apellido:" />
+						<cell colspan="3">
+							<label id="lblNombre" />
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			<tabbox height="auto" width="auto" id="taxPlanes" orient="horizontal">
+				<tabs>
+					<tab tooltip="Plan de Accion" label="Plan de Accion" id="tabPlan" />
+					<tab tooltip="Plan de Accion de Inspector Inpsasel" label="Plan de Accion de Inspector Inpsasel"
+						id="tabPlan2" />
+				</tabs>
+				<tabpanels>
+					<tabpanel>
+						<vbox width="100%" height="100%">
+						<separator></separator>
+							<label class="etiqueta"
+								value="Seleccione las Acciones que ya han sido Realizadas" />
+							<listbox id="ltbAcciones" rows="10" width="100%"
+								emptyMessage="El Informe no posee Plan de Accion">
+								<listhead>
+									<listheader label="Descripcion" width="20%" />
+									<listheader label="Quien" width="15%" />
+									<listheader label="Cuando" width="10%" />
+									<listheader label="Donde" width="7%" />
+									<listheader label="Como" width="20%" />
+									<listheader label="Fecha Culminacion" width="10%" />
+									<listheader label="Observacion" width="18%" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell label="${each.descripcion}" />
+										<listcell label="${each.quien}" />
+										<listcell label="${each.traerFechaCuando()}" />
+										<listcell label="${each.donde}" />
+										<listcell label="${each.como}" />
+										<listcell>
+											<datebox width="100%" readonly="true"
+												value="${each.fechaCumplido}" tooltiptext="Fecha de Culminacion de la Accion" />
+										</listcell>
+										<listcell>
+											<textbox value="${each.observacion}" class="multilinea"
+												multiline="true" maxlength="1000" />
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+						</vbox>
+					</tabpanel>
+					<tabpanel>
+						<grid width="100%">
+							<columns visible="false">
+								<column label="" width="11%" />
+								<column label="" width="22%" />
+								<column label="" width="11%" />
+								<column label="" width="15%" />
+								<column label="" width="11%" />
+								<column label="" width="30%" />
+							</columns>
+							<rows>
+								<row>
+									<label class="etiqueta" value="Funcionario:" />
+									<label id="lblFuncionario" />
+									<label class="etiqueta" value="Fecha Visita:" />
+									<label id="lblFechaVisita" />
+									<label class="etiqueta" value="Ordenamientos:" />
+									<label id="lblOrdenamientos" />
+								</row>
+							</rows>
+						</grid>
+						<vbox width="100%" height="100%">
+						<separator></separator>
+							<label class="etiqueta"
+								value="Seleccione las Acciones que ya han sido Realizadas" />
+							<listbox id="ltbAccionesInspector" rows="10" width="100%"
+								emptyMessage="El Informe no posee Plan de Accion de Inspector de Inpsasel">
+								<listhead>
+									<listheader label="Descripcion" width="20%" />
+									<listheader label="Quien" width="15%" />
+									<listheader label="Cuando" width="10%" />
+									<listheader label="Donde" width="7%" />
+									<listheader label="Como" width="20%" />
+									<listheader label="Fecha Culminacion" width="10%" />
+									<listheader label="Observacion" width="18%" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell label="${each.descripcion}" />
+										<listcell label="${each.quien}" />
+										<listcell label="${each.traerFechaCuando()}" />
+										<listcell label="${each.donde}" />
+										<listcell label="${each.como}" />
+										<listcell>
+											<datebox width="100%" readonly="true"
+												value="${each.fechaCumplido}" tooltiptext="Fecha de Culminacion de la Accion" />
+										</listcell>
+										<listcell>
+											<textbox value="${each.observacion}" class="multilinea"
+												multiline="true" maxlength="1000" />
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+						</vbox>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+			<separator />
+			<div id="botoneraEvaluar" />
+			<div id="divCatalogoInforme" />
+		</groupbox>
+	</div>
+</zk>

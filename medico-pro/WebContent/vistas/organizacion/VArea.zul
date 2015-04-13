@@ -1,0 +1,41 @@
+<zk>
+	<script src="/public/progress.js" />
+	<div id="divArea" apply="controlador.organizacion.CArea">
+		<groupbox width="50%" mold="3d" title="Area">
+			<grid width="100%">
+				<columns visible="false">
+					<column label="" width="22%" />
+					<column label="" width="55%" />
+					<column label="" width="23%" />
+				</columns>
+				<rows>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Codigo:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox id="txtCodigoArea" hflex="1" maxlength="100"
+							tooltiptext="Ingrese el Codigo del Area" />
+						<button autodisable="self" id="btnBuscarArea" class="btn"
+							label="Buscar" tooltiptext="Catalogo de Areas" image="/public/imagenes/botones/buscar.png" />
+					</row>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Nombre:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox class="multilinea" id="txtNombreArea" hflex="1"
+							maxlength="100" tooltiptext="Ingrese el Nombre del Area"
+							multiline="true" />
+						<hbox />
+					</row>
+				</rows>
+			</grid>
+			<separator />
+			<div id="botoneraArea" />
+			<div id="catalogoArea" />
+		</groupbox>
+	</div>
+</zk>

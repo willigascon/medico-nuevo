@@ -1,0 +1,31 @@
+<zk>
+	<style src="/public/Estilo.css" />
+	<div id="divVacuna" apply="controlador.medico.CVacuna">
+		<groupbox width="50%" mold="3d" title="Vacuna">
+			<grid width="100%">
+				<columns visible="false">
+					<column label="" width="25%" />
+					<column label="" width="45%" />
+					<column label="" width="30%" />
+				</columns>
+				<rows>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Nombre:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox class="multilinea" id="txtNombre" hflex="1"
+							maxlength="500" tooltiptext="Ingrese el Nombre de la Vacuna"
+							multiline="true" />
+						<button autodisable="self" id="btnBuscarVacuna" class="btn"
+							label="Buscar" tooltiptext="Catalogo Vacunas" image="/public/imagenes/botones/buscar.png" />
+					</row>
+				</rows>
+			</grid>
+			<separator />
+			<div id="botoneraVacuna" />
+			<div id="catalogoVacuna" />
+		</groupbox>
+	</div>
+</zk>

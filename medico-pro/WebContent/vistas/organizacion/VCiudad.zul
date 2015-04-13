@@ -1,0 +1,44 @@
+<zk>
+	<div id="divCiudad" apply="controlador.organizacion.CCiudad">
+		<groupbox width="50%" mold="3d" title="Ciudad">
+			<grid width="100%">
+				<columns visible="false">
+					<column label="" width="25%" />
+					<column label="" width="45%" />
+					<column label="" width="30%" />
+				</columns>
+				<rows>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Nombre:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox class="multilinea" multiline="true" id="txtNombreCiudad"
+							hflex="1" tooltiptext="Ingrese el Nombre de la Ciudad" maxlength="500" />
+						<button  autodisable="self" id="btnBuscarCiudad" class="btn"
+							label="Buscar" tooltiptext="Catalogo Ciudades" image="/public/imagenes/botones/buscar.png" />
+					</row>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Estado:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox tooltiptext="Seleccione un Estado" placeholder="Seleccione un Estado"
+							id="cmbEstado" readonly="true" width="100%">
+							<template name="model">
+								<comboitem label="${each.nombre}" context="${each.idEstado}" />
+							</template>
+						</combobox>
+						<button class="abrir" id="btnAbrirEstado" label="" tooltiptext="Crear un Nuevo Estado"
+							image="/public/imagenes/botones/agregar.png" />
+					</row>
+				</rows>
+			</grid>
+			<separator />
+			<div id="botoneraCiudad" />
+			<div id="catalogoCiudad" />
+		</groupbox>
+	</div>
+</zk>

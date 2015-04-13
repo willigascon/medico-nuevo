@@ -1,0 +1,33 @@
+<zk>
+	<script src="/public/progress.js" />
+	<div id="divClasificacionAccidente" apply="controlador.seguridad.CClasificacionAccidente">
+		<groupbox width="50%" mold="3d" title="Clasificacion de Accidente">
+			<grid width="100%">
+				<columns visible="false">
+					<column label="" width="22%" />
+					<column label="" width="55%" />
+					<column label="" width="23%" />
+				</columns>
+				<rows>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Nombre:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox class="multilinea" id="txtNombreClasificacionAccidente"
+							hflex="1" maxlength="500"
+							tooltiptext="Ingrese el Nombre de la Clasificacion del Accidente"
+							multiline="true" />
+						<button autodisable="self" id="btnBuscarClasificacionAccidente"
+							class="btn" label="Buscar" tooltiptext="Catalogo de Clasificacion de Accidente"
+							image="/public/imagenes/botones/buscar.png" />
+					</row>
+				</rows>
+			</grid>
+			<separator />
+			<div id="botoneraClasificacionAccidente" />
+			<div id="catalogoClasificacionAccidente" />
+		</groupbox>
+	</div>
+</zk>

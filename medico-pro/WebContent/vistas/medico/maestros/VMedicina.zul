@@ -1,0 +1,220 @@
+<zk>
+	<div id="divMedicina" apply="controlador.medico.CMedicina">
+		<groupbox width="90%" mold="3d" title="Medicina">
+			<grid width="100%">
+				<columns visible="false">
+					<column label="" width="20%" />
+					<column label="" width="60%" />
+					<column label="" width="20%" />
+				</columns>
+				<rows>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Nombre:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox maxlength="500" id="txtNombre" hflex="1"
+							tooltiptext="Ingrese el Nombre de la Medicina" />
+						<button autodisable="self" id="btnBuscarMedicina" class="btn"
+							label="Buscar" tooltiptext="Catalogo" image="/public/imagenes/botones/buscar.png" />
+					</row>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Categoria:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox tooltiptext="Seleccione una Categoria"
+							placeholder="Seleccione una Categoria" id="cmbCategoria"
+							readonly="true" width="100%">
+							<template name="model">
+								<comboitem label="${each.nombre}" context="${each.idCategoriaMedicina}" />
+							</template>
+						</combobox>
+						<button class="abrir" id="btnAbrirCategoria" label=""
+							tooltiptext="Crear una Nueva Categoria de Medicina" image="/public/imagenes/botones/agregar.png" />
+					</row>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Laboratorio:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox tooltiptext="Seleccione un Laboratorio"
+							placeholder="Seleccione un Laboratorio" id="cmbLaboratorio"
+							readonly="true" width="100%">
+							<template name="model">
+								<comboitem label="${each.nombre}" context="${each.idLaboratorio}" />
+							</template>
+						</combobox>
+						<button class="abrir" id="btnAbrirLaboratorio" label=""
+							tooltiptext="Crear un Nuevo Laboratorio" image="/public/imagenes/botones/agregar.png" />
+					</row>
+				</rows>
+			</grid>
+			<separator />
+			<tabbox id="taxMedicinaGeneral" orient="horizontal">
+				<tabs id="tbsMedicinaGeneral" width="10em">
+					<tab label="Especificaciones" id="tabEspecificaciones" />
+					<tab label="Presentaciones" id="tabPresentaciones" />
+				</tabs>
+				<tabpanels>
+					<tabpanel>
+						<tabbox id="taxMedicina" orient="horizontal">
+							<tabs id="tbsMedicina" width="10em">
+								<tab label="Denominacion Generica" id="tabDenominacionGenerica" />
+								<tab label="Composicion" id="tabComposicion" />
+								<tab label="Posologia" id="tabPosologia" />
+								<tab label="Indicaciones" id="tabIndicaciones" />
+								<tab label="Efectos" id="tabEfectos" />
+								<tab label="Precauciones" id="tabPrecauciones" />
+								<tab label="Contraindicaciones" id="tabContraindicaciones" />
+								<tab label="Embarazo" id="tabEmbarazo" />
+							</tabs>
+							<tabpanels>
+								<tabpanel>
+									<textbox maxlength="1000" class="multilineaTab"
+										multiline="true" id="txtDenominacionGenerica" hflex="1"
+										tooltiptext="Ingrese la Denominacion Generica" />
+								</tabpanel>
+								<tabpanel>
+									<textbox maxlength="1000" class="multilineaTab"
+										multiline="true" id="txtComposicion" hflex="1"
+										tooltiptext="Ingrese la Composicion" />
+								</tabpanel>
+								<tabpanel>
+									<textbox maxlength="1000" class="multilineaTab"
+										multiline="true" id="txtPosologia" hflex="1"
+										tooltiptext="Ingrese la Posologia" />
+								</tabpanel>
+								<tabpanel>
+									<textbox maxlength="1000" class="multilineaTab"
+										multiline="true" id="txtIndicaciones" hflex="1"
+										tooltiptext="Ingrese las Indicaciones" />
+								</tabpanel>
+								<tabpanel>
+									<textbox maxlength="1000" class="multilineaTab"
+										multiline="true" id="txtEfectos" hflex="1" tooltiptext="Ingrese los Efectos" />
+								</tabpanel>
+								<tabpanel>
+									<textbox maxlength="1000" class="multilineaTab"
+										multiline="true" id="txtPrecauciones" hflex="1"
+										tooltiptext="Ingrese las Precauciones" />
+								</tabpanel>
+								<tabpanel>
+									<textbox maxlength="1000" class="multilineaTab"
+										multiline="true" id="txtContraindicaciones" hflex="1"
+										tooltiptext="Ingrese las Contraindicaciones" />
+								</tabpanel>
+								<tabpanel>
+									<textbox maxlength="1000" class="multilineaTab"
+										multiline="true" id="txtEmbarazo" hflex="1"
+										tooltiptext="Ingrese las Indicaciones en caso de Embarazo" />
+								</tabpanel>
+							</tabpanels>
+						</tabbox>
+						<div align="right" style="float: right;">
+							<separator />
+							<button class="btn" id="btnSiguientePestanna" label="Siguiente"
+								image="/public/imagenes/botones/adelante.png" />
+						</div>
+					</tabpanel>
+					<tabpanel>
+						<hbox>
+							<textbox tooltiptext="Ingrese el Nombre de la Presentacion"
+								placeholder="Ingrese la Presentacion a Buscar" width="195px"
+								id="txtBuscadorPresentacion"></textbox>
+							<separator />
+							<button class="abrir" id="btnAbrirPresentacion" label=""
+								tooltiptext="Crear una Nueva Presentacion" image="/public/imagenes/botones/agregar.png" />
+						</hbox>
+						<hbox>
+							<listbox id="ltbPresentaciones" height="250px" width="220px"
+								emptyMessage="No hay Presentaciones Registradas">
+								<listhead>
+									<listheader label="Presentacion" width="100%" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell label="${each.nombre}">
+										</listcell>
+										<listcell>
+											<doublespinner constraint="min 0 max 10000"
+												tooltiptext="Ingrese la Formula Medica" step="0.1" format="#.##"
+												width="98%" />
+										</listcell>
+										<listcell>
+											<combobox model="${$composer.unidades}" width="100%"
+												readonly="true">
+												<template name="model">
+													<comboitem label="${each.nombre}" context="${each.idUnidad}" />
+												</template>
+											</combobox>
+										</listcell>
+										<listcell>
+											<spinner inplace="true" width="98%"
+												value="${each.idPresentacion}" visible="false" disabled="true" />
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+							<vbox>
+								<button class="abrir" id="pasar1"
+									image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Presentacion"
+									width="30px" />
+								<separator />
+								<button class="abrir" id="pasar2"
+									image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Presentacion"
+									width="30px" />
+							</vbox>
+							<listbox id="ltbPresentacionesAgregadas" height="250px"
+								emptyMessage="No ha Seleccionado Ningúna Presentacion">
+								<listhead>
+									<listheader label="Presentacion" width="35%" />
+									<listheader label="Formula Terapeutica" width="32%" />
+									<listheader label="Unidad" width="33%" />
+									<listheader label="id" visible="false" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell label="${each.presentacionMedicina.nombre}">
+										</listcell>
+										<listcell>
+											<doublespinner value="${each.valor}"
+												constraint="min 0 max 10000" tooltiptext="Ingrese la Formula Medica"
+												step="0.1" format="#.##" width="98%" />
+										</listcell>
+										<listcell>
+											<combobox value="${each.unidadMedicina.nombre}"
+												model="${$composer.unidades}" width="100%" readonly="true">
+												<template name="model">
+													<comboitem label="${each.nombre}" context="${each.idUnidad}" />
+												</template>
+											</combobox>
+										</listcell>
+										<listcell>
+											<spinner value="${each.presentacionMedicina.idPresentacion}"
+												width="98%" visible="false" disabled="true" />
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+						</hbox>
+						<div align="left" style="float: right;">
+							<separator />
+							<button class="btn" label="Anterior" id="btnAnteriorPestanna"
+								image="/public/imagenes/botones/atras.png" tooltiptext="Pestaña Anterior" />
+						</div>
+						<separator />
+						<vbox>
+							<div width="50%" id="botoneraMedicina" align="left" style="float: left;" />
+						</vbox>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+			<separator />
+			<div id="catalogoMedicina" />
+		</groupbox>
+	</div>
+</zk>

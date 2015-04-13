@@ -1,0 +1,121 @@
+<zk>
+	<style src="/public/Estilo.css" />
+	<div id="divDoctor" apply="controlador.medico.CDoctorInterno"
+		width="85%">
+		<groupbox width="100%" mold="3d" title="Doctor">
+			<grid width="100%">
+				<columns visible="false">
+					<column label="" width="25%" />
+					<column label="" width="25%" />
+					<column label="" width="25%" />
+					<column label="" width="25%" />
+				</columns>
+				<rows>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Cedula:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox id="txtCedulaUsuario" hflex="1" maxlength="12"
+							tooltiptext="Ingrese la Cedula del Usuario" />
+						<hbox>
+							<hbox>
+								<label class="etiqueta" value="Ficha:" />
+								<space />
+								<label value="*" style="font-weight:bold;color:red" />
+							</hbox>
+							<textbox id="txtFichaUsuario" hflex="1" maxlength="50"
+								tooltiptext="Ingrese la Ficha del Usuario" />
+						</hbox>
+						<button id="btnBuscarUsuario" class="btn" label="Buscar"
+							tooltiptext="Catalogo" image="/public/imagenes/botones/buscar.png" />
+					</row>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Primer Nombre:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox id="txtNombreUsuario" hflex="1" maxlength="100"
+							tooltiptext="Ingrese el Primer Nombre del Usuario" />
+						<label class="etiqueta" value="Segundo Nombre:" />
+						<textbox id="txtNombre2Usuario" hflex="1" maxlength="100"
+							tooltiptext="Ingrese el Segundo Nombre del Usuario" />
+
+					</row>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Primer Apellido:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox id="txtApellidoUsuario" hflex="1" maxlength="100"
+							tooltiptext="Ingrese el Primer Apellido del Usuario" />
+						<label class="etiqueta" value="Segundo Apellido:" />
+						<textbox id="txtApellido2Usuario" hflex="1" maxlength="100"
+							tooltiptext="Ingrese el Segundo Apellido del Usuario" />
+					</row>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Telefono:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox id="txtTelefonoUsuario" hflex="1" maxlength="50"
+							tooltiptext="Ingrese el Numero de Telefono del Usuario (0426-9999999)" />
+						<hbox>
+							<label class="etiqueta" value="Sexo:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<radiogroup id="rdbSexoUsuario">
+							<radio id="rdoSexoFUsuario" label="Femenino" />
+							<radio id="rdoSexoMUsuario" label="Masculino" />
+						</radiogroup>
+					</row>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Direccion:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox class="multilinea" id="txtDireccionUsuario"
+							hflex="1" maxlength="500" tooltiptext="Ingrese el Numero de Telefono del Usuario"
+							multiline="true" />
+						<hbox>
+							<label class="etiqueta" value="Especialidad:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<combobox id="cmbEspecialidad" readonly="true" tabindex="1"
+							width="100%" tooltiptext="Seleccione una Especialidad"
+							placeholder="Seleccione una Especialidad">
+							<template name="model">
+								<comboitem label="${each.descripcion}" context="${each.idEspecialidad}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label class="etiqueta" value="Licencia CM:" />
+						<textbox id="txtLicenciaCUsuario" hflex="1" maxlength="50"
+							tooltiptext="Ingrese la licencia CM del Usuario" />
+						<label class="etiqueta" value="Licencia MSDS:" />
+						<textbox id="txtLicenciaMUsuario" hflex="1" maxlength="50"
+							tooltiptext="Ingrese la Licencia MSDS del Usuario" />
+					</row>
+					<row>
+						<label class="etiqueta" value="Licencia INPSASEL:" />
+						<textbox id="txtLicenciaIUsuario" hflex="1" maxlength="50"
+							tooltiptext="Ingrese la Licencia INPSASEL del Usuario (Solo Numeros)" />
+						<label class="etiqueta" value="Numero de Citas Diarias:" />
+						<spinner constraint="min 0 max 100000000" value="1"
+							id="spnCitasUsuario" tooltiptext="Ingrese la Cantidad de Citas Diarias" />
+					</row>
+				</rows>
+			</grid>
+			<div id="botoneraDoctor" />
+			<div id="catalogoDoctor" />
+		</groupbox>
+	</div>
+</zk>
