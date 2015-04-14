@@ -626,7 +626,6 @@ public class CHistoria extends CGenerico {
 	GroupsModel<Antecedente, Object, Antecedente> modelo;
 	GroupsModel<Antecedente, Object, Antecedente> modelFamiliares;
 	ListModelList<Vacuna> modelVacunas;
-	ListModelList<ParteCuerpo> modelFisico;
 	ListModelList<String> dientes;
 	ListitemRenderer renderer;
 	Buscar<Accidente> buscarAccidenteLaboral;
@@ -648,7 +647,6 @@ public class CHistoria extends CGenerico {
 		listas.add(ltbLaborales);
 		listas.add(ltbFamiliares);
 		listas.add(ltbMedicos);
-		listas.add(ltbExamenFisico);
 		listas.add(ltbVacunas);
 		listas.add(ltbAccidentesComunes);
 		listas.add(ltbAccidentesComunesAgregados);
@@ -1438,6 +1436,11 @@ public class CHistoria extends CGenerico {
 	public ListModelList<String> getDientes() {
 		dientes = new ListModelList<String>(tipoDiente);
 		return dientes;
+	}
+	
+	public ListModelList<Vacuna> getModelVacunas() {
+		modelVacunas = new ListModelList<Vacuna>(servicioVacuna.buscarTodos());
+		return modelVacunas;
 	}
 
 	/* Muestra un catalogo de Pacientes */
