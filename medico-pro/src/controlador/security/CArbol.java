@@ -28,6 +28,7 @@ import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Label;
@@ -56,6 +57,8 @@ public class CArbol extends CGenerico {
 	@Wire
 	private Label etiqueta;
 	@Wire
+	private Button lblEditarCuenta;
+	@Wire
 	private Image imagenes;
 	@Wire
 	private Menuitem mnuItem;
@@ -68,8 +71,6 @@ public class CArbol extends CGenerico {
 	private Tabbox tabBox;
 	@Wire
 	private West west;
-	@Wire
-	private Listbox ltbRoles;
 	private Tabbox tabBox2;
 	private Include contenido2;
 	private Tab tab2;
@@ -83,10 +84,6 @@ public class CArbol extends CGenerico {
 				.getAuthentication();
 
 		Usuario u = getServicioUsuario().buscarPorLogin(auth.getName());
-
-		List<Grupo> grupos = servicioGrupo.buscarGruposUsuario(u);
-		ltbRoles.setModel(new ListModelList<Grupo>(grupos));
-
 		if (u.getImagen() == null) {
 			imagenes.setContent(new AImage(url));
 		} else {

@@ -49,11 +49,8 @@
 	color: white;
 	cursor: pointer;
 	width: 95px;
-	height: 29px;
-	-webkit-border-radius: 0.7em;
-	-moz-border-radius: 0.7em;
-	border-radius: 0.7em;
-	background: #800400;
+	height: 28px;
+	background: #8A0808;
 }
 
 .multilinea {
@@ -96,13 +93,16 @@
 	background: #800400;
 }
 
-.banner {
-	background-color: #800400;
+.gris {
+	background-color: #999999;
 }
 
+.banner {
+	background-color: #8A0808;
+}
 .lblIndex {
 	font-size: 26px;
-	color: #800400;
+	color: #8A0808;
 	font-weight: bold;
 }
 
@@ -123,4 +123,14 @@ body * {
 }
 .gruposUsuario {
 	background: #800400;
+}
+
+.paddingDiv {
+	padding-top: 5px;
+	padding-right: 30px;
+	padding-bottom: 5px;
+	padding-left: 8px;
+}
+.z-west-header, .z-center-header, .z-east-header, .z-north-header, .z-south-header {
+  color: #8A0808;
 }

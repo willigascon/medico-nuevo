@@ -1,95 +1,95 @@
 <zk>
 	<style src="public/Estilo.css" />
-
-	<style>
-		.z-groupbox-hr { background:#800400;border-radius: 30px 30px
-		30px 30px }
-		.z-groupbox { border-radius: 30px 30px 30px 30px }
-	</style>
 	<zscript>
 		String variable = execution.getParameter("respuesta");
 		String
 		a
 		= "";
 		if (variable == null)
-		a = "INICIAR SESION";
+		a = "";
 		else
 		a =
 		execution.getParameter("respuesta");
 	</zscript>
 	<window height="100%" width="100%" title="" border="0"
 		contentStyle="overflow:auto" apply="controlador.utils.CIndex">
-		<borderlayout height="100%"
-			style="background-image: url('public/imagenes/generales/fondo.png'); background-repeat:no-repeat;height=50%; width=50% ; background-color:white">
-			<north height="2%" class="banner">
+		<borderlayout height="100%">
+			<north size="25%" class="gris">
+				<borderlayout>
+					<north class="gris" size="50%">
+					</north>
+					<center style="background:#8A0808">
+					</center>
+					<south class="gris" size="40%">
+						<div sclass="paddingDiv" align="right">
+							<separator />
+							<separator />
+							<label class="lblIndex" value="SISTEMA DE SEGURIDAD Y SALUD" />
+						</div>
+					</south>
+				</borderlayout>
 			</north>
-			<east width="75%" border="none">
-				<vbox height="100%" align="end" pack="center">
-					<div width="100%" height="100%" align="right">
-						<image src="/public/imagenes/generales/LogoIndex.jpg" />
-					</div>
-					<separator />
-					<separator />
-					<separator />
-					<separator />
-					<label height="100%" class="lblIndex"
-						value="SISTEMA INTEGRAL MEDICO Y DE SEGURIDAD" />
-					<separator />
-					<separator />
-					<separator />
-					<separator />
-					<separator />
-					<separator />
-					<div width="100%" height="100%" align="center">
-						<groupbox closable="false" height="100%" width="60%">
-							<caption label="${a}"
-								style="color:black; font-size: 20px; font-weight:bold" />
-							<separator></separator>
-							<separator></separator>
+			<east border="none" class="gris">
+			</east>
+			<west size="70%" class="gris">
+				<div width="100%" style="background:Black" vflex="1">
+					<vbox width="100%">
+						<image width="100%" height="100%"
+							src="/public/imagenes/generales/north.png" />
+						<!-- <image width="100%" height="60px" src="/public/imagenes/generales/b1.jpg" 
+							/> -->
+					</vbox>
+				</div>
+			</west>
+			<center class="gris">
+				<borderlayout height="100%" style="background:Black">
+					<north size="85%" border="none">
+						<div width="100%" height="100%" align="center">
+							<separator />
+							<separator />
+							<label style="font-size:22px;color:#8A0808;	font-weight: bold;font-style:italic" value="Datos de Usuario" />
+							<separator />
+							<separator />
+							<label style="font-size:20px" value="${a}" />
+							<separator />
+							<separator />
 							<hlayout width="100%">
 								<h:form id="inicioSesion" action="j_spring_security_check"
 									method="POST" xmlns:h="native" align="left">
 									<vlayout width="100%">
-										<label class="etiqueta" height="20px" style="font-size:14px"
-											value="Nombre de Usuario :" />
-										<textbox placeholder="Usuario" height="22px" id="log_usuario"
-											name="j_username" hflex="1" width="200px" />
+										<textbox placeholder="Usuario" height="25px" id="log_usuario"
+											name="j_username" hflex="1" width="250px" />
 									</vlayout>
-									<separator></separator>
+									<separator />
+									<separator />
 									<vlayout width="100%">
-										<label class="etiqueta" height="20px" style="font-size:14px"
-											value="Contraseña :" />
-										<textbox placeholder="Contraseña" height="22px" id="log_clave"
-											hflex="1" type="password" name="j_password" width="200px" />
+										<textbox placeholder="Contraseña" height="25px" id="log_clave"
+											hflex="1" type="password" name="j_password" width="250px" />
 									</vlayout>
 									<separator />
 									<separator />
-									<hlayout width="100%">
-										<button type="submit" class="btn" label="Entrar"
-											style="font-size:18px" image="/public/imagenes/botones/entrar.png"
-											height="37px" width="170px" />
-									</hlayout>
+									<button type="submit" class="btn" label="Ingresar"
+										style="font-size:20px" />
 								</h:form>
 							</hlayout>
-							<vlayout width="100%">
-								<separator />
-								<separator />
+						</div>
+					</north>
+					<south size="15%" border="none">
+						<vlayout width="100%">
+							<hbox>
+								<label sclass="pointer" value="¿No puede recordar su contraseña?"
+									style="color:8A0808;margin-left:10px;font-weight:bold;font-size:14px" />
 								<a href="">
-									<label id="lblOlvidoClave" sclass="pointer"
-										value="¿Olvido su Contraseña?"
+									<label id="lblOlvidoClave" sclass="pointer" value="Click aqui"
 										style="color:red;margin-left:10px;font-weight:bold;font-size:14px" />
 								</a>
-							</vlayout>
-						</groupbox>
-					</div>
-				</vbox>
-			</east>
-			<south class="banner" border="0" height="5%" collapsible="false">
+							</hbox>
+						</vlayout>
+					</south>
+				</borderlayout>
+			</center>
+			<south border="0" size="32%" collapsible="false" class="gris">
 				<div align="center" sclass="footer">
-					<separator></separator>
-					<label style="padding-center:35%;color: white"
-						value="© 2014 Destilería Unidas S.A | RIF: J-30940783-0 | Todos los derechos reservados | Desarrollado por BIZAPPS,C.A">
-					</label>
 				</div>
 			</south>
 		</borderlayout>

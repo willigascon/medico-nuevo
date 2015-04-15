@@ -2,83 +2,77 @@
 <zk>
 	<style src="../public/Estilo.css" />
 	<script src="/public/progress.js" />
-	<window title="" border="0" height="100%" width="100%" apply="controlador.security.CArbol">
+	<window title="" border="0" height="100%" width="100%"
+		apply="controlador.security.CArbol">
 		<borderlayout height="100%" style="background-color:#fff;">
-			<north height="10%" class="banner">
-				<hbox hflex="1">
-					<vbox>
-						<image src="../public/imagenes/generales/LogoInicio.jpg"/>
-					</vbox>
-					<separator />
-					<separator />
-					<separator />
-					<separator />
-					<div align="center" width="100%">
-						<separator />
-						<separator />
-						<hbox>
-							<separator />
-							<separator />
-							<separator />
-							<separator />
-							<separator />
-							<label style="font-size:20px;color:white;font-weight: bold"
-								value="SISTEMA INTEGRAL MEDICO Y DE SEGURIDAD" />
-						</hbox>
-					</div>
-					<div align="center" width="100%">
-						<hbox height="100%" width="100%">
-							<separator />
-							<separator />
-							<separator />
-							<separator />
-							<separator />
-							<separator />
-							<separator />
-							<separator />
-							<vbox height="100%" width="100%">
-								<separator />
-								<image id="imagenes" width="60px" height="55px" />
-							</vbox>
-							<separator />
-							<vbox>
-								<separator />
-								<label style="color: white;font-weight: bold"
-									value="Usuario: ${desktop.execution.userPrincipal.name}" />
-								<a href="../j_spring_security_logout" style="color: white">
-									<space />
-									<label value="Cerrar Sesion" />
-								</a>
-								<a style="color: white">
-									<space />
-									<label id="lblEditarCuenta" value="Editar Cuenta" />
-									<!-- onClick='contenido.src="../vistas/seguridad/VEditarUsuario.zul"' -->
-								</a>
-							</vbox>
-							<separator />
-							<separator />
-							<separator />
-							<separator />
-							<separator />
-								<vbox>
-								<listbox style="border:none" width="200px" id="ltbRoles">
-									<template name="model">
-										<listitem>
-											<listcell
-												style="border:none;font-size:14px;color:white;font-weight: bold"
-												class="gruposUsuario" label="${each.nombre}">
-											</listcell>
-										</listitem>
-									</template>
-								</listbox>
-							</vbox>
-						</hbox>
-					</div>
-				</hbox>
+			<north height="14%" class="banner">
+				<borderlayout>
+					<north style="background:#8A0808" size="20%">
+						<label style="font-size:12px;color:white;font-weight: bold"
+							id="now" />
+					</north>
+					<center class="gris">
+						<borderlayout>
+							<west class="gris" size="40%">
+								<div sclass="paddingDiv" align="center">
+									<separator />
+									<separator />
+									<label style="font-size:22px;color:white;font-weight: bold"
+										value="SISTEMA DE SEGURIDAD Y SALUD" id="lblTitulo" />
+								</div>
+							</west>
+							<center class="gris">
+								<div align="rigth" width="100%">
+									<hbox height="100%" width="100%">
+										<separator />
+										<vbox>
+											<separator />
+											<separator />
+											<hbox>
+												<label
+													style="font-size:20px;color:#8A0808;font-weight: bold;font-style:italic"
+													value="Bienvenido:  " />
+												<separator />
+												<separator />
+												<label style="font-size:20px;color: white;font-weight: bold"
+													value="${desktop.execution.userPrincipal.name}" id="lblUsuario"/>
+											</hbox>
+										</vbox>
+										<separator />
+										<separator />
+										<vbox height="100%" width="100%">
+											<image id="imagenes" width="65px" height="60px" />
+										</vbox>
+									</hbox>
+								</div>
+							</center>
+							<east size="25%" class="gris">
+								<div sclass="paddingDiv" align="left">
+									<hbox widths="40%,60%">
+										<image src="../public/imagenes/generales/images.jpg"
+											width="110px" height="50px" />
+										<separator></separator>
+										<vbox>
+											<button id="lblEditarCuenta" label="Editar Usuario"
+												style="font-size:12px;color:#8A0808;cursor: pointer;width: 100px;height: 25px;background:white;font-weight: bold" />
+											<button id="btnSalir" href="../j_spring_security_logout"
+												label="SALIR"
+												style="font-size:14px;color:#8A0808;cursor: pointer;width: 100px;height: 25px;background:white;font-weight: bold" />
+										</vbox>
+									</hbox>
+								</div>
+							</east>
+						</borderlayout>
+					</center>
+					<south style="background:#8A0808" size="15%">
+						<div sclass="paddingDiv" align="right">
+						</div>
+					</south>
+				</borderlayout>
 			</north>
-			<west title="Menú" id="west" size="19%" splittable="true"
-				collapsible="true" autoscroll="true">
-				<tree id="arbolMenu" width="99%" zclass="z-vfiletree">
+			<west class="gris" title="Opciones de Menú" id="west" size="19%" splittable="true"
+				collapsible="true" autoscroll="true" >
+				<tree id="arbolMenu" width="99%" zclass="z-dottree">
 					<template name="model">
 						<treeitem context="menupopup">
 							<treerow>
@@ -88,39 +82,35 @@
 					</template>
 				</tree>
 			</west>
-			<center border="none">
-				<borderlayout style="overflow-y:scroll;" sclass="complex-layout">
-					<center hflex="1"
-						style="background-image: url('../public/imagenes/generales/LogoDusaAgua.png'); background-repeat:no-repeat; "
-						border="none" autoscroll="true">
-						<tabbox width="auto" id="tabBox" >
-							<tabs  context="editPopup">
-								<tab visible="false">Tab A</tab>
-								<tab id="tab" label="+" visible="false">
-								</tab>
-							</tabs>
-							<tabpanels>
-								<tabpanel>
-									<include id="contenido"></include>
-								</tabpanel>
-							</tabpanels>
-
-						</tabbox>
-					</center>
-				</borderlayout>
+			<center class="gris" border="none" autoscroll="true">
+				<tabbox width="auto" id="tabBox">
+					<tabs context="editPopup">
+						<tab visible="false">Tab A</tab>
+						<tab id="tab" label="+" visible="false">
+						</tab>
+					</tabs>
+					<tabpanels>
+						<tabpanel>
+							<include id="contenido"></include>
+						</tabpanel>
+					</tabpanels>
+				</tabbox>
 			</center>
-			<south class="banner" vflex="2" border="0" height="3%"
-				collapsible="false">
-				<div align="center" sclass="footer">
-					<separator></separator>
-					<label style="padding-center:35%;color: white"
-							value="© 2014 Destilería Unidas S.A | RIF: J-30940783-0 | Todos los derechos reservados | Desarrollado por BIZAPPS,C.A">
-					</label>
-				</div>
-			</south>
 		</borderlayout>
 		<menupopup id="editPopup">
 			<menuitem id="mnuItem" label="Cerrar Todas" />
 		</menupopup>
+		<timer id="tiempo" delay="1000" repeats="true">
+			<attribute name="onTimer">
+				now.setValue(new Date().toString());
+				btnSalir.setStyle("font-size:12px;color:white;cursor:pointer;width:100px;height:25px;background:#8A0808;font-weight:bold");
+			</attribute>
+		</timer>
+		<timer id="tiempo2" delay="1200" repeats="true">
+			<attribute name="onTimer">
+				btnSalir.setStyle("font-size:12px;color:#8A0808;cursor:pointer;width:100px;height:25px;background:white;font-weight:bold");
+			</attribute>
+		</timer>
 	</window>
+
 </zk>
