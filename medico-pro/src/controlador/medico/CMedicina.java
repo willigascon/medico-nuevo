@@ -43,13 +43,9 @@ public class CMedicina extends CGenerico {
 	@Wire
 	private Tab tabEspecificaciones;
 	@Wire
-	private Tab tabPresentaciones;
-	@Wire
-	private Button btnSiguientePestanna;
-	@Wire
-	private Button btnAnteriorPestanna;
-	@Wire
 	private Textbox txtNombre;
+	@Wire
+	private Doublespinner spnPrecio;
 	@Wire
 	private Div botoneraMedicina;
 	@Wire
@@ -78,33 +74,11 @@ public class CMedicina extends CGenerico {
 	private Textbox txtContraindicaciones;
 	@Wire
 	private Textbox txtEmbarazo;
-	@Wire
-	private Tab tabDenominacionGenerica;
-	@Wire
-	private Tab tabComposicion;
-	@Wire
-	private Tab tabPosologia;
-	@Wire
-	private Tab tabIndicaciones;
-	@Wire
-	private Tab tabEfectos;
-	@Wire
-	private Tab tabPrecauciones;
-	@Wire
-	private Tab tabContraindicaciones;;
-	@Wire
-	private Tab tabEmbarazo;
-	@Wire
-	private Listbox ltbPresentaciones;
-	@Wire
-	private Listbox ltbPresentacionesAgregadas;
-	@Wire
-	private Textbox txtBuscadorPresentacion;
-	private CArbol cArbol = new CArbol();
 	Catalogo<Medicina> catalogo;
 	long id = 0;
 	private boolean consulta = false;
 	private CConsulta cConsulta = new CConsulta();
+	private CArbol cArbol = new CArbol();
 	private boolean paciente = false;
 	private CPaciente cPaciente = new CPaciente();
 	List<Medicina> medicinaConsulta = new ArrayList<Medicina>();
@@ -147,78 +121,52 @@ public class CMedicina extends CGenerico {
 			@Override
 			public void guardar() {
 				if (validar()) {
-					boolean campoNulo = false;
-					for (int i = 0; i < ltbPresentacionesAgregadas
-							.getItemCount(); i++) {
-						Listitem listItem = ltbPresentacionesAgregadas
-								.getItemAtIndex(i);
-						double valor = ((Doublespinner) ((listItem
-								.getChildren().get(1))).getFirstChild())
-								.getValue();
-						String id = ((Combobox) ((listItem.getChildren().get(2)))
-								.getFirstChild()).getValue();
-						long idPresentacion = ((Spinner) ((listItem
-								.getChildren().get(3))).getFirstChild())
-								.getValue();
-						if (String.valueOf(idPresentacion) == "" || id == ""
-								|| valor == 0)
-							campoNulo = true;
-						else {
-							id = ((Combobox) ((listItem.getChildren().get(2)))
-									.getFirstChild()).getSelectedItem()
-									.getContext();
-							long idUnidad = Long.parseLong(id);
-						}
-					}
-					if (!campoNulo) {
-						String nombre = txtNombre.getValue();
-						String denominacionGenerica = txtDenominacionGenerica
-								.getValue();
-						String composicion = txtComposicion.getValue();
-						String posologia = txtPosologia.getValue();
-						String indicaciones = txtIndicaciones.getValue();
-						String efectos = txtEfectos.getValue();
-						String precauciones = txtPrecauciones.getValue();
-						String contraindicaciones = txtContraindicaciones
-								.getValue();
-						String embarazo = txtEmbarazo.getValue();
+					String nombre = txtNombre.getValue();
+					Double precio = spnPrecio.getValue();
+					String denominacionGenerica = txtDenominacionGenerica
+							.getValue();
+					String composicion = txtComposicion.getValue();
+					String posologia = txtPosologia.getValue();
+					String indicaciones = txtIndicaciones.getValue();
+					String efectos = txtEfectos.getValue();
+					String precauciones = txtPrecauciones.getValue();
+					String contraindicaciones = txtContraindicaciones
+							.getValue();
+					String embarazo = txtEmbarazo.getValue();
 
-						long idLaboratorio = Long.valueOf(cmbLaboratorio
-								.getSelectedItem().getContext());
-						Laboratorio laboratorio = servicioLaboratorio
-								.buscar(idLaboratorio);
-						CategoriaMedicina ca = servicioCategoriaMedicina
-								.buscar(Long.parseLong(cmbCategoria
-										.getSelectedItem().getContext()));
-						Medicina medicina = new Medicina(id, composicion,
-								contraindicaciones, denominacionGenerica,
-								efectos, embarazo, fechaHora, horaAuditoria,
-								indicaciones, nombre, posologia, precauciones,
-								nombreUsuarioSesion(), laboratorio, ca);
-						long valor = 0;
-						servicioMedicina.guardar(medicina);
-						if (id != 0)
-							medicina = servicioMedicina.buscar(id);
-						else
-							medicina = servicioMedicina.buscarUltima();
+					long idLaboratorio = Long.valueOf(cmbLaboratorio
+							.getSelectedItem().getContext());
+					Laboratorio laboratorio = servicioLaboratorio
+							.buscar(idLaboratorio);
+					CategoriaMedicina ca = servicioCategoriaMedicina
+							.buscar(Long.parseLong(cmbCategoria
+									.getSelectedItem().getContext()));
+					Medicina medicina = new Medicina(id, composicion,
+							contraindicaciones, denominacionGenerica, efectos,
+							embarazo, fechaHora, horaAuditoria, indicaciones,
+							nombre, posologia, precauciones,
+							nombreUsuarioSesion(), laboratorio, ca, precio);
+					servicioMedicina.guardar(medicina);
+					if (id != 0)
+						medicina = servicioMedicina.buscar(id);
+					else
+						medicina = servicioMedicina.buscarUltima();
 
-						if (consulta) {
-							if (id == 0)
-								medicinaConsulta.add(medicina);
-							cConsulta.recibirMedicina(medicinaConsulta,
-									listaConsulta);
-						}
-						Mensaje.mensajeInformacion(Mensaje.guardado);
-						limpiar();
-					} else {
-						Mensaje.mensajeError(Mensaje.camposPresentaciones);
+					if (consulta) {
+						if (id == 0)
+							medicinaConsulta.add(medicina);
+						cConsulta.recibirMedicina(medicinaConsulta,
+								listaConsulta);
 					}
+					Mensaje.mensajeInformacion(Mensaje.guardado);
+					limpiar();
 				}
 
 			}
 
 			@Override
 			public void limpiar() {
+				spnPrecio.setValue((double) 0);
 				txtNombre.setText("");
 				cmbLaboratorio.setText("");
 				cmbLaboratorio.setPlaceholder("Seleccione un Laboratorio");
@@ -232,8 +180,6 @@ public class CMedicina extends CGenerico {
 				txtPrecauciones.setText("");
 				txtContraindicaciones.setText("");
 				txtEmbarazo.setText("");
-				ltbPresentaciones.getItems().clear();
-				ltbPresentacionesAgregadas.getItems().clear();
 				id = 0;
 				tabEspecificaciones.setSelected(true);
 			}
@@ -283,8 +229,8 @@ public class CMedicina extends CGenerico {
 	public void mostrarCatalogo() throws IOException {
 		List<Medicina> medicinas = servicioMedicina.buscarTodas();
 		catalogo = new Catalogo<Medicina>(catalogoMedicina,
-				"Catalogo de Medicinas", medicinas,false, "Nombre", "Laboratorio",
-				"Denominacion Generica") {
+				"Catalogo de Medicinas", medicinas, false, "Nombre",
+				"Laboratorio", "Denominacion Generica") {
 
 			@Override
 			protected String[] crearRegistros(Medicina medicina) {
@@ -336,9 +282,11 @@ public class CMedicina extends CGenerico {
 	public boolean validar() {
 
 		if (cmbLaboratorio.getText().compareTo("") == 0
-				|| cmbLaboratorio.getText().compareTo("") == 0
-				|| txtNombre.getText().compareTo("") == 0) {
+				|| cmbCategoria.getText().compareTo("") == 0
+				|| txtNombre.getText().compareTo("") == 0
+				|| spnPrecio.getText().compareTo("") == 0) {
 			Mensaje.mensajeError(Mensaje.camposVacios);
+			aplicarColores(cmbLaboratorio, cmbCategoria, txtNombre, spnPrecio);
 			return false;
 		} else
 			return true;
@@ -380,64 +328,11 @@ public class CMedicina extends CGenerico {
 		txtContraindicaciones.setValue(medicina.getContraindicaciones());
 		txtEmbarazo.setValue(medicina.getEmbarazo());
 		txtNombre.setValue(medicina.getNombre());
+		if (medicina.getPrecio() != null)
+			spnPrecio.setValue(medicina.getPrecio());
+		else
+			spnPrecio.setValue((double) 0);
 		id = medicina.getIdMedicina();
-	}
-
-	/*
-	 * Permite mover uno o varios elementos seleccionados desde la lista de la
-	 * izquierda a la lista de la derecha
-	 */
-
-	@Listen("onClick = #tabDenominacionGenerica")
-	public void pestanna1() {
-		txtDenominacionGenerica.setFocus(true);
-	}
-
-	@Listen("onClick = #tabComposicion")
-	public void pestanna2() {
-		txtComposicion.setFocus(true);
-	}
-
-	@Listen("onClick = #tabPosologia")
-	public void pestanna3() {
-		txtPosologia.setFocus(true);
-	}
-
-	@Listen("onClick = #tabIndicaciones")
-	public void pestanna4() {
-		txtIndicaciones.setFocus(true);
-	}
-
-	@Listen("onClick = #tabEfectos")
-	public void pestanna5() {
-		txtEfectos.setFocus(true);
-	}
-
-	@Listen("onClick = #tabPrecauciones")
-	public void pestanna6() {
-		txtPrecauciones.setFocus(true);
-	}
-
-	@Listen("onClick = #tabContraindicaciones")
-	public void pestanna7() {
-		txtContraindicaciones.setFocus(true);
-	}
-
-	@Listen("onClick = #tabEmbarazo")
-	public void pestanna8() {
-		txtEmbarazo.setFocus(true);
-	}
-
-	/* Abre la pestanna de presentaciones */
-	@Listen("onClick = #btnSiguientePestanna")
-	public void siguientePestanna() {
-		tabPresentaciones.setSelected(true);
-	}
-
-	/* Abre la pestanna de especificaciones */
-	@Listen("onClick = #btnAnteriorPestanna")
-	public void anteriorPestanna() {
-		tabEspecificaciones.setSelected(true);
 	}
 
 	/* Abre la vista de Categoria */
@@ -461,5 +356,4 @@ public class CMedicina extends CGenerico {
 		}
 	}
 
-	
 }

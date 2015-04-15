@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteSHA_procesosPeligrosos" language="groovy" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="39b5ba9b-56f8-4e24-838c-478410aa2fa0">
 	<property name="ireport.zoom" value="1.2100000000000017"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1528"/>
+	<property name="ireport.y" value="1029"/>
 	<parameter name="haa" class="java.lang.String"/>
 	<parameter name="hab" class="java.lang.String"/>
 	<parameter name="hac" class="java.lang.String"/>
@@ -672,7 +672,7 @@
 			<subreport runToBottom="false">
 				<reportElement x="25" y="112" width="482" height="251" uuid="447b8142-07e6-40cf-adb2-6c5fa36c3c18"/>
 				<dataSourceExpression><![CDATA[$P{condicionA}]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_ListaCondicionA.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_ListaCondicionA.jasper"]]></subreportExpression>
 			</subreport>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="116" y="516" width="138" height="29" uuid="7f9e81a3-1090-4b80-89fc-979a0cfabaf3"/>

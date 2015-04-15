@@ -228,7 +228,6 @@
 						<tabbox height="auto" id="taxOtrosDatos" orient="horizontal">
 							<tabs id="tbsOtrosDatos">
 								<tab label="Datos de Contacto" id="tabDatosContacto" />
-								<tab label="Carga Familiar" id="tabCarga" />
 							</tabs>
 							<tabpanels>
 								<tabpanel>
@@ -281,26 +280,6 @@
 											</row>
 										</rows>
 									</grid>
-								</tabpanel>
-								<tabpanel>
-									<listbox width="auto" id="ltbCargaFamiliar" height="auto"
-										emptyMessage="El Paciente no posee carga Familiar Asociada">
-										<listhead>
-											<listheader label="Cedula" width="25%" />
-											<listheader label="Nombre y Apellido" width="55%" />
-											<listheader label="Parentesco" width="20%" />
-										</listhead>
-										<template name="model">
-											<listitem>
-												<listcell label="${each.cedula}">
-												</listcell>
-												<listcell label="${each.primerNombre}">
-												</listcell>
-												<listcell label="${each.parentescoFamiliar}">
-												</listcell>
-											</listitem>
-										</template>
-									</listbox>
 								</tabpanel>
 							</tabpanels>
 						</tabbox>
@@ -873,14 +852,11 @@
 										<listbox mold="paging" pageSize="8" id="ltbMedicinas"
 											height="370px" width="100%" emptyMessage="No hay Medicinas Registradas">
 											<listhead>
-												<listheader label="Medicina" width="85%" />
-												<listheader label="Exist" width="15%" />
+												<listheader label="Medicina" width="100%" />
 											</listhead>
 											<template name="model">
 												<listitem>
 													<listcell label="${each.nombre}">
-													</listcell>
-													<listcell label="${each.inventario()}">
 													</listcell>
 													<listcell>
 														<spinner value="0" constraint="min 0 max 1000"
@@ -1091,19 +1067,6 @@
 																<label value="*" style="font-weight:bold;color:red" />
 															</hbox>
 														</cell>
-													</row>
-													<row>
-														<cell colspan="2">
-															<combobox tooltiptext="Seleccione un Laboratorio"
-																model="${$composer.proveedores}" placeholder="Seleccione un Laboratorio"
-																id="cmbProveedor" readonly="true" width="100%">
-																<template name="model">
-																	<comboitem label="${each.nombre}" context="${each.idProveedor}" />
-																</template>
-															</combobox>
-														</cell>
-														<button class="abrir" id="btnAbrirProveedor" label=""
-															tooltiptext="Crear un Nuevo Proveedor" image="/public/imagenes/botones/agregar.png" />
 													</row>
 													<row>
 														<hbox>
@@ -1541,7 +1504,6 @@
 							</vbox>
 						</hbox>
 					</tabpanel>
-					
 				</tabpanels>
 			</tabbox>
 			<div id="divCatalogoPacientes" />

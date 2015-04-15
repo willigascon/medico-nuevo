@@ -121,18 +121,8 @@
 								image="/public/imagenes/botones/buscar.png" />
 							<label id="lblNombreDoctor" />
 						</hbox>
-						<hbox>
-							<label class="etiqueta" value="Unidad:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox id="cmbUnidad" readonly="true" tabindex="1"
-							value="TODAS" width="100%" tooltiptext="Seleccione una Unidad"
-							placeholder="Seleccione una Unidad">
-							<comboitem label="TODAS" />
-							<comboitem label="Foraneo" />
-							<comboitem label="Planta" />
-						</combobox>
+						<hbox />
+						<hbox />
 					</row>
 					<row id="rowFamiliar">
 						<hbox>
@@ -171,8 +161,9 @@
 							<space />
 							<label value="*" style="font-weight:bold;color:red" />
 						</hbox>
-						<combobox hflex="1" id="cmbCargo2" value="TODOS" placeholder="Seleccione un Cargo"
-							readonly="true" tooltiptext="Seleccione un Cargo" width="100%">
+						<combobox hflex="1" id="cmbCargo2" value="TODOS"
+							placeholder="Seleccione un Cargo" readonly="true" tooltiptext="Seleccione un Cargo"
+							width="100%">
 							<template name="model">
 								<comboitem label="${each.nombre}" context="${each.idCargo}" />
 							</template>
@@ -186,8 +177,9 @@
 							<space />
 							<label value="*" style="font-weight:bold;color:red" />
 						</hbox>
-						<combobox hflex="1" id="cmbEmpresa" value="TODAS" placeholder="Seleccione una Empresa"
-							readonly="true" tooltiptext="Seleccione una Empresa" width="100%">
+						<combobox hflex="1" id="cmbEmpresa" value="TODAS"
+							placeholder="Seleccione una Empresa" readonly="true"
+							tooltiptext="Seleccione una Empresa" width="100%">
 							<template name="model">
 								<comboitem label="${each.nombre}" context="${each.idEmpresa}" />
 							</template>
@@ -201,11 +193,12 @@
 							<space />
 							<label value="*" style="font-weight:bold;color:red" />
 						</hbox>
-						<combobox hflex="1" id="cmbNomina" value="TODAS" placeholder="Seleccione una Nomina"
-							readonly="true" tooltiptext="Seleccione una Nomina" width="100%">
-							<template name="model">
-								<comboitem label="${each.nombre}" context="${each.idNomina}" />
-							</template>
+						<combobox hflex="1" id="cmbNomina" value="TODAS"
+							placeholder="Seleccione una Nomina" readonly="true"
+							tooltiptext="Seleccione una Nomina" width="100%">
+							<comboitem label="Empleado" />
+							<comboitem label="Obrero" />
+							<comboitem label="TODAS" />
 						</combobox>
 						<hbox />
 						<hbox />
@@ -216,8 +209,9 @@
 							<space />
 							<label value="*" style="font-weight:bold;color:red" />
 						</hbox>
-						<combobox hflex="1" id="cmbClasificacion" value="TODAS" placeholder="Seleccione una Clasificacion"
-							readonly="true" tooltiptext="Seleccione una Clasificacion" width="100%">
+						<combobox hflex="1" id="cmbClasificacion" value="TODAS"
+							placeholder="Seleccione una Clasificacion" readonly="true"
+							tooltiptext="Seleccione una Clasificacion" width="100%">
 							<template name="model">
 								<comboitem label="${each.nombre}" context="${each.idClasificacion}" />
 							</template>
@@ -227,8 +221,9 @@
 							<space />
 							<label value="*" style="font-weight:bold;color:red" />
 						</hbox>
-						<combobox hflex="1" id="cmbCategoria" value="TODAS" placeholder="Seleccione una Categoria"
-							readonly="true" tooltiptext="Seleccione una Categoria" width="100%">
+						<combobox hflex="1" id="cmbCategoria" value="TODAS"
+							placeholder="Seleccione una Categoria" readonly="true"
+							tooltiptext="Seleccione una Categoria" width="100%">
 							<template name="model">
 								<comboitem label="${each.nombre}" context="${each.idCategoriaDiagnostico}" />
 							</template>

@@ -41,6 +41,10 @@ import controlador.utils.CGenerico;
 
 public class CCosto extends CGenerico {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Wire
 	private Combobox cmbArea;
 	@Wire
@@ -224,11 +228,12 @@ public class CCosto extends CGenerico {
 				double costoMedicinas = 0, costoExamenes, costoEspecialistas, costoEstudios, costoConsultas;
 				costoExamenes = getServicioConsultaExamen().sumPorConsulta(
 						consulta);
+				costoMedicinas = getServicioConsultaMedicina().costoPorConsulta(consulta);
 				costoEspecialistas = getServicioConsultaEspecialista()
 						.sumPorConsulta(consulta);
 				costoEstudios = getServicioConsultaServicioExterno()
 						.sumPorConsulta(consulta);
-				consultas.get(i).getConsulta().setEstatura(costoMedicinas * -1);
+				consultas.get(i).getConsulta().setEstatura(costoMedicinas);
 				consultas.get(i).getConsulta().setPeso(costoExamenes);
 				consultas.get(i).getConsulta()
 						.setPerimetroForzada(costoEspecialistas);
@@ -246,7 +251,8 @@ public class CCosto extends CGenerico {
 						.sumPorConsulta(consulta);
 				costoEstudios = getServicioConsultaServicioExterno()
 						.sumPorConsulta(consulta);
-				consultas.get(i).getConsulta().setEstatura(costoMedicinas * -1);
+				costoMedicinas = getServicioConsultaMedicina().costoPorConsulta(consulta);
+				consultas.get(i).getConsulta().setEstatura(costoMedicinas);
 				consultas.get(i).getConsulta().setPeso(costoExamenes);
 				consultas.get(i).getConsulta()
 						.setPerimetroForzada(costoEspecialistas);
@@ -268,7 +274,7 @@ public class CCosto extends CGenerico {
 		JasperReport reporte = null;
 		try {
 			reporte = (JasperReport) JRLoader.loadObject(getClass()
-					.getResource("/reporte/RResumenCosto.jasper"));
+					.getResource("/reporte/medico/resumen/RResumenCosto.jasper"));
 		} catch (JRException e) {
 			Mensaje.mensajeError("Recurso no Encontrado");
 		}

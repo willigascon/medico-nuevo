@@ -86,17 +86,17 @@ public class CVacuna extends CGenerico {
 					Vacuna vacuna = new Vacuna(id, nombre, fechaHora,
 							horaAuditoria, nombreUsuarioSesion());
 					servicioVacuna.guardar(vacuna);
-					if (consulta) {
-						if (id != 0)
-							vacuna = servicioVacuna.buscar(id);
-						else {
-							vacuna = servicioVacuna.buscarUltimo();
-							vacunas.add(vacuna);
-						}
-						cConsulta.recibirVacuna(vacunas, listaConsulta,
-								servicioVacuna, historia,
-								servicioHistoriaVacuna);
-					}
+//					if (consulta) {
+//						if (id != 0)
+//							vacuna = servicioVacuna.buscar(id);
+//						else {
+//							vacuna = servicioVacuna.buscarUltimo();
+//							vacunas.add(vacuna);
+//						}
+//						cConsulta.recibirVacuna(vacunas, listaConsulta,
+//								servicioVacuna, historia,
+//								servicioHistoriaVacuna);
+//					}
 					msj.mensajeInformacion(Mensaje.guardado);
 					limpiar();
 				}

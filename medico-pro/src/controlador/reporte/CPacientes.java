@@ -51,8 +51,6 @@ public class CPacientes extends CGenerico {
 	@Wire
 	private Row rowDiscapacitado;
 	@Wire
-	private Row rowFamiliar;
-	@Wire
 	private Button btnBuscarTrabajador;
 	@Wire
 	private Label lblTrabajador;
@@ -68,14 +66,6 @@ public class CPacientes extends CGenerico {
 	private Spinner spnA;
 	@Wire
 	private Combobox cmbSexo;
-	@Wire
-	private Radiogroup rdgFamiliar;
-	@Wire
-	private Radio rdoFamiliares;
-	@Wire
-	private Radio rdoTrabajadores;
-	@Wire
-	private Radio rdoTodos;
 	@Wire
 	private Radiogroup rdgDiscapacitado;
 	@Wire
@@ -108,26 +98,11 @@ public class CPacientes extends CGenerico {
 		}
 
 		switch (titulo) {
-		case "Familiares":
-			rowTrabajador.setVisible(true);
-			rowEdad.setVisible(true);
-			rowFamiliar.setVisible(false);
-			rowDiscapacitado.setVisible(false);
-			tipo = "1";
-			break;
 		case "Pacientes":
 			rowTrabajador.setVisible(false);
 			rowEdad.setVisible(true);
-			rowFamiliar.setVisible(true);
 			rowDiscapacitado.setVisible(true);
 			tipo = "2";
-			break;
-		case "Pacientes Cronicos":
-			rowTrabajador.setVisible(false);
-			rowEdad.setVisible(false);
-			rowFamiliar.setVisible(true);
-			rowDiscapacitado.setVisible(false);
-			tipo = "3";
 			break;
 		}
 		Botonera botonera = new Botonera() {
@@ -135,10 +110,6 @@ public class CPacientes extends CGenerico {
 			@Override
 			public void guardar() {
 				switch (tipo) {
-				case "1":
-					if (validarFamiliar())
-						reporteFamiliar();
-					break;
 				case "2":
 					if (validarPaciente())
 						reportePaciente();
@@ -155,9 +126,6 @@ public class CPacientes extends CGenerico {
 				idTrabajador = "";
 				spnA.setValue(100);
 				spnDe.setValue(0);
-				rdoFamiliares.setChecked(false);
-				rdoTodos.setChecked(false);
-				rdoTrabajadores.setChecked(false);
 				rdoSi.setChecked(false);
 				rdoNo.setChecked(false);
 				rdoTodosDiscapacitado.setChecked(false);
@@ -180,103 +148,24 @@ public class CPacientes extends CGenerico {
 		};
 		Button guardar = (Button) botonera.getChildren().get(0);
 		guardar.setLabel("Reporte");
-		guardar.setSrc("/public/imagenes/botones/reporte.png");
+		guardar.setImage("/public/imagenes/botones/reporte.png");
 		botonera.getChildren().get(1).setVisible(false);
 		botoneraRPacientes.appendChild(botonera);
 
 	}
 
-	private boolean validarCronico() {
-		if (!rdoFamiliares.isChecked() && !rdoTrabajadores.isChecked()
-				&& !rdoTodos.isChecked()) {
-			msj.mensajeError(Mensaje.camposVacios);
-			return false;
-		}
-		return true;
-	}
-
 	private boolean validarPaciente() {
-		if ((!rdoFamiliares.isChecked() && !rdoTrabajadores.isChecked() && !rdoTodos
-				.isChecked())
-				|| (!rdoSi.isChecked() && !rdoNo.isChecked() && !rdoTodosDiscapacitado
+		if ((!rdoSi.isChecked() && !rdoNo.isChecked() && !rdoTodosDiscapacitado
 						.isChecked())
 				|| spnA.getText().compareTo("") == 0
 				|| spnDe.getText().compareTo("") == 0
 				|| cmbSexo.getText().compareTo("") == 0) {
-			msj.mensajeError(Mensaje.camposVacios);
+			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		}
 		return true;
 	}
 
-	private boolean validarFamiliar() {
-		if (spnA.getText().compareTo("") == 0
-				|| spnDe.getText().compareTo("") == 0
-				|| cmbSexo.getText().compareTo("") == 0
-				|| idTrabajador.equals("")) {
-			msj.mensajeError(Mensaje.camposVacios);
-			return false;
-		}
-		return true;
-	}
-
-	private void reporteFamiliar() {
-		String sexo = cmbSexo.getValue();
-		int dea = spnDe.getValue();
-		int aa = spnA.getValue();
-		String de = String.valueOf(spnDe.getValue());
-		String a = String.valueOf(spnA.getValue());
-		String parentesco = cmbParentesco.getValue();
-		String tipoReporte = cmbTipo.getValue();
-
-		if ((sexo.equals("TODOS") && parentesco.equals("TODOS")
-				&& idTrabajador.equals("TODOS") && getServicioPaciente()
-				.buscarPorEdadesTrabajador(dea, aa, false).isEmpty())
-				|| (!sexo.equals("TODOS") && !parentesco.equals("TODOS")
-						&& idTrabajador.equals("TODOS") && getServicioPaciente()
-						.buscarPorEdadesParentescoySexo(dea, aa, parentesco,
-								sexo).isEmpty())
-				|| (!sexo.equals("TODOS") && parentesco.equals("TODOS")
-						&& idTrabajador.equals("TODOS") && getServicioPaciente()
-						.buscarPorEdadesySexo(dea, aa, sexo).isEmpty())
-				|| (sexo.equals("TODOS") && !parentesco.equals("TODOS")
-						&& idTrabajador.equals("TODOS") && getServicioPaciente()
-						.buscarPorEdadesyParentesco(dea, aa, parentesco)
-						.isEmpty())
-				|| (sexo.equals("TODOS") && parentesco.equals("TODOS")
-						&& !idTrabajador.equals("TODOS") && getServicioPaciente()
-						.buscarPorEdadesyTrabajador(dea, aa, idTrabajador)
-						.isEmpty())
-				|| (!sexo.equals("TODOS") && parentesco.equals("TODOS")
-						&& !idTrabajador.equals("TODOS") && getServicioPaciente()
-						.buscarCono(dea, aa, idTrabajador, sexo).isEmpty())
-				|| (!sexo.equals("TODOS") && !parentesco.equals("TODOS")
-						&& !idTrabajador.equals("TODOS") && getServicioPaciente()
-						.buscarPorEdadesTrabajadorParentescoSexo(dea, aa,
-								idTrabajador, parentesco, sexo).isEmpty())
-				|| (!parentesco.equals("TODOS")
-						&& !idTrabajador.equals("TODOS") && getServicioPaciente()
-						.buscarPorEdadesTrabajadoryParentesco(dea, aa,
-								idTrabajador, parentesco).isEmpty()))
-			msj.mensajeAlerta(Mensaje.noHayRegistros);
-		else
-			Clients.evalJavaScript("window.open('"
-					+ damePath()
-					+ "Reportero?valor=24&valor6="
-					+ de
-					+ "&valor7="
-					+ a
-					+ "&valor8="
-					+ sexo
-					+ "&valor9="
-					+ parentesco
-					+ "&valor10="
-					+ idTrabajador
-					+ "&valor20="
-					+ tipoReporte
-					+ "','','top=100,left=200,height=600,width=800,scrollbars=1,resizable=1')");
-
-	}
 
 	public byte[] reporteFamiliares(String de, String a, String sexo,
 			String parentesco, String idTrabajador, String tipoReporte)
@@ -397,14 +286,7 @@ public class CPacientes extends CGenerico {
 		String tipoReporte = cmbTipo.getValue();
 		String tipoPaciente = "";
 		String discapacitados = "";
-		if (rdoFamiliares.isChecked())
-			tipoPaciente = "Familiares";
-		else {
-			if (rdoTrabajadores.isChecked())
-				tipoPaciente = "Trabajadores";
-			else
 				tipoPaciente = "TODOS";
-		}
 
 		if (rdoSi.isChecked())
 			discapacitados = "SI";
@@ -494,7 +376,7 @@ public class CPacientes extends CGenerico {
 						&& !sexo.equals("TODOS") && getServicioPaciente()
 						.buscarPorEdadesDiscapacidadSexo(dea, aa, false, sexo)
 						.isEmpty()))
-			msj.mensajeAlerta(Mensaje.noHayRegistros);
+			Mensaje.mensajeAlerta(Mensaje.noHayRegistros);
 		else
 			Clients.evalJavaScript("window.open('"
 					+ damePath()
@@ -722,7 +604,7 @@ public class CPacientes extends CGenerico {
 		}
 
 		JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass()
-				.getResource("/reporte/RPacientes.jasper"));
+				.getResource("/reporte/medico/general/RPacientes.jasper"));
 		if (tipoReporte.equals("EXCEL")) {
 
 			JasperPrint jasperPrint = null;

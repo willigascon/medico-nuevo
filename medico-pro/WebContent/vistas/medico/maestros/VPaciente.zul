@@ -5,7 +5,6 @@
 				<tabs id="tbsPaciente">
 					<tab label="Datos Basicos" id="tabDatosBasicos" />
 					<tab label="Datos de Contacto" id="tabDatosContacto" />
-					<tab label="Paciente Cronico" id="tabDatosCronico" />
 				</tabs>
 				<tabpanels>
 					<tabpanel>
@@ -93,8 +92,17 @@
 										<textbox maxlength="100" id="txtNombre2Paciente"
 											hflex="1" tooltiptext="Ingrese el segundo Nombre del Paciente" />
 									</cell>
-									<hbox />
-									<hbox />
+									<hbox>
+										<hbox>
+											<label class="etiqueta" value="¿Pre- Empleado?" />
+											<space />
+											<label value="*" style="font-weight:bold;color:red" />
+										</hbox>
+										<radiogroup>
+											<radio label="SI" value="trabajador" id="rdoSiPreempleado" />
+											<radio label="NO" value="familiar" id="rdoNoPreempleado" />
+										</radiogroup>
+									</hbox>
 								</row>
 								<row>
 									<hbox>
@@ -136,12 +144,7 @@
 										</vbox>
 									</cell>
 									<hbox />
-									<button autodisable="self"
-										label="Ver Familiares en Servicios Medicos" id="btnVer"
-										image="/public/imagenes/botones/ver.png"
-										tooltiptext="Familiares del Trabajador que Aplican a Servicios Medicos"
-										hflex="1" height="35px" class="btn" />
-
+									<hbox />
 								</row>
 								<row>
 									<hbox>
@@ -175,10 +178,7 @@
 									</combobox>
 									<button class="abrir" id="btnAbrirEstadoCivil" label=""
 										tooltiptext="Crear un Nuevo Estado Civil" image="/public/imagenes/botones/agregar.png" />
-									<button autodisable="self" label="Ver Carga" id="btnVerFamiliares"
-										image="/public/imagenes/botones/ver.png"
-										tooltiptext="Ver Familiares del Trabajador que no aplican a Servicios Medicos"
-										hflex="1" height="35px" class="btn" />
+									<hbox />
 								</row>
 								<row>
 									<hbox>
@@ -220,27 +220,6 @@
 									</hbox>
 									<textbox maxlength="100" id="txtProfesion"
 										tooltiptext="Ingrese la Profesion del Paciente" />
-								</row>
-								<row>
-									<label class="etiqueta" value="Condicion del Trabajador:" />
-									<combobox tooltiptext="Seleccione la Condicion del Trabajador"
-										placeholder="Seleccione la Condicion del Trabajador" id="cmbCondicionTrabajador"
-										width="100%" readonly="true">
-										<comboitem label="E" />
-										<comboitem label="NDF" />
-										<comboitem label="NDC" />
-									</combobox>
-									<label class="etiqueta" value="¿Es Jefe del Hogar?" />
-									<radiogroup id="rdgJefe">
-										<radio label="SI" value="jefe" id="rdoJefe" />
-										<radio label="NO" value="no jefe" id="rdoNoJefe" />
-									</radiogroup>
-									<label class="etiqueta" value="Ocupacion u Oficio:" />
-									<cell colspan="2">
-										<textbox id="txtOficio" width="100%" maxlength="500"
-											tooltiptext="Ingrese la Ocupacion u Oficio" multiline="true" />
-									</cell>
-									<hbox />
 								</row>
 								<row>
 									<hbox>
@@ -341,7 +320,6 @@
 										readonly="true">
 										<comboitem label="Congenita" />
 										<comboitem label="Adquirida" />
-										<comboitem label="No Aplica" />
 									</combobox>
 									<hbox>
 										<label class="etiqueta" value="Tipo:" />
@@ -356,7 +334,7 @@
 										<comboitem label="Motora" />
 										<comboitem label="Sensorial" />
 										<comboitem label="Visual" />
-										<comboitem label="No Aplica" />
+										<comboitem label="Otra" />
 									</combobox>
 									<label class="etiqueta" value="Otra(s):" />
 									<textbox id="txtOtras" width="100%" maxlength="500"
@@ -429,12 +407,11 @@
 												<combobox hflex="1" tooltiptext="Seleccione un Tipo de Nomina"
 													placeholder="Seleccione un Tipo de Nomina" id="cmbNomina"
 													readonly="true" width="250px">
-													<template name="model">
-														<comboitem label="${each.nombre}" context="${each.idNomina}" />
-													</template>
+													<comboitem label="Empleado" />
+													<comboitem label="Obrero" />
 												</combobox>
-												<button class="abrir" id="btnAbrirNomina" label=""
-													tooltiptext="Crear una Nueva Nomina" image="/public/imagenes/botones/agregar.png" />
+												<!-- <button class="abrir" id="btnAbrirNomina" label="" tooltiptext="Crear 
+													una Nueva Nomina" image="/public/imagenes/botones/agregar.png" /> -->
 											</hbox>
 										</hbox>
 									</cell>
@@ -445,10 +422,13 @@
 										placeholder="Seleccione un Turno" id="cmbTurno" readonly="true">
 										<comboitem label="Jornada Completa" />
 										<comboitem label="Jornada Parcial" />
+										<comboitem label="Turno Fijo Normal" />
 										<comboitem label="Turno Fijo Mañanas" />
 										<comboitem label="Turno Fijo Tardes" />
 										<comboitem label="Turno Fijo Noches" />
+										<comboitem label="Turno Fijo Administrativo" />
 										<comboitem label="Turno Rotativo" />
+										<comboitem label="Turno Rotativo 1/2" />
 										<comboitem label="Turno Mixto" />
 										<comboitem label="N/A" />
 									</combobox>
@@ -466,21 +446,22 @@
 									<hbox />
 								</row>
 								<row>
-									<cell colspan="2">
-										<label class="etiqueta" value="Retiro de IVSS (FORMATO 14.03): " />
-									</cell>
+									<label class="etiqueta" value="Retiro de IVSS (FORMATO 14.03): " />
 									<textbox maxlength="100" id="txtRetiroIVSS"
 										tooltiptext="Ingrese el Retiro de IVSS (FORMATO 14.03)" />
 									<label class="etiqueta" value="Fecha de Egreso:" />
 									<datebox width="100%" readonly="true" id="dtbFechaEgreso"
 										onCreate="self.value = new Date()" tooltiptext="Indique la Fecha de Egreso" />
-									<hbox />
 									<label class="etiqueta" value="¿Es Brigadista?" />
 									<radiogroup>
 										<radio label="SI" value="trabajador" id="rdoSiBrigadista" />
 										<radio label="NO" value="familiar" id="rdoNoBrigadista" />
 									</radiogroup>
-									<hbox />
+									<label class="etiqueta" value="¿Delegado Higine Salud Laboral?" />
+									<radiogroup>
+										<radio label="SI" value="trabajador" id="rdoSiComite" />
+										<radio label="NO" value="familiar" id="rdoNoComite" />
+									</radiogroup>
 								</row>
 							</rows>
 						</grid>
@@ -588,19 +569,19 @@
 											tooltiptext="Ingrese el Nro de la Casa del Paciente" />
 									</hbox>
 									<label class="etiqueta" value="Medio de Transporte Utilizado:" />
-											<cell colspan="2">
-										<vlayout>		
-									<hlayout>
-										<checkbox id="chkDusa" label="Transporte Dusa" />
-										<checkbox id="chkPrivado" label="Vehiculo Propio" />
-										<checkbox id="chkMoto" label="Moto" />
-									</hlayout>
-										<hlayout>
-										<checkbox id="chkBicicleta" label="Bicicleta" />
-										<checkbox id="chkPublico" label="Transporte Publico" />
-										<checkbox id="chkOtro" label="Otro" />
-									</hlayout>
-									</vlayout>
+									<cell colspan="2">
+										<vlayout>
+											<hlayout>
+												<checkbox id="chkDusa" label="Transporte Empresa" />
+												<checkbox id="chkPrivado" label="Vehiculo Propio" />
+												<checkbox id="chkMoto" label="Moto" />
+											</hlayout>
+											<hlayout>
+												<checkbox id="chkBicicleta" label="Bicicleta" />
+												<checkbox id="chkPublico" label="Transporte Publico" />
+												<checkbox id="chkOtro" label="Otro" />
+											</hlayout>
+										</vlayout>
 									</cell>
 									<label class="etiqueta" value="Cual:" />
 									<textbox id="txtOtroTransporte" tooltiptext="Especifique el Tipo de Transporte"
@@ -672,111 +653,13 @@
 							</rows>
 						</grid>
 						<separator />
-						<hbox>
-							<div align="left">
-								<button class="btn" label="Anterior" id="btnAnteriorPestanna"
-									image="/public/imagenes/botones/atras.png" tooltiptext="Pestaña Anterior" />
-							</div>
-							<space width="700px" />
-							<div align="right">
-								<button class="btn" id="btnSiguiente2" label="Siguiente"
-									image="/public/imagenes/botones/adelante.png" tooltiptext="Siguiente Pestaña" />
-							</div>
-						</hbox>
-					</tabpanel>
-					<tabpanel>
-						<separator />
-						<grid width="100%">
-							<columns visible="false">
-								<column label="" width="17%" />
-								<column label="" width="25%" />
-								<column label="" width="18%" />
-								<column label="" width="15%" />
-								<column label="" width="13%" />
-								<column label="" width="22%" />
-							</columns>
-							<rows>
-								<row>
-									<label class="etiqueta" value="¿El Paciente es Cronico?:" />
-									<radiogroup>
-										<radio label="SI" value="trabajador" id="rdoSiCronico" />
-										<radio label="NO" value="familiar" id="rdoNoCronico" />
-									</radiogroup>
-									<cell colspan="4">
-										<hbox />
-									</cell>
-								</row>
-							</rows>
-						</grid>
-						<separator />
-						<hbox>
-							<textbox tooltiptext="Ingrese el Nombre de la Medicina"
-								placeholder="Ingrese la Medicina a Buscar" width="195px"
-								id="txtBuscadorMedicina"></textbox>
-							<separator />
-							<button class="abrir" id="btnAbrirMedicina" label=""
-								tooltiptext="Crear una Nueva Medicina" image="/public/imagenes/botones/agregar.png" />
-						</hbox>
-						<hbox widths="45%,5%,50%" pack="center">
-							<listbox mold="paging" pageSize="10" id="ltbMedicinas"
-								height="370px" width="100%" emptyMessage="No hay Medicinas Registradas">
-								<listhead>
-									<listheader label="Medicina" width="100%" />
-								</listhead>
-								<template name="model">
-									<listitem>
-										<listcell label="${each.nombre}">
-										</listcell>
-										<listcell>
-											<textbox width="98%" />
-										</listcell>
-										<listcell>
-											<spinner inplace="true" width="98%" value="${each.idMedicina}"
-												visible="false" disabled="true" />
-										</listcell>
-									</listitem>
-								</template>
-							</listbox>
-							<vbox pack="center">
-								<button class="abrir" id="pasar1Medicina"
-									image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Medicina"
-									width="30px" />
-								<separator />
-								<button class="abrir" id="pasar2Medicina"
-									image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Medicina"
-									width="30px" />
-							</vbox>
-							<listbox id="ltbMedicinasAgregadas" height="370px" width="100%"
-								emptyMessage="No ha Seleccionado Ningúna Medicina">
-								<listhead>
-									<listheader label="Medicina" width="70%" />
-									<listheader label="Frecuencia" width="30%" />
-									<listheader label="id" visible="false" />
-								</listhead>
-								<template name="model">
-									<listitem>
-										<listcell label="${each.medicina.nombre}">
-										</listcell>
-										<listcell>
-											<textbox maxlength="500" value="${each.frecuencia}"
-												width="98%" class="multilinea" multiline="true" />
-										</listcell>
-										<listcell>
-											<spinner value="${each.medicina.idMedicina}" width="98%"
-												visible="false" disabled="true" />
-										</listcell>
-									</listitem>
-								</template>
-							</listbox>
-						</hbox>
-						<separator />
-						<div align="left" style="float: right;">
-							<separator />
-							<button class="btn" label="Anterior" id="btnAnterior2"
-								image="/public/imagenes/botones/atras.png" tooltiptext="Pestaña Anterior" />
-						</div>
 						<vbox>
-
+							<hbox>
+								<div align="left">
+									<button class="btn" label="Anterior" id="btnAnteriorPestanna"
+										image="/public/imagenes/botones/atras.png" tooltiptext="Pestaña Anterior" />
+								</div>
+							</hbox>
 							<div width="50%" id="botoneraPaciente" align="left" style="float: left;" />
 						</vbox>
 					</tabpanel>

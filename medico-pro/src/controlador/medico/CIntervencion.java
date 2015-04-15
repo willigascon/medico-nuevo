@@ -87,16 +87,16 @@ public class CIntervencion extends CGenerico {
 					Intervencion intervencion = new Intervencion(id, nombre,
 							fechaHora, horaAuditoria, nombreUsuarioSesion());
 					servicioIntervencion.guardar(intervencion);
-					if (consulta) {
-						if (id != 0)
-							intervencion = servicioIntervencion.buscar(id);
-						else {
-							intervencion = servicioIntervencion.buscarUltimo();
-							interConsulta.add(intervencion);
-						}
-						cConsulta.recibirIntervencion(interConsulta,
-								listaConsulta);
-					}
+//					if (consulta) {
+//						if (id != 0)
+//							intervencion = servicioIntervencion.buscar(id);
+//						else {
+//							intervencion = servicioIntervencion.buscarUltimo();
+//							interConsulta.add(intervencion);
+//						}
+//						cConsulta.recibirIntervencion(interConsulta,
+//								listaConsulta);
+//					}
 					msj.mensajeInformacion(Mensaje.guardado);
 					limpiar();
 				}

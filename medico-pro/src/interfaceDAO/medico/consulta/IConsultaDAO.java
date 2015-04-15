@@ -123,4 +123,10 @@ public interface IConsultaDAO extends JpaRepository<Consulta, Long> {
 
 	List<Consulta> findByDoctorInterno(DoctorInterno usuario);
 
+	List<Consulta> findByFechaConsultaBetweenAndPacienteNominaAndPacienteTrabajador(
+			Date desde, Date hasta, String nomina2, boolean b, Sort o);
+
+	List<Consulta> findByFechaConsultaBetweenAndReposoAndPacienteNominaAndPacienteTrabajador(
+			Date desde, Date hasta, boolean b, String buscar, boolean c, Sort o);
+
 }

@@ -49,17 +49,9 @@ public class CResumen extends CGenerico {
 	@Wire
 	private Datebox dtbHasta;
 	@Wire
-	private Radio rdoFamiliar;
-	@Wire
-	private Radio rdoTrabajador;
-	@Wire
-	private Radio rdoTodos;
-	@Wire
 	private Div divResumen;
 	@Wire
 	private Div botoneraResumen;
-	@Wire
-	private Row row;
 	@Wire
 	private Combobox cmbTipo;
 	@Wire
@@ -82,16 +74,13 @@ public class CResumen extends CGenerico {
 		}
 		switch (nombre) {
 		case "Morbilidad por Area y Tipo de Diagnostico":
-			row.setVisible(false);
 			chkSolo.setVisible(false);
 			tipo = "1";
 			break;
 		case "Morbilidad por Diagnostico":
-			row.setVisible(true);
 			tipo = "2";
 			break;
 		case "Morbilidad por Tipo de Consulta":
-			row.setVisible(true);
 			chkSolo.setVisible(false);
 			tipo = "3";
 			break;
@@ -107,9 +96,6 @@ public class CResumen extends CGenerico {
 			public void limpiar() {
 				dtbDesde.setValue(fecha);
 				dtbHasta.setValue(fecha);
-				rdoFamiliar.setChecked(false);
-				rdoTrabajador.setChecked(false);
-				rdoTodos.setChecked(false);
 				if (chkSolo.isVisible())
 					chkSolo.setChecked(false);
 			}
@@ -121,23 +107,12 @@ public class CResumen extends CGenerico {
 					Date hasta = dtbHasta.getValue();
 					String tipoReporte = cmbTipo.getValue();
 					DateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
-					String parentesco = "";
+					String parentesco = "todos";
 					boolean trabajador = false;
 					String todos = "si";
 					if (chkSolo.isChecked())
 						todos = "no";
 					String trabaja = "";
-					if (rdoFamiliar.isChecked()) {
-						parentesco = "familiar";
-						trabaja = "no";
-					}
-					if (rdoTrabajador.isChecked()) {
-						parentesco = "trabajador";
-						trabajador = true;
-						trabaja = "si";
-					}
-					if (rdoTodos.isChecked())
-						parentesco = "todos";
 					String fecha1 = fecha.format(desde);
 					String fecha2 = fecha.format(hasta);
 					List<ConsultaDiagnostico> consultas = new ArrayList<ConsultaDiagnostico>();
@@ -160,7 +135,7 @@ public class CResumen extends CGenerico {
 									+ tipoReporte
 									+ "','','top=100,left=200,height=600,width=800,scrollbars=1,resizable=1')");
 						else
-							msj.mensajeAlerta(Mensaje.noHayRegistros);
+							Mensaje.mensajeAlerta(Mensaje.noHayRegistros);
 						break;
 					// Reporte 2
 					case "2":
@@ -189,7 +164,7 @@ public class CResumen extends CGenerico {
 									+ tipoReporte
 									+ "','','top=100,left=200,height=600,width=800,scrollbars=1,resizable=1')");
 						else
-							msj.mensajeAlerta(Mensaje.noHayRegistros);
+							Mensaje.mensajeAlerta(Mensaje.noHayRegistros);
 						break;
 					// Reporte 3
 					case "3":
@@ -218,7 +193,7 @@ public class CResumen extends CGenerico {
 									+ tipoReporte
 									+ "','','top=100,left=200,height=600,width=800,scrollbars=1,resizable=1')");
 						else
-							msj.mensajeAlerta(Mensaje.noHayRegistros);
+							Mensaje.mensajeAlerta(Mensaje.noHayRegistros);
 						break;
 					}
 				}
@@ -238,10 +213,8 @@ public class CResumen extends CGenerico {
 	}
 
 	protected boolean validar() {
-		if ((tipo.equals("2") || tipo.equals("3"))
-				&& (!rdoFamiliar.isChecked() && !rdoTrabajador.isChecked() && !rdoTodos
-						.isChecked())) {
-			msj.mensajeError(Mensaje.camposVacios);
+		if ((tipo.equals("2") || tipo.equals("3"))) {
+			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
 			return true;
@@ -349,10 +322,11 @@ public class CResumen extends CGenerico {
 
 		JasperReport reporte = null;
 		try {
-			reporte = (JasperReport) JRLoader.loadObject(getClass()
-					.getResource("/reporte/RResumenArea.jasper"));
+			reporte = (JasperReport) JRLoader
+					.loadObject(getClass().getResource(
+							"/reporte/medico/resumen/RResumenArea.jasper"));
 		} catch (JRException e) {
-			msj.mensajeError("Recurso no Encontrado");
+			Mensaje.mensajeError("Recurso no Encontrado");
 		}
 
 		if (tipoReporte.equals("EXCEL")) {
@@ -381,7 +355,7 @@ public class CResumen extends CGenerico {
 				fichero = JasperRunManager.runReportToPdf(reporte, p,
 						new JRBeanCollectionDataSource(lista2));
 			} catch (JRException e) {
-				msj.mensajeError("Error en Reporte");
+				Mensaje.mensajeError("Error en Reporte");
 			}
 			return fichero;
 		}
@@ -405,7 +379,7 @@ public class CResumen extends CGenerico {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		fecha2 = agregarDia(fecha2);
 		List<ConsultaDiagnostico> consultas = new ArrayList<ConsultaDiagnostico>();
 		List<Resumen> lista = new ArrayList<Resumen>();
@@ -477,10 +451,12 @@ public class CResumen extends CGenerico {
 
 		JasperReport reporte = null;
 		try {
-			reporte = (JasperReport) JRLoader.loadObject(getClass()
-					.getResource("/reporte/RResumenDiagnostico.jasper"));
+			reporte = (JasperReport) JRLoader
+					.loadObject(getClass()
+							.getResource(
+									"/reporte/medico/resumen/RResumenDiagnostico.jasper"));
 		} catch (JRException e) {
-			msj.mensajeError("Recurso no Encontrado");
+			Mensaje.mensajeError("Recurso no Encontrado");
 		}
 
 		if (tipoReporte.equals("EXCEL")) {
@@ -509,7 +485,7 @@ public class CResumen extends CGenerico {
 				fichero = JasperRunManager.runReportToPdf(reporte, p,
 						new JRBeanCollectionDataSource(lista2));
 			} catch (JRException e) {
-				msj.mensajeError("Error en Reporte");
+				Mensaje.mensajeError("Error en Reporte");
 			}
 			return fichero;
 		}
@@ -619,10 +595,12 @@ public class CResumen extends CGenerico {
 
 		JasperReport reporte = null;
 		try {
-			reporte = (JasperReport) JRLoader.loadObject(getClass()
-					.getResource("/reporte/RResumenTipoConsulta.jasper"));
+			reporte = (JasperReport) JRLoader
+					.loadObject(getClass()
+							.getResource(
+									"/reporte/medico/resumen/RResumenTipoConsulta.jasper"));
 		} catch (JRException e) {
-			msj.mensajeError("Recurso no Encontrado");
+			Mensaje.mensajeError("Recurso no Encontrado");
 		}
 		if (tipoReporte.equals("EXCEL")) {
 
@@ -651,7 +629,7 @@ public class CResumen extends CGenerico {
 				fichero = JasperRunManager.runReportToPdf(reporte, p,
 						new JRBeanCollectionDataSource(lista));
 			} catch (JRException e) {
-				msj.mensajeError("Error en Reporte");
+				Mensaje.mensajeError("Error en Reporte");
 			}
 
 			return fichero;

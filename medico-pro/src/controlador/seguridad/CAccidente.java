@@ -120,13 +120,13 @@ public class CAccidente extends CGenerico {
 							nombre, fechaHora, horaAuditoria,
 							nombreUsuarioSesion());
 					servicioAccidente.guardar(accidente);
-					if (consulta) {
-						accidente = servicioAccidente.buscar(txtCodigo
-								.getValue());
-						accidentes.add(accidente);
-						cConsulta.recibirAccidente(accidentes, listaConsulta,
-								tipo);
-					}
+//					if (consulta) {
+//						accidente = servicioAccidente.buscar(txtCodigo
+//								.getValue());
+//						accidentes.add(accidente);
+//						cConsulta.recibirAccidente(accidentes, listaConsulta,
+//								tipo);
+//					}
 					msj.mensajeInformacion(Mensaje.guardado);
 					limpiar();
 				}

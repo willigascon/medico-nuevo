@@ -300,7 +300,7 @@ public class COrdenProveedor extends CGenerico {
 		JasperReport reporte = null;
 		try {
 			reporte = (JasperReport) JRLoader.loadObject(getClass()
-					.getResource("/reporte/RCostoProveedor.jasper"));
+					.getResource("/reporte/medico/monetario/RCostoProveedor.jasper"));
 		} catch (JRException e) {
 			Mensaje.mensajeError("Recurso no Encontrado");
 		}
@@ -373,7 +373,7 @@ public class COrdenProveedor extends CGenerico {
 		JasperReport reporte = null;
 		try {
 			reporte = (JasperReport) JRLoader.loadObject(getClass()
-					.getResource("/reporte/RCostoEspecialista.jasper"));
+					.getResource("/reporte/medico/monetario/RCostoEspecialista.jasper"));
 		} catch (JRException e) {
 			Mensaje.mensajeError("Recurso no Encontrado");
 		}

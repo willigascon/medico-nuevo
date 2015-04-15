@@ -182,7 +182,7 @@ public class COrdenesConsulta extends CGenerico {
 		JasperReport reporte = null;
 		try {
 			reporte = (JasperReport) JRLoader.loadObject(getClass()
-					.getResource("/reporte/ROrdenesConsultaEspecialista.jasper"));
+					.getResource("/reporte/medico/proveedor/ROrdenesConsultaEspecialista.jasper"));
 		} catch (JRException e) {
 			Mensaje.mensajeError("Recurso no Encontrado");
 		}
@@ -297,7 +297,7 @@ public class COrdenesConsulta extends CGenerico {
 		JasperReport reporte = null;
 		try {
 			reporte = (JasperReport) JRLoader.loadObject(getClass()
-					.getResource("/reporte/ROrdenesConsultaProveedor.jasper"));
+					.getResource("/reporte/medico/proveedor/ROrdenesConsultaProveedor.jasper"));
 		} catch (JRException e) {
 			Mensaje.mensajeError("Recurso no Encontrado");
 		}

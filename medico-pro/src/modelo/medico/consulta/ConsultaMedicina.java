@@ -36,19 +36,23 @@ public class ConsultaMedicina {
 	
 	@Column(name="cantidad")
 	private Integer cantidad;
+	
+	@Column(name="precio_individual")
+	private Double precio;
 
 	public ConsultaMedicina() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ConsultaMedicina(Consulta consulta, Medicina medicina, String dosis, Recipe recipe, int cantidad) {
+	public ConsultaMedicina(Consulta consulta, Medicina medicina, String dosis, Recipe recipe, int cantidad, double precio) {
 		super();
 		this.consulta = consulta;
 		this.medicina = medicina;
 		this.dosis = dosis;
 		this.recipe = recipe;
 		this.cantidad = cantidad;
+		this.precio = precio;
 	}
 
 	public Consulta getConsulta() {
@@ -89,6 +93,14 @@ public class ConsultaMedicina {
 
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
+	}
+
+	public Double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Double precio) {
+		this.precio = precio;
 	}
 	
 }

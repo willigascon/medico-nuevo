@@ -289,7 +289,7 @@ public class CCita extends CGenerico {
 		catalogoPaciente = new Catalogo<Paciente>(divCatalogoPacientes,
 				"Catalogo de Pacientes", pacientes, false, "Cedula", "Ficha",
 				"Primer Nombre", "Segundo Nombre", "Primer Apellido",
-				"Segundo Apellido", "Trabajador Asociado") {
+				"Segundo Apellido") {
 
 			@Override
 			protected List<Paciente> buscar(String valor, String combo) {
@@ -306,8 +306,6 @@ public class CCita extends CGenerico {
 					return servicioPaciente.filtroApellido1Activos(valor);
 				case "Segundo Apellido":
 					return servicioPaciente.filtroApellido2Activos(valor);
-				case "Trabajador Asociado":
-					return servicioPaciente.filtroCedulaFamiliar1Activos(valor);
 				default:
 					return pacientes;
 				}
@@ -316,14 +314,13 @@ public class CCita extends CGenerico {
 
 			@Override
 			protected String[] crearRegistros(Paciente objeto) {
-				String[] registros = new String[7];
+				String[] registros = new String[6];
 				registros[0] = objeto.getCedula();
 				registros[1] = objeto.getFicha();
 				registros[2] = objeto.getPrimerNombre();
 				registros[3] = objeto.getSegundoNombre();
 				registros[4] = objeto.getPrimerApellido();
 				registros[5] = objeto.getSegundoApellido();
-				registros[6] = objeto.getCedulaFamiliar();
 				return registros;
 			}
 

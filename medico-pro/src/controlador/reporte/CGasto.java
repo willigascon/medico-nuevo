@@ -62,7 +62,7 @@ public class CGasto extends CGenerico {
 	private Div divCatalogoPaciente;
 	Catalogo<Paciente> catalogo;
 	String nombre;
-	String idPaciente="";
+	String idPaciente = "";
 	int tipo;
 
 	@Override
@@ -233,8 +233,9 @@ public class CGasto extends CGenerico {
 		lista.addAll(servicioPaciente.buscarTodosTrabajadores());
 		final List<Paciente> pacientes = lista;
 		catalogo = new Catalogo<Paciente>(divCatalogoPaciente,
-				"Catalogo de Pacientes", pacientes,false, "Cedula", "Ficha",
-				"Primer Nombre","Segundo Nombre", "Primer Apellido", "Segundo Apellido") {
+				"Catalogo de Pacientes", pacientes, false, "Cedula", "Ficha",
+				"Primer Nombre", "Segundo Nombre", "Primer Apellido",
+				"Segundo Apellido") {
 
 			@Override
 			protected List<Paciente> buscar(String valor, String combo) {
@@ -277,7 +278,8 @@ public class CGasto extends CGenerico {
 	@Listen("onSeleccion = #divCatalogoPaciente")
 	public void seleccinarTrabajador() {
 		Paciente paciente = catalogo.objetoSeleccionadoDelCatalogo();
-		lblPaciente.setValue(paciente.getPrimerNombre()+" "+paciente.getPrimerApellido());
+		lblPaciente.setValue(paciente.getPrimerNombre() + " "
+				+ paciente.getPrimerApellido());
 		idPaciente = paciente.getCedula();
 		catalogo.setParent(null);
 	}
@@ -336,11 +338,15 @@ public class CGasto extends CGenerico {
 										+ trabajador.getPrimerNombre() + " "
 										+ trabajador.getPrimerApellido());
 				consultas
-				.get(i)
-				.getPaciente().setDireccion(trabajador.getPrimerNombre() + " "
+						.get(i)
+						.getPaciente()
+						.setDireccion(
+								trabajador.getPrimerNombre() + " "
 										+ trabajador.getPrimerApellido());
-				double costoMedicinas=0, costoExamenes, costoEspecialistas, costoEstudios, costoConsultas;
+				double costoMedicinas = 0, costoExamenes, costoEspecialistas, costoEstudios, costoConsultas;
 				// Suma lo que ha entregado
+				costoMedicinas = getServicioConsultaMedicina()
+						.costoPorConsulta(consultas.get(i));
 				costoExamenes = getServicioConsultaExamen().sumPorConsulta(
 						consultas.get(i));
 				costoEspecialistas = getServicioConsultaEspecialista()
@@ -349,7 +355,7 @@ public class CGasto extends CGenerico {
 						.sumPorConsulta(consultas.get(i));
 				costoConsultas = (costoMedicinas * -1) + costoExamenes
 						+ costoEspecialistas + costoEstudios;
-				consultas.get(i).setEstatura(costoMedicinas * -1);
+				consultas.get(i).setEstatura(costoMedicinas);
 				consultas.get(i).setPeso(costoExamenes);
 				consultas.get(i).setPerimetroForzada(costoEspecialistas);
 				consultas.get(i).setPerimetroOmbligo(costoEstudios);
@@ -449,8 +455,12 @@ public class CGasto extends CGenerico {
 							trabajador.getCedula() + " "
 									+ trabajador.getPrimerNombre() + " "
 									+ trabajador.getPrimerApellido());
-			double costoMedicinas = 0, costoExamenes, costoEspecialistas, costoEstudios, costoConsultas;
+			Double costoMedicinas = (double) 0, costoExamenes, costoEspecialistas, costoEstudios, costoConsultas;
 			// Suma lo que ha entregado
+			costoMedicinas = getServicioConsultaMedicina().costoPorConsulta(
+					consultas.get(i));
+			if (costoMedicinas == null)
+				costoMedicinas = (double) 0;
 			costoExamenes = getServicioConsultaExamen()
 					.sumPorConsulta(consulta);
 			costoEspecialistas = getServicioConsultaEspecialista()
@@ -459,7 +469,7 @@ public class CGasto extends CGenerico {
 					.sumPorConsulta(consulta);
 			costoConsultas = (costoMedicinas * -1) + costoExamenes
 					+ costoEspecialistas + costoEstudios;
-			consultas.get(i).setEstatura(costoMedicinas * -1);
+			consultas.get(i).setEstatura(costoMedicinas);
 			consultas.get(i).setPeso(costoExamenes);
 			consultas.get(i).setPerimetroForzada(costoEspecialistas);
 			consultas.get(i).setPerimetroOmbligo(costoEstudios);
@@ -477,8 +487,10 @@ public class CGasto extends CGenerico {
 		p.put("hasta", par7);
 		JasperReport reporte = null;
 		try {
-			reporte = (JasperReport) JRLoader.loadObject(getClass()
-					.getResource("/reporte/RGastosTrabajador.jasper"));
+			reporte = (JasperReport) JRLoader
+					.loadObject(getClass()
+							.getResource(
+									"/reporte/medico/monetario/RGastosTrabajador.jasper"));
 		} catch (JRException e) {
 			Mensaje.mensajeError("Recurso no Encontrado");
 		}

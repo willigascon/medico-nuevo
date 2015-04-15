@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteSHA_procesosPeligrosos4" language="groovy" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="cc5755f4-6cfd-4392-9461-91cffe67aaca">
 	<property name="ireport.zoom" value="1.2100000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1450"/>
+	<property name="ireport.y" value="1331"/>
 	<parameter name="hdea" class="java.lang.String"/>
 	<parameter name="hdeb" class="java.lang.String"/>
 	<parameter name="hdec" class="java.lang.String"/>
@@ -148,7 +148,7 @@
 			<subreport runToBottom="true">
 				<reportElement x="23" y="41" width="483" height="467" uuid="5958b1ec-6aa6-40d8-80e6-f3dc26d3a068"/>
 				<dataSourceExpression><![CDATA[$P{condicionE}]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_ListaCondicionE.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_ListaCondicionE.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</title>
@@ -616,7 +616,7 @@ DE  SER  NO, ESPECIFIQUE POR QUÉ?:
 			<subreport>
 				<reportElement x="23" y="38" width="483" height="200" uuid="74e6856d-2f20-46b4-9433-650b6327cb01"/>
 				<dataSourceExpression><![CDATA[$P{condicionF}]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_ListaCondicionF.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_ListaCondicionF.jasper"]]></subreportExpression>
 			</subreport>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="20" y="530" width="109" height="27" uuid="edbf36f8-26e2-419a-83fc-fc0b794020b3"/>

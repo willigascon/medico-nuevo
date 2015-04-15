@@ -69,6 +69,18 @@
 						</button>
 						<image id="imagen" width="50px" height="50px" />
 					</row>
+					<row>
+						<label
+							tooltiptext="En caso de que el Usuario que esta creando sea destinado para un Doctor, seleccione desde el catalogo el doctor al que se asociara el Usuario"
+							class="etiqueta" value="Doctor Asociado al Usuario" />
+						<hbox>
+							<button id="btnBuscarDoctor" label="Buscar" class="btn"
+								image="/public/imagenes/botones/buscar.png" />
+						</hbox>
+						<cell colspan="2">
+							<label id="lblNombreDoctor" />
+						</cell>
+					</row>
 				</rows>
 			</grid>
 			<separator />
@@ -110,6 +122,7 @@
 			</groupbox>
 			<div id="botoneraUsuario" />
 			<div id="catalogoUsuario" />
+			<div id="catalogoDoctores" />
 		</groupbox>
 	</div>
 </zk>

@@ -161,8 +161,6 @@ public class CHistoria extends CGenerico {
 	private Label lblTelefono2E;
 	@Wire
 	private Label lblCargo1;
-	@Wire
-	private Tab tabCarga;
 	//
 	@Wire
 	private Radio rdoSiPeso;
@@ -373,8 +371,6 @@ public class CHistoria extends CGenerico {
 	@Wire
 	private Textbox txtResultadoMamografia;
 	@Wire
-	private Listbox ltbExamenFisico;
-	@Wire
 	private Listbox ltbVacunas;
 	@Wire
 	private Listbox ltbAccidentesLaborales;
@@ -388,66 +384,6 @@ public class CHistoria extends CGenerico {
 	private Listbox ltbIntervenciones;
 	@Wire
 	private Listbox ltbIntervencionesAgregadas;
-	@Wire
-	private Label lblIndice;
-	@Wire
-	private Doublespinner spnPeso;
-	@Wire
-	private Doublespinner spnEstatura;
-	@Wire
-	private Doublespinner spnPlena;
-	@Wire
-	private Doublespinner spnForzada;
-	@Wire
-	private Doublespinner spnOmbligo;
-	@Wire
-	private Spinner spnCardiaca;
-	@Wire
-	private Radio rdoSiRitmico;
-	@Wire
-	private Radio rdoNoRitmico;
-	@Wire
-	private Spinner frecuencia11;
-	@Wire
-	private Spinner frecuencia12;
-	@Wire
-	private Spinner frecuencia13;
-	@Wire
-	private Spinner s11;
-	@Wire
-	private Spinner s12;
-	@Wire
-	private Spinner s13;
-	@Wire
-	private Spinner d11;
-	@Wire
-	private Spinner d12;
-	@Wire
-	private Spinner d13;
-	@Wire
-	private Spinner ex11;
-	@Wire
-	private Spinner ex12;
-	@Wire
-	private Spinner ex13;
-	@Wire
-	private Radio rdoSiRitmicoF1;
-	@Wire
-	private Radio rdoNoRitmicoF1;
-	@Wire
-	private Radio rdoSiRitmicoF2;
-	@Wire
-	private Radio rdoNoRitmicoF2;
-	@Wire
-	private Radio rdoSiRitmicoF3;
-	@Wire
-	private Radio rdoNoRitmicoF3;
-	@Wire
-	private Spinner spnFrecuenciaRespitatoria;
-	@Wire
-	private Radio rdoSiRespiratoria;
-	@Wire
-	private Radio rdoNoRespiratoria;
 	// --------------------------
 	@Wire
 	private Combobox cmbDiente1;
@@ -627,7 +563,7 @@ public class CHistoria extends CGenerico {
 	GroupsModel<Antecedente, Object, Antecedente> modelFamiliares;
 	ListModelList<Vacuna> modelVacunas;
 	ListModelList<String> dientes;
-	ListitemRenderer renderer;
+	ListitemRenderer<?> renderer;
 	Buscar<Accidente> buscarAccidenteLaboral;
 	Buscar<Accidente> buscarAccidenteComun;
 	Buscar<Intervencion> buscarIntervencion;
@@ -673,18 +609,21 @@ public class CHistoria extends CGenerico {
 
 			@Override
 			public void guardar() {
-				Paciente paciente = servicioPaciente
-						.buscarPorCedula(idPaciente);
-				guardarHistoria(paciente);
+				if (validarHistoria()) {
+					Paciente paciente = servicioPaciente
+							.buscarPorCedula(idPaciente);
+					guardarHistoria(paciente);
+					limpiar();
+					Mensaje.mensajeInformacion(Mensaje.guardado);
+				}
 			}
 
 			@Override
 			public void eliminar() {
-				// TODO Auto-generated method stub
-
 			}
 		};
-		botonera.appendChild(botoneraHistoria);
+		botonera.getChildren().get(1).setVisible(false);
+		botoneraHistoria.appendChild(botonera);
 	}
 
 	public GroupsModel<Antecedente, Object, Antecedente> getModelFamiliares() {
@@ -701,7 +640,7 @@ public class CHistoria extends CGenerico {
 		return modelFamiliares;
 	}
 
-	public GroupsModel getModel() {
+	public GroupsModel<?, ?, ?> getModel() {
 		List<Antecedente> antecedentesLaborales = servicioAntecedente
 				.buscarLaborales();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -715,7 +654,7 @@ public class CHistoria extends CGenerico {
 		return model;
 	}
 
-	public GroupsModel getModelo() {
+	public GroupsModel<?, ?, ?> getModelo() {
 		List<Antecedente> antecedentesMedicos = servicioAntecedente
 				.buscarMedicos();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -758,7 +697,7 @@ public class CHistoria extends CGenerico {
 		return map;
 	}
 
-	public ListitemRenderer getRenderer() {
+	public ListitemRenderer<?> getRenderer() {
 		renderer = new ListitemRenderer<Antecedente>() {
 			long id = 0;
 
@@ -1437,7 +1376,7 @@ public class CHistoria extends CGenerico {
 		dientes = new ListModelList<String>(tipoDiente);
 		return dientes;
 	}
-	
+
 	public ListModelList<Vacuna> getModelVacunas() {
 		modelVacunas = new ListModelList<Vacuna>(servicioVacuna.buscarTodos());
 		return modelVacunas;
@@ -1451,7 +1390,7 @@ public class CHistoria extends CGenerico {
 		catalogoPaciente = new Catalogo<Paciente>(divCatalogoPacientes,
 				"Catalogo de Pacientes", pacientes, false, "Cedula", "Ficha",
 				"Primer Nombre", "Segundo Nombre", "Primer Apellido",
-				"Segundo Apellido", "Trabajador Asociado") {
+				"Segundo Apellido") {
 
 			@Override
 			protected List<Paciente> buscar(String valor, String combo) {
@@ -1468,8 +1407,6 @@ public class CHistoria extends CGenerico {
 					return servicioPaciente.filtroApellido1Activos(valor);
 				case "Segundo Apellido":
 					return servicioPaciente.filtroApellido2Activos(valor);
-				case "Trabajador Asociado":
-					return servicioPaciente.filtroCedulaFamiliar1Activos(valor);
 				default:
 					return pacientes;
 				}
@@ -1477,14 +1414,13 @@ public class CHistoria extends CGenerico {
 
 			@Override
 			protected String[] crearRegistros(Paciente objeto) {
-				String[] registros = new String[7];
+				String[] registros = new String[6];
 				registros[0] = objeto.getCedula();
 				registros[1] = objeto.getFicha();
 				registros[2] = objeto.getPrimerNombre();
 				registros[3] = objeto.getSegundoNombre();
 				registros[4] = objeto.getPrimerApellido();
 				registros[5] = objeto.getSegundoApellido();
-				registros[6] = objeto.getCedulaFamiliar();
 				return registros;
 			}
 
@@ -1923,6 +1859,8 @@ public class CHistoria extends CGenerico {
 
 	private void limpiarCampos() {
 		idPaciente = "";
+		txtCedula.setValue("");
+		limpiarColores(txtCedula);
 		limpiarListas();
 		llenarListas();
 		for (int i = 0; i < ltbLaborales.getItemCount(); i++) {
@@ -1948,16 +1886,6 @@ public class CHistoria extends CGenerico {
 		for (int i = 0; i < ltbFamiliares.getItemCount(); i++) {
 			Listitem listItem = ltbFamiliares.getItemAtIndex(i);
 			if (listItem.isSelected() && listItem.getContext() != null) {
-				Textbox tex = (Textbox) listItem.getChildren().get(1)
-						.getChildren().get(0);
-				tex.setValue("");
-				tex.setPlaceholder("Ingrese una Observacion");
-				listItem.setSelected(false);
-			}
-		}
-		for (int i = 0; i < ltbExamenFisico.getItemCount(); i++) {
-			Listitem listItem = ltbExamenFisico.getItemAtIndex(i);
-			if (listItem.isSelected()) {
 				Textbox tex = (Textbox) listItem.getChildren().get(1)
 						.getChildren().get(0);
 				tex.setValue("");
@@ -1998,45 +1926,6 @@ public class CHistoria extends CGenerico {
 		lblTrabajador.setValue("");
 		lblDiscapacidad.setValue("");
 		lblLentes.setValue("");
-		lblIndice.setValue("");
-		spnPeso.setValue((double) 0);
-		spnEstatura.setValue((double) 0);
-		spnOmbligo.setValue((double) 0);
-		spnPlena.setValue((double) 0);
-		spnForzada.setValue((double) 0);
-		spnCardiaca.setValue(0);
-		frecuencia11.setValue(0);
-		frecuencia12.setValue(0);
-		frecuencia13.setValue(0);
-		s11.setValue(0);
-		s12.setValue(0);
-		s13.setValue(0);
-		d11.setValue(0);
-		d12.setValue(0);
-		d13.setValue(0);
-		ex11.setValue(0);
-		ex12.setValue(0);
-		ex13.setValue(0);
-		if (rdoSiRitmico.isChecked())
-			rdoSiRitmico.setChecked(true);
-		if (rdoNoRitmico.isChecked())
-			rdoNoRitmico.setChecked(true);
-		if (rdoSiRitmicoF1.isChecked())
-			rdoSiRitmicoF1.setChecked(true);
-		if (rdoNoRitmicoF1.isChecked())
-			rdoNoRitmicoF1.setChecked(true);
-		if (rdoSiRitmicoF2.isChecked())
-			rdoSiRitmicoF2.setChecked(true);
-		if (rdoNoRitmicoF2.isChecked())
-			rdoNoRitmicoF2.setChecked(true);
-		if (rdoSiRitmicoF3.isChecked())
-			rdoSiRitmicoF3.setChecked(true);
-		if (rdoSiRespiratoria.isChecked())
-			rdoSiRespiratoria.setChecked(false);
-		if (rdoNoRespiratoria.isChecked())
-			rdoNoRespiratoria.setChecked(false);
-		if (rdoNoRitmicoF3.isChecked())
-			rdoNoRitmicoF3.setChecked(true);
 		if (rdoSiPeso.isChecked())
 			rdoSiPeso.setChecked(false);
 		if (rdoNoPeso.isChecked())
@@ -2315,6 +2204,64 @@ public class CHistoria extends CGenerico {
 		limpiador.add(intervencionesDisponibles);
 		for (int q = 0; q < limpiador.size(); q++) {
 			limpiador.get(q).clear();
+		}
+	}
+
+	private boolean validarLaborales() {
+		for (int i = 0; i < ltbAccidentesLaboralesAgregados.getItemCount(); i++) {
+			Listitem listItem = ltbAccidentesLaboralesAgregados
+					.getItemAtIndex(i);
+			if (((Datebox) ((listItem.getChildren().get(1))).getFirstChild())
+					.getValue() == null)
+				return false;
+		}
+		return true;
+	}
+
+	private boolean validarComunes() {
+		for (int i = 0; i < ltbAccidentesComunesAgregados.getItemCount(); i++) {
+			Listitem listItem = ltbAccidentesComunesAgregados.getItemAtIndex(i);
+			if (((Datebox) ((listItem.getChildren().get(1))).getFirstChild())
+					.getValue() == null)
+				return false;
+		}
+		return true;
+	}
+
+	private boolean validarIntervencion() {
+		for (int i = 0; i < ltbIntervencionesAgregadas.getItemCount(); i++) {
+			Listitem listItem = ltbIntervencionesAgregadas.getItemAtIndex(i);
+			if (((Datebox) ((listItem.getChildren().get(1))).getFirstChild())
+					.getValue() == null)
+				return false;
+		}
+		return true;
+	}
+
+	private boolean validarHistoria() {
+		if (idPaciente.equals("")) {
+			Mensaje.mensajeError("Debe seleccionar un Paciente");
+			aplicarColores(txtCedula);
+			return false;
+		} else {
+			if (ltbIntervencionesAgregadas.getItemCount() != 0
+					&& !validarIntervencion()) {
+				Mensaje.mensajeError("Debe seleccionar al menos la Fecha de la lista de Intervenciones Agregadas");
+				return false;
+			} else {
+				if (ltbAccidentesComunesAgregados.getItemCount() != 0
+						&& !validarComunes()) {
+					Mensaje.mensajeError("Debe seleccionar al menos la Fecha de la lista de Accidentes Comunes Agregados");
+					return false;
+				} else {
+					if (ltbAccidentesLaboralesAgregados.getItemCount() != 0
+							&& !validarLaborales()) {
+						Mensaje.mensajeError("Debe seleccionar al menos la Fecha de la lista de Accidentes Laborales Agregados");
+						return false;
+					} else
+						return true;
+				}
+			}
 		}
 	}
 

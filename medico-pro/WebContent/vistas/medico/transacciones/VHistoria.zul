@@ -33,34 +33,14 @@
 						<button class="btn" autodisable="self" id="btnBuscarPaciente"
 							label="Buscar Paciente" tooltiptext="Catalogo"
 							image="/public/imagenes/botones/buscar.png" width="130px" />
-						<button class="btn" autodisable="true" id="btnVerHistoria"
-							label="Ver Historia" tooltiptext="Catalogo"
-							image="/public/imagenes/botones/generar.png" width="130px" />
 						<label class="etiqueta" value="Cargo:" />
-						<label id="lblCargo1" />
-						<label class="etiqueta" value="Area:" />
-						<label id="lblArea" />
-						<button class="btn" autodisable="true" id="btnConstancia"
-							label="Constancia" tooltiptext="Catalogo" visible="false"
-							image="/public/imagenes/botones/generar.png" width="110px" />
-					</row>
-					<row>
-						<hbox>
-							<label class="etiqueta" value="Buscar Paciente con cita:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox maxlength="500" id="txtCedulaCita" hflex="1"
-							tooltiptext="Ingrese la Cedula del Paciente" />
-						<button class="btn" autodisable="self" id="btnBuscarPacienteCita"
-							label="Buscar Paciente" tooltiptext="Catalogo"
-							image="/public/imagenes/botones/buscar.png" width="130px" />
-						<cell colspan="5">
-							<hbox />
+						<cell colspan="2">
+							<label id="lblCargo1" />
 						</cell>
-						<button class="btn" autodisable="self" id="btnFaltantes"
-							label="Post-Pendientes" tooltiptext="Catalogo"
-							image="/public/imagenes/botones/buscar.png" width="130px" />
+						<label class="etiqueta" value="Area:" />
+						<cell colspan="2">
+							<label id="lblArea" />
+						</cell>
 					</row>
 				</rows>
 			</grid>
@@ -227,7 +207,6 @@
 						<tabbox height="auto" id="taxOtrosDatos" orient="horizontal">
 							<tabs id="tbsOtrosDatos">
 								<tab label="Datos de Contacto" id="tabDatosContacto" />
-								<tab label="Carga Familiar" id="tabCarga" />
 							</tabs>
 							<tabpanels>
 								<tabpanel>
@@ -280,26 +259,6 @@
 											</row>
 										</rows>
 									</grid>
-								</tabpanel>
-								<tabpanel>
-									<listbox width="auto" id="ltbCargaFamiliar" height="auto"
-										emptyMessage="El Paciente no posee carga Familiar Asociada">
-										<listhead>
-											<listheader label="Cedula" width="25%" />
-											<listheader label="Nombre y Apellido" width="55%" />
-											<listheader label="Parentesco" width="20%" />
-										</listhead>
-										<template name="model">
-											<listitem>
-												<listcell label="${each.cedula}">
-												</listcell>
-												<listcell label="${each.primerNombre}">
-												</listcell>
-												<listcell label="${each.parentescoFamiliar}">
-												</listcell>
-											</listitem>
-										</template>
-									</listbox>
 								</tabpanel>
 							</tabpanels>
 						</tabbox>
@@ -706,46 +665,46 @@
 												</cell>
 											</row>
 											<row>
-												<label class="etiqueta" value="Altura de Hombro" />
+												<label class="etiqueta" value="Altura de Hombro(cms)" />
 												<doublespinner value="0" id="spnAlturaHombro"
 													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Anchura de Hombro" />
+												<label class="etiqueta" value="Anchura de Hombro(cms)" />
 												<doublespinner value="0" id="spnAnchuraHombro"
 													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Altura de Codo" />
+												<label class="etiqueta" value="Altura de Codo(cms)" />
 												<doublespinner value="0" id="spnAlturaCodo"
 													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
 											</row>
 											<row>
-												<label class="etiqueta" value="Long Miembro Superior Izquierdo" />
+												<label class="etiqueta" value="Long Miembro Superior Izquierdo(cms)" />
 												<doublespinner value="0" id="spnLongIzquierdo"
 													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Long Miembro Superior Derecho" />
+												<label class="etiqueta" value="Long Miembro Superior Derecho(cms)" />
 												<doublespinner value="0" id="spnLongDerecho"
 													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Altura Poplitea" />
+												<label class="etiqueta" value="Altura Poplitea(cms)" />
 												<doublespinner value="0" id="spnPoplitea"
 													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
 											</row>
 											<row>
-												<label class="etiqueta" value="Altura silla ojo" />
+												<label class="etiqueta" value="Altura silla ojo(cms)" />
 												<doublespinner value="0" id="spnSillaOjo"
 													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Altura codo silla" />
+												<label class="etiqueta" value="Altura codo silla(cms)" />
 												<doublespinner value="0" id="spnCodoSilla"
 													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Circunferencia Abdominal" />
+												<label class="etiqueta" value="Circunferencia Abdominal(cms)" />
 												<doublespinner value="0" id="spnCircunferenciaA"
 													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
 											</row>
 											<row>
-												<label class="etiqueta" value="Distancia Mano Piso" />
+												<label class="etiqueta" value="Distancia Mano Piso(cms)" />
 												<doublespinner value="0" id="spnManoPiso"
 													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Circunferencia de Cadera" />
+												<label class="etiqueta" value="Circunferencia de Cadera(cms)" />
 												<doublespinner value="0" id="spnCircunferenciaC"
 													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Indice cadera Abdominal" />
+												<label class="etiqueta" value="Indice cadera Abdominal(cms)" />
 												<doublespinner value="0" id="spnCaderaAbdominal"
 													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
 											</row>
@@ -1729,8 +1688,8 @@
 					</tabpanel>
 				</tabpanels>
 			</tabbox>
-			<div id="divCatalogoPacientes" />
-			<div id="botoneraHistoria" />
 		</groupbox>
+		<div id="divCatalogoPacientes" />
+		<div id="botoneraHistoria" />
 	</div>
 </zk>

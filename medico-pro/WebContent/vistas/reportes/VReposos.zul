@@ -94,9 +94,9 @@
 						<combobox tooltiptext="Seleccione una Nomina"
 							placeholder="Seleccione una Nomina" id="cmbNomina" readonly="true"
 							width="100%" value="TODAS">
-							<template name="model">
-								<comboitem label="${each.nombre}" context="${each.idNomina}" />
-							</template>
+							<comboitem label="Empleado" />
+							<comboitem label="Obrero" />
+							<comboitem label="TODAS" />
 						</combobox>
 						<hbox />
 						<hbox />
@@ -132,18 +132,8 @@
 							<separator />
 							<label id="lblNombreDoctor" />
 						</hbox>
-						<hbox>
-							<label class="etiqueta" value="Unidad:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox id="cmbUnidad" readonly="true" tabindex="1"
-							value="TODAS" width="100%" tooltiptext="Seleccione una Unidad"
-							placeholder="Seleccione una Unidad">
-							<comboitem label="TODAS" />
-							<comboitem label="Foraneo" />
-							<comboitem label="Planta" />
-						</combobox>
+						<hbox />
+						<hbox />
 					</row>
 					<row>
 						<hbox>

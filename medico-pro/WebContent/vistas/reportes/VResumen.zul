@@ -34,26 +34,6 @@
 
 						</cell>
 					</row>
-					<row id="row">
-						<hbox>
-							<label class="etiqueta" value="Consulta de:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<cell colspan="3">
-							<radiogroup id="rdgRitmico">
-								<hbox>
-									<radio label="Familiares" value="si" id="rdoFamiliar" />
-									<separator />
-									<radio label="Trabajadores" value="no" id="rdoTrabajador" />
-									<separator />
-									<radio label="Todos" value="no" id="rdoTodos" />
-								</hbox>
-							</radiogroup>
-						</cell>
-						<hbox />
-						<hbox />
-					</row>
 					<row>
 						<hbox>
 							<label class="etiqueta" value="Reporte de Tipo:" />

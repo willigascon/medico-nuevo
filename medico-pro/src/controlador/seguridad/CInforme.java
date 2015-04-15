@@ -4904,7 +4904,7 @@ public class CInforme extends CGenerico {
 		p.put("condicionF", new JRBeanCollectionDataSource(condicionesF));
 
 		JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass()
-				.getResource("/reporte/RReporteSHA.jasper"));
+				.getResource("/reporte/seguridad/RReporteSHA.jasper"));
 		fichero = JasperRunManager.runReportToPdf(reporte, p);
 		return fichero;
 	}

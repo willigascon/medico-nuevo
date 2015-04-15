@@ -217,25 +217,13 @@ public class CPaciente extends CGenerico {
 	@Wire
 	private Radio rdoNoBrigadista;
 	@Wire
-	private Radio rdoSiCronico;
+	private Radio rdoSiPreempleado;
 	@Wire
-	private Radio rdoNoCronico;
+	private Radio rdoNoPreempleado;
 	@Wire
-	private Listbox ltbMedicinas;
+	private Radio rdoSiComite;
 	@Wire
-	private Listbox ltbMedicinasAgregadas;
-	@Wire
-	private Textbox txtBuscadorMedicina;
-	@Wire
-	private Radiogroup rdgJefe;
-	@Wire
-	private Radio rdoJefe;
-	@Wire
-	private Radio rdoNoJefe;
-	@Wire
-	private Textbox txtOficio;
-	@Wire
-	private Combobox cmbCondicionTrabajador;
+	private Radio rdoNoComite;
 	@Wire
 	private Label lblEstado;
 	@Wire
@@ -266,10 +254,7 @@ public class CPaciente extends CGenerico {
 	private Checkbox chkMoto;
 	@Wire
 	private Checkbox chkBicicleta;
-
-	Buscar<Medicina> buscarMedicina;
-
-	URL url = getClass().getResource("usuario.png");
+	URL url = getClass().getResource("/controlador/utils/usuario.png");
 	private CArbol cArbol = new CArbol();
 	String id = "";
 	String cedTrabajador = "";
@@ -300,7 +285,6 @@ public class CPaciente extends CGenerico {
 				mapa = null;
 			}
 		}
-		buscadorMedicina();
 		llenarComboCiudad();
 		llenarComboEmpresa();
 		llenarComboArea();
@@ -337,9 +321,9 @@ public class CPaciente extends CGenerico {
 						imagen = imagenPaciente.getContent().getByteData();
 					}
 
-					String oficio, condicion = "", profesion, nacionalidad, nivelEducativo, turno, retiroIVSS, nroInpsasel, nombre1, apellido1, cedula, nombre2, apellido2, ficha, detalleAlergia, lugarNac, sexo, grupoSanguineo, mano, origen, tipoDiscapacidad, otrasDiscapacidad, direccion, telefono1, telefono2, correo, nombresE, apellidosE, telefono1E, telefono2E, parentescoE, parentescoFamiliar;
+					String profesion, nacionalidad, nivelEducativo, turno, retiroIVSS, nroInpsasel, nombre1, apellido1, cedula, nombre2, apellido2, ficha, detalleAlergia, lugarNac, sexo, grupoSanguineo, mano, origen, tipoDiscapacidad, otrasDiscapacidad, direccion, telefono1, telefono2, correo, nombresE, apellidosE, telefono1E, telefono2E, parentescoE, parentescoFamiliar;
 					int edad, carga;
-					boolean alergia = false, discapacidad = false, lentes = false, jefe = false;
+					boolean alergia = false, discapacidad = false, lentes = false;
 					double estatura, peso;
 
 					Timestamp fechaIngreso = null;
@@ -436,7 +420,7 @@ public class CPaciente extends CGenerico {
 						empresa = servicioEmpresa.buscar(Long
 								.parseLong(cmbEmpresa.getSelectedItem()
 										.getContext()));
-					String nomina="";
+					String nomina = "";
 					if (cmbNomina.getValue() != null)
 						nomina = cmbNomina.getValue();
 
@@ -457,27 +441,24 @@ public class CPaciente extends CGenerico {
 
 					if (rdoSiBrigadista.isChecked())
 						brigadista = true;
-					Boolean cronico = false;
-					if (rdoSiCronico.isChecked())
-						cronico = true;
-
-					oficio = txtOficio.getValue();
-					if (!cmbCondicionTrabajador.getValue().equals(""))
-						condicion = cmbCondicionTrabajador.getValue();
-
-					if (rdoJefe.isChecked())
-						jefe = true;
+					Boolean comite = false;
+					if (rdoSiComite.isChecked())
+						comite = true;
+					Boolean trabajador = true;
+					if (rdoSiPreempleado.isChecked())
+						trabajador = false;
 
 					Paciente paciente = new Paciente(cedula, ficha, apellido1,
-							nombre1, apellido2, nombre2, true, discapacidad,
-							alergia, lentes, fechaNac, lugarNac, sexo, edad,
-							grupoSanguineo, detalleAlergia, mano, estatura,
-							peso, origen, tipoDiscapacidad, otrasDiscapacidad,
-							fechaHora, horaAuditoria, nombreUsuarioSesion(),
-							imagen, direccion, correo, telefono1, telefono2,
-							nombresE, apellidosE, parentescoE, telefono1E,
-							telefono2E, cedulaFamiliar, "", empresa, ciudad,
-							cargo, area, cronico, nomina);
+							nombre1, apellido2, nombre2, trabajador,
+							discapacidad, alergia, lentes, fechaNac, lugarNac,
+							sexo, edad, grupoSanguineo, detalleAlergia, mano,
+							estatura, peso, origen, tipoDiscapacidad,
+							otrasDiscapacidad, fechaHora, horaAuditoria,
+							nombreUsuarioSesion(), imagen, direccion, correo,
+							telefono1, telefono2, nombresE, apellidosE,
+							parentescoE, telefono1E, telefono2E,
+							cedulaFamiliar, "", empresa, ciudad, cargo, area,
+							nomina);
 					paciente.setBrigadista(brigadista);
 					paciente.setEstadoCivil(estadoCivil);
 					paciente.setNacionalidad(nacionalidad);
@@ -495,9 +476,7 @@ public class CPaciente extends CGenerico {
 					paciente.setObservacionEstatus(observacionEstatus);
 					paciente.setMuerte(muerte);
 					paciente.setFechaMuerte(fechaMuerte);
-					paciente.setJefe(jefe);
-					paciente.setCondicion(condicion);
-					paciente.setOficio(oficio);
+					paciente.setDelegadoPrevencion(comite);
 
 					paciente.setMunicipio(txtMunicipio.getValue());
 					paciente.setParroquia(txtParroquia.getValue());
@@ -542,40 +521,6 @@ public class CPaciente extends CGenerico {
 		botoneraPaciente.appendChild(botonera);
 	}
 
-	@Listen("onClick = #btnAbrirMedicina")
-	public void divMedicina() {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("id", "paciente");
-		map.put("lista", medicinasDisponibles);
-		map.put("listbox", ltbMedicinas);
-		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
-		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Medicina");
-		if (!arboles.isEmpty()) {
-			Arbol arbolItem = arboles.get(0);
-			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
-		}
-	}
-
-	private void buscadorMedicina() {
-		buscarMedicina = new Buscar<Medicina>(ltbMedicinas, txtBuscadorMedicina) {
-
-			@Override
-			protected List<Medicina> buscar(String valor) {
-				List<Medicina> medicinasFiltradas = new ArrayList<Medicina>();
-				List<Medicina> medicinas = servicioMedicina.filtroNombre(valor);
-				for (int i = 0; i < medicinasDisponibles.size(); i++) {
-					Medicina medicina = medicinasDisponibles.get(i);
-					for (int j = 0; j < medicinas.size(); j++) {
-						if (medicina.getIdMedicina() == medicinas.get(j)
-								.getIdMedicina())
-							medicinasFiltradas.add(medicina);
-					}
-				}
-				return medicinasFiltradas;
-			}
-		};
-	}
-
 	/* Permite validar que todos los campos esten completos */
 	public boolean validar() {
 		if (txtApellido1Paciente.getText().compareTo("") == 0
@@ -594,6 +539,8 @@ public class CPaciente extends CGenerico {
 				|| txtTelefono2.getText().compareTo("") == 0
 				|| txtProfesion.getText().compareTo("") == 0
 				|| (!rdoSiAlergico.isChecked() && !rdoNoAlergico.isChecked())
+				|| (!rdoSiPreempleado.isChecked() && !rdoNoPreempleado
+						.isChecked())
 				|| (!rdoE.isChecked() && !rdoV.isChecked())
 				|| (!rdoNoDiscapacidad.isChecked() && !rdoSiDiscapacidad
 						.isChecked())
@@ -702,8 +649,7 @@ public class CPaciente extends CGenerico {
 		final List<Paciente> pacientes = pacientes2;
 		catalogo = new Catalogo<Paciente>(catalogoPaciente, titulo, pacientes,
 				false, "Cedula", segundo, "Primer Nombre", "Segundo Nombre",
-				"Primer Apellido", "Segundo Apellido", "Estado",
-				"Trabajador Asociado") {
+				"Primer Apellido", "Segundo Apellido", "Estado") {
 
 			@Override
 			protected List<Paciente> buscar(String valor, String combo) {
@@ -739,11 +685,6 @@ public class CPaciente extends CGenerico {
 						return servicioPaciente.filtroApellido2C(valor,
 								txtCedulaPaciente.getValue());
 					return servicioPaciente.filtroApellido2T(valor);
-				case "Trabajador Asociado":
-					if (!idBoton.equals("btnBuscarPaciente"))
-						return servicioPaciente.filtroCedulaAsociadoC(valor,
-								txtCedulaPaciente.getValue());
-					return servicioPaciente.filtroCedulaAsociado(valor);
 				default:
 					return pacientes;
 				}
@@ -758,7 +699,7 @@ public class CPaciente extends CGenerico {
 				String activo = "Activo";
 				if (!objeto.isEstatus())
 					activo = "Inactivo";
-				String[] registros = new String[8];
+				String[] registros = new String[7];
 				registros[0] = objeto.getCedula();
 				registros[1] = valor;
 				registros[2] = objeto.getPrimerNombre();
@@ -766,7 +707,6 @@ public class CPaciente extends CGenerico {
 				registros[4] = objeto.getPrimerApellido();
 				registros[5] = objeto.getSegundoApellido();
 				registros[6] = activo;
-				registros[7] = objeto.getCedulaFamiliar();
 				return registros;
 			}
 
@@ -982,24 +922,14 @@ public class CPaciente extends CGenerico {
 			rdoNoBrigadista.setChecked(false);
 			rdoSiBrigadista.setChecked(false);
 		}
-
-		if (paciente.getCronico() != null) {
-			if (paciente.getCronico())
-				rdoSiCronico.setChecked(true);
-			else
-				rdoNoCronico.setChecked(true);
-		} else {
-			rdoNoCronico.setChecked(false);
-			rdoSiCronico.setChecked(false);
-		}
-
-		if (paciente.isJefe())
-			rdoJefe.setChecked(true);
+		if (!paciente.isTrabajador())
+			rdoSiPreempleado.setChecked(true);
 		else
-			rdoNoJefe.setChecked(false);
-
-		cmbCondicionTrabajador.setValue(paciente.getCondicion());
-		txtOficio.setValue(paciente.getOficio());
+			rdoNoPreempleado.setChecked(true);
+		if (paciente.isDelegadoPrevencion())
+			rdoSiComite.setChecked(true);
+		else
+			rdoNoComite.setChecked(true);
 		txtUrb.setValue(paciente.getUrb());
 		txtParroquia.setValue(paciente.getParroquia());
 		txtMunicipio.setValue(paciente.getMunicipio());
@@ -1120,11 +1050,6 @@ public class CPaciente extends CGenerico {
 		tabDatosContacto.setSelected(true);
 	}
 
-	@Listen("onClick = #btnSiguiente2")
-	public void siguientePestanna2() {
-		tabDatosCronico.setSelected(true);
-	}
-
 	/* Busca si existe un diagnostico con el mismo codigo escrito */
 	@Listen("onChange = #dtbFechaNac")
 	public void cambioEdad() {
@@ -1181,9 +1106,6 @@ public class CPaciente extends CGenerico {
 		cmbGrupoSanguineo.setPlaceholder("Seleccione el Grupo");
 		cmbMano.setValue("");
 		cmbMano.setPlaceholder("Seleccione el Valor");
-		cmbCondicionTrabajador.setValue("");
-		cmbCondicionTrabajador
-				.setPlaceholder("Seleccione la Condicion del Trabajador");
 		cmbOrigen.setValue("");
 		cmbOrigen.setPlaceholder("Seleccione el Origen");
 		cmbTipoDiscapacidad.setValue("");
@@ -1223,29 +1145,22 @@ public class CPaciente extends CGenerico {
 		dtbFechaIngreso.setValue(fecha);
 		rdoNoBrigadista.setChecked(false);
 		rdoSiBrigadista.setChecked(false);
-		rdoSiCronico.setChecked(false);
-		rdoNoCronico.setChecked(false);
+		rdoSiComite.setChecked(false);
+		rdoNoComite.setChecked(false);
+		rdoSiPreempleado.setChecked(false);
+		rdoNoPreempleado.setChecked(false);
 		dtbInscripcionIVSS.setValue(fecha);
 		dtbFechaMuerte.setValue(fecha);
 		dtbFechaMuerte.setVisible(false);
-		txtOficio.setValue("");
-
 		rdoActivo.setChecked(true);
 		rdoInactivo.setValue(null);
-
 		rdoSiDiscapacidad.setValue(null);
 		rdoNoDiscapacidad.setValue(null);
-
-		rdoJefe.setChecked(false);
-		rdoNoJefe.setChecked(false);
-
 		rdoSiLentes.setValue(null);
 		rdoNoLentes.setValue(null);
-
 		rdoE.setDisabled(false);
 		rdoV.setDisabled(false);
 		tabDatosBasicos.setSelected(true);
-
 		chkBicicleta.setChecked(false);
 		chkDusa.setChecked(false);
 		chkMoto.setChecked(false);

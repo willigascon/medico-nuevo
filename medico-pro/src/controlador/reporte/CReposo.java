@@ -87,8 +87,6 @@ public class CReposo extends CGenerico {
 	@Wire
 	private Button btnBuscarDoctor;
 	@Wire
-	private Combobox cmbUnidad;
-	@Wire
 	private Combobox cmbDiagnostico;
 	@Wire
 	private Label lblPaciente;
@@ -248,7 +246,6 @@ public class CReposo extends CGenerico {
 				case "doctor":
 					idDoctor = "";
 					lblNombreDoctor.setValue("");
-					cmbUnidad.setValue("TODAS");
 					break;
 				case "paciente":
 					idPaciente = "";
@@ -294,6 +291,10 @@ public class CReposo extends CGenerico {
 						if (validarEmpresa())
 							reporteEmpresa();
 						break;
+					case "nomina":
+						if (validarNomina())
+							reporteNomina();
+						break;
 					}
 				}
 			}
@@ -309,6 +310,145 @@ public class CReposo extends CGenerico {
 		guardar.setImage("/public/imagenes/botones/reporte.png");
 		botonera.getChildren().get(1).setVisible(false);
 		botoneraReposo.appendChild(botonera);
+	}
+
+	public void reporteNomina() {
+		Date desde = dtbDesde.getValue();
+		Date hasta = dtbHasta.getValue();
+		DateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
+		String fecha1 = fecha.format(desde);
+		String fecha2 = fecha.format(hasta);
+		String nomina = "";
+		String tipoReporte = cmbTipo.getValue();
+		if (cmbNomina.getValue().equals("TODAS"))
+			nomina = "";
+		else
+			nomina = cmbNomina.getValue();
+
+		if ((nomina.equals("") && servicioConsulta
+				.buscarEntreFechasReposoyTrabajadores(desde, hasta).isEmpty())
+				|| (!nomina.equals("") && servicioConsulta
+						.buscarEntreFechasReposoNominayTrabajadores(desde,
+								hasta, nomina).isEmpty()))
+			Mensaje.mensajeAlerta(Mensaje.noHayRegistros);
+		else {
+
+			Clients.evalJavaScript("window.open('"
+					+ damePath()
+					+ "Reportero?valor=39&valor6="
+					+ fecha1
+					+ "&valor7="
+					+ fecha2
+					+ "&valor8="
+					+ nomina
+					+ "&valor20="
+					+ tipoReporte
+					+ "','','top=100,left=200,height=600,width=800,scrollbars=1,resizable=1')");
+		}
+
+	}
+
+	public byte[] reporteReposoPorNomina(String part1, String part2,
+			String nomina, String tipoReporte) throws JRException {
+		byte[] fichero = null;
+		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+		Date fecha1 = null;
+		try {
+			fecha1 = formato.parse(part1);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Date fecha2 = null;
+		try {
+			fecha2 = formato.parse(part2);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		fecha2 = agregarDia(fecha2);
+		List<Consulta> consuta = new ArrayList<Consulta>();
+
+		if (nomina.equals(""))
+			consuta = getServicioConsulta()
+					.buscarEntreFechasReposoyTrabajadores(fecha1, fecha2);
+		else
+			consuta = getServicioConsulta()
+					.buscarEntreFechasReposoNominayTrabajadores(fecha1, fecha2,
+							nomina);
+
+		Map<String, Object> p = new HashMap<String, Object>();
+		p.put("desde", part1);
+		p.put("hasta", part2);
+
+		for (int i = 0; i < consuta.size(); i++) {
+			Consulta cons = consuta.get(i);
+			List<ConsultaDiagnostico> dig = getServicioConsultaDiagnostico()
+					.buscarPorConsulta(cons);
+			Calendar c = Calendar.getInstance();
+			if (cons.getFechaReposo() != null)
+				c.setTime(cons.getFechaReposo());
+			else {
+				cons.setFechaReposo(cons.getFechaConsulta());
+				c.setTime(cons.getFechaConsulta());
+			}
+
+			if (cons.getTipoReposo() != null) {
+				if (cons.getTipoReposo().equals("Dias")) {
+					c.add(Calendar.DAY_OF_YEAR, cons.getDiasReposo());
+					cons.setUsuarioAuditoria(cons.getDiasReposo() + " Dias");
+				} else
+					cons.setUsuarioAuditoria(cons.getDiasReposo() + " Horas");
+			} else {
+				c.add(Calendar.DAY_OF_YEAR, cons.getDiasReposo());
+				cons.setUsuarioAuditoria(cons.getDiasReposo() + " Dias");
+			}
+			Date fechaHasta = c.getTime();
+			Timestamp fechaHasta2 = new Timestamp(fechaHasta.getTime());
+			cons.setFechaAuditoria(fechaHasta2);
+			if (!dig.isEmpty()) {
+				if (dig.get(0) != null) {
+
+					cons.setEnfermedadActual(dig.get(0).getDiagnostico()
+							.getNombre());
+					cons.setMotivoConsulta(dig.get(0).getTipo());
+
+				}
+			} else {
+				cons.setEnfermedadActual("");
+				cons.setMotivoConsulta("");
+			}
+		}
+		p.put("data", new JRBeanCollectionDataSource(consuta));
+
+		JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass()
+				.getResource("/reporte/medico/reposo/RRepososPorNomina.jasper"));
+		if (tipoReporte.equals("EXCEL")) {
+
+			JasperPrint jasperPrint = null;
+			try {
+				jasperPrint = JasperFillManager.fillReport(reporte, p,
+						new JRBeanCollectionDataSource(consuta));
+			} catch (JRException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			ByteArrayOutputStream xlsReport = new ByteArrayOutputStream();
+			JRXlsxExporter exporter = new JRXlsxExporter();
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, xlsReport);
+			try {
+				exporter.exportReport();
+			} catch (JRException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return xlsReport.toByteArray();
+		} else {
+
+			fichero = JasperRunManager.runReportToPdf(reporte, p,
+					new JRBeanCollectionDataSource(consuta));
+			return fichero;
+		}
 	}
 
 	private void buscadorDiagnostico() {
@@ -423,7 +563,7 @@ public class CReposo extends CGenerico {
 	}
 
 	public boolean validarDoctor() {
-		if (cmbUnidad.getText().compareTo("") == 0 || idDoctor.equals("")) {
+		if (idDoctor.equals("")) {
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		}
@@ -545,7 +685,7 @@ public class CReposo extends CGenerico {
 		p.put("data", new JRBeanCollectionDataSource(consuta));
 
 		JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass()
-				.getResource("/reporte/RRepososPorArea.jasper"));
+				.getResource("/reporte/medico/reposo/RRepososPorArea.jasper"));
 		if (tipoReporte.equals("EXCEL")) {
 
 			JasperPrint jasperPrint = null;
@@ -735,8 +875,9 @@ public class CReposo extends CGenerico {
 		}
 		p.put("data", new JRBeanCollectionDataSource(consutaDiag));
 
-		JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass()
-				.getResource("/reporte/RRepososPorDiagnostico.jasper"));
+		JasperReport reporte = (JasperReport) JRLoader
+				.loadObject(getClass().getResource(
+						"/reporte/medico/reposo/RRepososPorDiagnostico.jasper"));
 		if (tipoReporte.equals("EXCEL")) {
 
 			JasperPrint jasperPrint = null;
@@ -774,11 +915,7 @@ public class CReposo extends CGenerico {
 		String fecha2 = fecha.format(hasta);
 		String unidad = "";
 		String tipoReporte = cmbTipo.getValue();
-
-		if (cmbUnidad.getValue().equals("TODAS"))
 			unidad = "";
-		else
-			unidad = cmbUnidad.getValue();
 
 		if ((unidad.equals("") && idDoctor.equals("TODOS") && servicioConsulta
 				.buscarEntreFechasOrdenadasPorUnidadReposoyTrabajadores(desde,
@@ -921,7 +1058,8 @@ public class CReposo extends CGenerico {
 		p.put("data", new JRBeanCollectionDataSource(consuta));
 
 		JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass()
-				.getResource("/reporte/RRepososPorPaciente.jasper"));
+				.getResource(
+						"/reporte/medico/reposo/RRepososPorPaciente.jasper"));
 		if (tipoReporte.equals("EXCEL")) {
 
 			JasperPrint jasperPrint = null;
@@ -1047,8 +1185,9 @@ public class CReposo extends CGenerico {
 		}
 		p.put("data", new JRBeanCollectionDataSource(consuta));
 
-		JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass()
-				.getResource("/reporte/RRepososPorDoctor.jasper"));
+		JasperReport reporte = (JasperReport) JRLoader
+				.loadObject(getClass().getResource(
+						"/reporte/medico/reposo/RRepososPorDoctor.jasper"));
 		if (tipoReporte.equals("EXCEL")) {
 
 			JasperPrint jasperPrint = null;
@@ -1195,8 +1334,9 @@ public class CReposo extends CGenerico {
 		}
 		p.put("data", new JRBeanCollectionDataSource(consuta));
 
-		JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass()
-				.getResource("/reporte/RRepososPorEmpresa.jasper"));
+		JasperReport reporte = (JasperReport) JRLoader
+				.loadObject(getClass().getResource(
+						"/reporte/medico/reposo/RRepososPorEmpresa.jasper"));
 		if (tipoReporte.equals("EXCEL")) {
 
 			JasperPrint jasperPrint = null;
@@ -1342,7 +1482,7 @@ public class CReposo extends CGenerico {
 		p.put("data", new JRBeanCollectionDataSource(consuta));
 
 		JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass()
-				.getResource("/reporte/RRepososPorCargo.jasper"));
+				.getResource("/reporte/medico/reposo/RRepososPorCargo.jasper"));
 		if (tipoReporte.equals("EXCEL")) {
 
 			JasperPrint jasperPrint = null;

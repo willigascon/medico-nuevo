@@ -184,7 +184,7 @@ public class CReporteCertificado extends CGenerico {
 		JasperReport reporte = null;
 		try {
 			reporte = (JasperReport) JRLoader.loadObject(getClass()
-					.getResource("/reporte/RCertificado.jasper"));
+					.getResource("/reporte/medico/general/RCertificado.jasper"));
 		} catch (JRException e1) {
 			e1.printStackTrace();
 		}

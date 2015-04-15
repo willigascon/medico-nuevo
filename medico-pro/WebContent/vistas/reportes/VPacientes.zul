@@ -99,30 +99,6 @@
 							</hbox>
 						</cell>
 					</row>
-					<row id="rowFamiliar">
-						<cell colspan="2">
-							<hbox>
-								<label class="etiqueta" value="Consulta de:" />
-								<space />
-								<label value="*" style="font-weight:bold;color:red" />
-							</hbox>
-						</cell>
-						<cell colspan="6">
-							<hbox>
-								<radiogroup id="rdgFamiliar">
-									<hbox>
-										<radio label="Familiares" value="familiares" id="rdoFamiliares" />
-										<separator />
-										<separator />
-										<radio label="Trabajadores" value="trabajadores" id="rdoTrabajadores" />
-										<separator />
-										<separator />
-										<radio label="Todos" value="todos" id="rdoTodos" />
-									</hbox>
-								</radiogroup>
-							</hbox>
-						</cell>
-					</row>
 					<row>
 						<hbox>
 							<label class="etiqueta" value="Reporte de Tipo:" />

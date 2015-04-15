@@ -32,6 +32,7 @@ import org.zkoss.zul.Div;
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Include;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
@@ -59,6 +60,10 @@ public class CUsuario extends CGenerico {
 	@Wire
 	private Div catalogoUsuario;
 	@Wire
+	private Div catalogoDoctores;
+	@Wire
+	private Label lblNombreDoctor;
+	@Wire
 	private Textbox txtNombre;
 	@Wire
 	private Textbox txtApellido;
@@ -84,10 +89,12 @@ public class CUsuario extends CGenerico {
 	private Media media;
 	String id = "";
 	Catalogo<Usuario> catalogo;
+	Catalogo<DoctorInterno> catalogoDoctor;
 	List<Grupo> gruposDisponibles = new ArrayList<Grupo>();
 	List<Grupo> gruposOcupados = new ArrayList<Grupo>();
 	URL url = getClass().getResource("/controlador/utils/usuario.png");
 	CArbol cArbol = new CArbol();
+	private String idDoctor = null;
 
 	@Override
 	public void inicializar() throws IOException {
@@ -122,6 +129,7 @@ public class CUsuario extends CGenerico {
 
 			@Override
 			public void limpiar() {
+				idDoctor = null;
 				gruposDisponibles.clear();
 				gruposOcupados.clear();
 				ltbGruposAgregados.getItems().clear();
@@ -169,10 +177,12 @@ public class CUsuario extends CGenerico {
 						}
 						long licencia = 0;
 						DoctorInterno doctor = null;
+						if (idDoctor != null)
+							doctor = servicioDoctor.buscarPorCedula(idDoctor);
 						Usuario usuario = new Usuario(login, doctor, correo,
 								password, imagenUsuario, true, nombre,
 								apellido, fechaHora, horaAuditoria,
-								nombreUsuarioSesion());
+								nombreUsuarioSesion(), gruposUsuario);
 						servicioUsuario.guardar(usuario);
 						limpiar();
 						Mensaje.mensajeInformacion(Mensaje.guardado);
@@ -475,5 +485,53 @@ public class CUsuario extends CGenerico {
 		ltbGruposDisponibles.setCheckmark(false);
 		ltbGruposDisponibles.setMultiple(true);
 		ltbGruposDisponibles.setCheckmark(true);
+	}
+
+	@Listen("onClick = #btnBuscarDoctor")
+	public void mostrarCatalogo2() {
+		final List<DoctorInterno> usuarios = servicioDoctor.buscarTodos();
+		catalogoDoctor = new Catalogo<DoctorInterno>(catalogoDoctores,
+				"Catalogo de Doctores", usuarios, false, "Cedula", "Ficha",
+				"Nombre", "Apellido") {
+
+			@Override
+			protected List<DoctorInterno> buscar(String valor, String combo) {
+				switch (combo) {
+				case "Cedula":
+					return servicioDoctor.filtroCedula(valor);
+				case "Ficha":
+					return servicioDoctor.filtroFicha(valor);
+				case "Nombre":
+					return servicioDoctor.filtroNombre(valor);
+				case "Apellido":
+					return servicioDoctor.filtroApellido(valor);
+				default:
+					return usuarios;
+				}
+			}
+
+			@Override
+			protected String[] crearRegistros(DoctorInterno objeto) {
+				String[] registros = new String[4];
+				registros[0] = objeto.getCedula();
+				registros[1] = objeto.getFicha();
+				registros[2] = objeto.getPrimerNombre();
+				registros[3] = objeto.getPrimerApellido();
+				return registros;
+			}
+
+		};
+		catalogoDoctor.setParent(catalogoDoctores);
+		catalogoDoctor.doModal();
+	}
+
+	/* Permite la seleccion de un item del catalogo de doctores */
+	@Listen("onSeleccion = #catalogoDoctores")
+	public void seleccionarDoctor() {
+		DoctorInterno usuario = catalogoDoctor.objetoSeleccionadoDelCatalogo();
+		lblNombreDoctor.setValue(usuario.getPrimerNombre() + " "
+				+ usuario.getPrimerApellido());
+		idDoctor = usuario.getCedula();
+		catalogoDoctor.setParent(null);
 	}
 }

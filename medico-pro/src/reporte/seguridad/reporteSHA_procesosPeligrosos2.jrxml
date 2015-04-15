@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteSHA_procesosPeligrosos2" language="groovy" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="848ce136-a5cf-4eb8-b154-324a20163bfa">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1153"/>
+	<property name="ireport.y" value="799"/>
 	<parameter name="hbaaSI" class="java.lang.String"/>
 	<parameter name="hbaaNO" class="java.lang.String"/>
 	<parameter name="hbabSI" class="java.lang.String"/>
@@ -166,12 +166,12 @@
 			<subreport>
 				<reportElement x="26" y="35" width="467" height="258" uuid="73b526b9-7a16-432b-b6db-d778c63d4892"/>
 				<dataSourceExpression><![CDATA[$P{condicionB}]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_ListaCondicionB.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_ListaCondicionB.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="31" y="351" width="458" height="161" uuid="b50821be-15f2-4dbf-9c5d-bf58fff22c65"/>
 				<dataSourceExpression><![CDATA[$P{condicionC}]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_ListaCondicionC.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_ListaCondicionC.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</title>
@@ -484,7 +484,7 @@
 			<subreport>
 				<reportElement x="21" y="60" width="485" height="310" uuid="b95d0078-231a-4d7a-90a3-c567b0a711c9"/>
 				<dataSourceExpression><![CDATA[$P{condicionD}]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_ListaCondicionD.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_ListaCondicionD.jasper"]]></subreportExpression>
 			</subreport>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="378" y="777" width="143" height="25" uuid="64ae5679-05a4-4dc1-84b7-dbd5156ec51a"/>

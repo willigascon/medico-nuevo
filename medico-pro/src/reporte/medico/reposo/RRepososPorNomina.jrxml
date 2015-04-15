@@ -25,7 +25,7 @@
 	</style>
 	<subDataset name="Table Dataset 1" uuid="e19deba1-e65e-4953-923f-0f0ecc01c915">
 		<field name="fechaConsulta" class="java.sql.Timestamp"/>
-		<field name="paciente.nomina.nombre" class="java.lang.String"/>
+		<field name="paciente.nomina" class="java.lang.String"/>
 		<variable name="variable1" class="java.lang.Integer" resetType="Group" resetGroup="nomina" calculation="Count">
 			<variableExpression><![CDATA[$F{fechaConsulta}]]></variableExpression>
 		</variable>
@@ -33,13 +33,13 @@
 			<variableExpression><![CDATA[$F{fechaConsulta}]]></variableExpression>
 		</variable>
 		<group name="nomina">
-			<groupExpression><![CDATA[$F{paciente.nomina.nombre}]]></groupExpression>
+			<groupExpression><![CDATA[$F{paciente.nomina}]]></groupExpression>
 		</group>
 	</subDataset>
 	<parameter name="desde" class="java.lang.String"/>
 	<parameter name="hasta" class="java.lang.String"/>
 	<parameter name="data" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
-	<field name="paciente.nomina.nombre" class="java.lang.String"/>
+	<field name="paciente.nomina" class="java.lang.String"/>
 	<field name="paciente.primerNombre" class="java.lang.String"/>
 	<field name="paciente.primerApellido" class="java.lang.String"/>
 	<field name="paciente.cedula" class="java.lang.String"/>
@@ -51,13 +51,13 @@
 	<field name="usuarioAuditoria" class="java.lang.String"/>
 	<variable name="variable1" class="java.lang.String"/>
 	<variable name="totalArea" class="java.lang.Integer" resetType="Group" resetGroup="nomina" calculation="Count">
-		<variableExpression><![CDATA[$F{paciente.nomina.nombre}]]></variableExpression>
+		<variableExpression><![CDATA[$F{paciente.nomina}]]></variableExpression>
 	</variable>
 	<variable name="total" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{fechaReposo}]]></variableExpression>
 	</variable>
 	<group name="nomina">
-		<groupExpression><![CDATA[$F{paciente.nomina.nombre}]]></groupExpression>
+		<groupExpression><![CDATA[$F{paciente.nomina}]]></groupExpression>
 		<groupHeader>
 			<band height="25">
 				<rectangle>
@@ -78,7 +78,7 @@
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{paciente.nomina.nombre}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{paciente.nomina}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -103,7 +103,7 @@
 				</staticText>
 				<textField isStretchWithOverflow="true">
 					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="273" y="7" width="261" height="20" uuid="ef73706c-3340-4711-a214-6b9c8aba63d2"/>
-					<textFieldExpression><![CDATA[$F{paciente.nomina.nombre}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{paciente.nomina}]]></textFieldExpression>
 				</textField>
 				<line>
 					<reportElement x="1" y="36" width="554" height="1" uuid="109f134c-5443-4a13-86d5-5e4a360cdb43"/>
@@ -374,7 +374,7 @@
 									<textElement verticalAlignment="Middle">
 										<font size="11"/>
 									</textElement>
-									<textFieldExpression><![CDATA[$F{paciente.nomina.nombre}]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{paciente.nomina}]]></textFieldExpression>
 								</textField>
 							</jr:cell>
 						</jr:groupFooter>

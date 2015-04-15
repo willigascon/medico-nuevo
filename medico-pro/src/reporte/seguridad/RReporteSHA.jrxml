@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RReporteSHA" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="26b4a361-1750-425d-8b6a-d836f40c9973">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="117"/>
+	<property name="ireport.y" value="116"/>
 	<parameter name="codigo" class="java.lang.String"/>
 	<parameter name="nombre211" class="java.lang.String"/>
 	<parameter name="cedula211" class="java.lang.String"/>
@@ -678,7 +678,7 @@
 					<subreportParameterExpression><![CDATA[$P{codigoCiiuA}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_datos.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_datos.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport isUsingCache="false">
 				<reportElement x="22" y="182" width="517" height="41" uuid="57d69458-4474-4264-bbd2-058be618138e"/>
@@ -1265,7 +1265,7 @@
 					<subreportParameterExpression><![CDATA[$P{ebd7}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_datosEmpresa_trabajador.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_datosEmpresa_trabajador.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="22" y="253" width="517" height="41" uuid="a10cbab0-1d12-4253-a973-5f7eba9ff30b"/>
@@ -1396,7 +1396,7 @@
 					<subreportParameterExpression><![CDATA[$P{fghNO}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_datosAccidente.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_datosAccidente.jasper"]]></subreportExpression>
 			</subreport>
 			<break>
 				<reportElement x="0" y="238" width="100" height="1" uuid="77abada6-b938-48cf-b1e9-efb15f665d67"/>
@@ -1491,7 +1491,7 @@
 					<subreportParameterExpression><![CDATA[$P{hbdNO}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_procesosPeligrosos.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_procesosPeligrosos.jasper"]]></subreportExpression>
 			</subreport>
 			<break>
 				<reportElement x="0" y="299" width="100" height="1" uuid="fac18752-73e8-4051-a8f1-b0e4c5bb5b15"/>
@@ -1559,7 +1559,7 @@
 					<subreportParameterExpression><![CDATA[$P{condicionC}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_procesosPeligrosos2.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_procesosPeligrosos2.jasper"]]></subreportExpression>
 			</subreport>
 			<break>
 				<reportElement x="0" y="414" width="100" height="1" uuid="def201a8-06ec-4fc1-92bb-26f4cdc4d55f"/>
@@ -1759,7 +1759,7 @@
 					<subreportParameterExpression><![CDATA[$P{hcabNO}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_procesosPeligrosos3.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_procesosPeligrosos3.jasper"]]></subreportExpression>
 			</subreport>
 			<break>
 				<reportElement x="0" y="472" width="100" height="1" uuid="1df2083a-ee76-408e-8ba1-13a6eabe6e57"/>
@@ -1845,7 +1845,7 @@
 					<subreportParameterExpression><![CDATA[$P{iagSI}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_procesosPeligrosos4.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_procesosPeligrosos4.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="22" y="537" width="517" height="39" uuid="40148a10-813a-4791-a59a-ec3fd4ba6a04"/>
@@ -2186,7 +2186,7 @@
 					<subreportParameterExpression><![CDATA[$P{idaSI}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[]]></dataSourceExpression>
-				<subreportExpression><![CDATA["/reporte/reporteSHA_gestionSeguridadSalud.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["/reporte/seguridad/reporteSHA_gestionSeguridadSalud.jasper"]]></subreportExpression>
 			</subreport>
 			<break>
 				<reportElement x="0" y="175" width="100" height="1" uuid="80fd1222-51c0-4319-83c9-3f890a333a86"/>

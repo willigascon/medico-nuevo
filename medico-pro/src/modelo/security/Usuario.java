@@ -74,7 +74,7 @@ public class Usuario implements Serializable {
 	public Usuario(String login, DoctorInterno doctorInterno, String email,
 			String password, byte[] imagen, boolean estado, String nombre,
 			String apellido, Timestamp fechaAuditoria, String horaAuditoria,
-			String usuarioAuditoria) {
+			String usuarioAuditoria, Set<Grupo> grupos) {
 		super();
 		this.login = login;
 		this.doctorInterno = doctorInterno;
@@ -87,6 +87,7 @@ public class Usuario implements Serializable {
 		this.fechaAuditoria = fechaAuditoria;
 		this.horaAuditoria = horaAuditoria;
 		this.usuarioAuditoria = usuarioAuditoria;
+		this.grupos = grupos;
 	}
 
 	public String getLogin() {

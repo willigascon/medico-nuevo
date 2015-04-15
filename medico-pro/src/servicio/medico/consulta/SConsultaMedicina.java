@@ -36,4 +36,8 @@ public class SConsultaMedicina {
 		// TODO Auto-generated method stub
 		return consultaMedicinaDAO.findByMedicina(medicina);
 	}
+
+	public Double costoPorConsulta(Consulta consulta) {
+		return consultaMedicinaDAO.costByConsulta(consulta);
+	}
 }

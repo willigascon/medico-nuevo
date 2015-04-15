@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RMorbilidadPorDoctor" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" uuid="d30e54bc-fc2e-442f-a97b-8c374f26567e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="176"/>
+	<property name="ireport.y" value="10"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -64,12 +64,11 @@
 		</box>
 	</style>
 	<subDataset name="Table Dataset 1" uuid="67485a0c-b5fb-4e8d-8533-8c313b9a3ab4">
-		<field name="usuario.cedula" class="java.lang.String"/>
-		<field name="usuario.unidad" class="java.lang.String"/>
+		<field name="doctorInterno.cedula" class="java.lang.String"/>
 		<field name="fechaConsulta" class="java.sql.Timestamp"/>
-		<field name="usuario.primerNombre" class="java.lang.String"/>
-		<field name="usuario.primerApellido" class="java.lang.String"/>
-		<field name="usuario.especialidad.descripcion" class="java.lang.String"/>
+		<field name="doctorInterno.primerNombre" class="java.lang.String"/>
+		<field name="doctorInterno.primerApellido" class="java.lang.String"/>
+		<field name="doctorInterno.especialidad.descripcion" class="java.lang.String"/>
 		<variable name="variable1" class="java.lang.Integer" resetType="Group" resetGroup="doctor" calculation="Count">
 			<variableExpression><![CDATA[$F{fechaConsulta}]]></variableExpression>
 		</variable>
@@ -80,21 +79,20 @@
 			<variableExpression><![CDATA[$F{fechaConsulta}]]></variableExpression>
 		</variable>
 		<group name="unidad">
-			<groupExpression><![CDATA[$F{usuario.unidad}]]></groupExpression>
+			<groupExpression><![CDATA[$F{doctorInterno.especialidad.descripcion}]]></groupExpression>
 		</group>
 		<group name="doctor">
-			<groupExpression><![CDATA[$F{usuario.cedula}]]></groupExpression>
+			<groupExpression><![CDATA[$F{doctorInterno.cedula}]]></groupExpression>
 		</group>
 	</subDataset>
 	<parameter name="desde" class="java.lang.String"/>
 	<parameter name="hasta" class="java.lang.String"/>
 	<parameter name="unidad" class="java.lang.String"/>
 	<parameter name="data" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
-	<field name="usuario.cedula" class="java.lang.String"/>
-	<field name="usuario.primerNombre" class="java.lang.String"/>
-	<field name="usuario.primerApellido" class="java.lang.String"/>
-	<field name="usuario.unidad" class="java.lang.String"/>
-	<field name="usuario.especialidad.descripcion" class="java.lang.String"/>
+	<field name="doctorInterno.cedula" class="java.lang.String"/>
+	<field name="doctorInterno.primerNombre" class="java.lang.String"/>
+	<field name="doctorInterno.primerApellido" class="java.lang.String"/>
+	<field name="doctorInterno.especialidad.descripcion" class="java.lang.String"/>
 	<field name="paciente.cedula" class="java.lang.String"/>
 	<field name="paciente.primerNombre" class="java.lang.String"/>
 	<field name="paciente.primerApellido" class="java.lang.String"/>
@@ -106,16 +104,16 @@
 	<field name="tipoConsultaSecundaria" class="java.lang.String"/>
 	<field name="paciente.ficha" class="java.lang.String"/>
 	<variable name="totalDoctor" class="java.lang.Integer" resetType="Group" resetGroup="doctor" calculation="Count">
-		<variableExpression><![CDATA[$F{usuario.cedula}]]></variableExpression>
+		<variableExpression><![CDATA[$F{fechaConsulta}]]></variableExpression>
 	</variable>
 	<variable name="totalUnidad" class="java.lang.Integer" resetType="Group" resetGroup="unidad" calculation="Count">
-		<variableExpression><![CDATA[$F{usuario.unidad}]]></variableExpression>
+		<variableExpression><![CDATA[$F{fechaConsulta}]]></variableExpression>
 	</variable>
 	<variable name="total" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{fechaConsulta}]]></variableExpression>
 	</variable>
 	<group name="unidad">
-		<groupExpression><![CDATA[$F{usuario.unidad}]]></groupExpression>
+		<groupExpression><![CDATA[$F{doctorInterno.especialidad.descripcion}]]></groupExpression>
 		<groupHeader>
 			<band height="25">
 				<rectangle>
@@ -129,7 +127,7 @@
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{usuario.unidad}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{doctorInterno.especialidad.descripcion}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="2" y="5" width="19" height="20" uuid="6f345962-0df3-4118-bd7d-c95ca9ba9dd6"/>
@@ -151,7 +149,7 @@
 				</staticText>
 				<textField>
 					<reportElement x="449" y="2" width="84" height="20" uuid="801c4c3b-ac00-48dc-9e9e-084260ede2e2"/>
-					<textFieldExpression><![CDATA[$F{usuario.unidad}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{doctorInterno.especialidad.descripcion}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="533" y="2" width="22" height="20" uuid="6b58b87b-d512-45e3-a47c-092622d9252d"/>
@@ -173,7 +171,7 @@
 		</groupFooter>
 	</group>
 	<group name="doctor">
-		<groupExpression><![CDATA[$F{usuario.cedula}]]></groupExpression>
+		<groupExpression><![CDATA[$F{doctorInterno.cedula}]]></groupExpression>
 		<groupHeader>
 			<band height="24">
 				<rectangle>
@@ -194,21 +192,14 @@
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{usuario.cedula}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{doctorInterno.cedula}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="117" y="4" width="306" height="20" uuid="eaa4a5bf-7964-4602-9c71-70458a978f9a"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{usuario.primerNombre}+" "+$F{usuario.primerApellido}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="423" y="4" width="126" height="20" uuid="7f0b0848-3af5-4c94-8e7c-6a552d796199"/>
-					<textElement>
-						<font size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{usuario.especialidad.descripcion}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{doctorInterno.primerNombre}+" "+$F{doctorInterno.primerApellido}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -226,7 +217,7 @@
 					<textElement>
 						<font size="10" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{usuario.primerNombre}+" "+$F{usuario.primerApellido}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{doctorInterno.primerNombre}+" "+$F{doctorInterno.primerApellido}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="533" y="4" width="22" height="20" uuid="d61f8133-999c-4aad-a348-e201006eb513"/>
@@ -295,7 +286,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="106" splitType="Stretch">
+		<band height="89" splitType="Stretch">
 			<textField>
 				<reportElement x="467" y="53" width="88" height="20" uuid="8d95e42c-08fc-446b-b88c-d8802d1e418d"/>
 				<textElement>
@@ -334,20 +325,6 @@
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{desde}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="421" y="80" width="46" height="20" uuid="ed85ac19-492a-45c7-acd2-9498ef88277b"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Unidad:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="467" y="80" width="89" height="20" uuid="a80e108a-9bd1-459e-8990-743454b0800d"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{unidad}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -550,7 +527,7 @@ new SimpleDateFormat("h:m a").format($F{fechaConsulta})]]></textFieldExpression>
 									<textElement verticalAlignment="Middle">
 										<font size="11" isBold="true"/>
 									</textElement>
-									<textFieldExpression><![CDATA[$F{usuario.unidad}]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{doctorInterno.especialidad.descripcion}]]></textFieldExpression>
 								</textField>
 							</jr:cell>
 						</jr:groupHeader>
@@ -574,7 +551,7 @@ new SimpleDateFormat("h:m a").format($F{fechaConsulta})]]></textFieldExpression>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font size="11" isBold="true"/>
 									</textElement>
-									<textFieldExpression><![CDATA[$F{usuario.unidad}]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{doctorInterno.especialidad.descripcion}]]></textFieldExpression>
 								</textField>
 							</jr:cell>
 						</jr:groupFooter>
@@ -591,7 +568,7 @@ new SimpleDateFormat("h:m a").format($F{fechaConsulta})]]></textFieldExpression>
 									<textElement verticalAlignment="Middle">
 										<font size="11"/>
 									</textElement>
-									<textFieldExpression><![CDATA[$F{usuario.cedula}+"   "+$F{usuario.primerNombre}+" - "+$F{usuario.primerApellido}+" - "+$F{usuario.especialidad.descripcion}]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{doctorInterno.cedula}+"   "+$F{doctorInterno.primerNombre}+" - "+$F{doctorInterno.primerApellido}]]></textFieldExpression>
 								</textField>
 							</jr:cell>
 						</jr:groupFooter>

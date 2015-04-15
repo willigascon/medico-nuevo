@@ -279,10 +279,6 @@ public class Paciente implements Serializable {
 	@Column
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private Boolean brigadista;
-
-	@Column
-	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private Boolean cronico;
 	
 	@Column
 	@Type(type = "org.hibernate.type.NumericBooleanType")
@@ -298,16 +294,10 @@ public class Paciente implements Serializable {
 	
 	@Column
 	private String rif;
-	
-	@Column
-	private String oficio;
-	
-	@Column
-	private String condicion;
 
 	@Column
 	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean jefe;
+	private boolean delegadoPrevencion;
 	
 	@Column(name = "cargo_carrera")
 	private String cargoOCarrera;
@@ -374,9 +364,8 @@ public class Paciente implements Serializable {
 			String parentescoEmergencia, String telefono1Emergencia,
 			String telefono2Emergencia, String cedulaFamiliar,
 			String parentescoFamiliar, Empresa empresa, Ciudad ciudadVivienda,
-			Cargo cargoa, Area area, Boolean cronico, String nomina) {
+			Cargo cargoa, Area area, String nomina) {
 		super();
-		this.cronico = cronico;
 		this.cedula = cedula;
 		this.ficha = ficha;
 		this.primerApellido = primerApellido;
@@ -1012,14 +1001,6 @@ public class Paciente implements Serializable {
 		this.brigadista = brigadista;
 	}
 
-	public Boolean getCronico() {
-		return cronico;
-	}
-
-	public void setCronico(Boolean cronico) {
-		this.cronico = cronico;
-	}
-
 	public Set<PeriodoPaciente> getPacientesPeriodos() {
 		return pacientesPeriodos;
 	}
@@ -1066,14 +1047,6 @@ public class Paciente implements Serializable {
 
 	public void setRif(String rif) {
 		this.rif = rif;
-	}
-
-	public String getOficio() {
-		return oficio;
-	}
-
-	public void setOficio(String oficio) {
-		this.oficio = oficio;
 	}
 
 	public String getCargoOCarrera() {
@@ -1131,21 +1104,13 @@ public class Paciente implements Serializable {
 	public void setCertificado(String certificado) {
 		this.certificado = certificado;
 	}
-
-	public String getCondicion() {
-		return condicion;
+	
+	public boolean isDelegadoPrevencion() {
+		return delegadoPrevencion;
 	}
 
-	public void setCondicion(String condicion) {
-		this.condicion = condicion;
-	}
-
-	public boolean isJefe() {
-		return jefe;
-	}
-
-	public void setJefe(boolean jefe) {
-		this.jefe = jefe;
+	public void setDelegadoPrevencion(boolean delegadoPrevencion) {
+		this.delegadoPrevencion = delegadoPrevencion;
 	}
 
 	public String getMunicipio() {

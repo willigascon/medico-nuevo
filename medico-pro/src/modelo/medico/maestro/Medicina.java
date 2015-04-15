@@ -82,6 +82,9 @@ public class Medicina implements Serializable {
 	@Column(name = "id_referencia")
 	private Long idReferencia;
 
+	@Column(name = "precio")
+	private Double precio;
+
 	public Medicina() {
 	}
 
@@ -90,8 +93,9 @@ public class Medicina implements Serializable {
 			String efectos, String embarazo, Timestamp fechaAuditoria,
 			String horaAuditoria, String indicaciones, String nombre,
 			String posologia, String precaucion, String usuarioAuditoria,
-			Laboratorio laboratorio, CategoriaMedicina categoriaMedicina) {
+			Laboratorio laboratorio, CategoriaMedicina categoriaMedicina, Double precio) {
 		super();
+		this.precio = precio;
 		this.idMedicina = idMedicina;
 		this.composicion = composicion;
 		this.contraindicaciones = contraindicaciones;
@@ -243,6 +247,14 @@ public class Medicina implements Serializable {
 
 	public void setIdReferencia(Long idReferencia) {
 		this.idReferencia = idReferencia;
+	}
+
+	public Double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Double precio) {
+		this.precio = precio;
 	}
 
 }
