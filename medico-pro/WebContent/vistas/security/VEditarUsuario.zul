@@ -19,6 +19,30 @@
 					</row>
 					<row>
 						<hbox>
+							<label value="Nombre:" class="etiqueta" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox id="txtNombre" maxlength="50" />
+					</row>
+					<row>
+						<hbox>
+							<label value="Apellido:" class="etiqueta" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox id="txtApellido" maxlength="50" />
+					</row>
+					<row>
+						<hbox>
+							<label value="Correo:" class="etiqueta" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<textbox id="txtCorreo" maxlength="50" />
+					</row>
+					<row>
+						<hbox>
 							<label value="Contraseña nueva:" class="etiqueta" />
 							<space />
 							<label value="*" style="font-weight:bold;color:red" />
@@ -39,7 +63,9 @@
 					</row>
 					<row>
 						<label class="etiqueta" value="Adjuntar Imagen:" />
-						<fileupload label="Foto" id="fudImagenUsuario" image="/public/imagenes/botones/cargar.png" style="	background: #952C2C;font-size: 11px;color: white;cursor: pointer;width: 95px;height: 29px;	-webkit-border-radius: 0.7em;-moz-border-radius: 0.7em;	border-radius: 0.7em;"/>
+						<fileupload label="Foto" id="fudImagenUsuario"
+							image="/public/imagenes/botones/cargar.png"
+							style="	background: #952C2C;font-size: 11px;color: white;cursor: pointer;width: 95px;height: 29px;	-webkit-border-radius: 0.7em;-moz-border-radius: 0.7em;	border-radius: 0.7em;" />
 					</row>
 					<row>
 						<label class="etiqueta" value="Imagen Seleccionada:" />

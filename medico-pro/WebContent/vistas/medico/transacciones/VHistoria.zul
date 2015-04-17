@@ -272,7 +272,6 @@
 								<tab label="Antecedentes parte II" id="tabIAntecedentesII" />
 								<tab label="¿Paciente Mujer?" id="tabMujer" />
 								<tab label="Vacunas Recibidas" id="tabVacunas" />
-								<tab label="Historia Pediatrica" id="tabPediatrica" />
 							</tabs>
 							<tabpanels>
 								<tabpanel>
@@ -712,296 +711,281 @@
 									</grid>
 								</tabpanel>
 								<tabpanel>
-									<hbox>
-										<vbox>
-											<groupbox id="gpxVarios" closable="false" open="true"
-												width="100%">
-												<caption label="Alimenticios y Deportes"
-													style="color:black; font-size: 12px; font-weight:bold" />
-												<separator />
-												<grid width="100%">
-													<columns visible="false">
-														<column label="" width="25%" />
-														<column label="" width="25%" />
-														<column label="" width="20%" />
-														<column label="" width="30%" />
-													</columns>
-													<rows>
-														<row>
-															<label class="etiqueta" value="¿Ha variado su peso el ultimo año?" />
-															<radiogroup id="rdgPeso">
-																<radio label="SI" value="si" id="rdoSiPeso" />
-																<radio label="NO" value="no" id="rdoNoPeso" />
-															</radiogroup>
-															<label class="etiqueta" value="¿Cuanto?" />
-															<textbox maxlength="50" id="txtCantidadPeso"
-																hflex="1" tooltiptext="Ingrese la variacion del peso del paciente" />
-														</row>
-														<row>
-															<label class="etiqueta" value="Causas de la variacion" />
-															<textbox maxlength="100" id="txtCausasPeso"
-																hflex="1"
-																tooltiptext="Ingrese las razones por las que el peso del paciente ha variado" />
-															<label class="etiqueta" value="¿Toma Cafe?" />
-															<radiogroup id="rdgCafe">
-																<radio label="SI" value="si" id="rdoSiCafe" />
-																<radio label="NO" value="no" id="rdoNoCafe" />
-															</radiogroup>
-														</row>
-														<row>
-															<label class="etiqueta" value="¿Cuantas Tazas al dia?" />
-															<spinner value="0" id="spnCantidadCafe" step="1"
-																format="#" constraint="min 0 max 100000" width="98%" />
-															<label class="etiqueta" value="¿Tiene Dificultad para dormir?" />
-															<radiogroup id="rdgDormilon">
-																<radio label="SI" value="si" id="rdoSiDuerme" />
-																<radio label="NO" value="no" id="rdoNoDuerme" />
-															</radiogroup>
-														</row>
-														<row>
-															<label class="etiqueta" value="Si no toma cafe¿Le duele la cabeza?" />
-															<radiogroup id="rdgCabeza">
-																<radio label="SI" value="si" id="rdoSiCabeza" />
-																<radio label="NO" value="no" id="rdoNoCabeza" />
-															</radiogroup>
-															<box />
-															<box />
-														</row>
-														<row>
-															<label class="etiqueta"
-																value="¿Realiza regularmente actividad fisica?" />
-															<radiogroup id="rdgFisica">
-																<radio label="SI" value="si" id="rdoSiFisica" />
-																<radio label="NO" value="no" id="rdoNoFisica" />
-															</radiogroup>
-															<label class="etiqueta" value="¿De que tipo?" />
-															<textbox maxlength="100" id="txtTipoFisica"
-																hflex="1"
-																tooltiptext="Ingrese el tipo de Actividad fisica que realiza el paciente" />
-														</row>
-														<row>
-															<label class="etiqueta" value="Frecuencia en la semana" />
-															<textbox maxlength="100" id="txtFrecuenciaFisica"
-																hflex="1"
-																tooltiptext="Ingrese la frecuencia en la que el paciente realiza actividades fisicas" />
-															<label class="etiqueta" value="Tiempo por sesion" />
-															<textbox maxlength="100" id="txtTiempoFisica"
-																hflex="1"
-																tooltiptext="Ingrese el tiempo que emplea el paciente por cada sesion de actividades fisicas" />
-														</row>
-														<row>
-															<label class="etiqueta" value="¿Realiza alguna actividad Extra?" />
-															<radiogroup id="rdgExtra">
-																<radio label="SI" value="si" id="rdoSiExtra" />
-																<radio label="NO" value="no" id="rdoNoExtra" />
-															</radiogroup>
-															<label class="etiqueta" value="¿Cual?" />
-															<combobox
-																tooltiptext="Seleccione el Tipo de Actividad Extra que realiza el Paciente"
-																placeholder="Seleccione" id="cmbExtra" width="98%"
-																readonly="true">
-																<comboitem label="Deportes" />
-																<comboitem label="Manualidades" />
-																<comboitem label="Actividades en el Hogar" />
-																<comboitem label="Otro" />
-															</combobox>
-														</row>
-													</rows>
-												</grid>
-											</groupbox>
-											<groupbox id="gpxTabaquino" closable="false" open="true"
-												width="100%">
-												<caption label="Tabaquicos"
-													style="color:black; font-size: 12px; font-weight:bold" />
-												<separator />
-												<grid width="100%">
-													<columns visible="false">
-														<column label="" width="25%" />
-														<column label="" width="25%" />
-														<column label="" width="20%" />
-														<column label="" width="30%" />
-													</columns>
-													<rows>
-														<row>
-															<label class="etiqueta" value="¿Ha probado el cigarro alguna vez?" />
-															<radiogroup id="rdgCigarro">
-																<radio label="SI" value="si" id="rdoSiCigarro" />
-																<radio label="NO" value="no" id="rdoNoCigarro" />
-															</radiogroup>
-															<label class="etiqueta" value="¿Fuma Actualmente?" />
-															<radiogroup id="rdgFumaActualmente">
-																<radio label="SI" value="si" id="rdoSiFumaActualmente" />
-																<radio label="NO" value="no" id="rdoNoFumaActualmente" />
-															</radiogroup>
-														</row>
-														<row>
-															<label class="etiqueta" value="Numero de Cigarros que Fuma o Fumaba" />
-															<spinner value="0" id="spnNumeroCigarro" step="1"
-																format="#" constraint="min 0 max 1000" width="98%" />
-															<label class="etiqueta" value="Fecha en que Culmino a Fumar" />
-															<datebox readonly="true" width="100%"
-																id="dtbFechaFinCigarro" onCreate="self.value = new Date()" />
-														</row>
-														<row>
-															<label class="etiqueta" value="Fecha en que Inicio a Fumar" />
-															<datebox readonly="true" width="100%"
-																id="dtbFechaInicioCigarro" onCreate="self.value = new Date()" />
-															<label class="etiqueta" value="Razon por la que empezo a fumar:" />
-															<textbox maxlength="100" id="txtRazonCigarro"
-																hflex="1"
-																tooltiptext="Ingrese el motivo por el cual el paciente comenzo a fumar" />
-														</row>
-													</rows>
-												</grid>
-											</groupbox>
-										</vbox>
-										<vbox>
-											<groupbox id="gpxAlcohol" closable="false" open="true"
-												width="100%">
-												<caption label="Alcoholicos"
-													style="color:black; font-size: 12px; font-weight:bold" />
-												<separator />
-												<grid width="100%">
-													<columns visible="false">
-														<column label="" width="25%" />
-														<column label="" width="25%" />
-														<column label="" width="20%" />
-														<column label="" width="30%" />
-													</columns>
-													<rows>
-														<row>
-															<label class="etiqueta" value="¿Ha consumido alcohol alguna vez?" />
-															<radiogroup id="rdgAlcohol">
-																<radio label="SI" value="si" id="rdoSiAlcohol" />
-																<radio label="NO" value="no" id="rdoNoAlcohol" />
-															</radiogroup>
-															<label class="etiqueta"
-																value="¿En el ultimo mes ha consumido Alcohol?" />
-															<radiogroup id="rdgMesAlcohol">
-																<radio label="SI" value="si" id="rdoSiMesAlcohol" />
-																<radio label="NO" value="no" id="rdoNoMesAlcohol" />
-															</radiogroup>
-														</row>
-														<row>
-															<label class="etiqueta" value="Frecuencia con la que bebe" />
-															<radiogroup id="rdgFrecuenciaAlcohol">
-																<radio label="DIARIA" value="diaria"
-																	id="rdoDFrecuenciaAlcohol" />
-																<radio label="SEMANAL" value="semanal"
-																	id="rdoSFrecuenciaAlcohol" />
-																<radio label="QUINCENAL" value="quincenal"
-																	id="rdoQFrecuenciaAlcohol" />
-																<radio label="MENSUAL" value="mensual"
-																	id="rdoMFrecuenciaAlcohol" />
-															</radiogroup>
-															<label class="etiqueta" value="Tipo de Bebida:" />
-															<textbox maxlength="50" id="txtTipoAlcohol"
-																hflex="1"
-																tooltiptext="Ingrese el tipo de bebida que consume el paciente" />
-														</row>
-														<row>
-															<label class="etiqueta" value="Cantidad que bebe (ml)" />
-															<spinner value="0" id="spnCantidadAlcohol" step="1"
-																format="#" constraint="min 0 max 100000" width="98%" />
-															<label class="etiqueta" value="¿LLega al estado de embriaguez?" />
-															<radiogroup id="rdgBorracho">
-																<radio label="SI" value="si" id="rdoSiBorracho" />
-																<radio label="NO" value="no" id="rdoNoBorracho" />
-															</radiogroup>
-														</row>
-														<row>
-															<label class="etiqueta"
-																value="¿Ha sufrido accidentes por el Alcohol?" />
-															<radiogroup id="rdgAccidenteAlcohol">
-																<radio label="SI" value="si" id="rdoSiAccidenteAlcohol" />
-																<radio label="NO" value="no" id="rdoNoAccidenteAlcohol" />
-															</radiogroup>
-															<box />
-															<box />
-														</row>
-														<row>
-															<label class="etiqueta"
-																value="¿Ha recibido tratamiento para el consumo de alcohol?" />
-															<radiogroup id="rdgTratamientoAlcohol">
-																<radio label="SI" value="si" id="rdoSiTratamientoAlcohol" />
-																<radio label="NO" value="no" id="rdoNoTratamientoAlcohol" />
-															</radiogroup>
-															<label class="etiqueta"
-																value="¿Ha asistido o asiste a instituciones de rehabilitacion?" />
-															<radiogroup id="rdgRehabilitacionAlcohol">
-																<radio label="SI" value="si"
-																	id="rdoSiRehabilitacionAlcohol" />
-																<radio label="NO" value="no"
-																	id="rdoNoRehabilitacionAlcohol" />
-															</radiogroup>
-														</row>
-													</rows>
-												</grid>
-											</groupbox>
-											<groupbox id="gpxDrogas" closable="false" open="true"
-												width="100%">
-												<caption label="Drogas"
-													style="color:black; font-size: 12px; font-weight:bold" />
-												<separator />
-												<grid width="100%">
-													<columns visible="false">
-														<column label="" width="25%" />
-														<column label="" width="25%" />
-														<column label="" width="20%" />
-														<column label="" width="30%" />
-													</columns>
-													<rows>
-														<row>
-															<label class="etiqueta"
-																value="¿Ha consumido drogas alguna vez? (Cocaina, Extasis, Marihuana, etc)" />
-															<radiogroup id="rdgDrogas">
-																<radio label="SI" value="si" id="rdoSiDrogas" />
-																<radio label="NO" value="no" id="rdoNoDrogas" />
-															</radiogroup>
-															<label class="etiqueta"
-																value="Indique, Tipo, frecuencia, Cantidad y ultima vez" />
-															<textbox class="multilinea" maxlength="250"
-																id="txtExplicacionDrogas" hflex="1" multiline="true"
-																tooltiptext="Indique la descripcion de las drogas que utiliza el paciente, nombrando la frecuencia, el tipo, cantidad y la ultima vez que la consumio" />
-														</row>
-														<row>
-															<label class="etiqueta"
-																value="¿Ha recibido tratamiento para el consumo de drogas?" />
-															<radiogroup id="rdgTratamientoDrogas">
-																<radio label="SI" value="si" id="rdoSiTratamientoDrogas" />
-																<radio label="NO" value="no" id="rdoNoTratamientoDrogas" />
-															</radiogroup>
-															<label class="etiqueta"
-																value="¿Ha asistido o asiste a instituciones de rehabilitacion?" />
-															<radiogroup id="rdgRehabilitacion">
-																<radio label="SI" value="si" id="rdoSiRehabilitacion" />
-																<radio label="NO" value="no" id="rdoNoRehabilitacion" />
-															</radiogroup>
-														</row>
-														<row>
-															<label class="etiqueta" value="¿Consume algun tipo de Medicamento?" />
-															<radiogroup id="rdgMedicamentoDrogas">
-																<radio label="SI" value="si" id="rdoSiMedicamentoDrogas" />
-																<radio label="NO" value="no" id="rdoNoMedicamentoDrogas" />
-															</radiogroup>
-															<label class="etiqueta" value="¿Cual?" />
-															<textbox maxlength="100" id="txtMedicamentoDroga"
-																hflex="1" tooltiptext="Ingrese el medicamento que consume el paciente" />
-														</row>
-														<row>
-															<label class="etiqueta" value="Desde cuando" />
-															<datebox readonly="true" width="100%"
-																id="dtbFechaMedicamento" onCreate="self.value = new Date()" />
-															<label class="etiqueta" value="Cantidad:" />
-															<textbox maxlength="100" id="txtCantidadMedicamento"
-																hflex="1"
-																tooltiptext="Ingrese la cantidad de medicamento que consume el paciente" />
-														</row>
-													</rows>
-												</grid>
-											</groupbox>
-										</vbox>
-									</hbox>
+									<groupbox id="gpxVarios" closable="false" open="true"
+										width="100%">
+										<caption label="Alimenticios y Deportes"
+											style="color:black; font-size: 12px; font-weight:bold" />
+										<separator />
+										<grid width="100%">
+											<columns visible="false">
+												<column label="" width="25%" />
+												<column label="" width="25%" />
+												<column label="" width="20%" />
+												<column label="" width="30%" />
+											</columns>
+											<rows>
+												<row>
+													<label class="etiqueta" value="¿Ha variado su peso el ultimo año?" />
+													<radiogroup id="rdgPeso">
+														<radio label="SI" value="si" id="rdoSiPeso" />
+														<radio label="NO" value="no" id="rdoNoPeso" />
+													</radiogroup>
+													<label class="etiqueta" value="¿Cuanto?" />
+													<textbox maxlength="50" id="txtCantidadPeso" hflex="1"
+														tooltiptext="Ingrese la variacion del peso del paciente" />
+												</row>
+												<row>
+													<label class="etiqueta" value="Causas de la variacion" />
+													<textbox maxlength="100" id="txtCausasPeso" hflex="1"
+														tooltiptext="Ingrese las razones por las que el peso del paciente ha variado" />
+													<label class="etiqueta" value="¿Toma Cafe?" />
+													<radiogroup id="rdgCafe">
+														<radio label="SI" value="si" id="rdoSiCafe" />
+														<radio label="NO" value="no" id="rdoNoCafe" />
+													</radiogroup>
+												</row>
+												<row>
+													<label class="etiqueta" value="¿Cuantas Tazas al dia?" />
+													<spinner value="0" id="spnCantidadCafe" step="1"
+														format="#" constraint="min 0 max 100000" width="98%" />
+													<label class="etiqueta" value="¿Tiene Dificultad para dormir?" />
+													<radiogroup id="rdgDormilon">
+														<radio label="SI" value="si" id="rdoSiDuerme" />
+														<radio label="NO" value="no" id="rdoNoDuerme" />
+													</radiogroup>
+												</row>
+												<row>
+													<label class="etiqueta" value="Si no toma cafe¿Le duele la cabeza?" />
+													<radiogroup id="rdgCabeza">
+														<radio label="SI" value="si" id="rdoSiCabeza" />
+														<radio label="NO" value="no" id="rdoNoCabeza" />
+													</radiogroup>
+													<box />
+													<box />
+												</row>
+												<row>
+													<label class="etiqueta"
+														value="¿Realiza regularmente actividad fisica?" />
+													<radiogroup id="rdgFisica">
+														<radio label="SI" value="si" id="rdoSiFisica" />
+														<radio label="NO" value="no" id="rdoNoFisica" />
+													</radiogroup>
+													<label class="etiqueta" value="¿De que tipo?" />
+													<textbox maxlength="100" id="txtTipoFisica" hflex="1"
+														tooltiptext="Ingrese el tipo de Actividad fisica que realiza el paciente" />
+												</row>
+												<row>
+													<label class="etiqueta" value="Frecuencia en la semana" />
+													<textbox maxlength="100" id="txtFrecuenciaFisica"
+														hflex="1"
+														tooltiptext="Ingrese la frecuencia en la que el paciente realiza actividades fisicas" />
+													<label class="etiqueta" value="Tiempo por sesion" />
+													<textbox maxlength="100" id="txtTiempoFisica"
+														hflex="1"
+														tooltiptext="Ingrese el tiempo que emplea el paciente por cada sesion de actividades fisicas" />
+												</row>
+												<row>
+													<label class="etiqueta" value="¿Realiza alguna actividad Extra?" />
+													<radiogroup id="rdgExtra">
+														<radio label="SI" value="si" id="rdoSiExtra" />
+														<radio label="NO" value="no" id="rdoNoExtra" />
+													</radiogroup>
+													<label class="etiqueta" value="¿Cual?" />
+													<combobox
+														tooltiptext="Seleccione el Tipo de Actividad Extra que realiza el Paciente"
+														placeholder="Seleccione" id="cmbExtra" width="98%"
+														readonly="true">
+														<comboitem label="Deportes" />
+														<comboitem label="Manualidades" />
+														<comboitem label="Actividades en el Hogar" />
+														<comboitem label="Otro" />
+													</combobox>
+												</row>
+											</rows>
+										</grid>
+									</groupbox>
+									<groupbox id="gpxTabaquino" closable="false" open="true"
+										width="100%">
+										<caption label="Tabaquicos"
+											style="color:black; font-size: 12px; font-weight:bold" />
+										<separator />
+										<grid width="100%">
+											<columns visible="false">
+												<column label="" width="25%" />
+												<column label="" width="25%" />
+												<column label="" width="20%" />
+												<column label="" width="30%" />
+											</columns>
+											<rows>
+												<row>
+													<label class="etiqueta" value="¿Ha probado el cigarro alguna vez?" />
+													<radiogroup id="rdgCigarro">
+														<radio label="SI" value="si" id="rdoSiCigarro" />
+														<radio label="NO" value="no" id="rdoNoCigarro" />
+													</radiogroup>
+													<label class="etiqueta" value="¿Fuma Actualmente?" />
+													<radiogroup id="rdgFumaActualmente">
+														<radio label="SI" value="si" id="rdoSiFumaActualmente" />
+														<radio label="NO" value="no" id="rdoNoFumaActualmente" />
+													</radiogroup>
+												</row>
+												<row>
+													<label class="etiqueta" value="Numero de Cigarros que Fuma o Fumaba" />
+													<spinner value="0" id="spnNumeroCigarro" step="1"
+														format="#" constraint="min 0 max 1000" width="98%" />
+													<label class="etiqueta" value="Fecha en que Culmino a Fumar" />
+													<datebox readonly="true" width="100%" id="dtbFechaFinCigarro"
+														onCreate="self.value = new Date()" />
+												</row>
+												<row>
+													<label class="etiqueta" value="Fecha en que Inicio a Fumar" />
+													<datebox readonly="true" width="100%"
+														id="dtbFechaInicioCigarro" onCreate="self.value = new Date()" />
+													<label class="etiqueta" value="Razon por la que empezo a fumar:" />
+													<textbox maxlength="100" id="txtRazonCigarro"
+														hflex="1"
+														tooltiptext="Ingrese el motivo por el cual el paciente comenzo a fumar" />
+												</row>
+											</rows>
+										</grid>
+									</groupbox>
+									<groupbox id="gpxAlcohol" closable="false" open="true"
+										width="100%">
+										<caption label="Alcoholicos"
+											style="color:black; font-size: 12px; font-weight:bold" />
+										<separator />
+										<grid width="100%">
+											<columns visible="false">
+												<column label="" width="25%" />
+												<column label="" width="25%" />
+												<column label="" width="20%" />
+												<column label="" width="30%" />
+											</columns>
+											<rows>
+												<row>
+													<label class="etiqueta" value="¿Ha consumido alcohol alguna vez?" />
+													<radiogroup id="rdgAlcohol">
+														<radio label="SI" value="si" id="rdoSiAlcohol" />
+														<radio label="NO" value="no" id="rdoNoAlcohol" />
+													</radiogroup>
+													<label class="etiqueta"
+														value="¿En el ultimo mes ha consumido Alcohol?" />
+													<radiogroup id="rdgMesAlcohol">
+														<radio label="SI" value="si" id="rdoSiMesAlcohol" />
+														<radio label="NO" value="no" id="rdoNoMesAlcohol" />
+													</radiogroup>
+												</row>
+												<row>
+													<label class="etiqueta" value="Frecuencia con la que bebe" />
+													<radiogroup id="rdgFrecuenciaAlcohol">
+														<radio label="DIARIA" value="diaria" id="rdoDFrecuenciaAlcohol" />
+														<radio label="SEMANAL" value="semanal" id="rdoSFrecuenciaAlcohol" />
+														<radio label="QUINCENAL" value="quincenal"
+															id="rdoQFrecuenciaAlcohol" />
+														<radio label="MENSUAL" value="mensual" id="rdoMFrecuenciaAlcohol" />
+													</radiogroup>
+													<label class="etiqueta" value="Tipo de Bebida:" />
+													<textbox maxlength="50" id="txtTipoAlcohol" hflex="1"
+														tooltiptext="Ingrese el tipo de bebida que consume el paciente" />
+												</row>
+												<row>
+													<label class="etiqueta" value="Cantidad que bebe (ml)" />
+													<spinner value="0" id="spnCantidadAlcohol" step="1"
+														format="#" constraint="min 0 max 100000" width="98%" />
+													<label class="etiqueta" value="¿LLega al estado de embriaguez?" />
+													<radiogroup id="rdgBorracho">
+														<radio label="SI" value="si" id="rdoSiBorracho" />
+														<radio label="NO" value="no" id="rdoNoBorracho" />
+													</radiogroup>
+												</row>
+												<row>
+													<label class="etiqueta" value="¿Ha sufrido accidentes por el Alcohol?" />
+													<radiogroup id="rdgAccidenteAlcohol">
+														<radio label="SI" value="si" id="rdoSiAccidenteAlcohol" />
+														<radio label="NO" value="no" id="rdoNoAccidenteAlcohol" />
+													</radiogroup>
+													<box />
+													<box />
+												</row>
+												<row>
+													<label class="etiqueta"
+														value="¿Ha recibido tratamiento para el consumo de alcohol?" />
+													<radiogroup id="rdgTratamientoAlcohol">
+														<radio label="SI" value="si" id="rdoSiTratamientoAlcohol" />
+														<radio label="NO" value="no" id="rdoNoTratamientoAlcohol" />
+													</radiogroup>
+													<label class="etiqueta"
+														value="¿Ha asistido o asiste a instituciones de rehabilitacion?" />
+													<radiogroup id="rdgRehabilitacionAlcohol">
+														<radio label="SI" value="si" id="rdoSiRehabilitacionAlcohol" />
+														<radio label="NO" value="no" id="rdoNoRehabilitacionAlcohol" />
+													</radiogroup>
+												</row>
+											</rows>
+										</grid>
+									</groupbox>
+									<groupbox id="gpxDrogas" closable="false" open="true"
+										width="100%">
+										<caption label="Drogas"
+											style="color:black; font-size: 12px; font-weight:bold" />
+										<separator />
+										<grid width="100%">
+											<columns visible="false">
+												<column label="" width="25%" />
+												<column label="" width="25%" />
+												<column label="" width="20%" />
+												<column label="" width="30%" />
+											</columns>
+											<rows>
+												<row>
+													<label class="etiqueta"
+														value="¿Ha consumido drogas alguna vez? (Cocaina, Extasis, Marihuana, etc)" />
+													<radiogroup id="rdgDrogas">
+														<radio label="SI" value="si" id="rdoSiDrogas" />
+														<radio label="NO" value="no" id="rdoNoDrogas" />
+													</radiogroup>
+													<label class="etiqueta"
+														value="Indique, Tipo, frecuencia, Cantidad y ultima vez" />
+													<textbox class="multilinea" maxlength="250"
+														id="txtExplicacionDrogas" hflex="1" multiline="true"
+														tooltiptext="Indique la descripcion de las drogas que utiliza el paciente, nombrando la frecuencia, el tipo, cantidad y la ultima vez que la consumio" />
+												</row>
+												<row>
+													<label class="etiqueta"
+														value="¿Ha recibido tratamiento para el consumo de drogas?" />
+													<radiogroup id="rdgTratamientoDrogas">
+														<radio label="SI" value="si" id="rdoSiTratamientoDrogas" />
+														<radio label="NO" value="no" id="rdoNoTratamientoDrogas" />
+													</radiogroup>
+													<label class="etiqueta"
+														value="¿Ha asistido o asiste a instituciones de rehabilitacion?" />
+													<radiogroup id="rdgRehabilitacion">
+														<radio label="SI" value="si" id="rdoSiRehabilitacion" />
+														<radio label="NO" value="no" id="rdoNoRehabilitacion" />
+													</radiogroup>
+												</row>
+												<row>
+													<label class="etiqueta" value="¿Consume algun tipo de Medicamento?" />
+													<radiogroup id="rdgMedicamentoDrogas">
+														<radio label="SI" value="si" id="rdoSiMedicamentoDrogas" />
+														<radio label="NO" value="no" id="rdoNoMedicamentoDrogas" />
+													</radiogroup>
+													<label class="etiqueta" value="¿Cual?" />
+													<textbox maxlength="100" id="txtMedicamentoDroga"
+														hflex="1" tooltiptext="Ingrese el medicamento que consume el paciente" />
+												</row>
+												<row>
+													<label class="etiqueta" value="Desde cuando" />
+													<datebox readonly="true" width="100%"
+														id="dtbFechaMedicamento" onCreate="self.value = new Date()" />
+													<label class="etiqueta" value="Cantidad:" />
+													<textbox maxlength="100" id="txtCantidadMedicamento"
+														hflex="1"
+														tooltiptext="Ingrese la cantidad de medicamento que consume el paciente" />
+												</row>
+											</rows>
+										</grid>
+									</groupbox>
 								</tabpanel>
 								<tabpanel>
 									<groupbox id="gpxPersonales" closable="false" open="true"
@@ -1575,113 +1559,6 @@
 											</listitem>
 										</template>
 									</listbox>
-								</tabpanel>
-								<tabpanel>
-									<grid width="100%">
-										<columns visible="false">
-											<column label="" width="25%" />
-											<column label="" width="25%" />
-											<column label="" width="25%" />
-											<column label="" width="25%" />
-										</columns>
-										<rows>
-											<row>
-												<cell colspan="4">
-													<label class="etiqueta" value="Embarazo" />
-												</cell>
-											</row>
-											<row>
-												<label class="etiqueta" value="Edad Materna" />
-												<spinner value="0" id="spnEdadPediatrica" step="1"
-													format="#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Nº Gestacion" />
-												<spinner value="0" id="spnGestacionPediatrica" step="1"
-													format="#" constraint="min 0 max 100000" width="98%" />
-											</row>
-											<row>
-												<label class="etiqueta" value="Semanas de Embarazo" />
-												<spinner value="0" id="spnSemanasPediatrica" step="1"
-													format="#" constraint="min 0 max 100000" width="98%" />
-												<hbox width="100%">
-													<label class="etiqueta" value="¿Complicaciones en Embarazo?" />
-													<radiogroup id="rdgEmbarazoPediatrica">
-														<radio label="SI" value="si" id="rdoSiComplicacion" />
-														<radio label="NO" value="no" id="rdoNoComplicacion" />
-													</radiogroup>
-												</hbox>
-												<hbox width="100%">
-													<label class="etiqueta" value="¿Cual(es)?" />
-													<textbox maxlength="100" id="txtResultadoComplicacion"
-														multiline="true" class="multilinea" hflex="1"
-														tooltiptext="Ingrese el resultado de la Mamografia" />
-												</hbox>
-											</row>
-											<row>
-												<cell colspan="4">
-													<label class="etiqueta" value="Serologia" />
-												</cell>
-											</row>
-											<row>
-												<checkbox id="chkVdrl" label="VDRL" />
-												<checkbox id="chkVih" label="VIH" />
-												<checkbox id="chkTox" label="Toxoplasma" />
-												<hbox width="100%">
-													<label class="etiqueta" value="Observacion" />
-													<textbox maxlength="100" id="txtSerologia" hflex="1"
-														multiline="true" class="multilinea"
-														tooltiptext="Ingrese el resultado de la Mamografia" />
-												</hbox>
-											</row>
-											<row>
-												<cell colspan="4">
-													<label class="etiqueta" value="Parto" />
-												</cell>
-											</row>
-											<row>
-												<label class="etiqueta" value="Tipo de Parto" />
-												<radiogroup id="rdgEmbarazoPediatrica2">
-													<radio label="Vaginal" value="si" id="rdoSiVagina" />
-													<radio label="Cesarea" value="no" id="rdoNoVagina" />
-												</radiogroup>
-												<label class="etiqueta" value="Causa" />
-												<textbox maxlength="100" id="txtCausaCesarea" hflex="1"
-													multiline="true" class="multilinea"
-													tooltiptext="Ingrese el resultado de la Mamografia" />
-											</row>
-											<row>
-												<cell colspan="4">
-													<label class="etiqueta" value="Neonatal" />
-												</cell>
-											</row>
-											<row>
-												<label class="etiqueta" value="Peso" />
-												<doublespinner value="0" id="spnPesoPediatrica"
-													step="1" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Talla" />
-												<doublespinner value="0" id="spnTallaPediatrica"
-													step="1" constraint="min 0 max 100000" width="98%" />
-											</row>
-											<row>
-												<label class="etiqueta" value="¿Complicaciones Neonatal?" />
-												<radiogroup id="rdgNeoPediatrica">
-													<radio label="SI" value="si" id="rdoSiComplicacionNeo" />
-													<radio label="NO" value="no" id="rdoNoComplicacionNeo" />
-												</radiogroup>
-												<label class="etiqueta" value="¿Cual(es)?" />
-												<textbox maxlength="100" id="txtResultadoComplicacionNeo"
-													multiline="true" class="multilinea" hflex="1"
-													tooltiptext="Ingrese el resultado de la Mamografia" />
-											</row>
-											<row>
-												<label class="etiqueta" value="Observacion" />
-												<cell colspan="3">
-													<textbox maxlength="500" multiline="true" class="multilinea"
-														id="txtObservacionPrenatal" hflex="1"
-														tooltiptext="Ingrese el resultado de la Mamografia" />
-												</cell>
-											</row>
-										</rows>
-									</grid>
 								</tabpanel>
 							</tabpanels>
 						</tabbox>

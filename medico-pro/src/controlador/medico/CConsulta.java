@@ -360,11 +360,7 @@ public class CConsulta extends CGenerico {
 	@Wire
 	private Row rowAsociada;
 	@Wire
-	private Row rowAsociadaOrden;
-	@Wire
 	private Label lblEnfermedadAsociada;
-	@Wire
-	private Label lblMotivoOrden2;
 	@Wire
 	private Label lblEnfermedadAsociada2;
 	@Wire
@@ -464,7 +460,6 @@ public class CConsulta extends CGenerico {
 			"Post-Vacacional", "Egreso", "Cambio de Puesto", "Promocion",
 			"Reintegro", "Rutina Anual" };
 	private String[] consultaCurativa = { "Primera", "Control", "IC" };
-	private West west;
 	private List<DetalleAccidente> listaDetalle = new ArrayList<DetalleAccidente>();
 	private String idBoton = "";
 	private long idCita = 0;
@@ -1033,6 +1028,7 @@ public class CConsulta extends CGenerico {
 
 	public void guardarDiagnosticos(Consulta consultaDatos) {
 		List<ConsultaDiagnostico> listaDiagnostico = new ArrayList<ConsultaDiagnostico>();
+		boolean accidenteBol = false;
 		for (int i = 0; i < ltbDiagnosticosAgregados.getItemCount(); i++) {
 			Listitem listItem = ltbDiagnosticosAgregados.getItemAtIndex(i);
 			Integer idDiagnostico = ((Spinner) ((listItem.getChildren().get(4)))
@@ -1063,8 +1059,11 @@ public class CConsulta extends CGenerico {
 					consultaDatos, diagnostico, accidente, tipo, valor, lugar,
 					motivo, fecha, clasificacion);
 			listaDiagnostico.add(consultaDiagnostico);
-			if (tipo.equals("Accidente Laboral"))
-				reportarSha(consultaDiagnostico);
+			if (!accidenteBol) {
+				accidenteBol = true;
+				if (tipo.equals("Accidente Laboral"))
+					reportarSha(consultaDiagnostico);
+			}
 		}
 		servicioConsultaDiagnostico.guardar(listaDiagnostico);
 	}
@@ -1247,9 +1246,27 @@ public class CConsulta extends CGenerico {
 																Mensaje.mensajeError("Debe Seleccionar la Prioridad del Recipe");
 																return false;
 															} else {
-																	if (ltbDiagnosticosAgregados
-																			.getItemCount() == 0) {
-																		Mensaje.mensajeError("Debe seleccionar al menos un diagnostico");
+																if (ltbDiagnosticosAgregados
+																		.getItemCount() == 0) {
+																	Mensaje.mensajeError("Debe seleccionar al menos un diagnostico");
+																	return false;
+																} else {
+																	if ((cmbTipoPreventiva
+																			.getValue()
+																			.equals("Pre-Empleo")
+																			|| cmbTipoPreventiva
+																					.getValue()
+																					.equals("Cambio de Puesto") || cmbTipoPreventiva
+																			.getValue()
+																			.equals("Promocion"))
+																			&& (cmbArea
+																					.getText()
+																					.compareTo(
+																							"") == 0 || cmbCargo
+																					.getText()
+																					.compareTo(
+																							"") == 0)) {
+																		Mensaje.mensajeError("Debe Seleccionar el Cargo y el Area a la cual Aspira el Paciente");
 																		return false;
 																	} else {
 																		if ((cmbTipoPreventiva
@@ -1260,59 +1277,40 @@ public class CConsulta extends CGenerico {
 																						.equals("Cambio de Puesto") || cmbTipoPreventiva
 																				.getValue()
 																				.equals("Promocion"))
-																				&& (cmbArea
-																						.getText()
-																						.compareTo(
-																								"") == 0 || cmbCargo
-																						.getText()
-																						.compareTo(
-																								"") == 0)) {
-																			Mensaje.mensajeError("Debe Seleccionar el Cargo y el Area a la cual Aspira el Paciente");
+																				&& (!rdoSiApto
+																						.isChecked() && !rdoNoApto
+																						.isChecked())) {
+																			Mensaje.mensajeError("Debe Indicar si el Paciente es Apto, o no para el Cargo que Aspira");
 																			return false;
 																		} else {
-																			if ((cmbTipoPreventiva
-																					.getValue()
-																					.equals("Pre-Empleo")
-																					|| cmbTipoPreventiva
-																							.getValue()
-																							.equals("Cambio de Puesto") || cmbTipoPreventiva
-																					.getValue()
-																					.equals("Promocion"))
-																					&& (!rdoSiApto
-																							.isChecked() && !rdoNoApto
-																							.isChecked())) {
-																				Mensaje.mensajeError("Debe Indicar si el Paciente es Apto, o no para el Cargo que Aspira");
+																			if (ltbServicioExternoAgregados
+																					.getItemCount() != 0
+																					&& cmbPrioridadServicio
+																							.getText()
+																							.compareTo(
+																									"") == 0) {
+																				Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Estudios Externos");
 																				return false;
 																			} else {
-																				if (ltbServicioExternoAgregados
+																				if (ltbExamenesAgregados
 																						.getItemCount() != 0
-																						&& cmbPrioridadServicio
+																						&& cmbPrioridadExamen
 																								.getText()
 																								.compareTo(
 																										"") == 0) {
-																					Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Estudios Externos");
+																					Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Examenes");
 																					return false;
 																				} else {
-																					if (ltbExamenesAgregados
+																					if (ltbEspecialistasAgregados
 																							.getItemCount() != 0
-																							&& cmbPrioridadExamen
+																							&& cmbPrioridadEspecialista
 																									.getText()
 																									.compareTo(
 																											"") == 0) {
-																						Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Examenes");
+																						Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Especialistas");
 																						return false;
 																					} else {
-																						if (ltbEspecialistasAgregados
-																								.getItemCount() != 0
-																								&& cmbPrioridadEspecialista
-																										.getText()
-																										.compareTo(
-																												"") == 0) {
-																							Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Especialistas");
-																							return false;
-																						} else {
-																							return true;
-																						}
+																						return true;
 																					}
 																				}
 																			}
@@ -1323,7 +1321,8 @@ public class CConsulta extends CGenerico {
 														}
 													}
 												}
-											
+											}
+
 											// }
 											// }
 										}
@@ -2452,51 +2451,51 @@ public class CConsulta extends CGenerico {
 		}
 	}
 
-//	@Listen("onSelect = #cmbProveedor")
-//	public boolean validarProveedor() {
-//		Proveedor proveedor = null;
-//		Examen examen = null;
-//		String examenes = "\n";
-//		if (cmbProveedor.getText().compareTo("") != 0)
-//			proveedor = servicioProveedor.buscar(Long.parseLong(cmbProveedor
-//					.getSelectedItem().getContext()));
-//		boolean error = false;
-//		if (ltbExamenesAgregados.getItemCount() != 0) {
-//			ProveedorExamen proveedorExamen = new ProveedorExamen();
-//			for (int i = 0; i < ltbExamenesAgregados.getItemCount(); i++) {
-//				Listitem listItem = ltbExamenesAgregados.getItemAtIndex(i);
-//				Integer idExamen = ((Spinner) ((listItem.getChildren().get(3)))
-//						.getFirstChild()).getValue();
-//				examen = servicioExamen.buscar(idExamen);
-//				proveedorExamen = servicioProveedorExamen
-//						.buscarPorProveedoryExamen(proveedor, examen);
-//				if (proveedorExamen == null) {
-//					error = true;
-//					examenes += "-" + examen.getNombre() + "\n";
-//				} else {
-//					Combobox combo = ((Combobox) ((listItem.getChildren()
-//							.get(2))).getFirstChild());
-//					if (combo.getSelectedItem() == null) {
-//						combo.setValue(proveedorExamen.getProveedor()
-//								.getNombre());
-//						combo.getSelectedItem().setContext(
-//								String.valueOf(proveedorExamen.getProveedor()
-//										.getIdProveedor()));
-//					}
-//				}
-//			}
-//			if (error) {
-//				cmbProveedor.setFocus(true);
-//				Messagebox.show(
-//						"El proveedor seleccionado no realiza los(el) examen(es):   "
-//								+ examenes + "Por favor modifiquelos",
-//						"Alerta", Messagebox.OK, Messagebox.EXCLAMATION);
-//				return false;
-//			} else
-//				return true;
-//		} else
-//			return true;
-//	}
+	// @Listen("onSelect = #cmbProveedor")
+	// public boolean validarProveedor() {
+	// Proveedor proveedor = null;
+	// Examen examen = null;
+	// String examenes = "\n";
+	// if (cmbProveedor.getText().compareTo("") != 0)
+	// proveedor = servicioProveedor.buscar(Long.parseLong(cmbProveedor
+	// .getSelectedItem().getContext()));
+	// boolean error = false;
+	// if (ltbExamenesAgregados.getItemCount() != 0) {
+	// ProveedorExamen proveedorExamen = new ProveedorExamen();
+	// for (int i = 0; i < ltbExamenesAgregados.getItemCount(); i++) {
+	// Listitem listItem = ltbExamenesAgregados.getItemAtIndex(i);
+	// Integer idExamen = ((Spinner) ((listItem.getChildren().get(3)))
+	// .getFirstChild()).getValue();
+	// examen = servicioExamen.buscar(idExamen);
+	// proveedorExamen = servicioProveedorExamen
+	// .buscarPorProveedoryExamen(proveedor, examen);
+	// if (proveedorExamen == null) {
+	// error = true;
+	// examenes += "-" + examen.getNombre() + "\n";
+	// } else {
+	// Combobox combo = ((Combobox) ((listItem.getChildren()
+	// .get(2))).getFirstChild());
+	// if (combo.getSelectedItem() == null) {
+	// combo.setValue(proveedorExamen.getProveedor()
+	// .getNombre());
+	// combo.getSelectedItem().setContext(
+	// String.valueOf(proveedorExamen.getProveedor()
+	// .getIdProveedor()));
+	// }
+	// }
+	// }
+	// if (error) {
+	// cmbProveedor.setFocus(true);
+	// Messagebox.show(
+	// "El proveedor seleccionado no realiza los(el) examen(es):   "
+	// + examenes + "Por favor modifiquelos",
+	// "Alerta", Messagebox.OK, Messagebox.EXCLAMATION);
+	// return false;
+	// } else
+	// return true;
+	// } else
+	// return true;
+	// }
 
 	@Listen("onClick = #btnAgregarExamenes")
 	public boolean agregarExamen() {
@@ -2651,7 +2650,6 @@ public class CConsulta extends CGenerico {
 		if (rdoNoApto.isChecked())
 			rdoNoApto.setChecked(false);
 		rowAsociada.setVisible(false);
-		rowAsociadaOrden.setVisible(false);
 		rowEspecialista.setVisible(false);
 		rowApto.setVisible(false);
 		rowApto2.setVisible(false);
@@ -2930,11 +2928,9 @@ public class CConsulta extends CGenerico {
 			txtCondicionado.setValue("");
 			rowEspecialista.setVisible(false);
 			rowAsociada.setVisible(false);
-			rowAsociadaOrden.setVisible(false);
 		} else {
 			if (cmbTipoPreventiva.getValue().equals("Control")) {
 				rowAsociada.setVisible(true);
-				rowAsociadaOrden.setVisible(false);
 				txtCondicionado.setValue("");
 				rowApto2.setVisible(false);
 				rowEspecialista.setVisible(false);
@@ -2944,7 +2940,6 @@ public class CConsulta extends CGenerico {
 					txtCondicionado.setValue("");
 					rowApto2.setVisible(false);
 					rowAsociada.setVisible(true);
-					rowAsociadaOrden.setVisible(true);
 					txtCondicionado.setValue("");
 					rowApto2.setVisible(false);
 				} else {
@@ -2963,10 +2958,8 @@ public class CConsulta extends CGenerico {
 					rowEspecialista.setVisible(false);
 					rowEspecialista.setVisible(false);
 					rowAsociada.setVisible(false);
-					rowAsociadaOrden.setVisible(false);
 					lblDiagnosticoAsociado2.setValue("");
 					lblEnfermedadAsociada2.setValue("");
-					lblMotivoOrden2.setValue("");
 				}
 			}
 			row.setVisible(false);
@@ -3000,10 +2993,8 @@ public class CConsulta extends CGenerico {
 		rowPromocion.setVisible(false);
 		cmbTipoPreventiva.setVisible(true);
 		rowAsociada.setVisible(false);
-		rowAsociadaOrden.setVisible(false);
 		lblDiagnosticoAsociado2.setValue("");
 		lblEnfermedadAsociada2.setValue("");
-		lblMotivoOrden2.setValue("");
 		lblPreventiva.setVisible(true);
 		lblPreventivaArea.setVisible(false);
 		cmbTipoPreventiva.setValue("");

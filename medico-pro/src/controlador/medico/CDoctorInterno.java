@@ -81,8 +81,6 @@ public class CDoctorInterno extends CGenerico {
 	@Wire
 	private Textbox txtLicenciaIUsuario;
 	@Wire
-	private Spinner spnCitasUsuario;
-	@Wire
 	private Combobox cmbEspecialidad;
 	@Wire
 	private Button btnBuscarUsuario;
@@ -138,7 +136,6 @@ public class CDoctorInterno extends CGenerico {
 				txtNombreUsuario.setValue("");
 				txtNombre2Usuario.setValue("");
 				txtTelefonoUsuario.setValue("");
-				spnCitasUsuario.setValue(0);
 				rdoSexoFUsuario.setChecked(false);
 				rdoSexoMUsuario.setChecked(false);
 				id = "";
@@ -146,12 +143,9 @@ public class CDoctorInterno extends CGenerico {
 
 			@Override
 			public void guardar() {
-				if (spnCitasUsuario == null)
-					spnCitasUsuario.setValue(0);
 				if (validar()) {
 					Especialidad especialidad = null;
 					String licenciaI = "";
-					long citas = 0;
 					String cedula = txtCedulaUsuario.getValue();
 					String direccion = txtDireccionUsuario.getValue();
 					String ficha = txtFichaUsuario.getValue();
@@ -164,8 +158,6 @@ public class CDoctorInterno extends CGenerico {
 					String nombre2 = txtNombre2Usuario.getValue();
 					String apellido2 = txtApellido2Usuario.getValue();
 					String telefono = txtTelefonoUsuario.getValue();
-					if (spnCitasUsuario.getValue() != null)
-						citas = spnCitasUsuario.getValue();
 					String sexo = "";
 					if (rdoSexoFUsuario.isChecked())
 						sexo = "F";
@@ -181,7 +173,7 @@ public class CDoctorInterno extends CGenerico {
 							ficha, licenciaC, licencia, licenciaM, apellido,
 							nombre, apellido2, nombre2, sexo, telefono,
 							especialidad, fechaHora, horaAuditoria,
-							nombreUsuarioSesion(), citas);
+							nombreUsuarioSesion());
 					servicioDoctor.guardar(doctor);
 					limpiar();
 					Mensaje.mensajeInformacion(Mensaje.guardado);
@@ -362,7 +354,6 @@ public class CDoctorInterno extends CGenerico {
 		txtApellidoUsuario.setValue(usuario.getPrimerApellido());
 		txtApellido2Usuario.setValue(usuario.getSegundoApellido());
 		txtTelefonoUsuario.setValue(usuario.getTelefono());
-		spnCitasUsuario.setValue((int) (long) usuario.getCitasDiarias());
 		String sexo = usuario.getSexo();
 		if (sexo.equals("F"))
 			rdoSexoFUsuario.setChecked(true);

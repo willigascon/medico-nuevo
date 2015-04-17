@@ -208,7 +208,7 @@ public class CArbol extends CGenerico {
 						.equals("Consulta")
 						|| String.valueOf(
 								arbolMenu.getSelectedItem().getValue()).equals(
-								"Ordenes"))
+								"Historia Medica"))
 					west.setOpen(false);
 				for (int i = 0; i < tabs.size(); i++) {
 					if (tabs.get(i).getLabel().equals(arbolItem.getNombre())) {
@@ -231,7 +231,7 @@ public class CArbol extends CGenerico {
 									if (arbolItem.getNombre()
 											.equals("Consulta")
 											|| arbolItem.getNombre().equals(
-													"Ordenes"))
+													"Historia Medica"))
 										west.setOpen(true);
 									for (int i = 0; i < tabs.size(); i++) {
 										if (tabs.get(i).getLabel()
@@ -341,7 +341,7 @@ public class CArbol extends CGenerico {
 			}
 		}
 		if (abrir) {
-			String ruta = "/vistas/seguridad/VEditarUsuario.zul";
+			String ruta = "/vistas/security/VEditarUsuario.zul";
 			contenido = new Include();
 			contenido.setSrc(null);
 			contenido.setSrc(ruta);

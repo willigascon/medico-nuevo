@@ -3,9 +3,10 @@
 	<style>
 		.z-groupbox-hr { background: #EBE8E8 }
 	</style>
-	<div id="divCita" apply="controlador.medico.CCita" width="85%">
+	<div id="divCita" apply="controlador.medico.CCita" width="100%">
 		<groupbox width="100%" mold="3d" title="Cita">
-			<groupbox width="100%" title="">
+						<div id="botoneraCita" />
+			<groupbox width="100%" title="" class="blanco">
 				<caption label="Datos del Doctor"
 					style="color:black; font-size: 12px; font-weight:bold" />
 				<separator />
@@ -38,192 +39,167 @@
 				</grid>
 			</groupbox>
 			<separator />
-			<tabbox width="100%">
-				<tabs>
-					<tab label="Nueva Cita" id="tabCita" />
-					<tab label="Consultar Citas" id="tabConsultar" />
-				</tabs>
-				<tabpanels>
-					<tabpanel>
-						<groupbox width="100%" title="">
-							<caption label="Datos de Paciente"
-								style="color:black; font-size: 12px; font-weight:bold" />
-							<separator />
-							<grid width="100%">
-								<columns visible="false">
-									<column label="" width="11%" />
-									<column label="" width="32%" />
-									<column label="" width="11%" />
-									<column label="" width="32%" />
-									<column label="" width="14%" />
-								</columns>
-								<rows>
-									<row>
-										<hbox>
-											<label class="etiqueta" value="Cedula:" />
-											<space />
-											<label value="*" style="font-weight:bold;color:red" />
-										</hbox>
-										<textbox maxlength="15" id="txtCedulaPaciente" hflex="1"
-											tooltiptext="Ingrese la Cedula del Paciente" />
-										<label class="etiqueta" value="Empresa:" />
-										<label id="lblEmpresaPaciente" />
-										<button autodisable="self" id="btnBuscarPaciente"
-											class="btn" label="Buscar" tooltiptext="Catalogo de Pacientes"
-											image="/public/imagenes/botones/buscar.png" />
-									</row>
-									<row>
-										<label class="etiqueta" value="Nombres:" />
-										<label id="lblNombrePaciente" />
-										<label class="etiqueta" value="Apellidos:" />
-										<label id="lblApellidoPaciente" />
-										<hbox />
-									</row>
-								</rows>
-							</grid>
-							<separator />
-						</groupbox>
-						<groupbox width="100%" title="">
-							<caption label="Datos de la Cita"
-								style="color:black; font-size: 12px; font-weight:bold" />
-							<separator />
-							<grid width="100%">
-								<columns visible="false">
-									<column label="" width="15%" />
-									<column label="" width="33%" />
-									<column label="" width="14%" />
-									<column label="" width="40%" />
-									<column label="" width="8%" />
-								</columns>
-								<rows>
-									<row>
-										<hbox>
-											<label class="etiqueta" value="Fecha Cita:" />
-											<space />
-											<label value="*" style="font-weight:bold;color:red" />
-										</hbox>
-										<datebox readonly="true" width="140px" id="dtbFechaCita"
-											constraint="no past" onCreate="self.value = new Date()"
-											tooltiptext="Seleccione la Hora de la Cita" />
-										<hbox>
-											<label class="etiqueta" value="Hora Cita:" />
-											<space />
-											<label value="*" style="font-weight:bold;color:red" />
-										</hbox>
-										<timebox id="tmbHoraCita" format="a hh:mm:ss"
-											onCreate="self.value = new Date()" tooltiptext="Seleccione la Hora de la Cita"
-											width="140px" />
-										<hbox />
-									</row>
-									<row>
-										<label class="etiqueta" value="Observacion:" />
-										<textbox class="multilinea" id="txtObservacion" hflex="1"
-											maxlength="500" tooltiptext="Ingrese una Observacion de la Cita"
-											multiline="true" />
-										<hbox>
-											<label class="etiqueta" value="Motivo" />
-											<space />
-											<label value="*" style="font-weight:bold;color:red" />
-										</hbox>
-										<combobox id="cmbMotivo" readonly="true" tabindex="1"
-											width="100%" tooltiptext="Seleccione un Motivo" placeholder="Seleccione un Motivo">
-											<template name="model">
-												<comboitem label="${each.descripcion}" context="${each.idMotivoCita}" />
-											</template>
-										</combobox>
-										<button class="abrir" id="btnAbrirMotivo" label=""
-											tooltiptext="Crear un Nuevo Motivo" image="/public/imagenes/botones/agregar.png" />
-									</row>
-								</rows>
-							</grid>
-							<separator />
-						</groupbox>
-						<separator />
-						<div align="left" style="float: right;">
-							<separator />
-							<button class="btn" label="Siguiente" id="btnSiguientePestanna"
-								image="/public/imagenes/botones/adelante.png" tooltiptext="Pestaña Siguiente" />
-						</div>
-						<vbox>
-							<separator />
-							<div width="50%" id="botoneraCita" align="left" style="float: left;" />
-						</vbox>
-					</tabpanel>
-					<tabpanel>
-						<groupbox width="100%" title="Citas Asociadas al Doctor">
-							<separator />
-							<separator />
+			<groupbox width="100%" title="">
+				<caption label="Datos de Paciente"
+					style="color:black; font-size: 12px; font-weight:bold" />
+				<grid width="100%">
+					<columns visible="false">
+						<column label="" width="11%" />
+						<column label="" width="32%" />
+						<column label="" width="11%" />
+						<column label="" width="32%" />
+						<column label="" width="14%" />
+					</columns>
+					<rows>
+						<row>
 							<hbox>
-								<separator />
-								<label class="etiqueta" id="lblBuscar" value="Buscar por: " />
-								<combobox id="cmbBuscador" readonly="true" tabindex="1"
-									width="100%" tooltiptext="Seleccione el Campo" placeholder="Seleccione el Campo">
-									<template name="model">
-										<comboitem label="${each}" />
-									</template>
-								</combobox>
-								<textbox id="txtBuscador" width="250px"
-									tooltiptext="Ingrese el Criterio de Busqueda" placeholder="Ingrese el Criterio de Busqueda"></textbox>
+								<label class="etiqueta" value="Cedula:" />
+								<space />
+								<label value="*" style="font-weight:bold;color:red" />
 							</hbox>
-							<separator />
+							<textbox maxlength="15" id="txtCedulaPaciente" hflex="1"
+								tooltiptext="Ingrese la Cedula del Paciente" />
+							<label class="etiqueta" value="Empresa:" />
+							<label id="lblEmpresaPaciente" />
+							<button autodisable="self" id="btnBuscarPaciente" class="btn"
+								label="Buscar" tooltiptext="Catalogo de Pacientes" image="/public/imagenes/botones/buscar.png" />
+						</row>
+						<row>
+							<label class="etiqueta" value="Nombres:" />
+							<label id="lblNombrePaciente" />
+							<label class="etiqueta" value="Apellidos:" />
+							<label id="lblApellidoPaciente" />
+							<hbox />
+						</row>
+					</rows>
+				</grid>
+			</groupbox>
+			<groupbox width="100%" title="">
+				<caption label="Datos de la Cita"
+					style="color:black; font-size: 12px; font-weight:bold" />
+				<separator />
+				<grid width="100%">
+					<columns visible="false">
+						<column label="" width="15%" />
+						<column label="" width="33%" />
+						<column label="" width="14%" />
+						<column label="" width="40%" />
+						<column label="" width="8%" />
+					</columns>
+					<rows>
+						<row>
 							<hbox>
-								<listbox id="ltbCitas" height="100%" mold="paging" pageSize="10"  emptyMessage="No hay Citas registrados">
-									<listhead>
-										<listheader label="Paciente" sort="auto(paciente.primerNombre)"
-											width="20%" />
-										<listheader label="Empresa Paciente" sort="auto(paciente.empresa.nombre)"
-											width="18%" />
-										<listheader label="Fecha" sort="auto(fechaCita)"
-											width="12%" />
-										<listheader label="Motivo" sort="auto(motivoCita.descripcion)"
-											width="25%" />
-										<listheader label="Observacion" sort="auto(observacion)"
-											width="25%" />
-									</listhead>
-									<template name="model">
-										<listitem>
-											<listcell label="${each.paciente.horaAuditoria}">
-											</listcell>
-											<listcell label="${each.paciente.empresa.nombre}">
-											</listcell>
-											<listcell label="${each.getFechaCitaString()}">
-											</listcell>
-											<listcell label="${each.motivoCita.descripcion}">
-											</listcell>
-											<listcell label="${each.observacion}">
-											</listcell>
-										</listitem>
-									</template>
-								</listbox>
-								<vbox>
-									<div align="center">
-										<separator height="80px" />
-										<button class="btn" width="150px" label="Cancelar Citas"
-											id="btnCancelarCita" image="/public/imagenes/botones/salir.png"
-											tooltiptext="Cancelar Citas Seleccionadas" />
-										<separator />
-										<button class="btn" width="150px" label="Anular Citas"
-											id="btnAnularCita" image="/public/imagenes/botones/anular.png"
-											tooltiptext="Anular Citas Seleccionadas" />
-										<separator />
-										<button class="btn" width="150px" label="Finalizar Citas"
-											id="btnFinalizarCita" image="/public/imagenes/botones/seleccionar.png"
-											tooltiptext="Finalizar Citas Seleccionadas" />
-									</div>
-								</vbox>
+								<label class="etiqueta" value="Fecha Cita:" />
+								<space />
+								<label value="*" style="font-weight:bold;color:red" />
 							</hbox>
-						</groupbox>
-						<separator />
-						<separator />
-						<div width="50%" align="left" style="float: left;">
+							<datebox readonly="true" width="140px" id="dtbFechaCita"
+								constraint="no past" onCreate="self.value = new Date()"
+								tooltiptext="Seleccione la Hora de la Cita" />
+							<hbox>
+								<label class="etiqueta" value="Hora Cita:" />
+								<space />
+								<label value="*" style="font-weight:bold;color:red" />
+							</hbox>
+							<timebox id="tmbHoraCita" format="a hh:mm:ss"
+								onCreate="self.value = new Date()" tooltiptext="Seleccione la Hora de la Cita"
+								width="140px" />
+							<hbox />
+						</row>
+						<row>
+							<label class="etiqueta" value="Observacion:" />
+							<textbox class="multilinea" id="txtObservacion" hflex="1"
+								maxlength="500" tooltiptext="Ingrese una Observacion de la Cita"
+								multiline="true" />
+							<hbox>
+								<label class="etiqueta" value="Motivo" />
+								<space />
+								<label value="*" style="font-weight:bold;color:red" />
+							</hbox>
+							<combobox id="cmbMotivo" readonly="true" tabindex="1"
+								width="100%" tooltiptext="Seleccione un Motivo" placeholder="Seleccione un Motivo">
+								<template name="model">
+									<comboitem label="${each.descripcion}" context="${each.idMotivoCita}" />
+								</template>
+							</combobox>
+							<button class="abrir" id="btnAbrirMotivo" label=""
+								tooltiptext="Crear un Nuevo Motivo" image="/public/imagenes/botones/agregar.png" />
+						</row>
+					</rows>
+				</grid>
+			</groupbox>
+			<separator />
+			<groupbox width="100%" title="Citas Asociadas al Doctor">
+				<separator />
+				<separator />
+				<hbox>
+					<separator />
+					<label class="etiqueta" id="lblBuscar" value="Buscar por: " />
+					<combobox id="cmbBuscador" readonly="true" tabindex="1"
+						width="100%" tooltiptext="Seleccione el Campo" placeholder="Seleccione el Campo">
+						<template name="model">
+							<comboitem label="${each}" />
+						</template>
+					</combobox>
+					<textbox id="txtBuscador" width="250px"
+						tooltiptext="Ingrese el Criterio de Busqueda" placeholder="Ingrese el Criterio de Busqueda"></textbox>
+				</hbox>
+				<separator />
+				<hbox>
+					<listbox id="ltbCitas" height="100%" mold="paging"
+						pageSize="10" emptyMessage="No hay Citas registrados">
+						<listhead>
+							<listheader label="Paciente" sort="auto(paciente.primerNombre)"
+								width="20%" />
+							<listheader label="Empresa Paciente" sort="auto(paciente.empresa.nombre)"
+								width="18%" />
+							<listheader label="Fecha" sort="auto(fechaCita)"
+								width="12%" />
+							<listheader label="Motivo" sort="auto(motivoCita.descripcion)"
+								width="25%" />
+							<listheader label="Observacion" sort="auto(observacion)"
+								width="25%" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="${each.paciente.horaAuditoria}">
+								</listcell>
+								<listcell label="${each.paciente.empresa.nombre}">
+								</listcell>
+								<listcell label="${each.getFechaCitaString()}">
+								</listcell>
+								<listcell label="${each.motivoCita.descripcion}">
+								</listcell>
+								<listcell label="${each.observacion}">
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+					<vbox>
+						<div align="center">
+							<button class="btn" width="150px" label="Cancelar Citas"
+								id="btnCancelarCita" image="/public/imagenes/botones/salir.png"
+								tooltiptext="Cancelar Citas Seleccionadas" />
 							<separator />
+							<button class="btn" width="150px" label="Anular Citas" id="btnAnularCita"
+								image="/public/imagenes/botones/anular.png" tooltiptext="Anular Citas Seleccionadas" />
 							<separator />
-							<button class="btn" label="Anterior" id="btnAnteriorPestanna"
-								image="/public/imagenes/botones/atras.png" tooltiptext="Pestaña Anterior" />
+							<button class="btn" width="150px" label="Finalizar Citas"
+								id="btnFinalizarCita" image="/public/imagenes/botones/seleccionar.png"
+								tooltiptext="Finalizar Citas Seleccionadas" />
+							<separator />
+							<button class="btn" width="150px" label="Exportar PDF" id="btnPdf"
+								image="/public/imagenes/botones/pdf.png"
+								tooltiptext="Presione para exportar todas las solicitudes a un archivo PDF" />
+							<separator />
+							<button class="btn" width="150px" label="Exportar Excel"
+								id="btnExcel" image="/public/imagenes/botones/excel.png"
+								tooltiptext="Presione para exportar todas las solicitudes a un archivo EXCEL" />
 						</div>
-					</tabpanel>
-				</tabpanels>
-			</tabbox>
+					</vbox>
+				</hbox>
+			</groupbox>
+
 			<div id="catalogoUsuarios" />
 			<div id="divCatalogoPacientes" />
 		</groupbox>

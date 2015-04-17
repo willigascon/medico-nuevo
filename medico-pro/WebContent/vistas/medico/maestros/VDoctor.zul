@@ -108,9 +108,8 @@
 						<label class="etiqueta" value="Licencia INPSASEL:" />
 						<textbox id="txtLicenciaIUsuario" hflex="1" maxlength="50"
 							tooltiptext="Ingrese la Licencia INPSASEL del Usuario (Solo Numeros)" />
-						<label class="etiqueta" value="Numero de Citas Diarias:" />
-						<spinner constraint="min 0 max 100000000" value="1"
-							id="spnCitasUsuario" tooltiptext="Ingrese la Cantidad de Citas Diarias" />
+						<hbox />
+						<hbox />
 					</row>
 				</rows>
 			</grid>

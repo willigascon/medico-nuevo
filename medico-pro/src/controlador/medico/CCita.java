@@ -1,11 +1,14 @@
 package controlador.medico;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import modelo.medico.maestro.Cita;
 import modelo.medico.maestro.DoctorInterno;
@@ -13,12 +16,22 @@ import modelo.medico.maestro.MotivoCita;
 import modelo.medico.maestro.Paciente;
 import modelo.security.Arbol;
 import modelo.security.Usuario;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
@@ -197,7 +210,7 @@ public class CCita extends CGenerico {
 		lblEmpresaPaciente.setValue("");
 		txtObservacion.setValue("");
 		tmbHoraCita.setValue(dt);
-		dtbFechaCita.setValue(null);
+		dtbFechaCita.setValue(fecha);
 		cmbMotivo.setValue("");
 		cmbMotivo.setPlaceholder("Seleccione un Motivo");
 		id = 0;
@@ -248,7 +261,6 @@ public class CCita extends CGenerico {
 	@Listen("onSeleccion = #catalogoUsuarios")
 	public void seleccionarDoctor() {
 		DoctorInterno usuario = catalogo.objetoSeleccionadoDelCatalogo();
-		validarCita(usuario);
 		lblApellidoDoctor.setValue(usuario.getPrimerApellido() + " "
 				+ usuario.getSegundoApellido());
 		lblNombreDoctor.setValue(usuario.getPrimerNombre() + " "
@@ -262,8 +274,8 @@ public class CCita extends CGenerico {
 
 	/* Llena la lista de citas segun un usuario determinado */
 	public void llenarListaCitas(DoctorInterno usuario) {
-		List<Cita> citasDoctor = servicioCita.buscarPorUsuarioYEstado(usuario,
-				"Pendiente");
+		List<Cita> citasDoctor = servicioCita.buscarPorUsuarioYEstadoYFecha(
+				usuario, "Pendiente", dtbFechaCita.getValue());
 		citas = citasDoctor;
 		for (int i = 0; i < citasDoctor.size(); i++) {
 
@@ -592,18 +604,10 @@ public class CCita extends CGenerico {
 
 	@Listen("onChange = #dtbFechaCita")
 	public void validarFecha() {
-		validarCita(servicioDoctor.buscarPorCedula(idDoctor));
-	}
-
-	public boolean validarCita(DoctorInterno usuario) {
-		long citas = usuario.getCitasDiarias();
-		int numero = servicioCita.buscarPorUsuarioYFechaYEstado(usuario,
-				dtbFechaCita.getValue(), "Pendiente");
-		if (citas >= numero)
-			return true;
-		else {
-			Mensaje.mensajeAlerta("El doctor ya ha llegado al limite de citas diarias");
-			return false;
+		if (!idDoctor.equals("")) {
+			DoctorInterno usuario = servicioDoctor.buscarPorCedula(String
+					.valueOf(idDoctor));
+			llenarListaCitas(usuario);
 		}
 	}
 
@@ -617,6 +621,86 @@ public class CCita extends CGenerico {
 		} else {
 			limpiar2();
 			Mensaje.mensajeError(Mensaje.pacienteNoExiste);
+		}
+	}
+
+	@Listen("onClick = #btnPdf, #btnExcel")
+	public void exportar(Event e) {
+		String fechaControl = formatoReporte.format(dtbFechaCita.getValue());
+		String idBoton = e.getTarget().getId();
+		if (idBoton.equals("btnExcel"))
+			idBoton = "EXCEL";
+		if (!citas.isEmpty()) {
+			Clients.evalJavaScript("window.open('"
+					+ damePath()
+					+ "Reportero?valor6="
+					+ fechaControl
+					+ "&valor="
+					+ 47
+					+ "&valor7="
+					+ idDoctor
+					+ "&valor20="
+					+ idBoton
+					+ "','','top=100,left=200,height=600,width=800,scrollbars=1,resizable=1')");
+
+		} else
+			Mensaje.mensajeAlerta(Mensaje.noHayRegistros);
+
+	}
+
+	public byte[] jasperCitas(String par6, String idDoctor, String tipo) {
+
+		byte[] fichero = null;
+		Date fecha1 = null;
+		try {
+			fecha1 = formatoReporte.parse(par6);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		DoctorInterno doctorHouse = getServicioDoctor().buscarPorCedula(
+				idDoctor);
+		List<Cita> especialistas = getServicioCita()
+				.buscarPorUsuarioYEstadoYFecha(doctorHouse, "%", fecha1);
+
+		Map<String, Object> p = new HashMap<String, Object>();
+		p.put("fecha", new Timestamp(fecha1.getTime()));
+
+		JasperReport reporte = null;
+		try {
+			reporte = (JasperReport) JRLoader
+					.loadObject(getClass()
+							.getResource(
+									"/reporte/medico/general/RSolicitudesConsulta.jasper"));
+		} catch (JRException e) {
+			Mensaje.mensajeError("Recurso no Encontrado");
+		}
+		if (tipo.equals("EXCEL")) {
+
+			JasperPrint jasperPrint = null;
+			try {
+				jasperPrint = JasperFillManager.fillReport(reporte, p,
+						new JRBeanCollectionDataSource(especialistas));
+			} catch (JRException e) {
+				e.printStackTrace();
+			}
+			ByteArrayOutputStream xlsReport = new ByteArrayOutputStream();
+			JRXlsxExporter exporter = new JRXlsxExporter();
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, xlsReport);
+			try {
+				exporter.exportReport();
+			} catch (JRException e) {
+				e.printStackTrace();
+			}
+			return xlsReport.toByteArray();
+		} else {
+			try {
+				fichero = JasperRunManager.runReportToPdf(reporte, p,
+						new JRBeanCollectionDataSource(especialistas));
+			} catch (JRException e) {
+				Mensaje.mensajeError("Error en Reporte");
+			}
+			return fichero;
 		}
 	}
 }

@@ -39,6 +39,7 @@ import org.zkoss.zul.Div;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
+import org.zkoss.zul.West;
 import org.zkoss.zul.impl.InputElement;
 
 import servicio.medico.consulta.SConsulta;
@@ -216,6 +217,7 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 	public Tabbox tabBox;
 	public Include contenido;
 	public Tab tab;
+	public West west;
 	protected DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 	protected DateFormat formatoHorasHombre = new SimpleDateFormat("MM/yyyy");
 	protected DateFormat formatoReporte = new SimpleDateFormat("dd-MM-yyyy");

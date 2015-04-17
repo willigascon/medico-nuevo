@@ -6,8 +6,8 @@
 		color:red;
 		}
 	</style>
-	<div id="divConsulta" apply="controlador.medico.CConsulta"
-		sclass="font-size:s" width="auto">
+	<div id="divConsulta" apply="controlador.medico.CConsulta" sclass="font-size:s"
+		width="auto">
 		<groupbox width="auto" mold="3d" title="Historia Medica">
 			<grid width="100%">
 				<columns visible="false">
@@ -397,23 +397,6 @@
 										value="Diagnostico de Consulta Asociada:" />
 									<label id="lblDiagnosticoAsociado2" value="" />
 								</row>
-								<row id="rowAsociadaOrden" visible="false">
-									<hbox>
-										<label class="etiqueta" id="lblOrden" value="Orden Asociada al Control:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<button class="btn" autodisable="self" label="Orden Asociada"
-										id="btnOrdenAsociada" image="/public/imagenes/botones/buscar.png"
-										tooltiptext="Seleccione la order asociada a la consulta de control que esta realizando"
-										vflex="1" hflex="1" />
-									<label class="etiqueta" id="lblMotivoOrden" value="Motivo de la Orden:" />
-									<cell colspan="2">
-										<label id="lblMotivoOrden2" value="" />
-									</cell>
-									<hbox />
-									<hbox />
-								</row>
 								<row id="rowEspecialista" visible="false">
 									<hbox>
 										<label class="etiqueta" value="Especialista de la IC:" />
@@ -710,8 +693,8 @@
 														</combobox>
 													</listcell>
 													<listcell>
-														<textbox maxlength="100" value="${each.observacion}" width="98%"
-															class="multilinea" multiline="true" />
+														<textbox maxlength="100" value="${each.observacion}"
+															width="98%" class="multilinea" multiline="true" />
 													</listcell>
 													<listcell>
 														<button class="btn" label="Ver" autodisable="true"
@@ -898,8 +881,8 @@
 															value="${each.cantidad}" />
 													</listcell>
 													<listcell>
-														<textbox  maxlength="1000" value="${each.dosis}" width="98%" class="multilinea"
-															multiline="true" />
+														<textbox maxlength="1000" value="${each.dosis}"
+															width="98%" class="multilinea" multiline="true" />
 													</listcell>
 													<listcell>
 														<spinner value="${each.medicina.idMedicina}"
@@ -1023,8 +1006,8 @@
 													<listcell label="${each.examen.nombre}">
 													</listcell>
 													<listcell>
-														<textbox maxlength="300" value="${each.observacion}" width="98%"
-															class="multilinea" multiline="true" />
+														<textbox maxlength="300" value="${each.observacion}"
+															width="98%" class="multilinea" multiline="true" />
 													</listcell>
 													<!-- onSelect='$composer.validarExamen(self)' -->
 													<listcell>
@@ -1057,15 +1040,6 @@
 															<button class="btn" label="Agregar Examenes" id="btnAgregarExamenes"
 																image="/public/imagenes/botones/agregar.png"
 																tooltiptext="Agregar Examenes" vflex="1" hflex="1" />
-														</cell>
-													</row>
-													<row>
-														<cell colspan="3">
-															<hbox>
-																<label class="etiqueta" value="Laboratorio encargado de examenes:" />
-																<space />
-																<label value="*" style="font-weight:bold;color:red" />
-															</hbox>
 														</cell>
 													</row>
 													<row>

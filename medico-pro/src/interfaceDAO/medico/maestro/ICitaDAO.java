@@ -10,6 +10,7 @@ import modelo.medico.maestro.MotivoCita;
 import modelo.medico.maestro.Paciente;
 import modelo.security.Usuario;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ICitaDAO extends JpaRepository<Cita, Long> {
@@ -68,5 +69,8 @@ public interface ICitaDAO extends JpaRepository<Cita, Long> {
 			DoctorInterno usuario, String valor, Timestamp fecha, String string);
 
 	List<Cita> findByDoctorInterno(DoctorInterno usuario);
+
+	List<Cita> findByDoctorInternoAndEstadoLikeAndFechaCita(
+			DoctorInterno usuario, String estado, Timestamp fecha, Sort o);
 
 }

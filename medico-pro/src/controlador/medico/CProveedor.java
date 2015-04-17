@@ -86,24 +86,16 @@ public class CProveedor extends CGenerico {
 	private Tab tabEstudios;
 	@Wire
 	private Tab tabExamenes;
-	@Wire
-	private Label lblNombre;
-	@Wire
-	private org.zkoss.zul.Row rowSubir;
-	@Wire
-	private org.zkoss.zul.Row rowBajar;
 
 	private CArbol cArbol = new CArbol();
 	long id = 0;
 	Catalogo<Proveedor> catalogo;
-	private Media media;
 	Buscar<Examen> buscadorExamen;
 	Buscar<ServicioExterno> buscadorEstudio;
 	List<Examen> examenesDisponibles = new ArrayList<Examen>();
 	List<ProveedorExamen> examenesUsados = new ArrayList<ProveedorExamen>();
 	List<ServicioExterno> estudiosDisponibles = new ArrayList<ServicioExterno>();
 	List<ProveedorServicio> estudiosUsados = new ArrayList<ProveedorServicio>();
-	private String archivoConError = "Existe un error en el siguiente archivo adjunto: ";
 
 	@Override
 	public void inicializar() throws IOException {
@@ -152,12 +144,6 @@ public class CProveedor extends CGenerico {
 				examenesDisponibles.clear();
 				examenesUsados.clear();
 				tabEstudios.setSelected(true);
-				if (rowSubir.getChildren().size() == 4) {
-					A linea = (A) rowSubir.getChildren().get(3);
-					Events.postEvent("onClick", linea, null);
-				}
-				rowBajar.setVisible(false);
-				rowSubir.setVisible(false);
 			}
 
 			@Override
@@ -244,13 +230,10 @@ public class CProveedor extends CGenerico {
 							listaExamen.get(i).setProveedor(proveedor);
 						}
 						servicioProveedorExamen.guardar(listaExamen);
-						if (media != null) {
-							guardarPrecios(proveedor);
-						}
 						limpiar();
-						msj.mensajeInformacion(Mensaje.guardado);
+						Mensaje.mensajeInformacion(Mensaje.guardado);
 					} else
-						msj.mensajeError(Mensaje.listaVacia);
+						Mensaje.mensajeError(Mensaje.listaVacia);
 				}
 			}
 
@@ -272,228 +255,21 @@ public class CProveedor extends CGenerico {
 												.buscarPorProveedor(proveedor);
 										if (!consultas1.isEmpty()
 												|| !consultas2.isEmpty())
-											msj.mensajeError(Mensaje.noEliminar);
+											Mensaje.mensajeError(Mensaje.noEliminar);
 										else {
 											servicioProveedor
 													.eliminar(proveedor);
 											limpiar();
-											msj.mensajeInformacion(Mensaje.eliminado);
+											Mensaje.mensajeInformacion(Mensaje.eliminado);
 										}
 									}
 								}
 							});
 				} else
-					msj.mensajeAlerta(Mensaje.noSeleccionoRegistro);
+					Mensaje.mensajeAlerta(Mensaje.noSeleccionoRegistro);
 			}
 		};
 		botoneraProveedor.appendChild(botonera);
-	}
-
-	@Listen("onClick = #btnExportar")
-	public void exportar() {
-		if (id != 0) {
-			final Proveedor proveedor = servicioProveedor.buscar(id);
-			List<ProveedorServicio> listaEstudios = servicioProveedorServicio
-					.buscarEstudiosUsados(proveedor);
-			List<ProveedorExamen> listaExamen = servicioProveedorExamen
-					.buscarExamenesUsados(proveedor);
-			if (!listaEstudios.isEmpty() && !listaExamen.isEmpty()) {
-				String s = ";";
-				final StringBuffer sb = new StringBuffer();
-				sb.append("Tipo;Id;ServicioOfrecido;Precio" + "\n");
-				for (int i = 0; i < listaEstudios.size(); i++) {
-					String fila = "";
-					fila += "Estudio;"
-							+ listaEstudios.get(i).getServicioExterno()
-									.getIdServicioExterno()
-							+ ";"
-							+ listaEstudios.get(i).getServicioExterno()
-									.getNombre() + ";"
-							+ listaEstudios.get(i).getCosto() + s;
-					sb.append(fila + "\n");
-				}
-				for (int i = 0; i < listaExamen.size(); i++) {
-					String fila = "";
-					fila += "Examen;"
-							+ listaExamen.get(i).getExamen().getIdExamen()
-							+ ";" + listaExamen.get(i).getExamen().getNombre()
-							+ ";" + listaExamen.get(i).getCosto() + s;
-					sb.append(fila + "\n");
-				}
-
-				// for (Object head : lsbCatalogo.getHeads()) {
-				// String h = "";
-				// if (head instanceof Listhead) {
-				// for (Object header : ((Listhead) head).getChildren()) {
-				// h += ((Listheader) header).getLabel() + s;
-				// }
-				// sb.append(h + "\n");
-				// }
-				// }
-				// for (Object item : lsbCatalogo.getItems()) {
-				// String i = "";
-				// for (Object cell : ((Listitem) item).getChildren()) {
-				// i += ((Listcell) cell).getLabel() + s;
-				// }
-				// sb.append(i + "\n");
-				// }
-				Messagebox.show(Mensaje.exportar, "Alerta", Messagebox.OK
-						| Messagebox.CANCEL, Messagebox.QUESTION,
-						new org.zkoss.zk.ui.event.EventListener<Event>() {
-							public void onEvent(Event evt)
-									throws InterruptedException {
-								if (evt.getName().equals("onOK")) {
-									Filedownload.save(sb.toString().getBytes(),
-											"text/plain", "Precios proveedor "
-													+ proveedor.getNombre()
-													+ ".csv");
-								}
-							}
-						});
-			} else
-				msj.mensajeAlerta(Mensaje.noHayRegistros);
-
-		} else
-			msj.mensajeAlerta("Debe seleccionar un Proveedor previamente");
-
-	}
-
-
-	@Listen("onUpload = #btnImportar")
-	public void cargar(UploadEvent event) {
-		media = event.getMedia();
-		if (media != null && Validador.validarExcel(media)) {
-			lblNombre.setValue(media.getName());
-			final A rm = new A("Remover");
-			rm.addEventListener(Events.ON_CLICK,
-					new org.zkoss.zk.ui.event.EventListener<Event>() {
-						public void onEvent(Event event) throws Exception {
-							lblNombre.setValue("");
-							rm.detach();
-							media = null;
-						}
-					});
-			rowSubir.appendChild(rm);
-		} else
-			msj.mensajeError(Mensaje.archivoExcel);
-	}
-
-	protected void guardarPrecios(Proveedor proveedor) {
-		
-		String tipo = "";
-		CsvReader reader = null;
-		List<ProveedorServicio> listaEstudios = new ArrayList<ProveedorServicio>();
-		List<ProveedorExamen> listaExamen = new ArrayList<ProveedorExamen>();
-			try {
-				reader = new CsvReader(media.getStreamData(), ';', Charset.defaultCharset());
-				boolean entro = false;
-				boolean error = false;
-				int row = 0;
-				String mostrarError = "";
-				long idServicio = 0;
-				while (reader.readRecord()) {
-					if (Validador.validarNumero(reader.get(1))) {
-						row++;
-						tipo = reader.get(0);
-						if (Validador.validarNumero(reader.get(1))) {
-							entro = true;
-							if (Validador.validarDouble(reader.get(3))) {
-								if (tipo.equals("Estudio")) {
-									idServicio = Long.valueOf(reader.get(1));
-									ServicioExterno servicio = servicioServicioExterno
-											.buscar(idServicio);
-									if (servicio != null) {
-										double costo = Double.valueOf(reader
-												.get(3));
-										ProveedorServicio proveedorServicio = new ProveedorServicio(
-												proveedor, servicio, costo);
-										listaEstudios.add(proveedorServicio);
-									} else {
-										mostrarError = mensajeErrorNoEncontrado(
-												mostrarError, idServicio, row,
-												2, "Estudio");
-										error = true;
-									}
-								} else {
-									if (tipo.equals("Examen")) {
-										idServicio = Long
-												.valueOf(reader.get(1));
-										Examen examen = servicioExamen
-												.buscar(idServicio);
-										if (examen != null) {
-											double costo = Double
-													.valueOf(reader.get(3));
-											ProveedorExamen proveedorExamen = new ProveedorExamen(
-													proveedor, examen, costo);
-											listaExamen.add(proveedorExamen);
-										} else {
-											mostrarError = mensajeErrorNoEncontrado(
-													mostrarError, idServicio,
-													row, 2, "Examen");
-											error = true;
-										}
-									} else {
-										mostrarError = mensajeErrorNull(
-												mostrarError, row, 1);
-										error = true;
-
-									}
-
-								}
-
-							} else {
-								mostrarError = mensajeErrorNull(mostrarError,
-										row, 4);
-								error = true;
-							}
-						} else {
-							mostrarError = mensajeErrorNull(mostrarError, row,
-									2);
-							error = true;
-						}
-					}
-				}
-				if (entro) {
-					if (!error) {
-						List<ProveedorExamen> examenes = servicioProveedorExamen
-								.buscarExamenesUsados(proveedor);
-						if (!examenes.isEmpty())
-							servicioProveedorExamen.eliminar(examenes);
-						List<ProveedorServicio> estudios = servicioProveedorServicio
-								.buscarEstudiosUsados(proveedor);
-						if (!estudios.isEmpty())
-							servicioProveedorServicio.eliminar(estudios);
-						servicioProveedorExamen.guardar(listaExamen);
-						servicioProveedorServicio.guardar(listaEstudios);
-						msj.mensajeInformacion("Archivo importado con exito"
-								+ "\n" + "Cantidad de Filas evaluadas:"
-								+ (row - 1) + "\n"
-								+ "Cantidad de Filas insertadas:" + (row - 1));
-					} else
-						msj.mensajeError("El archivo no ha podido ser importado, causas:"
-								+ "\n"
-								+ mostrarError
-								+ "\n"
-								+ "Cantidad de Filas evaluadas:"
-								+ (row - 1)
-								+ "\n" + "Cantidad de Filas insertadas: 0");
-				} else
-					msj.mensajeError("Archivo vacio o con errores de formato");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	}
-
-	private String mensajeErrorNoEncontrado(String mostrarError,
-			long idServicio, int row, int i, String string) {
-		return mostrarError + " El valor " + idServicio
-				+ " no se ha encontrado en la tabla  " + string + ".  Fila: "
-				+ row + ". Columna: " + i + "\n";
-	}
-
-	private String mensajeErrorNull(String mostrarError, int row, int i) {
-		return mostrarError + archivoConError + ". Fila: " + row
-				+ ". Columna: " + i + "\n";
 	}
 
 	/* Llena el combo de Ciudades cada vez que se abre */
@@ -509,11 +285,11 @@ public class CProveedor extends CGenerico {
 				|| txtNombreProveedor.getText().compareTo("") == 0
 				|| txtTelefonoProveedor.getText().compareTo("") == 0
 				|| cmbCiudadProveedor.getText().compareTo("") == 0) {
-			msj.mensajeError(Mensaje.camposVacios);
+			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else {
 			if (!Validador.validarTelefono(txtTelefonoProveedor.getValue())) {
-				msj.mensajeError(Mensaje.telefonoInvalido);
+				Mensaje.mensajeError(Mensaje.telefonoInvalido);
 				return false;
 			} else
 				return true;
@@ -563,7 +339,7 @@ public class CProveedor extends CGenerico {
 	@Listen("onChange = #txtTelefonoProveedor")
 	public void validarTelefono() {
 		if (!Validador.validarTelefono(txtTelefonoProveedor.getValue())) {
-			msj.mensajeAlerta(Mensaje.telefonoInvalido);
+			Mensaje.mensajeAlerta(Mensaje.telefonoInvalido);
 		}
 	}
 
@@ -586,8 +362,6 @@ public class CProveedor extends CGenerico {
 
 	/* LLena los campos del formulario dado un servicio externo */
 	private void llenarCampos(Proveedor proveedor) {
-		rowBajar.setVisible(true);
-		rowSubir.setVisible(true);
 		txtDireccionProveedor.setValue(proveedor.getDireccion());
 		txtNombreProveedor.setValue(proveedor.getNombre());
 		txtTelefonoProveedor.setValue(proveedor.getTelefono());

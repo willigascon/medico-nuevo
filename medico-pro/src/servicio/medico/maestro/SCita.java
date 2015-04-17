@@ -2,6 +2,9 @@ package servicio.medico.maestro;
 
 import interfaceDAO.medico.maestro.ICitaDAO;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +15,7 @@ import modelo.medico.maestro.Paciente;
 import modelo.security.Usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service("SCita")
@@ -33,7 +37,8 @@ public class SCita {
 
 	}
 
-	public List<Cita> buscarPorUsuarioYEstado(DoctorInterno usuario, String estado) {
+	public List<Cita> buscarPorUsuarioYEstado(DoctorInterno usuario,
+			String estado) {
 		return citaDAO.findByDoctorInternoAndEstado(usuario, estado);
 	}
 
@@ -62,8 +67,8 @@ public class SCita {
 
 	public int buscarPorUsuarioYFechaYEstado(DoctorInterno usuario, Date value,
 			String string) {
-		List<Cita> citas = citaDAO.findByDoctorInternoAndEstadoAndFechaCita(usuario,
-				string, value);
+		List<Cita> citas = citaDAO.findByDoctorInternoAndEstadoAndFechaCita(
+				usuario, string, value);
 		if (!citas.isEmpty())
 			return citas.size();
 		else
@@ -81,5 +86,24 @@ public class SCita {
 
 	public void guardarVarias(List<Cita> citasNuevas) {
 		citaDAO.save(citasNuevas);
+	}
+
+	public List<Cita> buscarPorUsuarioYEstadoYFecha(DoctorInterno usuario,
+			String estado, Date value) {
+		Calendar calendario = Calendar.getInstance();
+		calendario.setTime(value);
+		calendario.set(Calendar.HOUR, 0);
+		calendario.set(Calendar.HOUR_OF_DAY, 0);
+		calendario.set(Calendar.SECOND, 0);
+		calendario.set(Calendar.MILLISECOND, 0);
+		calendario.set(Calendar.MINUTE, 0);
+		value = calendario.getTime();
+		Timestamp fecha = new Timestamp(value.getTime());
+		List<String> ordenar = new ArrayList<String>();
+		ordenar.add("estado");
+		ordenar.add("pacienteCedula");
+		Sort o = new Sort(Sort.Direction.ASC, ordenar);
+		return citaDAO.findByDoctorInternoAndEstadoLikeAndFechaCita(usuario,
+				estado, fecha, o);
 	}
 }

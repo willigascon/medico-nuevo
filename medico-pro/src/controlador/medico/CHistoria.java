@@ -483,44 +483,6 @@ public class CHistoria extends CGenerico {
 	private Doublespinner spnCircunferenciaC;
 	@Wire
 	private Doublespinner spnCaderaAbdominal;
-	@Wire
-	private Spinner spnEdadPediatrica;
-	@Wire
-	private Spinner spnGestacionPediatrica;
-	@Wire
-	private Spinner spnSemanasPediatrica;
-	@Wire
-	private Radio rdoSiComplicacion;
-	@Wire
-	private Radio rdoNoComplicacion;
-	@Wire
-	private Textbox txtResultadoComplicacion;
-	@Wire
-	private Checkbox chkVdrl;
-	@Wire
-	private Checkbox chkVih;
-	@Wire
-	private Checkbox chkTox;
-	@Wire
-	private Textbox txtSerologia;
-	@Wire
-	private Radio rdoSiVagina;
-	@Wire
-	private Radio rdoNoVagina;
-	@Wire
-	private Textbox txtCausaCesarea;
-	@Wire
-	private Doublespinner spnPesoPediatrica;
-	@Wire
-	private Doublespinner spnTallaPediatrica;
-	@Wire
-	private Radio rdoSiComplicacionNeo;
-	@Wire
-	private Radio rdoNoComplicacionNeo;
-	@Wire
-	private Textbox txtResultadoComplicacionNeo;
-	@Wire
-	private Textbox txtObservacionPrenatal;
 	//
 	@Wire
 	private Button btnAbrirAntecedente3;
@@ -576,6 +538,7 @@ public class CHistoria extends CGenerico {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
 				titulo = (String) mapa.get("titulo");
+				west = (West) mapa.get("west");
 				mapa.clear();
 				mapa = null;
 			}
@@ -600,6 +563,7 @@ public class CHistoria extends CGenerico {
 			@Override
 			public void salir() {
 				cerrarVentana(divHistoria, titulo, tabs);
+				west.setOpen(true);
 			}
 
 			@Override
@@ -948,37 +912,6 @@ public class CHistoria extends CGenerico {
 		if (rdgFrecuenciaAlcohol.getSelectedItem() != null)
 			frecuenciaAlcohol = rdgFrecuenciaAlcohol.getSelectedItem()
 					.getLabel();
-
-		int edadPediatrica = spnEdadPediatrica.getValue();
-		int gestacionPediatrica = spnGestacionPediatrica.getValue();
-		int semanasPediatrica = spnSemanasPediatrica.getValue();
-		double talla = spnTallaPediatrica.getValue();
-		double peso = spnPesoPediatrica.getValue();
-		boolean complicacionEmbarazo = false;
-		if (rdoSiComplicacion.isChecked())
-			complicacionEmbarazo = true;
-		String complicacionEmbarazoDescripcion = txtResultadoComplicacion
-				.getValue();
-		boolean vihPediatrico = false;
-		if (chkVih.isChecked())
-			vihPediatrico = true;
-		boolean vdrlPediatrico = false;
-		if (chkVdrl.isChecked())
-			vdrlPediatrico = true;
-		boolean toxoPediatrico = false;
-		if (chkTox.isChecked())
-			toxoPediatrico = true;
-		String resultadoSero = txtSerologia.getValue();
-		boolean parido = false;
-		if (rdoSiVagina.isChecked())
-			parido = true;
-		String resultadoCesarea = txtCausaCesarea.getValue();
-		String complicacionNeoResultado = txtResultadoComplicacionNeo
-				.getValue();
-		String observacionPrenatal = txtObservacionPrenatal.getValue();
-		boolean complicacionNeo = false;
-		if (rdoSiComplicacionNeo.isChecked())
-			complicacionNeo = true;
 		Historia historiaGuardada = new Historia(idHistoria, paciente,
 				valorPeso, cantidadPeso, causasPeso, cafe, tazas, dormilon,
 				cabeza, fisica, tipoFisica, frecuenciaFisica, tiempoFisica,
@@ -1001,12 +934,7 @@ public class CHistoria extends CGenerico {
 				carta, colores, telefonoOdontologo, alturaHombro,
 				anchuraHombro, alturaCodo, izquierdo, derecho, alturaPop, ojo,
 				codoSilla, circunferenciaAbdominal, circunferenciaCadera,
-				manoPiso, indice, edadPediatrica, gestacionPediatrica,
-				semanasPediatrica, complicacionEmbarazo,
-				complicacionEmbarazoDescripcion, vdrlPediatrico, vihPediatrico,
-				toxoPediatrico, resultadoSero, parido, resultadoCesarea, peso,
-				talla, complicacionNeo, complicacionNeoResultado,
-				observacionPrenatal);
+				manoPiso, indice);
 		servicioHistoria.guardar(historiaGuardada);
 		if (idHistoria != 0)
 			historiaGuardada = servicioHistoria.buscar(idHistoria);
@@ -1817,43 +1745,6 @@ public class CHistoria extends CGenerico {
 		default:
 			break;
 		}
-		spnSemanasPediatrica.setValue(historia.getEmbarazoSemanasPediatrica());
-		spnGestacionPediatrica
-				.setValue(historia.getGestacionNumeroPediatrica());
-		spnEdadPediatrica.setValue(historia.getEdadMaternaPediatrica());
-		boolean comlicacion = historia.getComplicacionesPediatrica();
-		if (comlicacion)
-			rdoSiComplicacion.setChecked(true);
-		else
-			rdoNoComplicacion.setChecked(true);
-		txtResultadoComplicacion.setValue(historia
-				.getComplicacionesDescripcionPediatrica());
-		boolean vihP = historia.getVihPediatrica();
-		if (vihP)
-			chkVih.setChecked(true);
-		boolean vdrP = historia.getVdrlPediatrica();
-		if (vdrP)
-			chkVdrl.setChecked(true);
-		boolean tx = historia.getToxoplasmaPediatrica();
-		if (tx)
-			chkTox.setChecked(true);
-		txtSerologia.setValue(historia.getSerologia());
-		boolean parto = historia.getPartoPediatrica();
-		if (parto)
-			rdoSiVagina.setChecked(true);
-		else
-			rdoNoVagina.setChecked(true);
-		txtCausaCesarea.setValue(historia.getCausaPartoPediatrica());
-		spnPesoPediatrica.setValue(historia.getPesoPediatrica());
-		spnTallaPediatrica.setValue(historia.getTallaPediatrica());
-		boolean compliNeo = historia.getComplicacionesPediatricaParto();
-		if (compliNeo)
-			rdoSiComplicacionNeo.setChecked(true);
-		else
-			rdoNoComplicacionNeo.setChecked(true);
-		txtObservacionPrenatal.setValue(historia.getDescripcionPediatrica());
-		txtResultadoComplicacionNeo.setValue(historia
-				.getDescripcionComplicacionParto());
 
 	}
 
@@ -2157,40 +2048,6 @@ public class CHistoria extends CGenerico {
 		cmbDiente30.setValue("Normal");
 		cmbDiente31.setValue("Normal");
 		cmbDiente32.setValue("Normal");
-		spnSemanasPediatrica.setValue(0);
-		spnGestacionPediatrica.setValue(0);
-		spnEdadPediatrica.setValue(0);
-		if (rdoSiComplicacion.isChecked())
-			rdoSiComplicacion.setChecked(false);
-		if (rdoNoComplicacion.isChecked())
-			rdoNoComplicacion.setChecked(false);
-		txtResultadoComplicacion.setValue("");
-		if (rdoSiComplicacion.isChecked())
-			rdoSiComplicacion.setChecked(false);
-		if (rdoNoComplicacion.isChecked())
-			rdoNoComplicacion.setChecked(false);
-		if (rdoSiComplicacion.isChecked())
-			rdoSiComplicacion.setChecked(false);
-		if (chkVih.isChecked())
-			chkVih.setChecked(false);
-		if (chkVdrl.isChecked())
-			chkVdrl.setChecked(false);
-		if (chkTox.isChecked())
-			chkTox.setChecked(false);
-		txtSerologia.setValue("");
-		if (rdoSiVagina.isChecked())
-			rdoSiVagina.setChecked(false);
-		if (rdoNoVagina.isChecked())
-			rdoNoVagina.setChecked(false);
-		txtCausaCesarea.setValue("");
-		spnPesoPediatrica.setValue((double) 0);
-		spnTallaPediatrica.setValue((double) 0);
-		if (rdoSiComplicacionNeo.isChecked())
-			rdoSiComplicacionNeo.setChecked(false);
-		if (rdoNoComplicacionNeo.isChecked())
-			rdoNoComplicacionNeo.setChecked(false);
-		txtObservacionPrenatal.setValue("");
-		txtResultadoComplicacionNeo.setValue("");
 		tabIdentificacion.setSelected(true);
 	}
 

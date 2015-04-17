@@ -65,23 +65,6 @@
 						<hbox />
 						<hbox />
 					</row>
-					<row id="rowBajar" visible = "false">
-						<label class="etiqueta" value="Exportar Precios:" />
-						<button autodisable="self" id="btnExportar"
-							style="	background: #952C2C;font-size: 11px;color: white;cursor: pointer;width: 95px;height: 29px; -webkit-border-radius: 0.7em;-moz-border-radius: 0.7em;	border-radius: 0.7em;"
-							label="Exportar" tooltiptext="Exportar precios de los Examenes y Estudios Ofrecidos por el Proveedor"
-							image="/public/imagenes/botones/exportar.png" />
-						<hbox />
-						<hbox />
-					</row>
-					<row id="rowSubir" visible = "false">
-						<label class="etiqueta" value="Importar Precios:" />
-						<button autodisable="self" id="btnImportar"
-							style="	background: #952C2C;font-size: 11px;color: white;cursor: pointer;width: 95px;height: 29px; -webkit-border-radius: 0.7em;-moz-border-radius: 0.7em;	border-radius: 0.7em;"
-							upload="true" label="Buscar" tooltiptext="Importar Precios de estudios y examenes del Proveedor"
-							image="/public/imagenes/botones/importar.png" />
-						<label id="lblNombre" />
-					</row>
 				</rows>
 			</grid>
 			<separator />

@@ -14,6 +14,7 @@ import net.sf.jasperreports.engine.JRException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import controlador.medico.CCita;
 import controlador.medico.CConsulta;
 import controlador.seguridad.CInforme;
 
@@ -47,6 +48,7 @@ public class Reportero extends HttpServlet {
 		CCosto costo = new CCosto();
 		CPacientes pacientes = new CPacientes();
 		CGasto gasto = new CGasto();
+		CCita cita = new CCita();
 		CReporteCertificado certificado = new CReporteCertificado();
 		COrdenProveedor ordenProveedor = new COrdenProveedor();
 		COrdenesConsulta ordenesConsulta = new COrdenesConsulta();
@@ -221,6 +223,9 @@ public class Reportero extends HttpServlet {
 				break;
 			case "46":
 				fichero = ordenesConsulta.jasperEspecialista(par6, par7, tipo);
+				break;
+			case "47":
+				fichero = cita.jasperCitas(par6, par7, tipo);
 				break;
 			default:
 				break;

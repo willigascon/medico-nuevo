@@ -66,9 +66,6 @@ public class DoctorInterno implements Serializable {
 	@JoinColumn(name="id_especialidad")
 	private Especialidad especialidad;
 
-	@Column(name="citas_diarias")
-	private long citasDiarias;
-
 	@Column(name="fecha_auditoria")
 	private Timestamp fechaAuditoria;
 
@@ -94,8 +91,7 @@ public class DoctorInterno implements Serializable {
 			String primerApellido, String primerNombre, String segundoApellido,
 			String segundoNombre, String sexo, String telefono,
 			Especialidad especialidad, Timestamp fechaAuditoria,
-			String horaAuditoria, String usuarioAuditoria,
-			long citas) {
+			String horaAuditoria, String usuarioAuditoria) {
 		super();
 		this.cedula = cedula;
 		this.direccion = direccion;
@@ -113,7 +109,6 @@ public class DoctorInterno implements Serializable {
 		this.fechaAuditoria = fechaAuditoria;
 		this.horaAuditoria = horaAuditoria;
 		this.usuarioAuditoria = usuarioAuditoria;
-		this.citasDiarias = citas;
 	}
 
 	public String getCedula() {
@@ -259,13 +254,4 @@ public class DoctorInterno implements Serializable {
 	public void setConsultas(List<Consulta> consultas) {
 		this.consultas = consultas;
 	}
-
-	public long getCitasDiarias() {
-		return citasDiarias;
-	}
-
-	public void setCitasDiarias(long citasDiarias) {
-		this.citasDiarias = citasDiarias;
-	}
-
 }

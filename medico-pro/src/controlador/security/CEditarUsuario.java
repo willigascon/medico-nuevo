@@ -5,10 +5,13 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
+import modelo.security.Grupo;
 import modelo.security.Usuario;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,13 +31,18 @@ import org.zkoss.zul.Textbox;
 import componente.Botonera;
 import componente.Mensaje;
 import componente.Validador;
-
 import controlador.utils.CGenerico;
 
 public class CEditarUsuario extends CGenerico {
 
 	@Wire
 	private Textbox txtNombreUsuarioEditar;
+	@Wire
+	private Textbox txtNombre;
+	@Wire
+	private Textbox txtApellido;
+	@Wire
+	private Textbox txtCorreo;
 	@Wire
 	private Textbox txtClaveUsuarioNueva;
 	@Wire
@@ -64,10 +72,14 @@ public class CEditarUsuario extends CGenerico {
 				mapa = null;
 			}
 		}
-		Usuario usuario = servicioUsuario
-				.buscarPorLogin(nombreUsuarioSesion());
+		Usuario usuario = servicioUsuario.buscarPorLogin(nombreUsuarioSesion());
 		id = nombreUsuarioSesion();
 		txtNombreUsuarioEditar.setValue(usuario.getLogin());
+		txtNombre.setValue(usuario.getNombre());
+		txtApellido.setValue(usuario.getApellido());
+		txtCorreo.setValue(usuario.getEmail());
+		txtClaveUsuarioConfirmar.setValue(usuario.getPassword());
+		txtClaveUsuarioNueva.setValue(usuario.getPassword());
 		if (usuario.getImagen() == null) {
 			imgUsuario.setContent(new AImage(url));
 		} else {
@@ -94,8 +106,11 @@ public class CEditarUsuario extends CGenerico {
 						.buscarPorLogin(nombreUsuarioSesion());
 				id = nombreUsuarioSesion();
 				txtNombreUsuarioEditar.setValue(usuario.getLogin());
-				txtClaveUsuarioConfirmar.setValue("");
-				txtClaveUsuarioNueva.setValue("");
+				txtNombre.setValue(usuario.getNombre());
+				txtApellido.setValue(usuario.getApellido());
+				txtCorreo.setValue(usuario.getEmail());
+				txtClaveUsuarioConfirmar.setValue(usuario.getPassword());
+				txtClaveUsuarioNueva.setValue(usuario.getPassword());
 				if (usuario.getImagen() == null) {
 					try {
 						imgUsuario.setContent(new AImage(url));
@@ -120,13 +135,15 @@ public class CEditarUsuario extends CGenerico {
 				if (validar()) {
 					if (txtClaveUsuarioNueva.getValue().equals(
 							txtClaveUsuarioConfirmar.getValue())) {
-						Usuario usuario = servicioUsuario
-								.buscarPorLogin(id);
+						Usuario usuario = servicioUsuario.buscarPorLogin(id);
 						byte[] imagenUsuario = null;
 						imagenUsuario = imgUsuario.getContent().getByteData();
 						String password = txtClaveUsuarioConfirmar.getValue();
 						usuario.setPassword(password);
 						usuario.setImagen(imagenUsuario);
+						usuario.setNombre(txtNombre.getValue());
+						usuario.setApellido(txtApellido.getValue());
+						usuario.setEmail(txtCorreo.getValue());
 						servicioUsuario.guardar(usuario);
 						Mensaje.mensajeInformacion(Mensaje.guardado);
 						limpiar();
@@ -145,13 +162,44 @@ public class CEditarUsuario extends CGenerico {
 		botoneraEditarUsuario.appendChild(botonera);
 	}
 
+	/* Valida que los passwords sean iguales */
+	@Listen("onChange = #txtClaveUsuarioConfirmar")
+	public void validarPassword() {
+		if (!txtClaveUsuarioNueva.getValue().equals(
+				txtClaveUsuarioConfirmar.getValue())) {
+			Mensaje.mensajeAlerta(Mensaje.contrasennasNoCoinciden);
+		}
+	}
+
+	/* Valida el correo electronico */
+	@Listen("onChange = #txtCorreoUsuario")
+	public void validarCorreo() {
+		if (!Validador.validarCorreo(txtCorreo.getValue())) {
+			Mensaje.mensajeAlerta(Mensaje.correoInvalido);
+		}
+	}
+
 	protected boolean validar() {
 		if (txtClaveUsuarioConfirmar.getValue().equals("")
-				|| txtClaveUsuarioNueva.getValue().equals("")) {
+				|| txtClaveUsuarioNueva.getValue().equals("")
+				|| txtApellido.getText().compareTo("") == 0
+				|| txtCorreo.getText().compareTo("") == 0
+				|| txtNombre.getText().compareTo("") == 0) {
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
-		} else
-			return true;
+		} else {
+			if (!Validador.validarCorreo(txtCorreo.getValue())) {
+				Mensaje.mensajeError(Mensaje.correoInvalido);
+				return false;
+			} else {
+				if (!txtClaveUsuarioConfirmar.getValue().equals(
+						txtClaveUsuarioNueva.getValue())) {
+					Mensaje.mensajeError(Mensaje.contrasennasNoCoinciden);
+					return false;
+				} else
+					return true;
+			}
+		}
 	}
 
 	@Listen("onUpload = #fudImagenUsuario")
