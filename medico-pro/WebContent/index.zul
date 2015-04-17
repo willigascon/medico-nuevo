@@ -50,7 +50,7 @@
 							<label style="font-size:22px;color:#8A0808;	font-weight: bold;font-style:italic" value="Datos de Usuario" />
 							<separator />
 							<separator />
-							<label style="font-size:20px" value="${a}" />
+							<label style="font-size:20px;color:red" value="${a}" />
 							<separator />
 							<separator />
 							<hlayout width="100%">

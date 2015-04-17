@@ -24,6 +24,13 @@
 	font-size: 11px;
 }
 
+.etiqueta2 {
+	font-weight: bold;
+	font-family: arial;
+	color: white;
+	font-size: 16px;
+}
+
 .z-textbox {
 	width: 99%;
 }
@@ -66,9 +73,9 @@
 }
 
 .z-listbox-autopaging .z-listcell-content {
-    				height: 30px;
-    				overflow: hidden;
-			}
+	height: 30px;
+	overflow: hidden;
+}
 
 .z-loading {
 	background-color: #800400;
@@ -100,6 +107,7 @@
 .banner {
 	background-color: #8A0808;
 }
+
 .lblIndex {
 	font-size: 26px;
 	color: #8A0808;
@@ -109,18 +117,19 @@
 div.z-listbox-header th.z-listheader,div.z-listbox-header th.z-auxheader
 	{
 	white-space: pre-line;
-	font-size: 10px;
+	font-size: 12px;
 }
 
 body * {
-
 	font-size: 10.5px;
 }
 
 .z-listheader-content,.z-listcell-content,.z-listgroup-content,.z-listgroupfoot-content,.z-listfooter-content
 	{
 	font-size: 10px;
+	color: #8A0808;
 }
+
 .gruposUsuario {
 	background: #800400;
 }
@@ -131,6 +140,17 @@ body * {
 	padding-bottom: 5px;
 	padding-left: 8px;
 }
-.z-west-header, .z-center-header, .z-east-header, .z-north-header, .z-south-header {
-  color: #8A0808;
+
+.z-west-header,.z-center-header,.z-east-header,.z-north-header,.z-south-header
+	{
+	color: #8A0808;
 }
+
+td.z-listcell {
+	border: 1px solid grey;
+}
+div.z-listheader-cnt {
+  color: #800400;
+  	font-size: 14px;
+}
+di

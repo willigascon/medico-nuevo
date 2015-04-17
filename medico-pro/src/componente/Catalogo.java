@@ -44,7 +44,6 @@ public abstract class Catalogo<Clase> extends Window {
 		crearLista(lista, campos, multiple);
 		lsbCatalogo.addEventListener(Events.ON_SELECT,
 				new EventListener<Event>() {
-
 					@Override
 					public void onEvent(Event arg0) throws Exception {
 						Events.postEvent(cGenerico, new Event("onSeleccion"));
@@ -55,12 +54,20 @@ public abstract class Catalogo<Clase> extends Window {
 	public void crearLista(List<Clase> lista, String[] campos,
 			final boolean multiple) {
 		Hbox hbxBusqueda = new Hbox();
+		hbxBusqueda.setStyle("background:#999999");
+		hbxBusqueda.setWidths("5%,15%,25%,40%,15%");
+		hbxBusqueda.setHeight("100%");
+		hbxBusqueda.setWidth("100%");
 		final Label lblBuscar = new Label();
 		final Textbox txtBuscar = new Textbox();
 		final Separator separador1 = new Separator();
+		Hbox hbx1 = new Hbox();
+		Hbox hbx2 = new Hbox();
+		hbx1.setStyle("background:#999999");
+		hbx2.setStyle("background:#999999");
 		final Separator separador2 = new Separator();
-		txtBuscar.setWidth("23em");
-		txtBuscar.setPlaceholder("Introduzca el criterio de busqueda");
+	    txtBuscar.setWidth("100%");
+		txtBuscar.setPlaceholder("Ingrese el criterio de busqueda");
 		final Combobox cmbBuscarPor = new Combobox();
 		cmbBuscarPor.setReadonly(true);
 		cmbBuscarPor.setPlaceholder("Seleccione el Campo");
@@ -89,6 +96,7 @@ public abstract class Catalogo<Clase> extends Window {
 			listHeader.setHflex("min");
 			lhdEncabezado.appendChild(listHeader);
 		}
+		lhdEncabezado.setStyle("");
 		lsbCatalogo.appendChild(lhdEncabezado);
 		lhdEncabezado.setVisible(true);
 		lsbCatalogo.setModel(new ListModelList<Clase>(lista));
@@ -121,22 +129,24 @@ public abstract class Catalogo<Clase> extends Window {
 		});
 		lsbCatalogo.setWidth("100%");
 		lsbCatalogo.setSpan("true");
+		separador1.setStyle("background:#800400");
+		separador2.setStyle("background:#800400");
 		this.appendChild(separador1);
 		this.appendChild(hbxBusqueda);
-		lblBuscar.setValue("   Buscar Por :  ");
-		lblBuscar.setSclass("etiqueta");
+		lblBuscar.setValue("Filtrar Por :");
+		lblBuscar.setSclass("etiqueta2");
+		hbxBusqueda.appendChild(hbx1);
 		hbxBusqueda.appendChild(lblBuscar);
 		cmbBuscarPor.setModel(new ListModelList<String>(campos));
 		hbxBusqueda.appendChild(cmbBuscarPor);
 		hbxBusqueda.appendChild(txtBuscar);
+		hbxBusqueda.appendChild(hbx2);
 		this.appendChild(separador2);
 		this.appendChild(lsbCatalogo);
 		if (multiple) {
 			setWidth("100%");
 			this.setTitle(null);
-//			lsbCatalogo.setHflex("1");
 			lsbCatalogo.setPageSize(15);
-//			this.setHflex("1");
 			lsbCatalogo.setHeight("450px");
 			this.setClosable(false);
 			lsbCatalogo.setMultiple(false);
