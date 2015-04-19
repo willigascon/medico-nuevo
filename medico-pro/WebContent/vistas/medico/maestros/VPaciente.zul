@@ -11,13 +11,13 @@
 						<grid width="100%">
 							<columns visible="false">
 								<column label="" width="13%" />
+								<column label="" width="12%" />
+								<column label="" width="12%" />
 								<column label="" width="14%" />
 								<column label="" width="11%" />
-								<column label="" width="14%" />
-								<column label="" width="11%" />
-								<column label="" width="14%" />
+								<column label="" width="13%" />
 								<column label="" width="9%" />
-								<column label="" width="14%" />
+								<column label="" width="16%" />
 							</columns>
 							<rows>
 								<row>
@@ -34,9 +34,12 @@
 												<radio label="Inactivo" value="Inactivo" id="rdoInactivo" />
 												<radio label="Deceso" value="Deceso" id="rdoMuerte" />
 											</radiogroup>
-											<datebox visible="false" readonly="true" width="140px"
+											<datebox visible="false" readonly="true" width="100%"
 												id="dtbFechaMuerte" onCreate="self.value = new Date()"
 												tooltiptext="Indique la Fecha de Nacimiento" constraint="no future,no empty" />
+											<datebox visible="false" width="100%" readonly="true"
+												id="dtbFechaEgreso" onCreate="self.value = new Date()"
+												tooltiptext="Indique la Fecha de Egreso" />
 										</vbox>
 									</cell>
 									<cell colspan="2">
@@ -124,6 +127,13 @@
 								</row>
 								<row>
 									<hbox>
+										<label class="etiqueta" value="Rif:" />
+										<space />
+										<label value="*" style="font-weight:bold;color:red" />
+									</hbox>
+									<textbox maxlength="20" id="txtRif" hflex="1"
+										tooltiptext="Ingrese el Rif del Paciente (J-12345678-0)" />
+									<hbox>
 										<label class="etiqueta" value="Fecha Nacimiento:" />
 										<space />
 										<label value="*" style="font-weight:bold;color:red" />
@@ -131,11 +141,7 @@
 									<datebox readonly="true" width="100%" id="dtbFechaNac"
 										onCreate="self.value = new Date()" tooltiptext="Indique la Fecha de Nacimiento"
 										constraint="no future,no empty" />
-									<hbox>
-										<label class="etiqueta" value="Lugar Nacimiento:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
+									<label class="etiqueta" value="Lugar Nacimiento:" />
 									<cell colspan="3">
 										<vbox>
 											<textbox maxlength="500" id="txtLugarNacimiento"
@@ -143,8 +149,6 @@
 												width="380px" />
 										</vbox>
 									</cell>
-									<hbox />
-									<hbox />
 								</row>
 								<row>
 									<hbox>
@@ -181,11 +185,7 @@
 									<hbox />
 								</row>
 								<row>
-									<hbox>
-										<label class="etiqueta" value="Nivel Educativo:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
+									<label class="etiqueta" value="Nivel Educativo:" />
 									<combobox tooltiptext="Seleccione el Nivel Educativo"
 										placeholder="Seleccione el Nivel Educativo" id="cmbNivelEducativo"
 										width="100%" readonly="true">
@@ -213,11 +213,7 @@
 									</hbox>
 									<spinner tooltiptext="Indique la Cantidad" id="spnCarga"
 										width="98%" value="0" constraint="min 0 max 100" />
-									<hbox>
-										<label class="etiqueta" value="Profesion:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
+									<label class="etiqueta" value="Profesion:" />
 									<textbox maxlength="100" id="txtProfesion"
 										tooltiptext="Ingrese la Profesion del Paciente" />
 								</row>
@@ -279,16 +275,16 @@
 										<space />
 										<label value="*" style="font-weight:bold;color:red" />
 									</hbox>
-									<doublespinner tooltiptext="Indique la Estatura"
+									<doublespinner tooltiptext="Indique la Estatura (Mts)"
 										id="dspEstatura" hflex="1" width="90px" constraint="min 0 max 300"
-										step="0.1" format="#.##" value="0" />
+										step="1" format="#.##" value="0" />
 									<hbox>
 										<label class="etiqueta" value="Peso:" />
 										<space />
 										<label value="*" style="font-weight:bold;color:red" />
 									</hbox>
-									<doublespinner hflex="1" tooltiptext="Indique el Peso"
-										id="dspPeso" width="90px" constraint="min 0 max 500" step="0.1"
+									<doublespinner hflex="1" tooltiptext="Indique el Peso (Kgs)"
+										id="dspPeso" width="90px" constraint="min 0 max 500" step="1"
 										format="#.##" value="0" />
 									<hbox>
 										<label class="etiqueta" value="¿Usa Lentes?" />
@@ -449,9 +445,6 @@
 									<label class="etiqueta" value="Retiro de IVSS (FORMATO 14.03): " />
 									<textbox maxlength="100" id="txtRetiroIVSS"
 										tooltiptext="Ingrese el Retiro de IVSS (FORMATO 14.03)" />
-									<label class="etiqueta" value="Fecha de Egreso:" />
-									<datebox width="100%" readonly="true" id="dtbFechaEgreso"
-										onCreate="self.value = new Date()" tooltiptext="Indique la Fecha de Egreso" />
 									<label class="etiqueta" value="¿Es Brigadista?" />
 									<radiogroup>
 										<radio label="SI" value="trabajador" id="rdoSiBrigadista" />
@@ -462,6 +455,8 @@
 										<radio label="SI" value="trabajador" id="rdoSiComite" />
 										<radio label="NO" value="familiar" id="rdoNoComite" />
 									</radiogroup>
+									<hbox />
+									<hbox />
 								</row>
 							</rows>
 						</grid>

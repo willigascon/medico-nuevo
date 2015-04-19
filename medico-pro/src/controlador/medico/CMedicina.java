@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import modelo.medico.consulta.ConsultaMedicina;
-import modelo.medico.maestro.CategoriaMedicina;
-import modelo.medico.maestro.Laboratorio;
 import modelo.medico.maestro.Medicina;
 import modelo.security.Arbol;
 
@@ -16,15 +14,11 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
-import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Doublespinner;
 import org.zkoss.zul.Include;
-import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Spinner;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Textbox;
@@ -55,9 +49,9 @@ public class CMedicina extends CGenerico {
 	@Wire
 	private Button btnBuscarMedicina;
 	@Wire
-	private Combobox cmbLaboratorio;
+	private Textbox txtLaboratorio;
 	@Wire
-	private Combobox cmbCategoria;
+	private Textbox txtCategoria;
 	@Wire
 	private Textbox txtDenominacionGenerica;
 	@Wire
@@ -114,8 +108,6 @@ public class CMedicina extends CGenerico {
 				map = null;
 			}
 		}
-		llenarComboLaboratorios();
-		llenarComboCategorias();
 		txtDenominacionGenerica.setFocus(true);
 		Botonera botonera = new Botonera() {
 			@Override
@@ -133,14 +125,8 @@ public class CMedicina extends CGenerico {
 					String contraindicaciones = txtContraindicaciones
 							.getValue();
 					String embarazo = txtEmbarazo.getValue();
-
-					long idLaboratorio = Long.valueOf(cmbLaboratorio
-							.getSelectedItem().getContext());
-					Laboratorio laboratorio = servicioLaboratorio
-							.buscar(idLaboratorio);
-					CategoriaMedicina ca = servicioCategoriaMedicina
-							.buscar(Long.parseLong(cmbCategoria
-									.getSelectedItem().getContext()));
+					String laboratorio = txtLaboratorio.getValue();
+					String ca = txtCategoria.getValue();
 					Medicina medicina = new Medicina(id, composicion,
 							contraindicaciones, denominacionGenerica, efectos,
 							embarazo, fechaHora, horaAuditoria, indicaciones,
@@ -168,10 +154,8 @@ public class CMedicina extends CGenerico {
 			public void limpiar() {
 				spnPrecio.setValue((double) 0);
 				txtNombre.setText("");
-				cmbLaboratorio.setText("");
-				cmbLaboratorio.setPlaceholder("Seleccione un Laboratorio");
-				cmbCategoria.setText("");
-				cmbCategoria.setPlaceholder("Seleccione una Categoria");
+				txtLaboratorio.setText("");
+				txtCategoria.setText("");
 				txtDenominacionGenerica.setText("");
 				txtComposicion.setText("");
 				txtPosologia.setText("");
@@ -182,6 +166,7 @@ public class CMedicina extends CGenerico {
 				txtEmbarazo.setText("");
 				id = 0;
 				tabEspecificaciones.setSelected(true);
+				limpiarColores(txtNombre, txtCategoria, txtLaboratorio, spnPrecio);
 			}
 
 			@Override
@@ -236,7 +221,7 @@ public class CMedicina extends CGenerico {
 			protected String[] crearRegistros(Medicina medicina) {
 				String[] registros = new String[3];
 				registros[0] = medicina.getNombre();
-				registros[1] = medicina.getLaboratorio().getNombre();
+				registros[1] = medicina.getLaboratorio();
 				registros[2] = medicina.getDenominacionGenerica();
 
 				return registros;
@@ -263,30 +248,15 @@ public class CMedicina extends CGenerico {
 		catalogo.doModal();
 	}
 
-	/* Llena el combo de laboratorios cada vez que se abre */
-	@Listen("onOpen = #cmbLaboratorio")
-	public void llenarComboLaboratorios() {
-		List<Laboratorio> laboratorios = servicioLaboratorio.buscarTodos();
-		cmbLaboratorio.setModel(new ListModelList<Laboratorio>(laboratorios));
-	}
-
-	/* Llena el combo de categorias cada vez que se abre */
-	@Listen("onOpen = #cmbCategoria")
-	public void llenarComboCategorias() {
-		List<CategoriaMedicina> categorias = servicioCategoriaMedicina
-				.buscarTodas();
-		cmbCategoria.setModel(new ListModelList<CategoriaMedicina>(categorias));
-	}
-
 	/* Validaciones de pantalla para poder realizar el guardar */
 	public boolean validar() {
 
-		if (cmbLaboratorio.getText().compareTo("") == 0
-				|| cmbCategoria.getText().compareTo("") == 0
+		if (txtLaboratorio.getText().compareTo("") == 0
+				|| txtCategoria.getText().compareTo("") == 0
 				|| txtNombre.getText().compareTo("") == 0
 				|| spnPrecio.getText().compareTo("") == 0) {
 			Mensaje.mensajeError(Mensaje.camposVacios);
-			aplicarColores(cmbLaboratorio, cmbCategoria, txtNombre, spnPrecio);
+			aplicarColores(txtLaboratorio, txtCategoria, txtNombre, spnPrecio);
 			return false;
 		} else
 			return true;
@@ -317,8 +287,8 @@ public class CMedicina extends CGenerico {
 
 	/* LLena los campos del formulario dada una medicina */
 	public void llenarCampos(Medicina medicina) {
-		cmbLaboratorio.setValue(medicina.getLaboratorio().getNombre());
-		cmbCategoria.setValue(medicina.getCategoriaMedicina().getNombre());
+		txtLaboratorio.setValue(medicina.getLaboratorio());
+		txtCategoria.setValue(medicina.getCategoriaMedicina());
 		txtDenominacionGenerica.setValue(medicina.getDenominacionGenerica());
 		txtComposicion.setValue(medicina.getComposicion());
 		txtPosologia.setValue(medicina.getPosologia());

@@ -8,8 +8,6 @@ import java.util.List;
 
 import modelo.medico.consulta.Consulta;
 import modelo.medico.consulta.ConsultaMedicina;
-import modelo.medico.maestro.CategoriaMedicina;
-import modelo.medico.maestro.Laboratorio;
 import modelo.medico.maestro.Medicina;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +42,6 @@ public class SMedicina {
 			return null;
 	}
 
-	public List<Medicina> buscarPorLaboratorio(Laboratorio laboratorio) {
-		return medicinaDAO.findByLaboratorio(laboratorio);
-	}
-
 	public void eliminar(Medicina medicina) {
 		medicinaDAO.delete(medicina);
 	}
@@ -58,15 +52,11 @@ public class SMedicina {
 
 	public List<Medicina> filtroLaboratorio(String valor) {
 		return medicinaDAO
-				.findByLaboratorioNombreStartingWithAllIgnoreCase(valor);
+				.findByLaboratorioStartingWithAllIgnoreCase(valor);
 	}
 
 	public List<Medicina> filtroPosologia(String valor) {
 		return medicinaDAO.findByPosologiaStartingWithAllIgnoreCase(valor);
-	}
-
-	public List<Medicina> buscarPorCategoria(CategoriaMedicina categoriaMedicina) {
-		return medicinaDAO.findByCategoriaMedicina(categoriaMedicina);
 	}
 
 	public Medicina buscarUltima() {

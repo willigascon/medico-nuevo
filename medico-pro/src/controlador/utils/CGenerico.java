@@ -55,7 +55,6 @@ import servicio.medico.historia.SHistoriaAccidente;
 import servicio.medico.historia.SHistoriaIntervencion;
 import servicio.medico.historia.SHistoriaVacuna;
 import servicio.medico.maestro.SCategoriaDiagnostico;
-import servicio.medico.maestro.SCategoriaMedicina;
 import servicio.medico.maestro.SCita;
 import servicio.medico.maestro.SClasificacionDiagnostico;
 import servicio.medico.maestro.SDiagnostico;
@@ -65,7 +64,6 @@ import servicio.medico.maestro.SEspecialista;
 import servicio.medico.maestro.SEstadoCivil;
 import servicio.medico.maestro.SExamen;
 import servicio.medico.maestro.SIntervencion;
-import servicio.medico.maestro.SLaboratorio;
 import servicio.medico.maestro.SMedicina;
 import servicio.medico.maestro.SMotivoCita;
 import servicio.medico.maestro.SPaciente;
@@ -115,8 +113,6 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 	protected SDoctorInterno servicioDoctor;
 	@WireVariable("SCategoriaDiagnostico")
 	protected SCategoriaDiagnostico servicioCategoriaDiagnostico;
-	@WireVariable("SCategoriaMedicina")
-	protected SCategoriaMedicina servicioCategoriaMedicina;
 	@WireVariable("SCita")
 	protected SCita servicioCita;
 	@WireVariable("SCiudad")
@@ -163,8 +159,6 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 	protected SInforme servicioInforme;
 	@WireVariable("SIntervencion")
 	protected SIntervencion servicioIntervencion;
-	@WireVariable("SLaboratorio")
-	protected SLaboratorio servicioLaboratorio;
 	@WireVariable("SMedicina")
 	protected SMedicina servicioMedicina;
 	@WireVariable("SMotivoCita")

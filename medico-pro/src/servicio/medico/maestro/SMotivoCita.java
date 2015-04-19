@@ -41,9 +41,5 @@ public class SMotivoCita {
 		
 	}
 
-	public List<MotivoCita> buscarTodosDeTipo(String value) {
-		return motivoCitaDAO.findByTipo(value);
-	}
-
 
 }

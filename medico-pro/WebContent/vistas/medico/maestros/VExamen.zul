@@ -26,18 +26,8 @@
 						<hbox />
 					</row>
 					<row>
-						<label class="etiqueta" value="Resultado:" />
-						<combobox id="cmbResultadoExamen" hflex="1"
-							tooltiptext="Ingrese el Resultado del Examen" readonly="true"
-							placeholder="Seleccione un Tipo de Resultado">
-							<comboitem label="Texto" />
-							<comboitem label="Numerico" />
-						</combobox>
-						<hbox />
-					</row>
-					<row>
 						<hbox>
-							<label class="etiqueta" value="Costo:" />
+							<label class="etiqueta" value="Costo (Bs):" />
 							<space />
 							<label value="*" style="font-weight:bold;color:red" />
 						</hbox>

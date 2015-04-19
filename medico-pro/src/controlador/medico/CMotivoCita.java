@@ -30,12 +30,6 @@ public class CMotivoCita extends CGenerico {
 	private static final long serialVersionUID = 8064356600535312313L;
 
 	@Wire
-	private Radiogroup rdgMotivo;
-	@Wire
-	private Radio rdoCita;
-	@Wire
-	private Radio rdoOrden;
-	@Wire
 	private Textbox txtDescripcionMotivoCita;
 	@Wire
 	private Div botoneraMotivoCita;
@@ -71,8 +65,6 @@ public class CMotivoCita extends CGenerico {
 			@Override
 			public void limpiar() {
 				txtDescripcionMotivoCita.setText("");
-				rdoCita.setChecked(false);
-				rdoOrden.setChecked(false);
 				id = 0;
 
 			}
@@ -81,15 +73,9 @@ public class CMotivoCita extends CGenerico {
 			public void guardar() {
 				if (validar()) {
 					String Descripcion = txtDescripcionMotivoCita.getValue();
-					String tipo = "";
-					if (rdoCita.isChecked())
-						tipo = "Cita";
-					else
-						tipo = "Orden";
 
 					MotivoCita motivoCita = new MotivoCita(id, Descripcion,
 							fechaHora, horaAuditoria, nombreUsuarioSesion());
-					motivoCita.setTipo(tipo);
 					servicioMotivoCita.guardar(motivoCita);
 					Mensaje.mensajeInformacion(Mensaje.guardado);
 					limpiar();
@@ -162,8 +148,7 @@ public class CMotivoCita extends CGenerico {
 	/* Validaciones de pantalla para poder realizar el guardar */
 	public boolean validar() {
 
-		if (txtDescripcionMotivoCita.getText().compareTo("") == 0
-				|| (!rdoCita.isChecked() && !rdoOrden.isChecked())) {
+		if (txtDescripcionMotivoCita.getText().compareTo("") == 0) {
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -190,10 +175,6 @@ public class CMotivoCita extends CGenerico {
 	/* LLena los campos del formulario dada un motivo de cita */
 	public void llenarCampos(MotivoCita motivoCita) {
 		txtDescripcionMotivoCita.setValue(motivoCita.getDescripcion());
-		if (motivoCita.getTipo().equals("Orden"))
-			rdoOrden.setChecked(true);
-		else
-			rdoCita.setChecked(true);
 		id = motivoCita.getIdMotivoCita();
 	}
 }

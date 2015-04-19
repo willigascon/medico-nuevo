@@ -120,15 +120,6 @@ public class CEmpresa extends CGenerico {
 	private Spinner spnConapdis;
 	@Wire
 	private Spinner spnExtranjeros;
-	@Wire
-	private Textbox txtBuscadorNomina;
-	@Wire
-	private Listbox ltbNominas;
-	@Wire
-	private Listbox ltbNominasAgregadas;
-	@Wire
-	private Button btnAbrirNomina;
-
 	private CArbol cArbol = new CArbol();
 	long id = 0;
 	Catalogo<Empresa> catalogo;
@@ -149,8 +140,6 @@ public class CEmpresa extends CGenerico {
 				map = null;
 			}
 		}
-
-		listasMultiples();
 		Botonera botonera = new Botonera() {
 
 			@Override
@@ -345,16 +334,6 @@ public class CEmpresa extends CGenerico {
 		};
 		botoneraEmpresa.appendChild(botonera);
 	}
-	private void listasMultiples() {
-		ltbNominas.setMultiple(false);
-		ltbNominas.setCheckmark(false);
-		ltbNominas.setMultiple(true);
-		ltbNominas.setCheckmark(true);
-		ltbNominasAgregadas.setMultiple(false);
-		ltbNominasAgregadas.setCheckmark(false);
-		ltbNominasAgregadas.setMultiple(true);
-		ltbNominasAgregadas.setCheckmark(true);
-	}
 
 	@Listen("onClick = #btnSiguientePestanna")
 	public void siguientePestanna() {
@@ -419,7 +398,8 @@ public class CEmpresa extends CGenerico {
 	public void mostrarCatalogo() {
 		final List<Empresa> empresas = servicioEmpresa.buscarTodas();
 		catalogo = new Catalogo<Empresa>(catalogoEmpresa,
-				"Catalogo de Empresas", empresas, false,"Rif", "Nombre", "Direccion") {
+				"Catalogo de Empresas", empresas, false, "Rif", "Nombre",
+				"Direccion") {
 
 			@Override
 			protected List<Empresa> buscar(String valor, String combo) {

@@ -20,21 +20,6 @@
 						<button autodisable="self" id="btnBuscarMotivoCita" class="btn"
 							label="Buscar" tooltiptext="Catalogo" image="/public/imagenes/botones/buscar.png" />
 					</row>
-					<row>
-						<hbox>
-							<label class="etiqueta" value="Tipo de Motivo:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<radiogroup id="rdgMotivo">
-							<hbox>
-							<radio label="Cita" id="rdoCita" />
-							<separator/>
-							<radio label="Orden" id="rdoOrden" />
-							</hbox>
-						</radiogroup>
-						<hbox />
-					</row>
 				</rows>
 			</grid>
 			<separator />

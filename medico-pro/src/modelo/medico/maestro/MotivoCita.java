@@ -29,9 +29,6 @@ public class MotivoCita implements Serializable {
 	@Column(length = 500)
 	private String descripcion;
 
-	@Column(length = 5)
-	private String tipo;
-
 	@Column(name = "fecha_auditoria")
 	private Timestamp fechaAuditoria;
 
@@ -119,14 +116,6 @@ public class MotivoCita implements Serializable {
 		cita.setMotivoCita(null);
 
 		return cita;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
 	}
 
 }

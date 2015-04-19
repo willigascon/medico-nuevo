@@ -377,8 +377,7 @@ public class CCita extends CGenerico {
 	/* Llena el combo de Motivos cada vez que se abre */
 	@Listen("onOpen = #cmbMotivo")
 	public void llenarComboMotivo() {
-		List<MotivoCita> motivoCitas = servicioMotivoCita
-				.buscarTodosDeTipo("Cita");
+		List<MotivoCita> motivoCitas = servicioMotivoCita.buscarTodos();
 		cmbMotivo.setModel(new ListModelList<MotivoCita>(motivoCitas));
 	}
 

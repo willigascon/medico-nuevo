@@ -16,10 +16,8 @@ import modelo.medico.consulta.ConsultaExamen;
 import modelo.medico.consulta.ConsultaMedicina;
 import modelo.medico.consulta.Recipe;
 import modelo.medico.maestro.CategoriaDiagnostico;
-import modelo.medico.maestro.CategoriaMedicina;
 import modelo.medico.maestro.Diagnostico;
 import modelo.medico.maestro.Examen;
-import modelo.medico.maestro.Laboratorio;
 import modelo.medico.maestro.Medicina;
 import modelo.medico.maestro.Paciente;
 import modelo.medico.maestro.Proveedor;
@@ -634,9 +632,8 @@ public class CImportar extends CGenerico {
 			XSSFSheet sheet = workbook.getSheetAt(0);
 			Iterator<Row> rowIterator = sheet.iterator();
 			if (rowIterator.hasNext()) {
-				CategoriaMedicina categoria = servicioCategoriaMedicina
-						.buscar(1);
-				Laboratorio laboratorio = servicioLaboratorio.buscar(1);
+				String categoria = "Categoria";
+				String laboratorio = "Laboratorio";
 				List<Medicina> medicinas = new ArrayList<Medicina>();
 				int contadorRow = 0;
 				boolean error = false;
@@ -982,7 +979,7 @@ public class CImportar extends CGenerico {
 							diagnostico.setCategoria(categoria);
 							diagnostico.setIdReferencia(idRef);
 							diagnostico.setCodigo(String.valueOf(idRef));
-//							diagnostico.setGrupo("N/A");
+							// diagnostico.setGrupo("N/A");
 							diagnostico.setFechaAuditoria(fechaHora);
 							diagnostico.setHoraAuditoria(horaAuditoria);
 							diagnostico.setUsuarioAuditoria("frivero");

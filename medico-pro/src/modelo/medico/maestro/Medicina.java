@@ -68,13 +68,11 @@ public class Medicina implements Serializable {
 	private String usuarioAuditoria;
 
 	// bi-directional many-to-one association to Laboratorio
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_laboratorio")
-	private Laboratorio laboratorio;
+	@Column(name = "laboratorio", length = 250)
+	private String laboratorio;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_categoria_medicina")
-	private CategoriaMedicina categoriaMedicina;
+	@Column(name = "categoria_medicina", length = 250)
+	private String categoriaMedicina;
 
 	@OneToMany(mappedBy = "medicina")
 	private Set<ConsultaMedicina> medicinas;
@@ -93,7 +91,8 @@ public class Medicina implements Serializable {
 			String efectos, String embarazo, Timestamp fechaAuditoria,
 			String horaAuditoria, String indicaciones, String nombre,
 			String posologia, String precaucion, String usuarioAuditoria,
-			Laboratorio laboratorio, CategoriaMedicina categoriaMedicina, Double precio) {
+			String laboratorio, String categoriaMedicina,
+			Double precio) {
 		super();
 		this.precio = precio;
 		this.idMedicina = idMedicina;
@@ -217,19 +216,19 @@ public class Medicina implements Serializable {
 		this.usuarioAuditoria = usuarioAuditoria;
 	}
 
-	public Laboratorio getLaboratorio() {
-		return this.laboratorio;
+	public String getLaboratorio() {
+		return laboratorio;
 	}
 
-	public void setLaboratorio(Laboratorio laboratorio) {
+	public void setLaboratorio(String laboratorio) {
 		this.laboratorio = laboratorio;
 	}
 
-	public CategoriaMedicina getCategoriaMedicina() {
+	public String getCategoriaMedicina() {
 		return categoriaMedicina;
 	}
 
-	public void setCategoriaMedicina(CategoriaMedicina categoriaMedicina) {
+	public void setCategoriaMedicina(String categoriaMedicina) {
 		this.categoriaMedicina = categoriaMedicina;
 	}
 

@@ -25,15 +25,10 @@
 							<space />
 							<label value="*" style="font-weight:bold;color:red" />
 						</hbox>
-						<combobox tooltiptext="Seleccione una Categoria"
-							placeholder="Seleccione una Categoria" id="cmbCategoria"
-							readonly="true" width="100%">
-							<template name="model">
-								<comboitem label="${each.nombre}" context="${each.idCategoriaMedicina}" />
-							</template>
-						</combobox>
-						<button class="abrir" id="btnAbrirCategoria" label=""
-							tooltiptext="Crear una Nueva Categoria de Medicina" image="/public/imagenes/botones/agregar.png" />
+						<cell colspan="2">
+							<textbox maxlength="250" id="txtCategoria" hflex="1"
+								tooltiptext="Ingrese la Categoria de la Medicina" />
+						</cell>
 					</row>
 					<row>
 						<hbox>
@@ -41,25 +36,20 @@
 							<space />
 							<label value="*" style="font-weight:bold;color:red" />
 						</hbox>
-						<combobox tooltiptext="Seleccione un Laboratorio"
-							placeholder="Seleccione un Laboratorio" id="cmbLaboratorio"
-							readonly="true" width="100%">
-							<template name="model">
-								<comboitem label="${each.nombre}" context="${each.idLaboratorio}" />
-							</template>
-						</combobox>
-						<button class="abrir" id="btnAbrirLaboratorio" label=""
-							tooltiptext="Crear un Nuevo Laboratorio" image="/public/imagenes/botones/agregar.png" />
+						<cell colspan="2">
+							<textbox maxlength="250" id="txtLaboratorio" hflex="1"
+								tooltiptext="Ingrese el Laboratorio que elabora la Medicina" />
+						</cell>
 					</row>
 					<row>
 						<hbox>
-							<label class="etiqueta" value="Precio:" />
+							<label class="etiqueta" value="Precio (Bs):" />
 							<space />
 							<label value="*" style="font-weight:bold;color:red" />
 						</hbox>
-						<doublespinner id="spnPrecio" value="0" constraint="min 0 max 100000"
-							tooltiptext="Ingrese el Precio del Medicamento" step="1" format="#.##"
-							width="98%" />
+						<doublespinner id="spnPrecio" value="0"
+							constraint="min 0 max 100000" tooltiptext="Ingrese el Precio del Medicamento"
+							step="1" format="#.##" width="98%" />
 						<hbox />
 					</row>
 				</rows>

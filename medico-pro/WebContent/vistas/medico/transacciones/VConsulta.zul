@@ -143,13 +143,13 @@
 									</row>
 									<row>
 										<cell colspan="3">
-											<label class="etiqueta" value="Estatura:" />
+											<label class="etiqueta" value="Estatura (Mts):" />
 											<space />
 											<space />
 											<label id="lblEstatura" />
 											<space />
 											<space />
-											<label class="etiqueta" value="Peso:" />
+											<label class="etiqueta" value="Peso (Kgs):" />
 											<space />
 											<space />
 											<label id="lblPeso" />
@@ -474,11 +474,11 @@
 												</radiogroup>
 											</row>
 											<row>
-												<label class="etiqueta" value="Estatura(mts):" />
+												<label class="etiqueta" value="Estatura (Mts):" />
 												<doublespinner value="0" id="spnEstatura"
 													hflex="1" tooltiptext="Ingrese la estatura del paciente"
 													step="1" format="#.##" constraint="min 0 max 100000" />
-												<label class="etiqueta" value="Peso (kgs):" />
+												<label class="etiqueta" value="Peso (Kgs):" />
 												<doublespinner value="0" id="spnPeso" hflex="1"
 													tooltiptext="Ingrese el peso del Paciente" step="1" format="#.##"
 													constraint="min 0 max 100000" />
@@ -488,23 +488,21 @@
 												<hbox />
 											</row>
 											<row>
-												<cell colspan="2">
-													<label class="etiqueta"
-														value="Perimetro del torax al nivel del apendice:" />
-												</cell>
-												<label class="etiqueta" value="Inspiracion Plena(cms):" />
+												<label class="etiqueta" value="Inspiracion Plena (Cms):" />
 												<doublespinner value="0" id="spnPlena" hflex="1"
 													step="1" format="#.#" constraint="min 0 max 100000" />
-												<label class="etiqueta" value="Inspiracion Forzada(cms):" />
+												<label class="etiqueta" value="Inspiracion Forzada (Cms):" />
 												<doublespinner value="0" id="spnForzada"
 													hflex="1" step="1" format="#.#" constraint="min 0 max 100000" />
 												<label class="etiqueta"
-													value="Perimetro del abdomen a nivel del ombligo:" />
+													value="Perimetro del abdomen a nivel del ombligo (Cms):" />
 												<doublespinner value="0" id="spnOmbligo" step="1"
 													format="#.#" constraint="min 0 max 100000" />
+												<hbox />
+												<hbox />
 											</row>
 											<row>
-												<label class="etiqueta" value="Frecuencia cardiaca:" />
+												<label class="etiqueta" value="Frecuencia cardiaca (latidos/min):" />
 												<spinner value="0" id="spnCardiaca" step="1" format="#.#"
 													constraint="min 0 max 100000" />
 												<label class="etiqueta" value="¿Es ritmico?" />
@@ -512,7 +510,8 @@
 													<radio label="SI" value="si" id="rdoSiRitmico" />
 													<radio label="NO" value="no" id="rdoNoRitmico" />
 												</radiogroup>
-												<label class="etiqueta" value="Frecuencia Respiratoria:" />
+												<label class="etiqueta"
+													value="Frecuencia Respiratoria (respiraciones/min):" />
 												<spinner value="0" id="spnFrecuenciaRespitatoria"
 													step="1" format="#.#" constraint="min 0 max 100000" />
 												<label class="etiqueta" value="¿Es ritmico?" />
@@ -532,14 +531,14 @@
 												<label hflex="1" class="etiqueta" value="3era" />
 											</row>
 											<row>
-												<label class="etiqueta" value="Frecuencia minuto" />
+												<label class="etiqueta" value="Frecuencia (latidos/min)" />
 												<spinner value="0" hflex="1" id="frecuencia11" step="1"
 													format="#" constraint="min 0 max 100000" />
 												<spinner value="0" hflex="1" id="frecuencia12" step="1"
 													format="#" constraint="min 0 max 100000" />
 												<spinner value="0" hflex="1" id="frecuencia13" step="1"
 													format="#" constraint="min 0 max 100000" />
-												<label class="etiqueta" value="Sistolica" />
+												<label class="etiqueta" value="Sistolica (mm Hg)" />
 												<spinner value="0" hflex="1" id="s11" step="1"
 													format="#" constraint="min 0 max 100000" />
 												<spinner value="0" hflex="1" id="s12" step="1"
@@ -561,7 +560,7 @@
 													<radio label="SI" value="si" id="rdoSiRitmicoF3" />
 													<radio label="NO" value="no" id="rdoNoRitmicoF3" />
 												</radiogroup>
-												<label class="etiqueta" value="Diastolica" />
+												<label class="etiqueta" value="Diastolica (mm Hg)" />
 												<spinner value="0" hflex="1" id="d11" step="1"
 													format="#" constraint="min 0 max 100000" />
 												<spinner value="0" hflex="1" id="d12" step="1"

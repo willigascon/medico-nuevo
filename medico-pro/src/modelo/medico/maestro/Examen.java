@@ -31,9 +31,6 @@ public class Examen implements Serializable {
 	@Column(length=50)
 	private String tipo;
 	
-	@Column(length=500)
-	private String resultado;
-	
 	@Column(name = "costo")
 	private double costo;
 	
@@ -65,7 +62,7 @@ public class Examen implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Examen(long idExamen, String nombre, String tipo, String resultado,
+	public Examen(long idExamen, String nombre, String tipo,
 			double costo, double minimo, double maximo,
 			Timestamp fechaAuditoria, String horaAuditoria,
 			String usuarioAuditoria) {
@@ -73,7 +70,6 @@ public class Examen implements Serializable {
 		this.idExamen = idExamen;
 		this.nombre = nombre;
 		this.tipo = tipo;
-		this.resultado = resultado;
 		this.costo = costo;
 		this.minimo = minimo;
 		this.maximo = maximo;
@@ -104,14 +100,6 @@ public class Examen implements Serializable {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
-	}
-
-	public String getResultado() {
-		return resultado;
-	}
-
-	public void setResultado(String resultado) {
-		this.resultado = resultado;
 	}
 
 	public double getCosto() {

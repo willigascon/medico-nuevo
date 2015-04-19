@@ -126,6 +126,8 @@ public class CPaciente extends CGenerico {
 	@Wire
 	private Textbox txtAlergia;
 	@Wire
+	private Textbox txtRif;
+	@Wire
 	private Label lblEdad;
 	@Wire
 	private Combobox cmbSexo;
@@ -477,7 +479,7 @@ public class CPaciente extends CGenerico {
 					paciente.setMuerte(muerte);
 					paciente.setFechaMuerte(fechaMuerte);
 					paciente.setDelegadoPrevencion(comite);
-
+					paciente.setRif(txtRif.getValue());
 					paciente.setMunicipio(txtMunicipio.getValue());
 					paciente.setParroquia(txtParroquia.getValue());
 					paciente.setSector(txtSector.getValue());
@@ -532,12 +534,10 @@ public class CPaciente extends CGenerico {
 				|| cmbGrupoSanguineo.getText().compareTo("") == 0
 				|| cmbMano.getText().compareTo("") == 0
 				|| cmbSexo.getText().compareTo("") == 0
-				|| cmbNivelEducativo.getText().compareTo("") == 0
 				|| dspPeso.getValue() == 0
 				|| dspEstatura.getValue() == 0
 				|| cmbCiudad.getText().compareTo("") == 0
 				|| txtTelefono2.getText().compareTo("") == 0
-				|| txtProfesion.getText().compareTo("") == 0
 				|| (!rdoSiAlergico.isChecked() && !rdoNoAlergico.isChecked())
 				|| (!rdoSiPreempleado.isChecked() && !rdoNoPreempleado
 						.isChecked())
@@ -551,8 +551,15 @@ public class CPaciente extends CGenerico {
 				|| txtFichaPaciente.getText().compareTo("") == 0
 				|| (!rdoSiLentes.isChecked() && !rdoNoLentes.isChecked())
 				|| (rdoMuerte.isChecked() && (dtbFechaMuerte.getText()
+						.compareTo("") == 0))
+				|| (rdoInactivo.isChecked() && (dtbFechaEgreso.getText()
 						.compareTo("") == 0))) {
 			Mensaje.mensajeError(Mensaje.camposVacios);
+			aplicarColores(txtApellido1Paciente, txtNombre1Paciente,
+					txtCedulaPaciente, spnCarga, cmbEstadoCivil,
+					cmbGrupoSanguineo, cmbMano, cmbSexo, dspPeso, dspEstatura,
+					cmbCiudad, cmbCargo, txtTelefono2, cmbEmpresa, cmbArea,
+					cmbNomina, txtFichaPaciente, txtRif);
 			return false;
 		} else {
 			if (rdoSiAlergico.isChecked()
@@ -580,8 +587,14 @@ public class CPaciente extends CGenerico {
 					} else {
 						if (!validarFicha())
 							return false;
-						else
+						else {
+							if (!Validador.validarRif(txtRif.getValue())) {
+								Mensaje.mensajeError(Mensaje.rifInvalido);
+								return false;
+							}
 							return true;
+
+						}
 					}
 
 				}
@@ -778,16 +791,19 @@ public class CPaciente extends CGenerico {
 	@Listen("onClick =#rdoMuerte")
 	public void muerte() {
 		dtbFechaMuerte.setVisible(true);
+		dtbFechaEgreso.setVisible(false);
 	}
 
 	@Listen("onClick =#rdoActivo")
 	public void muerte1() {
 		dtbFechaMuerte.setVisible(false);
+		dtbFechaEgreso.setVisible(false);
 	}
 
 	@Listen("onClick =#rdoInactivo")
 	public void muerte2() {
 		dtbFechaMuerte.setVisible(false);
+		dtbFechaEgreso.setVisible(true);
 	}
 
 	/* Permite la seleccion de un item del catalogo */
@@ -825,6 +841,7 @@ public class CPaciente extends CGenerico {
 		// txtFichaPaciente.setDisabled(true);
 		id = paciente.getCedula();
 		txtFichaPaciente.setValue(paciente.getFicha());
+		txtRif.setValue(paciente.getRif());
 		txtAlergia.setValue(paciente.getObservacionAlergias());
 		txtLugarNacimiento.setValue(paciente.getLugarNacimiento());
 		cmbSexo.setValue(paciente.getSexo());
@@ -876,9 +893,11 @@ public class CPaciente extends CGenerico {
 			dtbFechaMuerte.setVisible(true);
 			dtbFechaMuerte.setValue(paciente.getFechaMuerte());
 		} else {
-			if (!paciente.isEstatus())
+			if (!paciente.isEstatus()) {
 				rdoInactivo.setChecked(true);
-			else
+				dtbFechaEgreso.setVisible(true);
+				dtbFechaEgreso.setValue(paciente.getFechaEgreso());
+			} else
 				rdoActivo.setChecked(true);
 		}
 
@@ -1070,7 +1089,11 @@ public class CPaciente extends CGenerico {
 	}
 
 	public void limpiarCampos() {
-
+		limpiarColores(txtApellido1Paciente, txtNombre1Paciente,
+				txtCedulaPaciente, spnCarga, cmbEstadoCivil, cmbGrupoSanguineo,
+				cmbMano, cmbSexo, dspPeso, dspEstatura, cmbCiudad, cmbCargo,
+				txtTelefono2, cmbEmpresa, cmbArea, cmbNomina, txtFichaPaciente,
+				txtRif);
 		txtNro.setValue("");
 		txtOtroTransporte.setValue("");
 		txtUrb.setValue("");
@@ -1096,6 +1119,7 @@ public class CPaciente extends CGenerico {
 		imagenPaciente.setVisible(false);
 		id = "";
 		txtFichaPaciente.setValue("");
+		txtRif.setValue("");
 		txtAlergia.setValue("");
 		txtLugarNacimiento.setValue("");
 		cmbSexo.setValue("");
@@ -1167,6 +1191,13 @@ public class CPaciente extends CGenerico {
 		chkOtro.setChecked(false);
 		chkPrivado.setChecked(false);
 		chkPublico.setChecked(false);
+	}
+
+	@Listen("onChange = #txtRif")
+	public void validarRif() {
+		if (!Validador.validarRif(txtRif.getValue())) {
+			Mensaje.mensajeAlerta(Mensaje.rifInvalido);
+		}
 	}
 
 }
