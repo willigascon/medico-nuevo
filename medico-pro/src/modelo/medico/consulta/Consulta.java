@@ -60,6 +60,12 @@ public class Consulta implements Serializable {
 	@Column(length = 100)
 	private String tipoConsulta;
 
+	@Column(length = 500)
+	private String cargoActual;
+
+	@Column(length = 500)
+	private String areaActual;
+
 	@Column(name = "hora_consulta", length = 10)
 	private String horaConsulta;
 
@@ -257,7 +263,7 @@ public class Consulta implements Serializable {
 			Integer dias, String condicion, String doctor,
 			Especialista especialista, String tipoReposo,
 			String reposoEmbarazo, Timestamp fechaReposo,
-			Integer frecuenciaRespiratoria, Boolean respiratoriaRitmica) {
+			Integer frecuenciaRespiratoria, Boolean respiratoriaRitmica, String areaA, String cargoA) {
 		super();
 		this.frecuenciaRespiratoria = frecuenciaRespiratoria;
 		this.respiratoriaRitmica = respiratoriaRitmica;
@@ -311,6 +317,8 @@ public class Consulta implements Serializable {
 		this.tipoReposo = tipoReposo;
 		this.reposoEmbarazo = reposoEmbarazo;
 		this.fechaReposo = fechaReposo;
+		this.areaActual=areaA;
+		this.cargoActual=cargoA;
 	}
 
 	public long getIdConsulta() {
@@ -812,6 +820,22 @@ public class Consulta implements Serializable {
 
 	public void setDoctorInterno(DoctorInterno doctorInterno) {
 		this.doctorInterno = doctorInterno;
+	}
+
+	public String getCargoActual() {
+		return cargoActual;
+	}
+
+	public void setCargoActual(String cargoActual) {
+		this.cargoActual = cargoActual;
+	}
+
+	public String getAreaActual() {
+		return areaActual;
+	}
+
+	public void setAreaActual(String areaActual) {
+		this.areaActual = areaActual;
 	}
 
 }

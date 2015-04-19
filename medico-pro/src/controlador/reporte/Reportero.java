@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import controlador.medico.CCita;
 import controlador.medico.CConsulta;
+import controlador.medico.CResultado;
 import controlador.seguridad.CInforme;
 
 /**
@@ -45,8 +46,10 @@ public class Reportero extends HttpServlet {
 		CReposo reposo = new CReposo();
 		CInforme informe = new CInforme();
 		CResumen resumen = new CResumen();
+		CResultado resultado = new CResultado();
 		CCosto costo = new CCosto();
 		CPacientes pacientes = new CPacientes();
+		CHistorial historial = new CHistorial();
 		CGasto gasto = new CGasto();
 		CCita cita = new CCita();
 		CReporteCertificado certificado = new CReporteCertificado();
@@ -226,6 +229,15 @@ public class Reportero extends HttpServlet {
 				break;
 			case "47":
 				fichero = cita.jasperCitas(par6, par7, tipo);
+				break;
+			case "48":
+				fichero = historial.jasperPeso(par6, par7, par8, tipo);
+				break;
+			case "49":
+				fichero = historial.jasperCargo(par6, par7, par8, tipo);
+				break;
+			case "50":
+				fichero = resultado.reporteResultado(part2);
 				break;
 			default:
 				break;

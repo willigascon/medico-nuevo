@@ -42,23 +42,26 @@ public class SCita {
 		return citaDAO.findByDoctorInternoAndEstado(usuario, estado);
 	}
 
-	public List<Cita> filtroPaciente(String valor) {
+	public List<Cita> filtroPaciente(String valor, String idDoctor) {
 		return citaDAO
-				.findByPacientePrimerNombreStartingWithAllIgnoreCase(valor);
+				.findByDoctorInternoCedulaAndPacientePrimerNombreStartingWithAllIgnoreCase(
+						idDoctor, valor);
 	}
 
-	public List<Cita> filtroEmpresa(String valor) {
+	public List<Cita> filtroEmpresa(String valor, String idDoctor) {
 		return citaDAO
-				.findByPacienteEmpresaNombreStartingWithAllIgnoreCase(valor);
+				.findByDoctorInternoCedulaAndPacienteEmpresaNombreStartingWithAllIgnoreCase(
+						idDoctor, valor);
 	}
 
 	public List<Cita> filtroFecha(String valor) {
 		return citaDAO.findByFechaCitaStartingWithAllIgnoreCase(valor);
 	}
 
-	public List<Cita> filtroMotivo(String valor) {
+	public List<Cita> filtroMotivo(String valor, String idDoctor) {
 		return citaDAO
-				.findByMotivoCitaDescripcionStartingWithAllIgnoreCase(valor);
+				.findByDoctorInternoCedulaAndEstadoAndMotivoCitaDescripcionStartingWithAllIgnoreCase(
+						idDoctor, "Pendiente", valor);
 	}
 
 	public List<Cita> buscarPorDoctor(DoctorInterno usuario) {
@@ -105,5 +108,9 @@ public class SCita {
 		Sort o = new Sort(Sort.Direction.ASC, ordenar);
 		return citaDAO.findByDoctorInternoAndEstadoLikeAndFechaCita(usuario,
 				estado, fecha, o);
+	}
+
+	public List<Cita> filtroFecha(Timestamp fecha, String idDoctor) {
+		return citaDAO.findByDoctorInternoCedulaAndFechaCita(idDoctor, fecha);
 	}
 }

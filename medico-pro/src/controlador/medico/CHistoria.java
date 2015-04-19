@@ -20,12 +20,10 @@ import modelo.medico.consulta.ConsultaExamen;
 import modelo.medico.consulta.ConsultaMedicina;
 import modelo.medico.consulta.ConsultaParteCuerpo;
 import modelo.medico.consulta.ConsultaServicioExterno;
-import modelo.medico.historia.Antecedente;
 import modelo.medico.historia.Historia;
 import modelo.medico.historia.HistoriaAccidente;
 import modelo.medico.historia.HistoriaIntervencion;
 import modelo.medico.historia.HistoriaVacuna;
-import modelo.medico.historia.PacienteAntecedente;
 import modelo.medico.maestro.Diagnostico;
 import modelo.medico.maestro.DoctorInterno;
 import modelo.medico.maestro.Especialista;
@@ -82,6 +80,8 @@ public class CHistoria extends CGenerico {
 	private Div botoneraHistoria;
 	@Wire
 	private Button btnBuscarPaciente;
+	@Wire
+	private Button btnGuardar;
 	@Wire
 	private Div divCatalogoPacientes;
 	@Wire
@@ -384,77 +384,12 @@ public class CHistoria extends CGenerico {
 	private Listbox ltbIntervenciones;
 	@Wire
 	private Listbox ltbIntervencionesAgregadas;
-	// --------------------------
-	@Wire
-	private Combobox cmbDiente1;
-	@Wire
-	private Combobox cmbDiente2;
-	@Wire
-	private Combobox cmbDiente3;
-	@Wire
-	private Combobox cmbDiente4;
-	@Wire
-	private Combobox cmbDiente5;
-	@Wire
-	private Combobox cmbDiente6;
-	@Wire
-	private Combobox cmbDiente7;
-	@Wire
-	private Combobox cmbDiente8;
-	@Wire
-	private Combobox cmbDiente9;
-	@Wire
-	private Combobox cmbDiente10;
-	@Wire
-	private Combobox cmbDiente11;
-	@Wire
-	private Combobox cmbDiente12;
-	@Wire
-	private Combobox cmbDiente13;
-	@Wire
-	private Combobox cmbDiente14;
-	@Wire
-	private Combobox cmbDiente15;
-	@Wire
-	private Combobox cmbDiente16;
-	@Wire
-	private Combobox cmbDiente17;
-	@Wire
-	private Combobox cmbDiente18;
-	@Wire
-	private Combobox cmbDiente19;
-	@Wire
-	private Combobox cmbDiente20;
-	@Wire
-	private Combobox cmbDiente21;
-	@Wire
-	private Combobox cmbDiente22;
-	@Wire
-	private Combobox cmbDiente23;
-	@Wire
-	private Combobox cmbDiente24;
-	@Wire
-	private Combobox cmbDiente25;
-	@Wire
-	private Combobox cmbDiente26;
-	@Wire
-	private Combobox cmbDiente27;
-	@Wire
-	private Combobox cmbDiente28;
-	@Wire
-	private Combobox cmbDiente29;
-	@Wire
-	private Combobox cmbDiente30;
-	@Wire
-	private Combobox cmbDiente31;
-	@Wire
-	private Combobox cmbDiente32;
 	@Wire
 	private Combobox cmbEspecialista;
 	@Wire
-	private Textbox txtTelefonoDoc;
-	@Wire
 	private Combobox cmbCarta;
+	@Wire
+	private Datebox dtbFecha;
 	@Wire
 	private Radio rdoSiColores;
 	@Wire
@@ -498,13 +433,6 @@ public class CHistoria extends CGenerico {
 	private Textbox txtBuscadorAccidenteLaboral;
 	@Wire
 	private Textbox txtCedula;
-	//
-	@Wire
-	private Listbox ltbMedicos;
-	@Wire
-	private Listbox ltbLaborales;
-	@Wire
-	private Listbox ltbFamiliares;
 	List<Listbox> listas = new ArrayList<Listbox>();
 
 	List<Intervencion> intervencionesDisponibles = new ArrayList<Intervencion>();
@@ -518,17 +446,12 @@ public class CHistoria extends CGenerico {
 
 	String idPaciente = "";
 	Catalogo<Paciente> catalogoPaciente;
-	private String[] tipoDiente = { "Normal", "Protesis", "Amalgama",
-			"Ausencia" };
-	GroupsModel<Antecedente, Object, Antecedente> model;
-	GroupsModel<Antecedente, Object, Antecedente> modelo;
-	GroupsModel<Antecedente, Object, Antecedente> modelFamiliares;
 	ListModelList<Vacuna> modelVacunas;
-	ListModelList<String> dientes;
 	ListitemRenderer<?> renderer;
 	Buscar<Accidente> buscarAccidenteLaboral;
 	Buscar<Accidente> buscarAccidenteComun;
 	Buscar<Intervencion> buscarIntervencion;
+	Botonera botonera;
 
 	@Override
 	public void inicializar() throws IOException {
@@ -543,9 +466,6 @@ public class CHistoria extends CGenerico {
 				mapa = null;
 			}
 		}
-		listas.add(ltbLaborales);
-		listas.add(ltbFamiliares);
-		listas.add(ltbMedicos);
 		listas.add(ltbVacunas);
 		listas.add(ltbAccidentesComunes);
 		listas.add(ltbAccidentesComunesAgregados);
@@ -558,7 +478,7 @@ public class CHistoria extends CGenerico {
 		buscadorLaborales();
 		buscadorComunes();
 		buscadorIntervenciones();
-		Botonera botonera = new Botonera() {
+		botonera = new Botonera() {
 
 			@Override
 			public void salir() {
@@ -576,7 +496,7 @@ public class CHistoria extends CGenerico {
 				if (validarHistoria()) {
 					Paciente paciente = servicioPaciente
 							.buscarPorCedula(idPaciente);
-					guardarHistoria(paciente);
+					guardarHistoria(paciente, false);
 					limpiar();
 					Mensaje.mensajeInformacion(Mensaje.guardado);
 				}
@@ -590,121 +510,7 @@ public class CHistoria extends CGenerico {
 		botoneraHistoria.appendChild(botonera);
 	}
 
-	public GroupsModel<Antecedente, Object, Antecedente> getModelFamiliares() {
-		List<Antecedente> antecedentesLaborales = servicioAntecedente
-				.buscarFamiliares();
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Antecedente> tipos = new ArrayList<Antecedente>();
-		List<List<Antecedente>> ante = new ArrayList<List<Antecedente>>();
-		map = listasModelo(antecedentesLaborales);
-		tipos = (List<Antecedente>) map.get("Tipos");
-		ante = (List<List<Antecedente>>) map.get("ListaDoble");
-		modelFamiliares = new SimpleGroupsModel<Antecedente, Antecedente, Antecedente, Antecedente>(
-				ante, tipos);
-		return modelFamiliares;
-	}
-
-	public GroupsModel<?, ?, ?> getModel() {
-		List<Antecedente> antecedentesLaborales = servicioAntecedente
-				.buscarLaborales();
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Antecedente> tipos = new ArrayList<Antecedente>();
-		List<List<Antecedente>> ante = new ArrayList<List<Antecedente>>();
-		map = listasModelo(antecedentesLaborales);
-		tipos = (List<Antecedente>) map.get("Tipos");
-		ante = (List<List<Antecedente>>) map.get("ListaDoble");
-		model = new SimpleGroupsModel<Antecedente, Antecedente, Antecedente, Antecedente>(
-				ante, tipos);
-		return model;
-	}
-
-	public GroupsModel<?, ?, ?> getModelo() {
-		List<Antecedente> antecedentesMedicos = servicioAntecedente
-				.buscarMedicos();
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Antecedente> tipos = new ArrayList<Antecedente>();
-		List<List<Antecedente>> ante = new ArrayList<List<Antecedente>>();
-		map = listasModelo(antecedentesMedicos);
-		tipos = (List<Antecedente>) map.get("Tipos");
-		ante = (List<List<Antecedente>>) map.get("ListaDoble");
-		modelo = new SimpleGroupsModel<Antecedente, Antecedente, Antecedente, Antecedente>(
-				ante, tipos);
-		return modelo;
-	}
-
-	public Map<String, Object> listasModelo(List<Antecedente> antecedentes) {
-		List<Antecedente> tipos = new ArrayList<Antecedente>();
-		List<List<Antecedente>> ante = new ArrayList<List<Antecedente>>();
-		long id = 0;
-		for (int i = 0; i < antecedentes.size(); i++) {
-			long id2 = antecedentes.get(i).getAntecedenteTipo()
-					.getIdAntecedenteTipo();
-			if (id2 != id) {
-				id = id2;
-				tipos.add(antecedentes.get(i));
-				List<Antecedente> lista = new ArrayList<Antecedente>();
-				ante.add(lista);
-			}
-		}
-		for (int i = 0; i < tipos.size(); i++) {
-			long a = tipos.get(i).getAntecedenteTipo().getIdAntecedenteTipo();
-			for (int j = 0; j < antecedentes.size(); j++) {
-				if (a == antecedentes.get(j).getAntecedenteTipo()
-						.getIdAntecedenteTipo()) {
-					ante.get(i).add(antecedentes.get(j));
-				}
-			}
-		}
-		final HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("Tipos", tipos);
-		map.put("ListaDoble", ante);
-		return map;
-	}
-
-	public ListitemRenderer<?> getRenderer() {
-		renderer = new ListitemRenderer<Antecedente>() {
-			long id = 0;
-
-			@Override
-			public void render(Listitem arg0, Antecedente arg1, int arg2)
-					throws Exception {
-				boolean tipoAntecedente = false;
-				if (id == arg1.getAntecedenteTipo().getIdAntecedenteTipo()) {
-					arg0.setValue(arg1);
-					arg0.setContext(String.valueOf(arg1.getIdAntecedente()));
-					Listcell list2 = new Listcell(arg1.getNombre());
-					list2.setParent(arg0);
-				} else {
-					tipoAntecedente = true;
-					id = arg1.getAntecedenteTipo().getIdAntecedenteTipo();
-					arg0.setValue(arg1.getAntecedenteTipo());
-					Listcell list2 = new Listcell(arg1.getAntecedenteTipo()
-							.getNombre());
-					list2.setParent(arg0);
-					arg0.setCheckable(false);
-					list2.setStyle("text-align:center; font-weight:bold; background:#FDFCDB; color:black");
-					arg0.setStyle("text-align:center; font-weight:bold; background:#FDFCDB; color:black");
-				}
-
-				Listcell list3 = new Listcell();
-				Textbox tex = new Textbox("");
-				tex.setPlaceholder("Ingrese una Observacion");
-				tex.setWidth("100%");
-				tex.setParent(list3);
-				list3.setParent(arg0);
-
-				if (tipoAntecedente) {
-					list3.setVisible(false);
-					list3.setStyle("text-align:center; font-weight:bold; background:#FDFCDB; color:black");
-					arg0.setStyle("text-align:center; font-weight:bold; background:#FDFCDB; color:black");
-				}
-
-			}
-		};
-		return renderer;
-	}
-
-	protected void guardarHistoria(Paciente paciente) {
+	protected void guardarHistoria(Paciente paciente, boolean definitiva) {
 		long idHistoria = 0;
 		Historia historia = servicioHistoria.buscarPorPaciente(paciente);
 		if (historia != null) {
@@ -828,39 +634,6 @@ public class CHistoria extends CGenerico {
 		if (rdoSiColores.isChecked())
 			colores = true;
 		String carta = cmbCarta.getValue();
-		String telefonoOdontologo = txtTelefonoDoc.getValue();
-		String a = cmbDiente1.getValue();
-		String b = cmbDiente2.getValue();
-		String c = cmbDiente3.getValue();
-		String d = cmbDiente4.getValue();
-		String e = cmbDiente5.getValue();
-		String f = cmbDiente6.getValue();
-		String g = cmbDiente7.getValue();
-		String h = cmbDiente8.getValue();
-		String i = cmbDiente9.getValue();
-		String j = cmbDiente10.getValue();
-		String k = cmbDiente11.getValue();
-		String l = cmbDiente12.getValue();
-		String m = cmbDiente13.getValue();
-		String n = cmbDiente14.getValue();
-		String o = cmbDiente15.getValue();
-		String p = cmbDiente16.getValue();
-		String q = cmbDiente17.getValue();
-		String r = cmbDiente18.getValue();
-		String s = cmbDiente19.getValue();
-		String t = cmbDiente20.getValue();
-		String u = cmbDiente21.getValue();
-		String v = cmbDiente22.getValue();
-		String w = cmbDiente23.getValue();
-		String x = cmbDiente24.getValue();
-		String y = cmbDiente25.getValue();
-		String z = cmbDiente26.getValue();
-		String za = cmbDiente27.getValue();
-		String zb = cmbDiente28.getValue();
-		String zc = cmbDiente29.getValue();
-		String zd = cmbDiente32.getValue();
-		String ze = cmbDiente30.getValue();
-		String zf = cmbDiente31.getValue();
 		double alturaHombro = spnAlturaHombro.getValue();
 		double alturaCodo = spnAlturaCodo.getValue();
 		double anchuraHombro = spnAnchuraHombro.getValue();
@@ -929,12 +702,11 @@ public class CHistoria extends CGenerico {
 				cesareas, abortos, fechaUltimaCitologia, ovarios, embarazo,
 				semanasGestando, eco, resultadoEco, mamografia,
 				resultadoMamografia, metodoHora(), metodoFecha(),
-				nombreUsuarioSesion(), a, b, c, d, e, f, g, h, i, j, k, l, m,
-				n, o, p, q, r, s, t, u, v, w, x, y, z, za, zb, zc, zd, ze, zf,
-				carta, colores, telefonoOdontologo, alturaHombro,
+				nombreUsuarioSesion(), carta, colores, alturaHombro,
 				anchuraHombro, alturaCodo, izquierdo, derecho, alturaPop, ojo,
 				codoSilla, circunferenciaAbdominal, circunferenciaCadera,
-				manoPiso, indice);
+				manoPiso, indice, new Timestamp(dtbFecha.getValue().getTime()),
+				definitiva);
 		servicioHistoria.guardar(historiaGuardada);
 		if (idHistoria != 0)
 			historiaGuardada = servicioHistoria.buscar(idHistoria);
@@ -943,7 +715,6 @@ public class CHistoria extends CGenerico {
 		guardarAccidentes(historiaGuardada);
 		guardarIntervenciones(historiaGuardada);
 		guardarVacunas(historiaGuardada);
-		guardarAntecedentes(paciente);
 
 	}
 
@@ -1040,56 +811,6 @@ public class CHistoria extends CGenerico {
 			}
 			servicioHistoriaVacuna.guardar(vacunas);
 		}
-	}
-
-	private void guardarAntecedentes(Paciente paciente) {
-		List<PacienteAntecedente> antecedentes = new ArrayList<PacienteAntecedente>();
-		servicioPacienteAntecedente.borrarAntecedentesPaciente(paciente);
-		if (ltbLaborales.getItemCount() != 0) {
-			for (int i = 0; i < ltbLaborales.getItemCount(); i++) {
-				Listitem listItem = ltbLaborales.getItemAtIndex(i);
-				if (listItem.isSelected() && listItem.getContext() != null) {
-					Antecedente antecedente = listItem.getValue();
-					Textbox text = (Textbox) listItem.getChildren().get(1)
-							.getChildren().get(0);
-					String observacion = text.getValue();
-					PacienteAntecedente pacienteAntecedente = new PacienteAntecedente(
-							paciente, antecedente, observacion);
-					antecedentes.add(pacienteAntecedente);
-				}
-			}
-		}
-
-		if (ltbFamiliares.getItemCount() != 0) {
-			for (int i = 0; i < ltbFamiliares.getItemCount(); i++) {
-				Listitem listItem = ltbFamiliares.getItemAtIndex(i);
-				if (listItem.isSelected() && listItem.getContext() != null) {
-					Antecedente antecedente = listItem.getValue();
-					Textbox text = (Textbox) listItem.getChildren().get(1)
-							.getChildren().get(0);
-					String observacion = text.getValue();
-					PacienteAntecedente pacienteAntecedente = new PacienteAntecedente(
-							paciente, antecedente, observacion);
-					antecedentes.add(pacienteAntecedente);
-				}
-			}
-		}
-
-		if (ltbMedicos.getItemCount() != 0) {
-			for (int i = 0; i < ltbMedicos.getItemCount(); i++) {
-				Listitem listItem = ltbMedicos.getItemAtIndex(i);
-				if (listItem.isSelected() && listItem.getContext() != null) {
-					Antecedente antecedente = listItem.getValue();
-					Textbox text = (Textbox) listItem.getChildren().get(1)
-							.getChildren().get(0);
-					String observacion = text.getValue();
-					PacienteAntecedente pacienteAntecedente = new PacienteAntecedente(
-							paciente, antecedente, observacion);
-					antecedentes.add(pacienteAntecedente);
-				}
-			}
-		}
-		servicioPacienteAntecedente.guardar(antecedentes);
 	}
 
 	private void buscadorIntervenciones() {
@@ -1200,15 +921,6 @@ public class CHistoria extends CGenerico {
 				.setModel(new ListModelList<HistoriaAccidente>(
 						accidentesLaboralesAgregadas));
 
-		List<PacienteAntecedente> laboralesPaciente = servicioPacienteAntecedente
-				.buscarAntecedentesPaciente(paciente, "Laboral");
-
-		List<PacienteAntecedente> medicosPaciente = servicioPacienteAntecedente
-				.buscarAntecedentesPaciente(paciente, "Medico");
-
-		List<PacienteAntecedente> familiaresPaciente = servicioPacienteAntecedente
-				.buscarAntecedentesPaciente(paciente, "Familiar");
-
 		List<HistoriaVacuna> vacunasHistoricas = servicioHistoriaVacuna
 				.buscarPorHistoria(historia);
 
@@ -1233,76 +945,6 @@ public class CHistoria extends CGenerico {
 			}
 		}
 
-		if (!familiaresPaciente.isEmpty()) {
-			for (int i = 0; i < familiaresPaciente.size(); i++) {
-				long id = familiaresPaciente.get(i).getAntecedente()
-						.getIdAntecedente();
-				for (int j = 0; j < ltbFamiliares.getItemCount(); j++) {
-					Listitem listItem = ltbFamiliares.getItemAtIndex(j);
-					if (listItem.getContext() != null) {
-						Antecedente a = listItem.getValue();
-						long id2 = a.getIdAntecedente();
-						if (id == id2) {
-							listItem.setSelected(true);
-							Textbox tex = (Textbox) listItem.getChildren()
-									.get(1).getChildren().get(0);
-							tex.setValue(familiaresPaciente.get(i)
-									.getObservacion());
-							j = ltbFamiliares.getItemCount();
-						}
-					}
-				}
-			}
-		}
-
-		if (!laboralesPaciente.isEmpty()) {
-			for (int i = 0; i < laboralesPaciente.size(); i++) {
-				long id = laboralesPaciente.get(i).getAntecedente()
-						.getIdAntecedente();
-				for (int j = 0; j < ltbLaborales.getItemCount(); j++) {
-					Listitem listItem = ltbLaborales.getItemAtIndex(j);
-					if (listItem.getContext() != null) {
-						Antecedente a = listItem.getValue();
-						long id2 = a.getIdAntecedente();
-						if (id == id2) {
-							listItem.setSelected(true);
-							Textbox tex = (Textbox) listItem.getChildren()
-									.get(1).getChildren().get(0);
-							tex.setValue(laboralesPaciente.get(i)
-									.getObservacion());
-							j = ltbLaborales.getItemCount();
-						}
-					}
-				}
-			}
-		}
-
-		if (!medicosPaciente.isEmpty()) {
-			for (int i = 0; i < medicosPaciente.size(); i++) {
-				long id = medicosPaciente.get(i).getAntecedente()
-						.getIdAntecedente();
-				for (int j = 0; j < ltbMedicos.getItemCount(); j++) {
-					Listitem listItem = ltbMedicos.getItemAtIndex(j);
-					if (listItem.getContext() != null) {
-						Antecedente a = listItem.getValue();
-						long id2 = a.getIdAntecedente();
-						if (id == id2) {
-							listItem.setSelected(true);
-							Textbox tex = (Textbox) listItem.getChildren()
-									.get(1).getChildren().get(0);
-							tex.setValue(medicosPaciente.get(i)
-									.getObservacion());
-							j = ltbMedicos.getItemCount();
-						}
-					}
-				}
-			}
-		}
-	}
-
-	public ListModelList<String> getDientes() {
-		dientes = new ListModelList<String>(tipoDiente);
-		return dientes;
 	}
 
 	public ListModelList<Vacuna> getModelVacunas() {
@@ -1370,7 +1012,6 @@ public class CHistoria extends CGenerico {
 	}
 
 	private void llenarCampos(Paciente paciente) {
-
 		if (paciente.getCargoReal() != null)
 			lblCargo1.setValue(paciente.getCargoReal().getNombre());
 		if (paciente.getArea() != null)
@@ -1457,6 +1098,18 @@ public class CHistoria extends CGenerico {
 	}
 
 	private void llenarCamposHistoria(Historia historia) {
+		if (historia.getDefinitiva() != null)
+			if (historia.getDefinitiva()) {
+				btnGuardar.setVisible(false);
+				botonera.getChildren().get(0).setVisible(false);
+			} else {
+				btnGuardar.setVisible(true);
+				botonera.getChildren().get(0).setVisible(true);
+			}
+		else {
+			btnGuardar.setVisible(true);
+			botonera.getChildren().get(0).setVisible(true);
+		}
 		boolean valorPeso = historia.getVarioPeso();
 		if (valorPeso)
 			rdoSiPeso.setChecked(true);
@@ -1661,40 +1314,11 @@ public class CHistoria extends CGenerico {
 		spnCircunferenciaC.setValue(historia.getCircunferenciaCadera());
 		spnPoplitea.setValue(historia.getAlturaPoplitea());
 		spnManoPiso.setValue(historia.getManoPiso());
+		if (historia.getFechaHistoria() != null)
+			dtbFecha.setValue(historia.getFechaHistoria());
+		else
+			dtbFecha.setValue(fecha);
 		cmbCarta.setValue(historia.getCarta());
-		txtTelefonoDoc.setValue(historia.getTelefonoOdontologo());
-		cmbDiente1.setValue(historia.getDientea());
-		cmbDiente2.setValue(historia.getDienteb());
-		cmbDiente3.setValue(historia.getDientec());
-		cmbDiente4.setValue(historia.getDiented());
-		cmbDiente5.setValue(historia.getDientee());
-		cmbDiente6.setValue(historia.getDientef());
-		cmbDiente7.setValue(historia.getDienteg());
-		cmbDiente8.setValue(historia.getDienteh());
-		cmbDiente9.setValue(historia.getDientei());
-		cmbDiente10.setValue(historia.getDientej());
-		cmbDiente11.setValue(historia.getDientek());
-		cmbDiente12.setValue(historia.getDientel());
-		cmbDiente13.setValue(historia.getDientem());
-		cmbDiente14.setValue(historia.getDienten());
-		cmbDiente15.setValue(historia.getDienteo());
-		cmbDiente16.setValue(historia.getDientep());
-		cmbDiente17.setValue(historia.getDienteq());
-		cmbDiente18.setValue(historia.getDienter());
-		cmbDiente19.setValue(historia.getDientes());
-		cmbDiente20.setValue(historia.getDientet());
-		cmbDiente21.setValue(historia.getDienteu());
-		cmbDiente22.setValue(historia.getDientev());
-		cmbDiente23.setValue(historia.getDientew());
-		cmbDiente24.setValue(historia.getDientex());
-		cmbDiente25.setValue(historia.getDientey());
-		cmbDiente26.setValue(historia.getDientez());
-		cmbDiente27.setValue(historia.getDienteza());
-		cmbDiente28.setValue(historia.getDientezb());
-		cmbDiente29.setValue(historia.getDientezc());
-		cmbDiente30.setValue(historia.getDientezd());
-		cmbDiente31.setValue(historia.getDienteze());
-		cmbDiente32.setValue(historia.getDientezf());
 		spnAbortos.setValue(historia.getNumeroAbortos());
 		spnCantidadAlcohol.setValue(historia.getAlcoholCantidad());
 		spnCantidadCafe.setValue(historia.getCantidadCafe());
@@ -1749,41 +1373,13 @@ public class CHistoria extends CGenerico {
 	}
 
 	private void limpiarCampos() {
+		btnGuardar.setVisible(true);
+		botonera.getChildren().get(0).setVisible(true);
 		idPaciente = "";
 		txtCedula.setValue("");
 		limpiarColores(txtCedula);
 		limpiarListas();
 		llenarListas();
-		for (int i = 0; i < ltbLaborales.getItemCount(); i++) {
-			Listitem listItem = ltbLaborales.getItemAtIndex(i);
-			if (listItem.isSelected() && listItem.getContext() != null) {
-				Textbox tex = (Textbox) listItem.getChildren().get(1)
-						.getChildren().get(0);
-				tex.setValue("");
-				tex.setPlaceholder("Ingrese una Observacion");
-				listItem.setSelected(false);
-			}
-		}
-		for (int i = 0; i < ltbMedicos.getItemCount(); i++) {
-			Listitem listItem = ltbMedicos.getItemAtIndex(i);
-			if (listItem.isSelected() && listItem.getContext() != null) {
-				Textbox tex = (Textbox) listItem.getChildren().get(1)
-						.getChildren().get(0);
-				tex.setValue("");
-				tex.setPlaceholder("Ingrese una Observacion");
-				listItem.setSelected(false);
-			}
-		}
-		for (int i = 0; i < ltbFamiliares.getItemCount(); i++) {
-			Listitem listItem = ltbFamiliares.getItemAtIndex(i);
-			if (listItem.isSelected() && listItem.getContext() != null) {
-				Textbox tex = (Textbox) listItem.getChildren().get(1)
-						.getChildren().get(0);
-				tex.setValue("");
-				tex.setPlaceholder("Ingrese una Observacion");
-				listItem.setSelected(false);
-			}
-		}
 		lblNombres.setValue("");
 		lblCedula.setValue("");
 		lblApellidos.setValue("");
@@ -2015,39 +1611,7 @@ public class CHistoria extends CGenerico {
 		spnPoplitea.setValue((double) 0);
 		spnManoPiso.setValue((double) 0);
 		cmbCarta.setValue("");
-		txtTelefonoDoc.setValue("");
-		cmbDiente1.setValue("Normal");
-		cmbDiente2.setValue("Normal");
-		cmbDiente3.setValue("Normal");
-		cmbDiente4.setValue("Normal");
-		cmbDiente5.setValue("Normal");
-		cmbDiente6.setValue("Normal");
-		cmbDiente7.setValue("Normal");
-		cmbDiente8.setValue("Normal");
-		cmbDiente9.setValue("Normal");
-		cmbDiente10.setValue("Normal");
-		cmbDiente11.setValue("Normal");
-		cmbDiente12.setValue("Normal");
-		cmbDiente13.setValue("Normal");
-		cmbDiente14.setValue("Normal");
-		cmbDiente15.setValue("Normal");
-		cmbDiente16.setValue("Normal");
-		cmbDiente17.setValue("Normal");
-		cmbDiente18.setValue("Normal");
-		cmbDiente19.setValue("Normal");
-		cmbDiente20.setValue("Normal");
-		cmbDiente21.setValue("Normal");
-		cmbDiente22.setValue("Normal");
-		cmbDiente23.setValue("Normal");
-		cmbDiente24.setValue("Normal");
-		cmbDiente25.setValue("Normal");
-		cmbDiente26.setValue("Normal");
-		cmbDiente27.setValue("Normal");
-		cmbDiente28.setValue("Normal");
-		cmbDiente29.setValue("Normal");
-		cmbDiente30.setValue("Normal");
-		cmbDiente31.setValue("Normal");
-		cmbDiente32.setValue("Normal");
+		dtbFecha.setValue(fecha);
 		tabIdentificacion.setSelected(true);
 	}
 
@@ -2122,4 +1686,13 @@ public class CHistoria extends CGenerico {
 		}
 	}
 
+	@Listen("onClick = #btnGuardar")
+	public void guardarHistoriaDefinitiva() {
+		if (validarHistoria()) {
+			Paciente paciente = servicioPaciente.buscarPorCedula(idPaciente);
+			guardarHistoria(paciente, true);
+			limpiarCampos();
+			Mensaje.mensajeInformacion(Mensaje.guardado);
+		}
+	}
 }

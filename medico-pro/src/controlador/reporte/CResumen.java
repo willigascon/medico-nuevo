@@ -102,100 +102,98 @@ public class CResumen extends CGenerico {
 
 			@Override
 			public void guardar() {
-				if (validar()) {
-					Date desde = dtbDesde.getValue();
-					Date hasta = dtbHasta.getValue();
-					String tipoReporte = cmbTipo.getValue();
-					DateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
-					String parentesco = "todos";
-					boolean trabajador = false;
-					String todos = "si";
-					if (chkSolo.isChecked())
-						todos = "no";
-					String trabaja = "";
-					String fecha1 = fecha.format(desde);
-					String fecha2 = fecha.format(hasta);
-					List<ConsultaDiagnostico> consultas = new ArrayList<ConsultaDiagnostico>();
-					List<Consulta> consultasSolas = new ArrayList<Consulta>();
-					switch (tipo) {
-					// Reporte 1
-					case "1":
+				Date desde = dtbDesde.getValue();
+				Date hasta = dtbHasta.getValue();
+				String tipoReporte = cmbTipo.getValue();
+				DateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
+				String parentesco = "todos";
+				boolean trabajador = false;
+				String todos = "si";
+				if (chkSolo.isChecked())
+					todos = "no";
+				String trabaja = "";
+				String fecha1 = fecha.format(desde);
+				String fecha2 = fecha.format(hasta);
+				List<ConsultaDiagnostico> consultas = new ArrayList<ConsultaDiagnostico>();
+				List<Consulta> consultasSolas = new ArrayList<Consulta>();
+				switch (tipo) {
+				// Reporte 1
+				case "1":
+					consultas = servicioConsultaDiagnostico
+							.buscarEntreFechasResumen(desde, hasta, true);
+					if (!consultas.isEmpty())
+						Clients.evalJavaScript("window.open('"
+								+ damePath()
+								+ "Reportero?valor=16&valor6="
+								+ fecha1
+								+ "&valor7="
+								+ fecha2
+								+ "&valor10="
+								+ todos
+								+ "&valor20="
+								+ tipoReporte
+								+ "','','top=100,left=200,height=600,width=800,scrollbars=1,resizable=1')");
+					else
+						Mensaje.mensajeAlerta(Mensaje.noHayRegistros);
+					break;
+				// Reporte 2
+				case "2":
+					if (parentesco.equals("todos"))
 						consultas = servicioConsultaDiagnostico
-								.buscarEntreFechasResumen(desde, hasta, true);
-						if (!consultas.isEmpty())
-							Clients.evalJavaScript("window.open('"
-									+ damePath()
-									+ "Reportero?valor=16&valor6="
-									+ fecha1
-									+ "&valor7="
-									+ fecha2
-									+ "&valor10="
-									+ todos
-									+ "&valor20="
-									+ tipoReporte
-									+ "','','top=100,left=200,height=600,width=800,scrollbars=1,resizable=1')");
-						else
-							Mensaje.mensajeAlerta(Mensaje.noHayRegistros);
-						break;
-					// Reporte 2
-					case "2":
-						if (parentesco.equals("todos"))
-							consultas = servicioConsultaDiagnostico
-									.buscarDiagnosticoEntreFechasResumen(desde,
-											hasta);
-						else
-							consultas = servicioConsultaDiagnostico
-									.buscarDiagnosticoEntreFechasYTrabajadorResumen(
-											desde, hasta, trabajador);
-						if (!consultas.isEmpty())
-							Clients.evalJavaScript("window.open('"
-									+ damePath()
-									+ "Reportero?valor=17&valor6="
-									+ fecha1
-									+ "&valor7="
-									+ fecha2
-									+ "&valor8="
-									+ parentesco
-									+ "&valor9="
-									+ trabaja
-									+ "&valor10="
-									+ todos
-									+ "&valor20="
-									+ tipoReporte
-									+ "','','top=100,left=200,height=600,width=800,scrollbars=1,resizable=1')");
-						else
-							Mensaje.mensajeAlerta(Mensaje.noHayRegistros);
-						break;
-					// Reporte 3
-					case "3":
-						if (parentesco.equals("todos"))
-							consultasSolas = servicioConsulta
-									.buscarTipoDeConsultaEntreFechasResumen(
-											desde, hasta);
-						else
-							consultasSolas = servicioConsulta
-									.buscarTipoDeConsultaEntreFechasYTrabajadorResumen(
-											desde, hasta, trabajador);
-						if (!consultasSolas.isEmpty())
-							Clients.evalJavaScript("window.open('"
-									+ damePath()
-									+ "Reportero?valor=18&valor6="
-									+ fecha1
-									+ "&valor7="
-									+ fecha2
-									+ "&valor10="
-									+ todos
-									+ "&valor8="
-									+ parentesco
-									+ "&valor9="
-									+ trabaja
-									+ "&valor20="
-									+ tipoReporte
-									+ "','','top=100,left=200,height=600,width=800,scrollbars=1,resizable=1')");
-						else
-							Mensaje.mensajeAlerta(Mensaje.noHayRegistros);
-						break;
-					}
+								.buscarDiagnosticoEntreFechasResumen(desde,
+										hasta);
+					else
+						consultas = servicioConsultaDiagnostico
+								.buscarDiagnosticoEntreFechasYTrabajadorResumen(
+										desde, hasta, trabajador);
+					if (!consultas.isEmpty())
+						Clients.evalJavaScript("window.open('"
+								+ damePath()
+								+ "Reportero?valor=17&valor6="
+								+ fecha1
+								+ "&valor7="
+								+ fecha2
+								+ "&valor8="
+								+ parentesco
+								+ "&valor9="
+								+ trabaja
+								+ "&valor10="
+								+ todos
+								+ "&valor20="
+								+ tipoReporte
+								+ "','','top=100,left=200,height=600,width=800,scrollbars=1,resizable=1')");
+					else
+						Mensaje.mensajeAlerta(Mensaje.noHayRegistros);
+					break;
+				// Reporte 3
+				case "3":
+					if (parentesco.equals("todos"))
+						consultasSolas = servicioConsulta
+								.buscarTipoDeConsultaEntreFechasResumen(desde,
+										hasta);
+					else
+						consultasSolas = servicioConsulta
+								.buscarTipoDeConsultaEntreFechasYTrabajadorResumen(
+										desde, hasta, trabajador);
+					if (!consultasSolas.isEmpty())
+						Clients.evalJavaScript("window.open('"
+								+ damePath()
+								+ "Reportero?valor=18&valor6="
+								+ fecha1
+								+ "&valor7="
+								+ fecha2
+								+ "&valor10="
+								+ todos
+								+ "&valor8="
+								+ parentesco
+								+ "&valor9="
+								+ trabaja
+								+ "&valor20="
+								+ tipoReporte
+								+ "','','top=100,left=200,height=600,width=800,scrollbars=1,resizable=1')");
+					else
+						Mensaje.mensajeAlerta(Mensaje.noHayRegistros);
+					break;
 				}
 			}
 
@@ -210,14 +208,6 @@ public class CResumen extends CGenerico {
 		guardar.setImage("/public/imagenes/botones/reporte.png");
 		botonera.getChildren().get(1).setVisible(false);
 		botoneraResumen.appendChild(botonera);
-	}
-
-	protected boolean validar() {
-		if ((tipo.equals("2") || tipo.equals("3"))) {
-			Mensaje.mensajeError(Mensaje.camposVacios);
-			return false;
-		} else
-			return true;
 	}
 
 	public byte[] reporteAreaTipoDiagnostico(String par6, String par7,

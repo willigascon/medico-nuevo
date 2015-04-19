@@ -780,10 +780,15 @@
 									</cell>
 								</row>
 								<row>
-									<label class="etiqueta" value="Tipo de Accidente:" />
+									<label class="etiqueta" value="Accidente:" />
 									<cell colspan="2">
-										<textbox multiline="true" id="txt671" width="99%"
-											tooltiptext="Indique el Tipo de Accidente" maxlength="250" />
+										<combobox tooltiptext="Seleccione un Accidente"
+											placeholder="Seleccione un Accidente" id="cmbAccidente"
+											readonly="true" width="100%">
+											<template name="model">
+												<comboitem label="${each.nombre}" context="${each.idAccidente}" />
+											</template>
+										</combobox>
 									</cell>
 									<label class="etiqueta" value="Agente Causal del Accidente:" />
 									<cell colspan="2">

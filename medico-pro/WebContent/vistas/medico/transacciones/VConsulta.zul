@@ -448,7 +448,7 @@
 													<space />
 													<label value="*" style="font-weight:bold;color:red" />
 												</hbox>
-												<cell colspan="3">
+												<cell colspan="2">
 													<textbox maxlength="1000" class="multilineab"
 														multiline="true" id="txtMotivo" hflex="1"
 														tooltiptext="Ingrese el Motivo de la Consulta" />
@@ -458,11 +458,20 @@
 													<space />
 													<label value="*" style="font-weight:bold;color:red" />
 												</hbox>
-												<cell colspan="3">
+												<cell colspan="2">
 													<textbox maxlength="2500" class="multilineab"
 														multiline="true" id="txtEnfermedad" hflex="1"
 														tooltiptext="Ingrese la Enfermedad Actual Observada" />
 												</cell>
+												<hbox>
+													<label class="etiqueta" value="¿Consulta por Accidente Laboral?" />
+													<space />
+													<label value="*" style="font-weight:bold;color:red" />
+												</hbox>
+												<radiogroup>
+													<radio label="SI" value="si" id="rdoSiLaboral" />
+													<radio label="NO" value="no" id="rdoNoLaboral" />
+												</radiogroup>
 											</row>
 											<row>
 												<label class="etiqueta" value="Estatura(mts):" />
@@ -1434,26 +1443,26 @@
 									emptyMessage="El Paciente no posee Consultas Registradas">
 									<listhead>
 										<listheader label="Fecha" width="8%" />
-										<listheader label="Doctor" width="8%" />
-										<listheader label="Motivo de Consulta" width="29%" />
-										<listheader label="Enfermedad Actual" width="35%" />
-										<listheader label="Tipo de Consulta" width="10%" />
 										<listheader label="SubTipo de Consulta" width="10%" />
+										<listheader label="Enfermedad Actual" width="35%" />
+										<listheader label="Motivo de Consulta" width="29%" />
+										<listheader label="¿Accidente?" width="10%" />
+										<listheader label="Doctor" width="8%" />
 										<listheader label="id" visible="false" />
 									</listhead>
 									<template name="model">
 										<listitem>
 											<listcell label="${each.traerFecha()}">
 											</listcell>
-											<listcell label="${each.doctor}">
-											</listcell>
-											<listcell label="${each.motivoConsulta}">
+											<listcell label="${each.tipoConsultaSecundaria}">
 											</listcell>
 											<listcell label="${each.enfermedadActual}">
 											</listcell>
-											<listcell label="${each.tipoConsulta}">
+											<listcell label="${each.motivoConsulta}">
 											</listcell>
-											<listcell label="${each.tipoConsultaSecundaria}">
+											<listcell label="${each.usuarioAuditoria}">
+											</listcell>
+											<listcell label="${each.doctor}">
 											</listcell>
 											<listcell>
 												<spinner value="${each.idConsulta}" width="98%"

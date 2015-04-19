@@ -10,6 +10,7 @@ import modelo.medico.historia.HistoriaAccidente;
 import modelo.security.Arbol;
 import modelo.seguridad.Accidente;
 import modelo.seguridad.ClasificacionAccidente;
+import modelo.seguridad.Informe;
 
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
@@ -30,7 +31,6 @@ import org.zkoss.zul.Textbox;
 import componente.Botonera;
 import componente.Catalogo;
 import componente.Mensaje;
-
 import controlador.medico.CConsulta;
 import controlador.security.CArbol;
 import controlador.utils.CGenerico;
@@ -120,13 +120,13 @@ public class CAccidente extends CGenerico {
 							nombre, fechaHora, horaAuditoria,
 							nombreUsuarioSesion());
 					servicioAccidente.guardar(accidente);
-//					if (consulta) {
-//						accidente = servicioAccidente.buscar(txtCodigo
-//								.getValue());
-//						accidentes.add(accidente);
-//						cConsulta.recibirAccidente(accidentes, listaConsulta,
-//								tipo);
-//					}
+					// if (consulta) {
+					// accidente = servicioAccidente.buscar(txtCodigo
+					// .getValue());
+					// accidentes.add(accidente);
+					// cConsulta.recibirAccidente(accidentes, listaConsulta,
+					// tipo);
+					// }
 					msj.mensajeInformacion(Mensaje.guardado);
 					limpiar();
 				}
@@ -148,8 +148,11 @@ public class CAccidente extends CGenerico {
 												.buscarPorAccidente(accidente);
 										List<ConsultaDiagnostico> consultas = servicioConsultaDiagnostico
 												.buscarPorAccidente(accidente);
+										List<Informe> informes = servicioInforme
+												.buscarPorAccidente(accidente);
 										if (!historias.isEmpty()
-												|| !consultas.isEmpty()) {
+												|| !consultas.isEmpty()
+												|| !informes.isEmpty()) {
 											msj.mensajeError(Mensaje.noEliminar);
 										} else {
 											servicioAccidente
@@ -189,8 +192,8 @@ public class CAccidente extends CGenerico {
 	public void mostrarCatalogo() throws IOException {
 		final List<Accidente> accidentes = servicioAccidente.buscarTodos();
 		catalogo = new Catalogo<Accidente>(catalogoAccidente,
-				"Catalogo de Accidentes", accidentes,false,"Codigo", "Nombre",
-				"Clasificacion") {
+				"Catalogo de Accidentes", accidentes, false, "Codigo",
+				"Nombre", "Clasificacion") {
 
 			@Override
 			protected List<Accidente> buscar(String valor, String combo) {

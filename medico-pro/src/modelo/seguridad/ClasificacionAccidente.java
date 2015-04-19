@@ -26,9 +26,6 @@ public class ClasificacionAccidente implements Serializable {
 	private String nombre;
 	
 	@OneToMany(mappedBy = "clasificacion")
-	private Set<Informe> informes;
-	
-	@OneToMany(mappedBy = "clasificacion")
 	private Set<Accidente> accidentes;
 	
 	@Column(name="fecha_auditoria")
@@ -68,14 +65,6 @@ public class ClasificacionAccidente implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public Set<Informe> getInformes() {
-		return informes;
-	}
-
-	public void setInformes(Set<Informe> informes) {
-		this.informes = informes;
 	}
 
 	public Set<Accidente> getAccidentes() {

@@ -100,8 +100,8 @@ public class Informe implements Serializable {
 	private Empresa empresaB;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_clasificacion_accidente", referencedColumnName = "id_clasificacion_accidente")
-	private ClasificacionAccidente clasificacion;
+	@JoinColumn(name = "id_accidente", referencedColumnName = "id_accidente")
+	private Accidente accidente;
 
 	@ManyToMany
 	@JoinTable(name = "informe_condicion_a", schema = "dusa_sims.dbo", joinColumns = { @JoinColumn(name = "id_informe", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_condicion", nullable = false) })
@@ -181,8 +181,8 @@ public class Informe implements Serializable {
 	@Column(length = 250)
 	private String ff;
 
-	@Column(length = 250)
-	private String fga;
+//	@Column(length = 250)
+//	private String fga;
 
 	@Column(length = 250)
 	private String fgb;
@@ -703,11 +703,11 @@ public class Informe implements Serializable {
 			Paciente pacienteI, Paciente pacienteJ, Paciente pacienteK,
 			Paciente pacienteL, Paciente pacienteM, Area area,
 			Empresa empresaA, Empresa empresaB,
-			ClasificacionAccidente clasificacion, Set<Condicion> condicionA,
+			Accidente clasificacion, Set<Condicion> condicionA,
 			Set<Condicion> condicionB, Set<Condicion> condicionC,
 			Set<Condicion> condicionD, Set<Condicion> condicionE,
 			Set<Condicion> condicionF, String codigo, Timestamp fa, String fb,
-			String fc, String fd, String fe, String ff, String fga, String fgb,
+			String fc, String fd, String fe, String ff, String fgb,
 			String fgc, String fgd, String fge, String fgf, Boolean fgga,
 			Boolean fgha, String fgh, String fgi, String fgj, String fgaa,
 			String fgab, String fgad, String gaa, String haa, String hab,
@@ -754,7 +754,7 @@ public class Informe implements Serializable {
 		this.area = area;
 		this.empresa = empresaA;
 		this.empresaB = empresaB;
-		this.clasificacion = clasificacion;
+		this.accidente = clasificacion;
 		this.condicionA = condicionA;
 		this.condicionB = condicionB;
 		this.condicionC = condicionC;
@@ -768,7 +768,6 @@ public class Informe implements Serializable {
 		this.fd = fd;
 		this.fe = fe;
 		this.ff = ff;
-		this.fga = fga;
 		this.fgb = fgb;
 		this.fgc = fgc;
 		this.fgd = fgd;
@@ -1041,12 +1040,12 @@ public class Informe implements Serializable {
 		this.empresaB = empresaB;
 	}
 
-	public ClasificacionAccidente getClasificacion() {
-		return clasificacion;
+	public Accidente getAccidente() {
+		return accidente;
 	}
 
-	public void setClasificacion(ClasificacionAccidente clasificacion) {
-		this.clasificacion = clasificacion;
+	public void setAccidente(Accidente accidente) {
+		this.accidente = accidente;
 	}
 
 	public Set<Condicion> getCondicionA() {
@@ -1151,14 +1150,6 @@ public class Informe implements Serializable {
 
 	public void setFf(String ff) {
 		this.ff = ff;
-	}
-
-	public String getFga() {
-		return fga;
-	}
-
-	public void setFga(String fga) {
-		this.fga = fga;
 	}
 
 	public String getFgb() {

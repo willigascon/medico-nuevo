@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +52,7 @@ import componente.Botonera;
 import componente.Buscar;
 import componente.Catalogo;
 import componente.Mensaje;
+import componente.Validador;
 import controlador.security.CArbol;
 import controlador.utils.CGenerico;
 
@@ -567,13 +569,33 @@ public class CCita extends CGenerico {
 			protected List<Cita> buscar(String valor) {
 				switch (cmbBuscador.getValue()) {
 				case "Paciente":
-					return recorrer(servicioCita.filtroPaciente(valor));
+					return recorrer(servicioCita
+							.filtroPaciente(valor, idDoctor));
 				case "Empresa":
-					return recorrer(servicioCita.filtroEmpresa(valor));
+					return recorrer(servicioCita.filtroEmpresa(valor, idDoctor));
 				case "Fecha":
-					return recorrer(servicioCita.filtroFecha(valor));
+					if (Validador.validarFormato(valor)) {
+						Calendar calendario = Calendar.getInstance();
+						Date fecha1 = fecha;
+						try {
+							fecha1 = formatoFecha.parse(valor);
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+						calendario.setTime(fecha1);
+						calendario.set(Calendar.HOUR, 0);
+						calendario.set(Calendar.HOUR_OF_DAY, 0);
+						calendario.set(Calendar.SECOND, 0);
+						calendario.set(Calendar.MILLISECOND, 0);
+						calendario.set(Calendar.MINUTE, 0);
+						fecha1 = calendario.getTime();
+						Timestamp fecha = new Timestamp(fecha1.getTime());
+						return recorrer(servicioCita.filtroFecha(fecha,
+								idDoctor));
+					}
+					return citas;
 				case "Motivo":
-					return recorrer(servicioCita.filtroMotivo(valor));
+					return recorrer(servicioCita.filtroMotivo(valor, idDoctor));
 				default:
 					return citas;
 				}

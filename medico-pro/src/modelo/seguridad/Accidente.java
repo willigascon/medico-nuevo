@@ -48,6 +48,9 @@ public class Accidente implements Serializable {
 	
 	@OneToMany(mappedBy = "accidente")
 	private Set<ConsultaDiagnostico> diagnosticos;
+	
+	@OneToMany(mappedBy = "accidente")
+	private Set<Informe> informes;
 
 	public Accidente() {
 		super();
@@ -127,6 +130,14 @@ public class Accidente implements Serializable {
 
 	public void setClasificacion(ClasificacionAccidente clasificacion) {
 		this.clasificacion = clasificacion;
+	}
+
+	public Set<Informe> getInformes() {
+		return informes;
+	}
+
+	public void setInformes(Set<Informe> informes) {
+		this.informes = informes;
 	}
 
 }

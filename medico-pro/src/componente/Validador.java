@@ -43,6 +43,13 @@ public abstract class Validador {
 		return matcher.matches();
 	}
 	
+	public static boolean validarFormato(String telefono) {
+		String PATTERN = "\\d{2}/\\d{2}/\\d{4}";
+		Pattern pattern = Pattern.compile(PATTERN);
+		Matcher matcher = pattern.matcher(telefono);
+		return matcher.matches();
+	}
+	
 	public static boolean validarRif(String telefono) {
 		String PATTERN = "[A-Za-z]{1}-\\d{8}-\\d{1}";
 		Pattern pattern = Pattern.compile(PATTERN);

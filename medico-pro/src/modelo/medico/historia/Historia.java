@@ -34,6 +34,13 @@ public class Historia implements Serializable {
 	@JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente")
 	private Paciente paciente;
 
+	@Column(name = "fecha_historia")
+	private Timestamp fechaHistoria;
+
+	@Column(name = "historia_definitiva")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private Boolean definitiva;
+
 	@Column
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private Boolean varioPeso;
@@ -281,112 +288,12 @@ public class Historia implements Serializable {
 	@Column(name = "usuario_auditoria", length = 50)
 	private String usuarioAuditoria;
 
-	@Column(name = "dientea", length = 10)
-	private String dientea;
-
-	@Column(name = "dienteb", length = 10)
-	private String dienteb;
-
-	@Column(name = "dientec", length = 10)
-	private String dientec;
-
-	@Column(name = "diented", length = 10)
-	private String diented;
-
-	@Column(name = "dientee", length = 10)
-	private String dientee;
-
-	@Column(name = "dientef", length = 10)
-	private String dientef;
-
-	@Column(name = "dienteg", length = 10)
-	private String dienteg;
-
-	@Column(name = "dienteh", length = 10)
-	private String dienteh;
-
-	@Column(name = "dientei", length = 10)
-	private String dientei;
-
-	@Column(name = "dientej", length = 10)
-	private String dientej;
-
-	@Column(name = "dientek", length = 10)
-	private String dientek;
-
-	@Column(name = "dientel", length = 10)
-	private String dientel;
-
-	@Column(name = "dientem", length = 10)
-	private String dientem;
-
-	@Column(name = "dienten", length = 10)
-	private String dienten;
-
-	@Column(name = "dienteo", length = 10)
-	private String dienteo;
-
-	@Column(name = "dientep", length = 10)
-	private String dientep;
-
-	@Column(name = "dienteq", length = 10)
-	private String dienteq;
-
-	@Column(name = "dienter", length = 10)
-	private String dienter;
-
-	@Column(name = "dientes", length = 10)
-	private String dientes;
-
-	@Column(name = "dientet", length = 10)
-	private String dientet;
-
-	@Column(name = "dienteu", length = 10)
-	private String dienteu;
-
-	@Column(name = "dientev", length = 10)
-	private String dientev;
-
-	@Column(name = "dientew", length = 10)
-	private String dientew;
-
-	@Column(name = "dientex", length = 10)
-	private String dientex;
-
-	@Column(name = "dientey", length = 10)
-	private String dientey;
-
-	@Column(name = "dientez", length = 10)
-	private String dientez;
-
-	@Column(name = "dientezf", length = 10)
-	private String dientezf;
-
-	@Column(name = "dienteza", length = 10)
-	private String dienteza;
-
-	@Column(name = "dientezb", length = 10)
-	private String dientezb;
-
-	@Column(name = "dientezc", length = 10)
-	private String dientezc;
-
-	@Column(name = "dientezd", length = 10)
-	private String dientezd;
-
-	@Column(name = "dienteze", length = 10)
-	private String dienteze;
-
 	@Column(name = "carta", length = 10)
 	private String carta;
 
 	@Column(name = "vision_color")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private Boolean visionColor;
-
-	@Column(name = "telefono_odontologo", length = 50)
-	private String telefonoOdontologo;
-
 	@Column(name = "altura_hombro")
 	private Double alturaHombro;
 
@@ -466,22 +373,16 @@ public class Historia implements Serializable {
 			Integer embarazoSemanas, Boolean eco, String ecoResultado,
 			Boolean mamografia, String mamografiaResultado,
 			String horaAuditoria, Timestamp fechaAuditoria,
-			String usuarioAuditoria, String dientea, String dienteb,
-			String dientec, String diented, String dientee, String dientef,
-			String dienteg, String dienteh, String dientei, String dientej,
-			String dientek, String dientel, String dientem, String dienten,
-			String dienteo, String dientep, String dienteq, String dienter,
-			String dientes, String dientet, String dienteu, String dientev,
-			String dientew, String dientex, String dientey, String dientez,
-			String dienteza, String dientezb, String dientezc, String dientezd,
-			String dienteze, String dientezf, String carta,
-			Boolean visionColores, String telefonodontologo,
+			String usuarioAuditoria,  String carta,
+			Boolean visionColores, 
 			Double alturaHombro, Double anchuraHombro, Double alturaCodo,
 			Double izquierdo, Double derecho, Double alturaPoplitea,
 			Double alturaOjo, Double alturaCodoSilla,
 			Double circunferenciaAbdominal, Double circunferenciaCadera,
-			Double manoPiso, Double indiceCadera) {
+			Double manoPiso, Double indiceCadera, Timestamp fiecha, Boolean def) {
 		super();
+		this.definitiva = def;
+		this.fechaHistoria = fiecha;
 		this.idHistoria = idHistoria;
 		this.paciente = paciente;
 		this.varioPeso = varioPeso;
@@ -557,7 +458,6 @@ public class Historia implements Serializable {
 		this.carta = carta;
 		this.miembroDerecho = derecho;
 		this.miembroIzquierdo = izquierdo;
-		this.telefonoOdontologo = telefonodontologo;
 		this.alturaCodo = alturaCodo;
 		this.alturaHombro = alturaHombro;
 		this.alturaCodoSilla = alturaCodoSilla;
@@ -568,38 +468,6 @@ public class Historia implements Serializable {
 		this.circunferenciaAbdominal = circunferenciaAbdominal;
 		this.circunferenciaCadera = circunferenciaCadera;
 		this.indiceCadera = indiceCadera;
-		this.dientea = dientea;
-		this.dienteb = dienteb;
-		this.dientec = dientec;
-		this.diented = diented;
-		this.dientee = dientee;
-		this.dientef = dientef;
-		this.dienteg = dienteg;
-		this.dienteh = dienteh;
-		this.dientei = dientei;
-		this.dientej = dientej;
-		this.dientek = dientek;
-		this.dientel = dientel;
-		this.dientem = dientem;
-		this.dienten = dienten;
-		this.dienteo = dienteo;
-		this.dientep = dientep;
-		this.dienteq = dienteq;
-		this.dienter = dienter;
-		this.dientes = dientes;
-		this.dientet = dientet;
-		this.dienteu = dienteu;
-		this.dientev = dientev;
-		this.dientew = dientew;
-		this.dientex = dientex;
-		this.dientey = dientey;
-		this.dientez = dientez;
-		this.dienteza = dienteza;
-		this.dientezb = dientezb;
-		this.dientezc = dientezc;
-		this.dientezd = dientezd;
-		this.dienteze = dienteze;
-		this.dientezf = dientezf;
 		this.visionColor = visionColores;
 	}
 
@@ -1204,277 +1072,13 @@ public class Historia implements Serializable {
 			Set<HistoriaAccidente> historiasAccidentes) {
 		this.historiasAccidentes = historiasAccidentes;
 	}
-
-	public String getDientea() {
-		return dientea;
-	}
-
-	public void setDientea(String dientea) {
-		this.dientea = dientea;
-	}
-
-	public String getDienteb() {
-		return dienteb;
-	}
-
-	public void setDienteb(String dienteb) {
-		this.dienteb = dienteb;
-	}
-
-	public String getDientec() {
-		return dientec;
-	}
-
-	public void setDientec(String dientec) {
-		this.dientec = dientec;
-	}
-
-	public String getDiented() {
-		return diented;
-	}
-
-	public void setDiented(String diented) {
-		this.diented = diented;
-	}
-
-	public String getDientee() {
-		return dientee;
-	}
-
-	public void setDientee(String dientee) {
-		this.dientee = dientee;
-	}
-
-	public String getDientef() {
-		return dientef;
-	}
-
-	public void setDientef(String dientef) {
-		this.dientef = dientef;
-	}
-
-	public String getDienteg() {
-		return dienteg;
-	}
-
-	public void setDienteg(String dienteg) {
-		this.dienteg = dienteg;
-	}
-
-	public String getDienteh() {
-		return dienteh;
-	}
-
-	public void setDienteh(String dienteh) {
-		this.dienteh = dienteh;
-	}
-
-	public String getDientei() {
-		return dientei;
-	}
-
-	public void setDientei(String dientei) {
-		this.dientei = dientei;
-	}
-
-	public String getDientej() {
-		return dientej;
-	}
-
-	public void setDientej(String dientej) {
-		this.dientej = dientej;
-	}
-
-	public String getDientek() {
-		return dientek;
-	}
-
-	public void setDientek(String dientek) {
-		this.dientek = dientek;
-	}
-
-	public String getDientel() {
-		return dientel;
-	}
-
-	public void setDientel(String dientel) {
-		this.dientel = dientel;
-	}
-
-	public String getDientem() {
-		return dientem;
-	}
-
-	public void setDientem(String dientem) {
-		this.dientem = dientem;
-	}
-
-	public String getDienten() {
-		return dienten;
-	}
-
-	public void setDienten(String dienten) {
-		this.dienten = dienten;
-	}
-
-	public String getDienteo() {
-		return dienteo;
-	}
-
-	public void setDienteo(String dienteo) {
-		this.dienteo = dienteo;
-	}
-
-	public String getDientep() {
-		return dientep;
-	}
-
-	public void setDientep(String dientep) {
-		this.dientep = dientep;
-	}
-
-	public String getDienteq() {
-		return dienteq;
-	}
-
-	public void setDienteq(String dienteq) {
-		this.dienteq = dienteq;
-	}
-
-	public String getDienter() {
-		return dienter;
-	}
-
-	public void setDienter(String dienter) {
-		this.dienter = dienter;
-	}
-
-	public String getDientes() {
-		return dientes;
-	}
-
-	public void setDientes(String dientes) {
-		this.dientes = dientes;
-	}
-
-	public String getDientet() {
-		return dientet;
-	}
-
-	public void setDientet(String dientet) {
-		this.dientet = dientet;
-	}
-
-	public String getDienteu() {
-		return dienteu;
-	}
-
-	public void setDienteu(String dienteu) {
-		this.dienteu = dienteu;
-	}
-
-	public String getDientev() {
-		return dientev;
-	}
-
-	public void setDientev(String dientev) {
-		this.dientev = dientev;
-	}
-
-	public String getDientew() {
-		return dientew;
-	}
-
-	public void setDientew(String dientew) {
-		this.dientew = dientew;
-	}
-
-	public String getDientex() {
-		return dientex;
-	}
-
-	public void setDientex(String dientex) {
-		this.dientex = dientex;
-	}
-
-	public String getDientey() {
-		return dientey;
-	}
-
-	public void setDientey(String dientey) {
-		this.dientey = dientey;
-	}
-
-	public String getDientez() {
-		return dientez;
-	}
-
-	public void setDientez(String dientez) {
-		this.dientez = dientez;
-	}
-
-	public String getDientezf() {
-		return dientezf;
-	}
-
-	public void setDientezf(String dientezf) {
-		this.dientezf = dientezf;
-	}
-
-	public String getDienteza() {
-		return dienteza;
-	}
-
-	public void setDienteza(String dienteza) {
-		this.dienteza = dienteza;
-	}
-
-	public String getDientezb() {
-		return dientezb;
-	}
-
-	public void setDientezb(String dientezb) {
-		this.dientezb = dientezb;
-	}
-
-	public String getDientezc() {
-		return dientezc;
-	}
-
-	public void setDientezc(String dientezc) {
-		this.dientezc = dientezc;
-	}
-
-	public String getDientezd() {
-		return dientezd;
-	}
-
-	public void setDientezd(String dientezd) {
-		this.dientezd = dientezd;
-	}
-
-	public String getDienteze() {
-		return dienteze;
-	}
-
-	public void setDienteze(String dienteze) {
-		this.dienteze = dienteze;
-	}
-
+	
 	public String getCarta() {
 		return carta;
 	}
 
 	public void setCarta(String carta) {
 		this.carta = carta;
-	}
-
-	public String getTelefonoOdontologo() {
-		return telefonoOdontologo;
-	}
-
-	public void setTelefonoOdontologo(String telefonoOdontologo) {
-		this.telefonoOdontologo = telefonoOdontologo;
 	}
 
 	public Double getAlturaHombro() {
@@ -1581,4 +1185,20 @@ public class Historia implements Serializable {
 		this.visionColor = visionColor;
 	}
 
+	public Timestamp getFechaHistoria() {
+		return fechaHistoria;
+	}
+
+	public void setFechaHistoria(Timestamp fechaHistoria) {
+		this.fechaHistoria = fechaHistoria;
+	}
+
+	public Boolean getDefinitiva() {
+		return definitiva;
+	}
+
+	public void setDefinitiva(Boolean definitiva) {
+		this.definitiva = definitiva;
+	}
+	
 }

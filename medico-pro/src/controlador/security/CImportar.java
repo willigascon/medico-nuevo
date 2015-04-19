@@ -982,7 +982,7 @@ public class CImportar extends CGenerico {
 							diagnostico.setCategoria(categoria);
 							diagnostico.setIdReferencia(idRef);
 							diagnostico.setCodigo(String.valueOf(idRef));
-							diagnostico.setGrupo("N/A");
+//							diagnostico.setGrupo("N/A");
 							diagnostico.setFechaAuditoria(fechaHora);
 							diagnostico.setHoraAuditoria(horaAuditoria);
 							diagnostico.setUsuarioAuditoria("frivero");

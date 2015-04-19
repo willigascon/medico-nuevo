@@ -50,13 +50,10 @@ import servicio.medico.consulta.SConsultaMedicina;
 import servicio.medico.consulta.SConsultaParteCuerpo;
 import servicio.medico.consulta.SConsultaServicioExterno;
 import servicio.medico.consulta.SRecipe;
-import servicio.medico.historia.SAntecedente;
-import servicio.medico.historia.SAntecedenteTipo;
 import servicio.medico.historia.SHistoria;
 import servicio.medico.historia.SHistoriaAccidente;
 import servicio.medico.historia.SHistoriaIntervencion;
 import servicio.medico.historia.SHistoriaVacuna;
-import servicio.medico.historia.SPacienteAntecedente;
 import servicio.medico.maestro.SCategoriaDiagnostico;
 import servicio.medico.maestro.SCategoriaMedicina;
 import servicio.medico.maestro.SCita;
@@ -110,10 +107,6 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 	protected SEstadoCivil servicioEstadoCivil;
 	@WireVariable("SAccidente")
 	protected SAccidente servicioAccidente;
-	@WireVariable("SAntecedente")
-	protected SAntecedente servicioAntecedente;
-	@WireVariable("SAntecedenteTipo")
-	protected SAntecedenteTipo servicioAntecedenteTipo;
 	@WireVariable("SArbol")
 	protected SArbol servicioArbol;
 	@WireVariable("SCargo")
@@ -178,8 +171,6 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 	protected SMotivoCita servicioMotivoCita;
 	@WireVariable("SPaciente")
 	protected SPaciente servicioPaciente;
-	@WireVariable("SPacienteAntecedente")
-	protected SPacienteAntecedente servicioPacienteAntecedente;
 	@WireVariable("SPais")
 	protected SPais servicioPais;
 	@WireVariable("SParteCuerpo")
@@ -347,11 +338,7 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 	public static SCondicion getServicioCondicion() {
 		return applicationContext.getBean(SCondicion.class);
 	}
-
-	public static SPacienteAntecedente getServicioPacienteAntecedente() {
-		return applicationContext.getBean(SPacienteAntecedente.class);
-	}
-
+	
 	public static SPeriodoPaciente getServicioPeriodoPaciente() {
 		return applicationContext.getBean(SPeriodoPaciente.class);
 	}

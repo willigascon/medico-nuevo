@@ -31,7 +31,6 @@ import componente.Botonera;
 import componente.Catalogo;
 import componente.Mensaje;
 import componente.Validador;
-
 import controlador.medico.CConsulta;
 import controlador.security.CArbol;
 import controlador.utils.CGenerico;
@@ -95,14 +94,14 @@ public class CAccidenteDetalle extends CGenerico {
 						detalle = lista.get(i);
 					}
 				}
-				
+
 				divConsulta = (Div) map.get("div");
 				contenido = (Include) divConsulta.getParent();
-				Tabbox tabox = (Tabbox) divConsulta.getParent().getParent().getParent()
-						.getParent();
+				Tabbox tabox = (Tabbox) divConsulta.getParent().getParent()
+						.getParent().getParent();
 				tabBox = tabox;
 				tab = (Tab) tabox.getTabs().getLastChild();
-						tabs = (List<Tab>) map.get("tabsGenerales");
+				tabs = (List<Tab>) map.get("tabsGenerales");
 				map.clear();
 				map = null;
 			}
@@ -180,8 +179,8 @@ public class CAccidenteDetalle extends CGenerico {
 	public void mostrarCatalogo() throws IOException {
 		final List<Accidente> accidentes = servicioAccidente.buscarTodos();
 		catalogo = new Catalogo<Accidente>(catalogoAccidente,
-				"Catalogo de Accidentes", accidentes, false,"Codigo", "Nombre",
-				"Clasificacion") {
+				"Catalogo de Accidentes", accidentes, false, "Codigo",
+				"Nombre", "Clasificacion") {
 
 			@Override
 			protected List<Accidente> buscar(String valor, String combo) {

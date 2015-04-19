@@ -7,6 +7,7 @@ import java.util.List;
 import modelo.medico.maestro.Paciente;
 import modelo.organizacion.Area;
 import modelo.organizacion.Empresa;
+import modelo.seguridad.Accidente;
 import modelo.seguridad.ClasificacionAccidente;
 import modelo.seguridad.Condicion;
 import modelo.seguridad.Informe;
@@ -60,11 +61,6 @@ public class SInforme {
 
 	public List<Informe> buscarPorPaciente(Paciente paciente) {
 		return informeDAO.findByPaciente(paciente);
-	}
-
-	public List<Informe> buscarPorClasificacion(
-			ClasificacionAccidente clasificacionAccidente) {
-		return informeDAO.findByClasificacion(clasificacionAccidente);
 	}
 
 	public List<Informe> buscarPorEmpresaTrabajador(Empresa empresa) {
@@ -148,8 +144,11 @@ public class SInforme {
 	}
 
 	public String buscarMaxCodigo() {
-		// TODO Auto-generated method stub
 		return informeDAO.buscarMaxCodigo();
+	}
+
+	public List<Informe> buscarPorAccidente(Accidente accidente) {
+		return informeDAO.findByAccidente(accidente);
 	}
 
 }

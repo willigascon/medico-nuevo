@@ -5,6 +5,7 @@ import java.util.List;
 import modelo.medico.maestro.Paciente;
 import modelo.organizacion.Area;
 import modelo.organizacion.Empresa;
+import modelo.seguridad.Accidente;
 import modelo.seguridad.ClasificacionAccidente;
 import modelo.seguridad.Condicion;
 import modelo.seguridad.Informe;
@@ -31,9 +32,6 @@ public interface IInformeDAO extends JpaRepository<Informe, Long> {
 	List<Informe> findByArea(Area area);
 
 	List<Informe> findByPaciente(Paciente paciente);
-
-	List<Informe> findByClasificacion(
-			ClasificacionAccidente clasificacionAccidente);
 
 	List<Informe> findByEmpresa(Empresa empresa);
 
@@ -74,6 +72,8 @@ public interface IInformeDAO extends JpaRepository<Informe, Long> {
 	
 	@Query("Select max(i.codigo) from Informe i ")
 	String buscarMaxCodigo();
+
+	List<Informe> findByAccidente(Accidente accidente);
 
 	
 

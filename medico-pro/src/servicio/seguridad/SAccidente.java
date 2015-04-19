@@ -4,6 +4,7 @@ import interfaceDAO.medico.historia.IHistoriaAccidenteDAO;
 import interfaceDAO.seguridad.IAccidenteDAO;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import modelo.medico.historia.Historia;
@@ -77,5 +78,10 @@ public class SAccidente {
 			ClasificacionAccidente clasificacionAccidente) {
 		// TODO Auto-generated method stub
 		return accidenteDAO.findByClasificacion(clasificacionAccidente);
+	}
+
+	public List<Accidente> buscarPorIdClasificacion(Long valueOf) {
+		return accidenteDAO
+				.findByClasificacionIdClasificacionAccidente(valueOf);
 	}
 }

@@ -16,7 +16,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import modelo.medico.historia.Historia;
-import modelo.medico.historia.PacienteAntecedente;
 import modelo.organizacion.Area;
 import modelo.organizacion.Cargo;
 import modelo.organizacion.Ciudad;
@@ -219,9 +218,6 @@ public class Paciente implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_ciudad")
 	private Ciudad ciudadVivienda;
-
-	@OneToMany(mappedBy = "paciente")
-	private Set<PacienteAntecedente> antecedentesPacientes;
 
 	@OneToOne(mappedBy = "paciente")
 	private Historia historia;
@@ -743,16 +739,7 @@ public class Paciente implements Serializable {
 	public void setCiudadVivienda(Ciudad ciudadVivienda) {
 		this.ciudadVivienda = ciudadVivienda;
 	}
-
-	public Set<PacienteAntecedente> getAntecedentesPacientes() {
-		return antecedentesPacientes;
-	}
-
-	public void setAntecedentesPacientes(
-			Set<PacienteAntecedente> antecedentesPacientes) {
-		this.antecedentesPacientes = antecedentesPacientes;
-	}
-
+	
 	public String getNacionalidad() {
 		return nacionalidad;
 	}

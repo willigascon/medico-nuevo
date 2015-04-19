@@ -100,8 +100,6 @@ public class CClasificacionAccidente extends CGenerico {
 														.buscar(id);
 												List<Accidente> accidentes = servicioAccidente
 														.buscarPorClasificacion(clasificacionAccidente);
-												List<Informe> informes = servicioInforme
-														.buscarPorClasificacion(clasificacionAccidente);
 												if (!accidentes.isEmpty()) {
 													msj.mensajeError(Mensaje.noEliminar);
 												} else {

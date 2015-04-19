@@ -5,7 +5,7 @@
 	</style>
 	<div id="divCita" apply="controlador.medico.CCita" width="100%">
 		<groupbox width="100%" mold="3d" title="Cita">
-						<div id="botoneraCita" />
+			<div id="botoneraCita" />
 			<groupbox width="100%" title="" class="blanco">
 				<caption label="Datos del Doctor"
 					style="color:black; font-size: 12px; font-weight:bold" />
@@ -94,8 +94,7 @@
 								<label value="*" style="font-weight:bold;color:red" />
 							</hbox>
 							<datebox readonly="true" width="140px" id="dtbFechaCita"
-								constraint="no past" onCreate="self.value = new Date()"
-								tooltiptext="Seleccione la Hora de la Cita" />
+								onCreate="self.value = new Date()" tooltiptext="Seleccione la Hora de la Cita" />
 							<hbox>
 								<label class="etiqueta" value="Hora Cita:" />
 								<space />

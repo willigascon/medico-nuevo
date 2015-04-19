@@ -140,10 +140,11 @@ public class CEvaluarPlan extends CGenerico {
 							}
 							servicioPlanAccion.guardarVarios(planes);
 						}
-						
+
 						List<PlanAccion> planes2 = new ArrayList<PlanAccion>();
 						if (ltbAccionesInspector.getItemCount() != 0) {
-							for (int i = 0; i < ltbAccionesInspector.getItemCount(); i++) {
+							for (int i = 0; i < ltbAccionesInspector
+									.getItemCount(); i++) {
 								Listitem listItem = ltbAccionesInspector
 										.getItemAtIndex(i);
 								PlanAccion plan = listItem.getValue();
@@ -203,7 +204,6 @@ public class CEvaluarPlan extends CGenerico {
 		}
 		return noVacio;
 	}
-	
 
 	protected boolean validarLista2() {
 		boolean noVacio = true;
@@ -267,7 +267,8 @@ public class CEvaluarPlan extends CGenerico {
 	public void seleccion() {
 		Informe informe = catalogo.objetoSeleccionadoDelCatalogo();
 		ltbAcciones.getItems().clear();
-		List<PlanAccion> planes = servicioPlanAccion.buscarPorInformeyTipo(informe,"normal");
+		List<PlanAccion> planes = servicioPlanAccion.buscarPorInformeyTipo(
+				informe, "normal");
 		if (!planes.isEmpty()) {
 			ltbAcciones.setModel(new ListModelList<PlanAccion>(planes));
 			ltbAcciones.setCheckmark(false);
@@ -286,11 +287,13 @@ public class CEvaluarPlan extends CGenerico {
 				}
 			}
 		}
-		
+
 		ltbAccionesInspector.getItems().clear();
-		List<PlanAccion> planes2 = servicioPlanAccion.buscarPorInformeyTipo(informe,"inspector");
+		List<PlanAccion> planes2 = servicioPlanAccion.buscarPorInformeyTipo(
+				informe, "inspector");
 		if (!planes.isEmpty()) {
-			ltbAccionesInspector.setModel(new ListModelList<PlanAccion>(planes2));
+			ltbAccionesInspector
+					.setModel(new ListModelList<PlanAccion>(planes2));
 			ltbAccionesInspector.setCheckmark(false);
 			ltbAccionesInspector.setMultiple(false);
 			ltbAccionesInspector.setCheckmark(true);
@@ -310,14 +313,18 @@ public class CEvaluarPlan extends CGenerico {
 		lblOrdenamientos.setValue(informe.getOrdenamientos());
 		lblFuncionario.setValue(informe.getFuncionario());
 		if (informe.getFechaVisita() != null)
-			lblFechaVisita.setValue(formatoFecha.format(informe.getFechaVisita()));
+			lblFechaVisita.setValue(formatoFecha.format(informe
+					.getFechaVisita()));
 		lblCodigo.setValue(informe.getCodigo());
 		lblCedula.setValue(informe.getPacienteA().getCedula());
 		lblFicha.setValue(informe.getPacienteA().getFicha());
 		lblNombre.setValue(informe.getPacienteA().getPrimerNombre() + " "
 				+ informe.getPacienteA().getPrimerApellido());
 		lblDescripcion.setValue(informe.getFgad());
-		lblTipo.setValue(informe.getFga());
+		if (informe.getAccidente() != null)
+			lblTipo.setValue(informe.getAccidente().getNombre());
+		else
+			lblTipo.setValue("");
 		dtbFecha.setValue(informe.getFa());
 		codigoInforme = informe.getIdInforme();
 		catalogo.setParent(null);

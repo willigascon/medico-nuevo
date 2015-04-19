@@ -1,6 +1,6 @@
 <zk>
 	<window width="80%" closable="true" id="wdwResultado"
-		apply="controlador.medico.CResultado" >
+		apply="controlador.medico.CResultado">
 		<caption label="Resultados de la Consulta"
 			style="color:black; font-size: 16px; font-weight:bold; " />
 		<div width="100%" height="100%">
@@ -39,7 +39,7 @@
 					</listhead>
 					<template name="model">
 						<listitem>
-							<listcell label="${each.especialista.nombre}">
+							<listcell label="${each.especialista.nombre} ${each.especialista.apellido}">
 							</listcell>
 							<listcell label="${each.especialista.especialidad.descripcion}">
 							</listcell>
@@ -89,7 +89,13 @@
 					width="500px" />
 			</hbox>
 			<separator />
+			<hbox>
 			<div id="botoneraResultado" />
+			<button autodisable="self" visible="false" label="Reporte Resultados" id="btnReporteResultados"
+				image="/public/imagenes/botones/generar.png"
+				tooltiptext="Presione este boton para generar el reporte de Resultados"
+				hflex="1" height="32px" class="btn" />
+				</hbox>
 		</div>
 	</window>
 </zk>

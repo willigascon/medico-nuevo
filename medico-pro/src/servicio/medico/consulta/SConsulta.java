@@ -457,4 +457,15 @@ public class SConsulta {
 						desde, hasta, true, buscar, true, o);
 	}
 
+	public List<Consulta> buscarEntreFechasYPacienteLike(Date desde,
+			Date hasta, String idTrabajador) {
+		List<String> ordenar = new ArrayList<String>();
+		ordenar.add("pacienteCedula");
+		ordenar.add("fechaConsulta");
+		Sort o = new Sort(Sort.Direction.ASC, ordenar);
+		return consultaDAO
+				.findByFechaConsultaBetweenAndPacienteCedulaLikeAndPacienteTrabajador(
+						desde, hasta, idTrabajador, true, o);
+	}
+
 }

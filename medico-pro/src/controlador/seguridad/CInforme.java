@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import modelo.medico.maestro.Paciente;
 import modelo.organizacion.Area;
 import modelo.organizacion.Empresa;
+import modelo.seguridad.Accidente;
 import modelo.seguridad.ClasificacionAccidente;
 import modelo.seguridad.Condicion;
 import modelo.seguridad.Informe;
@@ -56,7 +57,6 @@ import org.zkoss.zul.Timebox;
 import componente.Botonera;
 import componente.Catalogo;
 import componente.Mensaje;
-
 import controlador.utils.CGenerico;
 
 public class CInforme extends CGenerico {
@@ -390,7 +390,9 @@ public class CInforme extends CGenerico {
 	@Wire
 	private Combobox cmb67;
 	@Wire
-	private Textbox txt671;
+	private Combobox cmbAccidente;
+	// @Wire
+	// private Textbox txt671;
 	@Wire
 	private Textbox txt672;
 	@Wire
@@ -1161,11 +1163,11 @@ public class CInforme extends CGenerico {
 								.getSelectedItem().getContext()));
 						informe.setArea(area);
 					}
-					if (cmb67.getSelectedItem() != null) {
-						ClasificacionAccidente clasificacion = servicioClasificacionAccidente
-								.buscar(Long.valueOf(cmb67.getSelectedItem()
+					if (cmbAccidente.getSelectedItem() != null) {
+						Accidente accidente = servicioAccidente.buscar(Long
+								.valueOf(cmbAccidente.getSelectedItem()
 										.getContext()));
-						informe.setClasificacion(clasificacion);
+						informe.setAccidente(accidente);
 					}
 					Empresa empresa = servicioEmpresa.buscar(idEmpresa);
 					informe.setEmpresaA(empresa);
@@ -1240,7 +1242,6 @@ public class CInforme extends CGenerico {
 					informe.setFd(txt64.getValue());
 					informe.setFe(txt65.getValue());
 					informe.setFf(txt66.getValue());
-					informe.setFga(txt671.getValue());
 					informe.setFgb(txt672.getValue());
 					informe.setFgc(txt673.getValue());
 					informe.setFgd(txt674.getValue());
@@ -1622,6 +1623,16 @@ public class CInforme extends CGenerico {
 		botoneraInforme.appendChild(botonera);
 	}
 
+	@Listen("onSelect = #cmb67")
+	public void filtrar() {
+		if (cmb67.getSelectedItem() != null) {
+			cmbAccidente.setValue("");
+			cmbAccidente.setModel(new ListModelList<Accidente>(
+					servicioAccidente.buscarPorIdClasificacion(Long
+							.valueOf(cmb67.getSelectedItem().getContext()))));
+		}
+	}
+
 	public ListModelList<Condicion> getCondicionesA() {
 
 		condicionesA = new ListModelList<>(
@@ -1726,10 +1737,10 @@ public class CInforme extends CGenerico {
 			protected String[] crearRegistros(Paciente objeto) {
 				String[] registros = new String[5];
 				registros[0] = objeto.getCedula();
-				registros[2] = objeto.getPrimerNombre();
-				registros[3] = objeto.getSegundoNombre();
-				registros[4] = objeto.getPrimerApellido();
-				registros[5] = objeto.getSegundoApellido();
+				registros[1] = objeto.getPrimerNombre();
+				registros[2] = objeto.getSegundoNombre();
+				registros[3] = objeto.getPrimerApellido();
+				registros[4] = objeto.getSegundoApellido();
 				return registros;
 			}
 
@@ -1868,8 +1879,8 @@ public class CInforme extends CGenerico {
 					.getFechaNacimiento())));
 		}
 		lbl58.setValue(paciente.getLugarNacimiento());
-		if(paciente.getEstadoCivil()!=null)
-		lbl59.setValue(paciente.getEstadoCivil().getNombre());
+		if (paciente.getEstadoCivil() != null)
+			lbl59.setValue(paciente.getEstadoCivil().getNombre());
 		lbl510.setValue(paciente.getMano());
 		lbl511.setValue(paciente.getNivelEducativo());
 		if (paciente.getFechaIngreso() != null)
@@ -2468,9 +2479,14 @@ public class CInforme extends CGenerico {
 		txt64.setValue(informe.getFd());
 		txt65.setValue(informe.getFe());
 		txt66.setValue(informe.getFf());
-		if (informe.getClasificacion() != null)
-			cmb67.setValue(informe.getClasificacion().getNombre());
-		txt671.setValue(informe.getFga());
+		if (informe.getAccidente() != null) {
+			cmbAccidente.setValue(informe.getAccidente().getNombre());
+			cmb67.setValue(informe.getAccidente().getClasificacion()
+					.getNombre());
+		} else {
+			cmbAccidente.setValue("");
+			cmb67.setValue("");
+		}
 		txt672.setValue(informe.getFgb());
 		txt673.setValue(informe.getFgc());
 		txt674.setValue(informe.getFgd());
@@ -3277,7 +3293,7 @@ public class CInforme extends CGenerico {
 		txt65.setValue("");
 		txt66.setValue("");
 		cmb67.setValue("");
-		txt671.setValue("");
+		cmbAccidente.setValue("");
 		txt672.setValue("");
 		txt673.setValue("");
 		txt674.setValue("");
@@ -3898,10 +3914,9 @@ public class CInforme extends CGenerico {
 					.getFechaNacimiento());
 			p.put("lugarNacTrabajador", informe.getPacienteA()
 					.getLugarNacimiento());
-			if(informe.getPacienteA()
-					.getEstadoCivil()!=null)
-			p.put("estadoCivilTrabajador", informe.getPacienteA()
-					.getEstadoCivil().getNombre());
+			if (informe.getPacienteA().getEstadoCivil() != null)
+				p.put("estadoCivilTrabajador", informe.getPacienteA()
+						.getEstadoCivil().getNombre());
 
 			if (informe.getPacienteA().getMano().equals("Derecho")) {
 				p.put("manoTrabajador1", "x");
@@ -4119,7 +4134,7 @@ public class CInforme extends CGenerico {
 		p.put("fd", informe.getFd());
 		p.put("fe", informe.getFe());
 		p.put("ff", informe.getFf());
-		p.put("fga", informe.getFga());
+		// p.put("fga", informe.getFga());
 		p.put("fgb", informe.getFgb());
 		p.put("fgc", informe.getFgc());
 		p.put("fgd", informe.getFgd());
@@ -4180,8 +4195,10 @@ public class CInforme extends CGenerico {
 			p.put("fgf5", "");
 		}
 
-		if (informe.getClasificacion() != null) {
-			p.put("clasificacion", informe.getClasificacion().getNombre());
+		if (informe.getAccidente() != null) {
+			p.put("fga", informe.getAccidente().getNombre());
+			p.put("clasificacion", informe.getAccidente().getClasificacion()
+					.getNombre());
 		}
 		p.put("auxilioInmediato", informe.getFgga());
 		if (informe.getFgga() != null) {

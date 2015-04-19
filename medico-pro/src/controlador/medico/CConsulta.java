@@ -22,7 +22,6 @@ import modelo.medico.consulta.ConsultaMedicina;
 import modelo.medico.consulta.ConsultaParteCuerpo;
 import modelo.medico.consulta.ConsultaServicioExterno;
 import modelo.medico.consulta.Recipe;
-import modelo.medico.historia.Antecedente;
 import modelo.medico.maestro.Cita;
 import modelo.medico.maestro.Diagnostico;
 import modelo.medico.maestro.DoctorInterno;
@@ -293,6 +292,10 @@ public class CConsulta extends CGenerico {
 	private Radio rdoSiRespiratoria;
 	@Wire
 	private Radio rdoNoRespiratoria;
+	@Wire
+	private Radio rdoSiLaboral;
+	@Wire
+	private Radio rdoNoLaboral;
 	// --------------------------
 	@Wire
 	private Row rowReposoDias;
@@ -448,7 +451,7 @@ public class CConsulta extends CGenerico {
 	Catalogo<Consulta> catalogo;
 	ListModelList<Proveedor> proveedores;
 	ListModelList<ParteCuerpo> modelFisico;
-	ListitemRenderer renderer;
+	ListitemRenderer<?> renderer;
 	Buscar<Medicina> buscarMedicina;
 	Buscar<Diagnostico> buscarDiagnostico;
 	Buscar<Examen> buscarExamen;
@@ -538,7 +541,7 @@ public class CConsulta extends CGenerico {
 					Paciente paciente = servicioPaciente
 							.buscarPorCedula(idPaciente);
 					boolean accidente = false;
-					if (listaDetalle.size() != 0)
+					if (rdoSiLaboral.isChecked())
 						accidente = true;
 					String motivo = txtMotivo.getValue();
 					String enfermedad = txtEnfermedad.getValue();
@@ -649,7 +652,9 @@ public class CConsulta extends CGenerico {
 							tipoSecundaria, examenesPre, dias, condicionApto,
 							doctorGuardar, especialista, tipoReposo,
 							reposoEmbarazo, fechaReposo,
-							frecuenciaRespiratoria, ritmicaRespiratoria);
+							frecuenciaRespiratoria, ritmicaRespiratoria,
+							paciente.getArea().getNombre(), paciente
+									.getCargoReal().getNombre());
 					Timestamp fechaPost = new Timestamp(dtbFechaPostVacacional
 							.getValue().getTime());
 					consulta.setFechaPostVacacional(fechaPost);
@@ -739,16 +744,11 @@ public class CConsulta extends CGenerico {
 	public void actualizarConsultas(Paciente paciente) {
 		List<Consulta> consultas = servicioConsulta.buscarPorPaciente(paciente);
 		for (int i = 0; i < consultas.size(); i++) {
-			consultas.get(i).setHoraConsulta(
-					formatoFecha.format(consultas.get(i).getFechaConsulta()));
-		}
-		for (int i = 0; i < consultas.size(); i++) {
-			String nombre = consultas.get(i).getDoctorInterno()
-					.getPrimerNombre();
-			String apellido = consultas.get(i).getDoctorInterno()
-					.getPrimerApellido();
 			Consulta consultaj = consultas.get(i);
-			consultaj.setHoraAuditoria(nombre + " " + apellido);
+			String no = "No";
+			if (consultaj.isAccidenteLaboral())
+				no = "Si";
+			consultaj.setUsuarioAuditoria(no);
 		}
 		ltbConsultas.setModel(new ListModelList<Consulta>(consultas));
 		// ltbConsultas.setMultiple(false);
@@ -860,78 +860,6 @@ public class CConsulta extends CGenerico {
 				return medicinasFiltradas;
 			}
 		};
-	}
-
-	public Map<String, Object> listasModelo(List<Antecedente> antecedentes) {
-		List<Antecedente> tipos = new ArrayList<Antecedente>();
-		List<List<Antecedente>> ante = new ArrayList<List<Antecedente>>();
-		long id = 0;
-		for (int i = 0; i < antecedentes.size(); i++) {
-			long id2 = antecedentes.get(i).getAntecedenteTipo()
-					.getIdAntecedenteTipo();
-			if (id2 != id) {
-				id = id2;
-				tipos.add(antecedentes.get(i));
-				List<Antecedente> lista = new ArrayList<Antecedente>();
-				ante.add(lista);
-			}
-		}
-		for (int i = 0; i < tipos.size(); i++) {
-			long a = tipos.get(i).getAntecedenteTipo().getIdAntecedenteTipo();
-			for (int j = 0; j < antecedentes.size(); j++) {
-				if (a == antecedentes.get(j).getAntecedenteTipo()
-						.getIdAntecedenteTipo()) {
-					ante.get(i).add(antecedentes.get(j));
-				}
-			}
-		}
-		final HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("Tipos", tipos);
-		map.put("ListaDoble", ante);
-		return map;
-	}
-
-	public ListitemRenderer getRenderer() {
-		renderer = new ListitemRenderer<Antecedente>() {
-			long id = 0;
-
-			@Override
-			public void render(Listitem arg0, Antecedente arg1, int arg2)
-					throws Exception {
-				boolean tipoAntecedente = false;
-				if (id == arg1.getAntecedenteTipo().getIdAntecedenteTipo()) {
-					arg0.setValue(arg1);
-					arg0.setContext(String.valueOf(arg1.getIdAntecedente()));
-					Listcell list2 = new Listcell(arg1.getNombre());
-					list2.setParent(arg0);
-				} else {
-					tipoAntecedente = true;
-					id = arg1.getAntecedenteTipo().getIdAntecedenteTipo();
-					arg0.setValue(arg1.getAntecedenteTipo());
-					Listcell list2 = new Listcell(arg1.getAntecedenteTipo()
-							.getNombre());
-					list2.setParent(arg0);
-					arg0.setCheckable(false);
-					list2.setStyle("text-align:center; font-weight:bold; background:#FDFCDB; color:black");
-					arg0.setStyle("text-align:center; font-weight:bold; background:#FDFCDB; color:black");
-				}
-
-				Listcell list3 = new Listcell();
-				Textbox tex = new Textbox("");
-				tex.setPlaceholder("Ingrese una Observacion");
-				tex.setWidth("100%");
-				tex.setParent(list3);
-				list3.setParent(arg0);
-
-				if (tipoAntecedente) {
-					list3.setVisible(false);
-					list3.setStyle("text-align:center; font-weight:bold; background:#FDFCDB; color:black");
-					arg0.setStyle("text-align:center; font-weight:bold; background:#FDFCDB; color:black");
-				}
-
-			}
-		};
-		return renderer;
 	}
 
 	protected void guardarExamenFisico(Consulta consultaDatos) {
@@ -1085,9 +1013,7 @@ public class CConsulta extends CGenerico {
 			informe.setFb(diaSemanaString(calendario2));
 		}
 		if (consultaDiagnostico.getAccidente() != null) {
-			informe.setClasificacion(consultaDiagnostico.getAccidente()
-					.getClasificacion());
-			informe.setFga(consultaDiagnostico.getAccidente().getNombre());
+			informe.setAccidente(consultaDiagnostico.getAccidente());
 		}
 		informe.setFf(consultaDiagnostico.getLugar());
 		String reposo = "No Amerito";
@@ -1174,8 +1100,10 @@ public class CConsulta extends CGenerico {
 				if (txtMotivo.getText().compareTo("") == 0
 						|| txtEnfermedad.getText().compareTo("") == 0
 						|| (!rdoSiReposo.isChecked() && !rdoNoReposo
+								.isChecked())
+						|| (!rdoSiLaboral.isChecked() && !rdoNoLaboral
 								.isChecked())) {
-					Mensaje.mensajeError("Debe Llenar los campos secundarios de la Consulta (Motivo de la Consulta, Enfermedad Actual y si Amerita o no Reposo)");
+					Mensaje.mensajeError("Debe Llenar los campos secundarios de la Consulta (Motivo de la Consulta, Enfermedad Actual, si hubo accidente laboral o si Amerita o no Reposo)");
 					return false;
 				} else {
 					if (rdoSiReposo.isChecked()
@@ -1185,88 +1113,75 @@ public class CConsulta extends CGenerico {
 						Mensaje.mensajeError("Debe indicar las opciones del reposo");
 						return false;
 					} else {
-						if (rdoSiMaternal.isChecked()
-								&& cmbReposo.getText().compareTo("") == 0) {
-							Mensaje.mensajeError("Debe indicar el tipo del reposo maternal");
+						if (!validarAccidente()) {
+							Mensaje.mensajeError("Si indica que la consulta fue de tipo accidente laboral, entonces debe agregar al menos un diagnostico de tipo accidente laboral");
 							return false;
 						} else {
-							if (!agregarMedicina()) {
-								Mensaje.mensajeError("Debe Llenar Todos los Campos de la Lista de Medicinas");
+
+							if (rdoSiMaternal.isChecked()
+									&& cmbReposo.getText().compareTo("") == 0) {
+								Mensaje.mensajeError("Debe indicar el tipo del reposo maternal");
 								return false;
 							} else {
-								if (!agregarDiagnostico()) {
-									Mensaje.mensajeError("Debe Llenar Todos los Campos de la Lista de Diagnosticos");
+								if (!agregarMedicina()) {
+									Mensaje.mensajeError("Debe Llenar Todos los Campos de la Lista de Medicinas");
 									return false;
 								} else {
-									if (!agregarExamen()) {
-										Mensaje.mensajeError("Debe Llenar Todos los Campos de la Lista de Examenes");
+									if (!agregarDiagnostico()) {
+										Mensaje.mensajeError("Debe Llenar Todos los Campos de la Lista de Diagnosticos");
 										return false;
 									} else {
-										// if (!validarProveedor()) {
-										// return false;
-										// } else {
-										if (!agregarEspecialista()) {
-											Mensaje.mensajeError("Debe Llenar Todos los Campos de la Lista de Especialistas");
+										if (!agregarExamen()) {
+											Mensaje.mensajeError("Debe Llenar Todos los Campos de la Lista de Examenes");
 											return false;
 										} else {
-											if (!agregarServicio()) {
-												Mensaje.mensajeError("Debe Llenar Todos los Campos de la Lista de Servicios Externos");
+											// if (!validarProveedor()) {
+											// return false;
+											// } else {
+											if (!agregarEspecialista()) {
+												Mensaje.mensajeError("Debe Llenar Todos los Campos de la Lista de Especialistas");
 												return false;
 											} else {
-												if (cmbTipoPreventiva
-														.getValue().equals(
-																"Control")
-														&& (idConsultaAsociada == 0)) {
-													Mensaje.mensajeError("Debe Seleccionar la Consulta Asociada al Control que se esta Realizando");
+												if (!agregarServicio()) {
+													Mensaje.mensajeError("Debe Llenar Todos los Campos de la Lista de Servicios Externos");
 													return false;
 												} else {
 													if (cmbTipoPreventiva
 															.getValue().equals(
-																	"IC")
+																	"Control")
 															&& (idConsultaAsociada == 0)) {
-														Mensaje.mensajeError("Debe Seleccionar la ConsultanAsociada a la Inter-Consulta");
+														Mensaje.mensajeError("Debe Seleccionar la Consulta Asociada al Control que se esta Realizando");
 														return false;
 													} else {
 														if (cmbTipoPreventiva
 																.getValue()
 																.equals("IC")
-																&& cmbEspecialista
-																		.getText()
-																		.compareTo(
-																				"") == 0) {
-															Mensaje.mensajeError("Debe Seleccionar el Especialista al cual asistio el paciente");
+																&& (idConsultaAsociada == 0)) {
+															Mensaje.mensajeError("Debe Seleccionar la ConsultanAsociada a la Inter-Consulta");
 															return false;
 														} else {
-															if (ltbMedicinasAgregadas
-																	.getItemCount() != 0
-																	&& cmbPrioridad
+															if (cmbTipoPreventiva
+																	.getValue()
+																	.equals("IC")
+																	&& cmbEspecialista
 																			.getText()
 																			.compareTo(
 																					"") == 0) {
-																Mensaje.mensajeError("Debe Seleccionar la Prioridad del Recipe");
+																Mensaje.mensajeError("Debe Seleccionar el Especialista al cual asistio el paciente");
 																return false;
 															} else {
-																if (ltbDiagnosticosAgregados
-																		.getItemCount() == 0) {
-																	Mensaje.mensajeError("Debe seleccionar al menos un diagnostico");
+																if (ltbMedicinasAgregadas
+																		.getItemCount() != 0
+																		&& cmbPrioridad
+																				.getText()
+																				.compareTo(
+																						"") == 0) {
+																	Mensaje.mensajeError("Debe Seleccionar la Prioridad del Recipe");
 																	return false;
 																} else {
-																	if ((cmbTipoPreventiva
-																			.getValue()
-																			.equals("Pre-Empleo")
-																			|| cmbTipoPreventiva
-																					.getValue()
-																					.equals("Cambio de Puesto") || cmbTipoPreventiva
-																			.getValue()
-																			.equals("Promocion"))
-																			&& (cmbArea
-																					.getText()
-																					.compareTo(
-																							"") == 0 || cmbCargo
-																					.getText()
-																					.compareTo(
-																							"") == 0)) {
-																		Mensaje.mensajeError("Debe Seleccionar el Cargo y el Area a la cual Aspira el Paciente");
+																	if (ltbDiagnosticosAgregados
+																			.getItemCount() == 0) {
+																		Mensaje.mensajeError("Debe seleccionar al menos un diagnostico");
 																		return false;
 																	} else {
 																		if ((cmbTipoPreventiva
@@ -1277,40 +1192,59 @@ public class CConsulta extends CGenerico {
 																						.equals("Cambio de Puesto") || cmbTipoPreventiva
 																				.getValue()
 																				.equals("Promocion"))
-																				&& (!rdoSiApto
-																						.isChecked() && !rdoNoApto
-																						.isChecked())) {
-																			Mensaje.mensajeError("Debe Indicar si el Paciente es Apto, o no para el Cargo que Aspira");
+																				&& (cmbArea
+																						.getText()
+																						.compareTo(
+																								"") == 0 || cmbCargo
+																						.getText()
+																						.compareTo(
+																								"") == 0)) {
+																			Mensaje.mensajeError("Debe Seleccionar el Cargo y el Area a la cual Aspira el Paciente");
 																			return false;
 																		} else {
-																			if (ltbServicioExternoAgregados
-																					.getItemCount() != 0
-																					&& cmbPrioridadServicio
-																							.getText()
-																							.compareTo(
-																									"") == 0) {
-																				Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Estudios Externos");
+																			if ((cmbTipoPreventiva
+																					.getValue()
+																					.equals("Pre-Empleo")
+																					|| cmbTipoPreventiva
+																							.getValue()
+																							.equals("Cambio de Puesto") || cmbTipoPreventiva
+																					.getValue()
+																					.equals("Promocion"))
+																					&& (!rdoSiApto
+																							.isChecked() && !rdoNoApto
+																							.isChecked())) {
+																				Mensaje.mensajeError("Debe Indicar si el Paciente es Apto, o no para el Cargo que Aspira");
 																				return false;
 																			} else {
-																				if (ltbExamenesAgregados
+																				if (ltbServicioExternoAgregados
 																						.getItemCount() != 0
-																						&& cmbPrioridadExamen
+																						&& cmbPrioridadServicio
 																								.getText()
 																								.compareTo(
 																										"") == 0) {
-																					Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Examenes");
+																					Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Estudios Externos");
 																					return false;
 																				} else {
-																					if (ltbEspecialistasAgregados
+																					if (ltbExamenesAgregados
 																							.getItemCount() != 0
-																							&& cmbPrioridadEspecialista
+																							&& cmbPrioridadExamen
 																									.getText()
 																									.compareTo(
 																											"") == 0) {
-																						Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Especialistas");
+																						Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Examenes");
 																						return false;
 																					} else {
-																						return true;
+																						if (ltbEspecialistasAgregados
+																								.getItemCount() != 0
+																								&& cmbPrioridadEspecialista
+																										.getText()
+																										.compareTo(
+																												"") == 0) {
+																							Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Especialistas");
+																							return false;
+																						} else {
+																							return true;
+																						}
 																					}
 																				}
 																			}
@@ -1334,6 +1268,20 @@ public class CConsulta extends CGenerico {
 				}
 			}
 		}
+	}
+
+	private boolean validarAccidente() {
+		if (rdoSiLaboral.isChecked()) {
+			for (int i = 0; i < ltbDiagnosticosAgregados.getItemCount(); i++) {
+				Listitem listItem = ltbDiagnosticosAgregados.getItemAtIndex(i);
+				String tipo = ((Combobox) ((listItem.getChildren().get(1)))
+						.getFirstChild()).getValue();
+				if (tipo.equals("Accidente Laboral"))
+					return true;
+			}
+			return false;
+		} else
+			return true;
 	}
 
 	/* Abre la vista de Pais */
@@ -1672,16 +1620,11 @@ public class CConsulta extends CGenerico {
 					.equals("Pre-Vacacional"))
 				Mensaje.mensajeAlerta("La ultima consulta de este paciente fue de tipo Pre-Vacacional, por lo tanto la consulta actual debe ser de tipo Post-Vacacional");
 		for (int i = 0; i < consultas.size(); i++) {
-			consultas.get(i).setHoraConsulta(
-					formatoFecha.format(consultas.get(i).getFechaConsulta()));
-		}
-		for (int i = 0; i < consultas.size(); i++) {
-			String nombre = consultas.get(i).getDoctorInterno()
-					.getPrimerNombre();
-			String apellido = consultas.get(i).getDoctorInterno()
-					.getPrimerApellido();
 			Consulta consulta = consultas.get(i);
-			consulta.setHoraAuditoria(nombre + " " + apellido);
+			String no = "No";
+			if (consulta.isAccidenteLaboral())
+				no = "Si";
+			consulta.setUsuarioAuditoria(no);
 		}
 		ltbConsultas.setModel(new ListModelList<Consulta>(consultas));
 		llenarListas();
@@ -1853,6 +1796,10 @@ public class CConsulta extends CGenerico {
 			else
 				rdoNoRespiratoria.setChecked(true);
 		}
+		if (consulta.isAccidenteLaboral())
+			rdoSiLaboral.setChecked(true);
+		else
+			rdoNoLaboral.setChecked(true);
 		calcularIMC();
 		dtbFechaConsulta.setValue(consulta.getFechaConsulta());
 	}
@@ -2451,52 +2398,6 @@ public class CConsulta extends CGenerico {
 		}
 	}
 
-	// @Listen("onSelect = #cmbProveedor")
-	// public boolean validarProveedor() {
-	// Proveedor proveedor = null;
-	// Examen examen = null;
-	// String examenes = "\n";
-	// if (cmbProveedor.getText().compareTo("") != 0)
-	// proveedor = servicioProveedor.buscar(Long.parseLong(cmbProveedor
-	// .getSelectedItem().getContext()));
-	// boolean error = false;
-	// if (ltbExamenesAgregados.getItemCount() != 0) {
-	// ProveedorExamen proveedorExamen = new ProveedorExamen();
-	// for (int i = 0; i < ltbExamenesAgregados.getItemCount(); i++) {
-	// Listitem listItem = ltbExamenesAgregados.getItemAtIndex(i);
-	// Integer idExamen = ((Spinner) ((listItem.getChildren().get(3)))
-	// .getFirstChild()).getValue();
-	// examen = servicioExamen.buscar(idExamen);
-	// proveedorExamen = servicioProveedorExamen
-	// .buscarPorProveedoryExamen(proveedor, examen);
-	// if (proveedorExamen == null) {
-	// error = true;
-	// examenes += "-" + examen.getNombre() + "\n";
-	// } else {
-	// Combobox combo = ((Combobox) ((listItem.getChildren()
-	// .get(2))).getFirstChild());
-	// if (combo.getSelectedItem() == null) {
-	// combo.setValue(proveedorExamen.getProveedor()
-	// .getNombre());
-	// combo.getSelectedItem().setContext(
-	// String.valueOf(proveedorExamen.getProveedor()
-	// .getIdProveedor()));
-	// }
-	// }
-	// }
-	// if (error) {
-	// cmbProveedor.setFocus(true);
-	// Messagebox.show(
-	// "El proveedor seleccionado no realiza los(el) examen(es):   "
-	// + examenes + "Por favor modifiquelos",
-	// "Alerta", Messagebox.OK, Messagebox.EXCLAMATION);
-	// return false;
-	// } else
-	// return true;
-	// } else
-	// return true;
-	// }
-
 	@Listen("onClick = #btnAgregarExamenes")
 	public boolean agregarExamen() {
 		boolean falta = false;
@@ -2771,6 +2672,10 @@ public class CConsulta extends CGenerico {
 			rdoSiRespiratoria.setChecked(false);
 		if (rdoNoRespiratoria.isChecked())
 			rdoNoRespiratoria.setChecked(false);
+		if (rdoNoLaboral.isChecked())
+			rdoNoLaboral.setChecked(false);
+		if (rdoSiLaboral.isChecked())
+			rdoSiLaboral.setChecked(false);
 		if (rdoNoRitmicoF3.isChecked())
 			rdoNoRitmicoF3.setChecked(true);
 		tabIdentificacion.setSelected(true);
@@ -3419,7 +3324,7 @@ public class CConsulta extends CGenerico {
 
 		Paciente paciente = consuta.getPaciente();
 		DoctorInterno user = consuta.getDoctorInterno();
-		Map p = new HashMap();
+		Map<String, Object> p = new HashMap<String, Object>();
 		String nombreEmpresa = "Sin Empresa Asociada";
 		String direccionEmpresa = "Direccion Faltante";
 		String rifEmpresa = "Rif Faltante";
@@ -3520,7 +3425,7 @@ public class CConsulta extends CGenerico {
 				.buscarPorConsulta(consuta);
 		Paciente paciente = consuta.getPaciente();
 		DoctorInterno user = consuta.getDoctorInterno();
-		Map p = new HashMap();
+		Map<String, Object> p = new HashMap<String, Object>();
 		String nombreEmpresa = "Sin Empresa Asociada";
 		String direccionEmpresa = "Direccion Faltante";
 		String rifEmpresa = "Rif Faltante";
@@ -3645,7 +3550,7 @@ public class CConsulta extends CGenerico {
 		}
 		Paciente paciente = consuta.getPaciente();
 		DoctorInterno user = consuta.getDoctorInterno();
-		Map p = new HashMap();
+		Map<String, Object> p = new HashMap<String, Object>();
 		String nombreEmpresa = "Sin Empresa Asociada";
 		String direccionEmpresa = "Direccion Faltante";
 		String rifEmpresa = "Rif Faltante";
@@ -3739,7 +3644,7 @@ public class CConsulta extends CGenerico {
 					.buscarPorConsultaYProveedor(consuta, part5);
 		Paciente paciente = consuta.getPaciente();
 		DoctorInterno user = consuta.getDoctorInterno();
-		Map p = new HashMap();
+		Map<String, Object> p = new HashMap<String, Object>();
 		String nombreEmpresa = "Sin Empresa Asociada";
 		String direccionEmpresa = "Direccion Faltante";
 		String rifEmpresa = "Rif Faltante";
@@ -3831,7 +3736,7 @@ public class CConsulta extends CGenerico {
 
 		Paciente paciente = consuta.getPaciente();
 		DoctorInterno user = consuta.getDoctorInterno();
-		Map p = new HashMap();
+		Map<String, Object> p = new HashMap<String, Object>();
 		String nombreEmpresa = "Sin Empresa Asociada";
 		String direccionEmpresa = "Direccion Faltante";
 		String rifEmpresa = "Rif Faltante";
@@ -3907,6 +3812,10 @@ public class CConsulta extends CGenerico {
 					.getPrimerApellido();
 			Consulta consulta = listaConsultas.get(i);
 			listaConsultas.get(i).setExamenPreempleo(nombre + " " + apellido);
+			// String no = "No";
+			// if (listaConsultas.get(i).isAccidenteLaboral())
+			// no = "Si";
+			// listaConsultas.get(i).setUsuarioAuditoria(no);
 			List<ConsultaDiagnostico> diagnosticos = getServicioConsultaDiagnostico()
 					.buscarPorConsulta(listaConsultas.get(i));
 
@@ -3925,7 +3834,7 @@ public class CConsulta extends CGenerico {
 			listaConsultas.get(i).setCondicionApto(tipoDiagnosticos);
 		}
 
-		Map p = new HashMap();
+		Map<String, Object> p = new HashMap<String, Object>();
 		p.put("pacienteNombre", listaConsultas.get(0).getPaciente()
 				.getPrimerNombre()
 				+ "   "
@@ -3976,7 +3885,7 @@ public class CConsulta extends CGenerico {
 				.buscarPorConsulta(consuta);
 		Paciente paciente = consuta.getPaciente();
 		DoctorInterno user = consuta.getDoctorInterno();
-		Map p = new HashMap();
+		Map<String, Object> p = new HashMap<String, Object>();
 		String nombreEmpresa = "Sin Empresa Asociada";
 		String direccionEmpresa = "Direccion Faltante";
 		String rifEmpresa = "Rif Faltante";
@@ -4077,7 +3986,7 @@ public class CConsulta extends CGenerico {
 		Consulta consuta = getServicioConsulta().buscar(part2);
 		Paciente paciente = consuta.getPaciente();
 		DoctorInterno user = consuta.getDoctorInterno();
-		Map p = new HashMap();
+		Map<String, Object> p = new HashMap<String, Object>();
 		String nombreEmpresa = "Sin Empresa Asociada";
 		String direccionEmpresa = "Direccion Faltante";
 		String rifEmpresa = "Rif Faltante";
@@ -4132,7 +4041,7 @@ public class CConsulta extends CGenerico {
 		String rifEmpresa = "Rif Faltante";
 		if (paciente.getEmpresa() != null)
 			nombreEmpresa = paciente.getEmpresa().getNombre();
-		Map p = new HashMap();
+		Map<String, Object> p = new HashMap<String, Object>();
 		p.put("empresaNombre", nombreEmpresa);
 		p.put("pacienteNombre",
 				paciente.getPrimerNombre() + " " + paciente.getPrimerApellido());

@@ -34,4 +34,6 @@ public interface IAccidenteDAO extends JpaRepository<Accidente, Long> {
 	List<Accidente> findByClasificacion(
 			ClasificacionAccidente clasificacionAccidente);
 
+	List<Accidente> findByClasificacionIdClasificacionAccidente(Long valueOf);
+
 }

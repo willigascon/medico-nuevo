@@ -42,6 +42,18 @@
 							<label id="lblArea" />
 						</cell>
 					</row>
+					<row>
+						<hbox>
+							<label class="etiqueta" value="Fecha de la Historia:" />
+							<space />
+							<label value="*" style="font-weight:bold;color:red" />
+						</hbox>
+						<datebox readonly="true" width="100%" id="dtbFecha"
+							onCreate="self.value = new Date()" />
+						<cell colspan="7">
+							<hbox />
+						</cell>
+					</row>
 				</rows>
 			</grid>
 			<separator />
@@ -266,7 +278,7 @@
 					<tabpanel>
 						<tabbox height="auto" id="taxHistoria" orient="horizontal">
 							<tabs id="tbsHistoria" width="auto">
-								<tab label="Control Bucal y Medidas" id="tabDiente" />
+								<tab label="Medidas" id="tabDiente" />
 								<tab label="Habitos" id="tabHabitos" />
 								<tab label="Antecedentes parte I" id="tabIAntecedentesI" />
 								<tab label="Antecedentes parte II" id="tabIAntecedentesII" />
@@ -275,351 +287,6 @@
 							</tabs>
 							<tabpanels>
 								<tabpanel>
-									<groupbox id="gpxDiente" closable="false" open="true"
-										width="100%">
-										<caption label="Odontograma"
-											style="color:black; font-size: 12px; font-weight:bold" />
-										<separator />
-										<grid width="100%">
-											<columns visible="false">
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-												<column label="" width="6.25%" />
-											</columns>
-											<rows>
-												<row>
-													<hbox />
-													<hbox />
-													<cell align="center" colspan="2">
-														<label class="etiqueta" value="Derecha" />
-													</cell>
-													<hbox />
-													<hbox />
-													<cell align="center" colspan="4">
-														<label class="etiqueta" value="Dentadura Superior" />
-													</cell>
-													<hbox />
-													<hbox />
-													<cell align="center" colspan="2">
-														<label class="etiqueta" value="Izquierda" />
-													</cell>
-													<hbox />
-													<hbox />
-												</row>
-												<row>
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<cell align="center" colspan="4">
-														<label class="etiqueta" value="Dientes Frontales" />
-													</cell>
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-												</row>
-												<row>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente1" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente2" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente3" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente4" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente5" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente6" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente7" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente8" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente9" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente10" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente11" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente12" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente13" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente14" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente15" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente16" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-												</row>
-												<row>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente17" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente18" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente19" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente20" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente21" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente22" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente23" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente24" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente25" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente26" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente27" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente28" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente29" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente30" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente31" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-													<combobox value="Normal" tooltiptext="Seleccione tipo"
-														id="cmbDiente32" readonly="true" width="100%"
-														model="${$composer.dientes}">
-														<template name="model">
-															<comboitem label="${each}" />
-														</template>
-													</combobox>
-												</row>
-												<row>
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<cell align="center" colspan="4">
-														<label class="etiqueta" value="Dientes Frontales" />
-													</cell>
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-												</row>
-												<row>
-													<hbox />
-													<hbox />
-													<cell align="center" colspan="2">
-														<label class="etiqueta" value="Derecha" />
-													</cell>
-													<hbox />
-													<hbox />
-													<cell align="center" colspan="4">
-														<label class="etiqueta" value="Dentadura Inferior" />
-													</cell>
-													<hbox />
-													<hbox />
-													<cell align="center" colspan="2">
-														<label class="etiqueta" value="Izquierda" />
-													</cell>
-													<hbox />
-													<hbox />
-												</row>
-												<row>
-													<cell colspan="3">
-														<label class="etiqueta" value="Numero del Odontologo" />
-													</cell>
-													<cell colspan="5">
-														<textbox maxlength="100" id="txtTelefonoDoc"
-															hflex="1" tooltiptext="Ingrese el numero Telefonico del doctor" />
-													</cell>
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-													<hbox />
-												</row>
-											</rows>
-										</grid>
-									</groupbox>
 									<grid width="100%">
 										<columns visible="false">
 											<column label="" width="16.6%" />
@@ -1051,59 +718,6 @@
 											</rows>
 										</grid>
 									</groupbox>
-									<hbox>
-										<groupbox id="gpxMedicos" closable="false" open="true"
-											width="100%">
-											<caption label="Antecedentes Medicos"
-												style="color:black; font-size: 12px; font-weight:bold" />
-											<separator />
-											<hbox>
-												<listbox id="ltbMedicos" model="${$composer.modelo}"
-													height="350px" width="100%"
-													emptyMessage="El Paciente no posee Antecedentes Medicos"
-													itemRenderer="${$composer.renderer}">
-													<listhead>
-														<listheader label="Nombre" width="40%" />
-														<listheader label="Observacion" width="60%" />
-													</listhead>
-												</listbox>
-											</hbox>
-										</groupbox>
-										<groupbox id="gpxLaborales" closable="false" open="true"
-											width="100%">
-											<caption label="Antecedentes Laborales"
-												style="color:black; font-size: 12px; font-weight:bold" />
-											<separator />
-											<hbox>
-												<listbox id="ltbLaborales" model="${$composer.model}"
-													height="350px" width="100%"
-													emptyMessage="El Paciente no posee Antecedentes Laborales"
-													itemRenderer="${$composer.renderer}">
-													<listhead>
-														<listheader label="Nombre" width="40%" />
-														<listheader label="Observacion" width="60%" />
-													</listhead>
-												</listbox>
-											</hbox>
-										</groupbox>
-										<groupbox id="gpxFamiliares" closable="false" open="true"
-											width="100%">
-											<caption label="Antecedentes Familiares"
-												style="color:black; font-size: 12px; font-weight:bold" />
-											<separator />
-											<hbox>
-												<listbox id="ltbFamiliares" model="${$composer.modelFamiliares}"
-													height="350px" width="100%"
-													emptyMessage="El Paciente no posee Antecedentes Familiares"
-													itemRenderer="${$composer.renderer}">
-													<listhead>
-														<listheader label="Nombre" width="40%" />
-														<listheader label="Observacion" width="60%" />
-													</listhead>
-												</listbox>
-											</hbox>
-										</groupbox>
-									</hbox>
 								</tabpanel>
 								<tabpanel>
 									<tabbox height="auto" id="taxAccidentes" orient="horizontal">
@@ -1566,7 +1180,12 @@
 				</tabpanels>
 			</tabbox>
 		</groupbox>
+		<vbox>
+			<button class="btn" autodisable="self" id="btnGuardar"
+				label="Historia Definitiva" tooltiptext="Catalogo"
+				image="/public/imagenes/botones/guardar.png" width="150px" />
+			<div id="botoneraHistoria" />
+		</vbox>
 		<div id="divCatalogoPacientes" />
-		<div id="botoneraHistoria" />
 	</div>
 </zk>
