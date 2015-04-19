@@ -2,7 +2,7 @@
 	<style src="/public/Estilo.css" />
 	<div id="divEspecialidad" apply="controlador.medico.CEspecialidad"
 		align="center">
-		<groupbox width="70%" mold="3d" title="Registro de Especialidades">
+		<groupbox closable="false" width="70%" mold="3d" title="Registro de Especialidades">
 			<div id="botoneraEspecialidad" />
 			<separator />
 			<grid width="100%">

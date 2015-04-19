@@ -1,7 +1,7 @@
 <zk>
 	<div id="divEspecialista" apply="controlador.medico.CEspecialista"
 		align="center">
-		<groupbox width="75%" mold="3d" title="Registro de Especialistas">
+		<groupbox closable="false" width="75%" mold="3d" title="Registro de Especialistas">
 			<div id="botoneraEspecialista" />
 			<separator />
 			<grid width="100%">

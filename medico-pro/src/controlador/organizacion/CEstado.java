@@ -68,6 +68,15 @@ public class CEstado extends CGenerico {
 				map = null;
 			}
 		}
+		HashMap<String, Object> mapa = (HashMap<String, Object>) Sessions
+				.getCurrent().getAttribute("itemsCatalogo");
+		if (mapa != null) {
+			if (mapa.get("titulo") != null) {
+				titulo = (String) mapa.get("titulo");
+				mapa.clear();
+				mapa = null;
+			}
+		}
 		Botonera botonera = new Botonera() {
 
 			@Override
@@ -207,6 +216,9 @@ public class CEstado extends CGenerico {
 	/* Abre la vista de Pais */
 	@Listen("onClick = #btnAbrirPais")
 	public void abrirPais() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Pais");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Pais");
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);

@@ -1,7 +1,11 @@
 <zk>
 	<script src="/public/progress.js" />
-	<div id="divClasificacionAccidente" apply="controlador.seguridad.CClasificacionAccidente">
-		<groupbox width="50%" mold="3d" title="Clasificacion de Accidente">
+	<div id="divClasificacionAccidente" apply="controlador.seguridad.CClasificacionAccidente"
+		align="center">
+		<groupbox closable="false" width="70%" mold="3d"
+			title="Registro de Clasificaciones de Accidente">
+			<div id="botoneraClasificacionAccidente" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
 					<column label="" width="22%" />
@@ -10,23 +14,24 @@
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox class="multilinea" id="txtNombreClasificacionAccidente"
-							hflex="1" maxlength="500"
-							tooltiptext="Ingrese el Nombre de la Clasificacion del Accidente"
-							multiline="true" />
-						<button autodisable="self" id="btnBuscarClasificacionAccidente"
-							class="btn" label="Buscar" tooltiptext="Catalogo de Clasificacion de Accidente"
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtNombreClasificacionAccidente" hflex="1"
+									maxlength="500" tooltiptext="Ingrese el Nombre de la Clasificacion del Accidente"
+									multiline="true" />
+							</vlayout>
+						</cell>
+						<button dir="reverse" autodisable="self" id="btnBuscarClasificacionAccidente"
+							class="btn" label="Buscar" tooltiptext="Catalogo de Clasificaciones de Accidente"
 							image="/public/imagenes/botones/buscar.png" />
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraClasificacionAccidente" />
 			<div id="catalogoClasificacionAccidente" />
 		</groupbox>
 	</div>

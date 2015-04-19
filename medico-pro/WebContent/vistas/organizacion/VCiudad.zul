@@ -1,6 +1,6 @@
 <zk>
 	<div id="divCiudad" apply="controlador.organizacion.CCiudad" align="center">
-		<groupbox width="70%" mold="3d" title="Registro de Ciudades">
+		<groupbox closable="false" width="70%" mold="3d" title="Registro de Ciudades">
 			<div id="botoneraCiudad" />
 			<separator />
 			<grid width="100%">

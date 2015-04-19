@@ -39,7 +39,6 @@ public class CEstadoCivil extends CGenerico {
 	private long id = 0;
 	Catalogo<EstadoCivil> catalogo;
 	private String nombre;
-
 	
 	@Override
 	public void inicializar() throws IOException {
@@ -57,13 +56,14 @@ public class CEstadoCivil extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divEstadoCivil, "Estado Civil", tabs);
+				cerrarVentana(divEstadoCivil, nombre, tabs);
 			}
 
 			@Override
 			public void limpiar() {
 				txtNombreEstadoCivil.setValue("");
 				id = 0;
+				limpiarColores(txtNombreEstadoCivil);
 			}
 
 			@Override
@@ -112,6 +112,7 @@ public class CEstadoCivil extends CGenerico {
 	/* Permite validar que todos los campos esten completos */
 	public boolean validar() {
 		if (txtNombreEstadoCivil.getText().compareTo("") == 0) {
+			aplicarColores(txtNombreEstadoCivil);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -122,7 +123,7 @@ public class CEstadoCivil extends CGenerico {
 	@Listen("onClick = #btnBuscarEstadoCivil")
 	public void mostrarCatalogo() {
 		final List<EstadoCivil> paises = servicioEstadoCivil.buscarTodas();
-		catalogo = new Catalogo<EstadoCivil>(catalogoEstadoCivil, "Catalogo de Estado Civiles",
+		catalogo = new Catalogo<EstadoCivil>(catalogoEstadoCivil, "Catalogo de Estados Civiles",
 				paises, false,"Nombre") {
 
 			@Override

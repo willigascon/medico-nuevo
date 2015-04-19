@@ -6,6 +6,7 @@ import java.util.List;
 
 import modelo.medico.maestro.Paciente;
 import modelo.medico.maestro.Proveedor;
+import modelo.medico.maestro.ServicioExterno;
 import modelo.organizacion.Ciudad;
 import modelo.organizacion.Estado;
 import modelo.security.Arbol;
@@ -19,6 +20,7 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
@@ -67,6 +69,15 @@ public class CCiudad extends CGenerico {
 				titulo = (String) map.get("titulo");
 				map.clear();
 				map = null;
+			}
+		}
+		HashMap<String, Object> mapa = (HashMap<String, Object>) Sessions
+				.getCurrent().getAttribute("itemsCatalogo");
+		if (mapa != null) {
+			if (mapa.get("titulo") != null) {
+				titulo = (String) mapa.get("titulo");
+				mapa.clear();
+				mapa = null;
 			}
 		}
 		llenarCombo();
@@ -220,6 +231,9 @@ public class CCiudad extends CGenerico {
 	/* Abre la vista de Estado */
 	@Listen("onClick = #btnAbrirEstado")
 	public void abrirEstado() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Estado");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Estado");
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);

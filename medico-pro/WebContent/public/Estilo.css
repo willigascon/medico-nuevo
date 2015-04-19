@@ -50,15 +50,21 @@
 }
 
 .btn {
-	font-weight: 900;
-	font-size: 13px;
+	font-weight: 800;
+	font-size: 12px;
 	color: #8A0808;
 	cursor: pointer;
 	width: 105px;
 	height: 30px;
 	background: #999999;
-	orient: vertical;
-	dir: reverse;
+}
+
+.pasar {
+	cursor: pointer;
+	background: #999999;
+	width: 30px;
+	height: 30px;
+	padding: 2px;
 }
 
 .multilinea {
@@ -94,11 +100,11 @@
 }
 
 .abrir {
-  color: #800400;
-  margin-left: 1px;
-  font-weight: bold;
-  font-size: 12px;
-  background: transparent;
+	color: #800400;
+	margin-left: 1px;
+	font-weight: bold;
+	font-size: 12px;
+	background: transparent;
 }
 
 .gris {

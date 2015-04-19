@@ -52,6 +52,7 @@ public class CServicioExterno extends CGenerico {
 	List<ServicioExterno> serviciosConsultas = new ArrayList<ServicioExterno>();
 	Listbox listaConsulta;
 
+
 	@Override
 	public void inicializar() throws IOException {
 		contenido = (Include) divServicioExterno.getParent();
@@ -64,6 +65,7 @@ public class CServicioExterno extends CGenerico {
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
+				titulo = (String) mapa.get("titulo");
 				mapa.clear();
 				mapa = null;
 			}
@@ -78,6 +80,7 @@ public class CServicioExterno extends CGenerico {
 					consulta = true;
 				serviciosConsultas = (List<ServicioExterno>) map.get("lista");
 				listaConsulta = (Listbox) map.get("listbox");
+				titulo = (String) map.get("titulo");
 				if (map.get("id").equals("proveedor"))
 					proveedor = true;
 				map.clear();
@@ -88,12 +91,13 @@ public class CServicioExterno extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divServicioExterno, "Estudios Externos", tabs);
+				cerrarVentana(divServicioExterno,titulo, tabs);
 			}
 
 			@Override
 			public void limpiar() {
 				txtNombreServicioExterno.setValue("");
+				limpiarColores(txtNombreServicioExterno);
 				id = 0;
 			}
 
@@ -168,6 +172,7 @@ public class CServicioExterno extends CGenerico {
 	/* Permite validar que todos los campos esten completos */
 	public boolean validar() {
 		if (txtNombreServicioExterno.getText().compareTo("") == 0) {
+			aplicarColores(txtNombreServicioExterno);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -180,7 +185,7 @@ public class CServicioExterno extends CGenerico {
 		final List<ServicioExterno> serviciosExternos = servicioServicioExterno
 				.buscarTodas();
 		catalogo = new Catalogo<ServicioExterno>(catalogoServicioExterno,
-				"Catalogo de Servicios Externos", serviciosExternos,false, "Nombre") {
+				"Catalogo de Estudios", serviciosExternos,false, "Nombre") {
 
 			@Override
 			protected List<ServicioExterno> buscar(String valor, String combo) {

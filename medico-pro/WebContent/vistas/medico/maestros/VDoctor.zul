@@ -2,7 +2,7 @@
 	<style src="/public/Estilo.css" />
 	<div id="divDoctor" apply="controlador.medico.CDoctorInterno"
 		align="center">
-		<groupbox width="75%" mold="3d" title="Registro de Doctores">
+		<groupbox closable="false" width="75%" mold="3d" title="Registro de Doctores">
 			<div id="botoneraDoctor" />
 			<separator />
 			<grid width="100%">

@@ -54,7 +54,7 @@ public class CDiagnostico extends CGenerico {
 	private Radio rdoSiEpi;
 	@Wire
 	private Radio rdoNoEpi;
-
+	
 	private CArbol cArbol = new CArbol();
 	long id = 0;
 	Catalogo<Diagnostico> catalogo;
@@ -273,6 +273,9 @@ public class CDiagnostico extends CGenerico {
 	public void abrirCategoria() {
 		List<Arbol> arboles = servicioArbol
 				.buscarPorNombreArbol("Categoria Diagnostico");
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Categoria Diagnostico");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);

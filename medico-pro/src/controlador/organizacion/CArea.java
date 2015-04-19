@@ -53,6 +53,7 @@ public class CArea extends CGenerico {
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
+				titulo = (String) mapa.get("titulo");
 				mapa.clear();
 				mapa = null;
 			}
@@ -63,7 +64,7 @@ public class CArea extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divArea, "Area", tabs);
+				cerrarVentana(divArea, titulo, tabs);
 
 			}
 
@@ -73,6 +74,7 @@ public class CArea extends CGenerico {
 				txtCodigoArea.setValue("");
 				id = 0;
 				txtCodigoArea.setFocus(true);
+				limpiarColores(txtNombreArea,txtCodigoArea);
 			}
 
 			@Override
@@ -135,6 +137,7 @@ public class CArea extends CGenerico {
 	public boolean validar() {
 		if (txtNombreArea.getText().compareTo("") == 0
 				|| txtCodigoArea.getText().compareTo("") == 0) {
+			aplicarColores(txtNombreArea,txtCodigoArea);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else

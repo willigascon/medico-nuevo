@@ -46,8 +46,20 @@ public class CClasificacionAccidente extends CGenerico {
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
+				titulo = (String) mapa.get("titulo");
 				mapa.clear();
 				mapa = null;
+			}
+		}
+		
+		
+		HashMap<String, Object> mapaa = (HashMap<String, Object>) Sessions
+				.getCurrent().getAttribute("itemsCatalogo");
+		if (mapaa != null) {
+			if (mapaa.get("titulo") != null) {
+				titulo = (String) mapaa.get("titulo");
+				mapaa.clear();
+				mapaa = null;
 			}
 		}
 		txtNombreClasificacionAccidente.setFocus(true);
@@ -56,7 +68,7 @@ public class CClasificacionAccidente extends CGenerico {
 			@Override
 			public void salir() {
 				cerrarVentana(divClasificacionAccidente,
-						"Clasificacion de Accidente", tabs);
+						titulo, tabs);
 
 			}
 
@@ -64,6 +76,7 @@ public class CClasificacionAccidente extends CGenerico {
 			public void limpiar() {
 				txtNombreClasificacionAccidente.setValue("");
 				txtNombreClasificacionAccidente.setFocus(true);
+				limpiarColores(txtNombreClasificacionAccidente);
 				id = 0;
 
 			}
@@ -124,6 +137,7 @@ public class CClasificacionAccidente extends CGenerico {
 	/* Permite validar que todos los campos esten completos */
 	public boolean validar() {
 		if (txtNombreClasificacionAccidente.getText().compareTo("") == 0) {
+			aplicarColores(txtNombreClasificacionAccidente);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else

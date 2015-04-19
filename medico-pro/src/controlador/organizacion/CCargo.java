@@ -46,6 +46,7 @@ public class CCargo extends CGenerico {
 				.getCurrent().getAttribute("mapaGeneral");
 		if (map != null) {
 			if (map.get("tabsGenerales") != null) {
+				titulo = (String) map.get("titulo");
 				tabs = (List<Tab>) map.get("tabsGenerales");
 				map.clear();
 				map = null;
@@ -57,7 +58,7 @@ public class CCargo extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divCargo, "Cargo", tabs);
+				cerrarVentana(divCargo,titulo, tabs);
 
 			}
 
@@ -66,6 +67,7 @@ public class CCargo extends CGenerico {
 				txtNombreCargo.setValue("");
 				id = 0;
 				txtNombreCargo.setFocus(true);
+				limpiarColores(txtNombreCargo);
 
 			}
 
@@ -119,6 +121,7 @@ public class CCargo extends CGenerico {
 	/* Permite validar que todos los campos esten completos */
 	public boolean validar() {
 		if (txtNombreCargo.getText().compareTo("") == 0) {
+			aplicarColores(txtNombreCargo);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -129,7 +132,7 @@ public class CCargo extends CGenerico {
 	@Listen("onClick = #btnBuscarCargo")
 	public void mostrarCatalogo() {
 		final List<Cargo> cargos = servicioCargo.buscarTodos();
-		catalogo = new Catalogo<Cargo>(catalogoCargo, "Catalogo de Areas",
+		catalogo = new Catalogo<Cargo>(catalogoCargo, "Catalogo de Cargos",
 				cargos,false, "Nombre") {
 
 			@Override

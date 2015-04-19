@@ -70,7 +70,7 @@ public class CEspecialista extends CGenerico {
 	private CConsulta cConsulta = new CConsulta();
 	List<Especialista> especialistaConsulta = new ArrayList<Especialista>();
 	Listbox listaConsulta;
-
+	
 	@Override
 	public void inicializar() throws IOException {
 		contenido = (Include) divEspecialista.getParent();
@@ -359,6 +359,9 @@ public class CEspecialista extends CGenerico {
 	public void abrirEspecialidad() {
 		List<Arbol> arboles = servicioArbol
 				.buscarPorNombreArbol("Especialidad");
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Especialidad");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);

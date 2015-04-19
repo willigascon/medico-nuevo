@@ -203,7 +203,6 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 	protected SClasificacionAccidente servicioClasificacionAccidente;
 	@WireVariable("SGrupoInspectores")
 	protected SGrupoInspectores servicioGrupoInspectores;
-	public String titulo;
 	public Mensaje msj = new Mensaje();
 	public Tabbox tabBox;
 	public Include contenido;
@@ -227,7 +226,8 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 			+ ":"
 			+ String.valueOf(calendario.get(Calendar.SECOND));
 	public Timestamp fechaHora = new Timestamp(fecha.getTime());
-
+	public String titulo;
+	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);

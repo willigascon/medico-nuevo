@@ -74,6 +74,7 @@ public class CAccidente extends CGenerico {
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
+				titulo = (String) mapa.get("titulo");
 				mapa.clear();
 				mapa = null;
 			}
@@ -94,7 +95,7 @@ public class CAccidente extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divAccidente, "Accidente", tabs);
+				cerrarVentana(divAccidente,titulo, tabs);
 			}
 
 			@Override
@@ -104,6 +105,7 @@ public class CAccidente extends CGenerico {
 				cmbClasificacion.setValue("");
 				cmbClasificacion.setPlaceholder("Seleccione una Clasificacion");
 				txtCodigo.setDisabled(false);
+				limpiarColores(txtCodigo,cmbClasificacion,txtNombre);
 				id = 0;
 			}
 
@@ -174,6 +176,7 @@ public class CAccidente extends CGenerico {
 		if (cmbClasificacion.getText().compareTo("") == 0
 				|| txtCodigo.getText().compareTo("") == 0
 				|| txtNombre.getText().compareTo("") == 0) {
+			aplicarColores(txtCodigo,cmbClasificacion,txtNombre);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -249,6 +252,9 @@ public class CAccidente extends CGenerico {
 	public void abrirEstado() {
 		List<Arbol> arboles = servicioArbol
 				.buscarPorNombreArbol("Clasificacion de Accidente");
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Clasificacion de Accidente");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);

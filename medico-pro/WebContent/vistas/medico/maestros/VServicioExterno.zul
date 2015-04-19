@@ -1,7 +1,10 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divServicioExterno" apply="controlador.medico.CServicioExterno">
-		<groupbox width="50%" mold="3d" title="Estudio Externo">
+	<div id="divServicioExterno" apply="controlador.medico.CServicioExterno"
+		align="center">
+		<groupbox closable="false"  width="70%" mold="3d" title="Registro de Estudios">
+			<div id="botoneraServicioExterno" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
 					<column label="" width="25%" />
@@ -10,22 +13,24 @@
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtNombreServicioExterno" hflex="1"
-							maxlength="500" tooltiptext="Ingrese el Nombre de la Empresa"
-							class="multilinea" multiline="true" />
-						<button autodisable="self" id="btnBuscarServicioExterno"
-							class="btn" label="Buscar" tooltiptext="Catalogo"
-							image="/public/imagenes/botones/buscar.png" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtNombreServicioExterno" hflex="1"
+									maxlength="500" tooltiptext="Ingrese el Nombre del Estudio"
+									multiline="true" />
+							</vlayout>
+						</cell>
+						<button dir="reverse" autodisable="self"
+							id="btnBuscarServicioExterno" class="btn" label="Buscar"
+							tooltiptext="Catalogo de Estudios" image="/public/imagenes/botones/buscar.png" />
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraServicioExterno" />
 			<div id="catalogoServicioExterno" />
 		</groupbox>
 	</div>

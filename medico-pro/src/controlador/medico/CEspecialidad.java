@@ -51,6 +51,17 @@ public class CEspecialidad extends CGenerico {
 				map = null;
 			}
 		}
+		
+		
+		HashMap<String, Object> mapaa = (HashMap<String, Object>) Sessions
+				.getCurrent().getAttribute("itemsCatalogo");
+		if (mapaa != null) {
+			if (mapaa.get("titulo") != null) {
+				titulo = (String) mapaa.get("titulo");
+				mapaa.clear();
+				mapaa = null;
+			}
+		}
 		Botonera botonera = new Botonera() {
 
 			@Override

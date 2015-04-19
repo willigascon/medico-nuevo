@@ -1,7 +1,10 @@
 <zk>
 	<script src="/public/progress.js" />
-	<div id="divCargo" apply="controlador.organizacion.CCargo">
-		<groupbox width="53%" mold="3d" title="Cargo">
+	<div id="divCargo" apply="controlador.organizacion.CCargo" align="center">
+		<groupbox closable="false" width="70%" mold="3d"
+			title="Registro de Cargos">
+			<div id="botoneraCargo" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
 					<column label="" width="22%" />
@@ -10,21 +13,23 @@
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox class="multilinea" id="txtNombreCargo" hflex="1"
-							maxlength="500" tooltiptext="Ingrese el Nombre del Cargo"
-							multiline="true" />
-						<button autodisable="self" id="btnBuscarCargo" class="btn"
-							label="Buscar" tooltiptext="Catalogo de Cargos" image="/public/imagenes/botones/buscar.png" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtNombreCargo" hflex="1" maxlength="500"
+									tooltiptext="Ingrese el Nombre del Cargo" multiline="true" />
+							</vlayout>
+						</cell>
+						<button dir="reverse" autodisable="self" id="btnBuscarCargo"
+							class="btn" label="Buscar" tooltiptext="Catalogo de Cargos"
+							image="/public/imagenes/botones/buscar.png" />
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraCargo" />
 			<div id="catalogoCargo" />
 		</groupbox>
 	</div>

@@ -94,7 +94,7 @@ public class CDoctorInterno extends CGenerico {
 	String id = "";
 	Catalogo<DoctorInterno> catalogo;
 	private CArbol cArbol = new CArbol();
-	
+
 	@Override
 	public void inicializar() throws IOException {
 		contenido = (Include) divDoctor.getParent();
@@ -369,6 +369,9 @@ public class CDoctorInterno extends CGenerico {
 	@Listen("onClick = #btnAbrirEspecialidad")
 	public void abrirEstado() {
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Especialidad");
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Especialidad");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);

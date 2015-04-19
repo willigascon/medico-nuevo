@@ -83,9 +83,8 @@ public class CProveedor extends CGenerico {
 	@Wire
 	private Textbox txtBuscadorExamen;
 	@Wire
-	private Tab tabEstudios;
-	@Wire
-	private Tab tabExamenes;
+	private Tab tabBasicos;
+
 
 	private CArbol cArbol = new CArbol();
 	long id = 0;
@@ -97,6 +96,7 @@ public class CProveedor extends CGenerico {
 	List<ServicioExterno> estudiosDisponibles = new ArrayList<ServicioExterno>();
 	List<ProveedorServicio> estudiosUsados = new ArrayList<ProveedorServicio>();
 
+	
 	@Override
 	public void inicializar() throws IOException {
 		contenido = (Include) divProveedor.getParent();
@@ -108,6 +108,7 @@ public class CProveedor extends CGenerico {
 				.getCurrent().getAttribute("mapaGeneral");
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
+				titulo = (String) mapa.get("titulo");
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
 				mapa.clear();
 				mapa = null;
@@ -122,7 +123,7 @@ public class CProveedor extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divProveedor, "Proveedor", tabs);
+				cerrarVentana(divProveedor, titulo, tabs);
 			}
 
 			@Override
@@ -143,7 +144,8 @@ public class CProveedor extends CGenerico {
 				llenarListaExamenes(null);
 				examenesDisponibles.clear();
 				examenesUsados.clear();
-				tabEstudios.setSelected(true);
+				tabBasicos.setSelected(true);
+				limpiarColores(txtDireccionProveedor,txtNombreProveedor,txtTelefonoProveedor,cmbCiudadProveedor);
 			}
 
 			@Override
@@ -285,6 +287,7 @@ public class CProveedor extends CGenerico {
 				|| txtNombreProveedor.getText().compareTo("") == 0
 				|| txtTelefonoProveedor.getText().compareTo("") == 0
 				|| cmbCiudadProveedor.getText().compareTo("") == 0) {
+			aplicarColores(txtDireccionProveedor,txtNombreProveedor,txtTelefonoProveedor,cmbCiudadProveedor);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else {
@@ -375,6 +378,9 @@ public class CProveedor extends CGenerico {
 	@Listen("onClick = #btnAbrirCiudad")
 	public void abrirCiudad() {
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Ciudad");
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Ciudad");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
@@ -661,9 +667,10 @@ public class CProveedor extends CGenerico {
 		map.put("id", "proveedor");
 		map.put("lista", estudiosDisponibles);
 		map.put("listbox", ltbEstudios);
+		map.put("titulo", "Estudios");
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		List<Arbol> arboles = servicioArbol
-				.buscarPorNombreArbol("Estudios Externos");
+				.buscarPorNombreArbol("Estudios");
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
@@ -677,6 +684,7 @@ public class CProveedor extends CGenerico {
 		map.put("id", "proveedor");
 		map.put("lista", examenesDisponibles);
 		map.put("listbox", ltbExamen);
+		map.put("titulo", "Examen");
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Examen");
 		if (!arboles.isEmpty()) {
@@ -685,17 +693,6 @@ public class CProveedor extends CGenerico {
 		}
 	}
 
-	/* Abre la pestanna de examenes */
-	@Listen("onClick = #btnSiguientePestanna")
-	public void siguientePestanna() {
-		tabExamenes.setSelected(true);
-	}
-
-	/* Abre la pestanna de estudios */
-	@Listen("onClick = #btnAnteriorPestanna")
-	public void anteriorPestanna() {
-		tabEstudios.setSelected(true);
-	}
 
 	public void recibirExamen(List<Examen> lista, Listbox l) {
 		ltbExamen = l;

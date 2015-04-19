@@ -1,7 +1,7 @@
 <zk>
 	<style src="/public/Estilo.css" />
 	<div id="divEstado" apply="controlador.organizacion.CEstado" align="center">
-		<groupbox width="70%" mold="3d" title="Registro de Estados">
+		<groupbox closable="false" width="70%" mold="3d" title="Registro de Estados">
 			<div id="botoneraEstado" />
 			<separator />
 			<grid width="98%">

@@ -1,88 +1,114 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divProveedor" apply="controlador.medico.CProveedor">
-		<groupbox width="85%" mold="3d" title="Proveedor">
-
-			<grid width="100%">
-				<columns visible="false">
-					<column label="" width="20%" />
-					<column label="" width="45%" />
-					<column label="" width="20%" />
-					<column label="" width="15%" />
-				</columns>
-				<rows>
-					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtNombreProveedor" hflex="1" maxlength="500"
-							tooltiptext="Ingrese el Nombre del Proveedor" multiline="true" />
-						<cell colspan="2">
-							<button autodisable="self" id="btnBuscarProveedor" class="btn"
-								label="Buscar" tooltiptext="Catalogo" image="/public/imagenes/botones/buscar.png" />
-						</cell>
-					</row>
-					<row>
-						<hbox>
-							<label class="etiqueta" value="Telefono:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtTelefonoProveedor" hflex="1" maxlength="20"
-							tooltiptext="Ingrese el Numero de telefono (0426-9999999)" />
-						<hbox />
-						<hbox />
-					</row>
-					<row>
-						<hbox>
-							<label class="etiqueta" value="Ciudad:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox id="cmbCiudadProveedor" readonly="true"
-							tabindex="1" width="99%" tooltiptext="Seleccione una Ciudad"
-							placeholder="Seleccione una Ciudad">
-							<template name="model">
-								<comboitem context="${each.idCiudad}" label="${each.nombre}" />
-							</template>
-						</combobox>
-						<cell colspan="2">
-							<button id="btnAbrirCiudad" class="abrir" label=""
-								tooltiptext="Crear una Nueva Ciudad" image="/public/imagenes/botones/agregar.png" />
-						</cell>
-					</row>
-					<row>
-						<hbox>
-							<label class="etiqueta" value="Direccion:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtDireccionProveedor" hflex="1" maxlength="1024"
-							class="multilinea" tooltiptext="Ingrese la Direccion del Proveedor"
-							multiline="true" width="60px" />
-						<hbox />
-						<hbox />
-					</row>
-				</rows>
-			</grid>
+	<div id="divProveedor" apply="controlador.medico.CProveedor" align="center">
+		<groupbox closable="false" width="85%" mold="3d"
+			title="Registro de Proveedor">
+			<div id="botoneraProveedor" />
 			<separator />
 			<tabbox id="taxDatos" orient="horizontal">
-				<tabs id="tbsDatos" width="10em">
+				<tabs id="tbsDatos" width="100%">
+					<tab label="Datos Basicos" id="tabBasicos" />
 					<tab label="Estudios que Realiza" id="tabEstudios" />
 					<tab label="Examenes que Realiza" id="tabExamenes" />
 				</tabs>
 				<tabpanels>
 					<tabpanel>
+						<grid width="100%">
+							<columns visible="false">
+								<column label="" width="20%" />
+								<column label="" width="45%" />
+								<column label="" width="20%" />
+								<column label="" width="15%" />
+							</columns>
+							<rows>
+								<row>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Nombre:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox id="txtNombreProveedor" hflex="1" maxlength="500"
+												tooltiptext="Ingrese el Nombre del Proveedor" multiline="true" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<button dir="reverse" autodisable="self" id="btnBuscarProveedor"
+											class="btn" label="Buscar" tooltiptext="Catalogo de Proveedores"
+											image="/public/imagenes/botones/buscar.png" />
+									</cell>
+								</row>
+								<row>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Telefono:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox id="txtTelefonoProveedor" hflex="1"
+												maxlength="20" tooltiptext="Ingrese el Numero de telefono (0426-9999999)" />
+										</vlayout>
+									</cell>
+									<hbox />
+									<hbox />
+								</row>
+								<row>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Ciudad:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<combobox id="cmbCiudadProveedor" readonly="true"
+												tabindex="1" width="99%" tooltiptext="Seleccione una Ciudad"
+												placeholder="Seleccione una Ciudad">
+												<template name="model">
+													<comboitem context="${each.idCiudad}" label="${each.nombre}" />
+												</template>
+											</combobox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<a href="">
+											<label id="btnAbrirCiudad" sclass="pointer" value="Crear nueva Ciudad"
+												class="abrir" />
+										</a>
+									</cell>
+								</row>
+								<row>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Direccion:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox id="txtDireccionProveedor" hflex="1"
+												maxlength="1024" tooltiptext="Ingrese la Direccion del Proveedor"
+												multiline="true" width="60px" />
+										</vlayout>
+									</cell>
+									<hbox />
+									<hbox />
+								</row>
+							</rows>
+						</grid>
+					</tabpanel>
+					<tabpanel>
 						<hbox>
 							<textbox tooltiptext="Ingrese el Nombre del Estudio"
-								placeholder="Ingrese el Estudio a Buscar" width="195px"
+								placeholder="Ingrese el Estudio a Buscar" width="300px"
 								id="txtBuscadorEstudio"></textbox>
 							<separator />
-							<button class="abrir" id="btnAbrirEstudio" label=""
-								tooltiptext="Crear un Nuevo Estudio" image="/public/imagenes/botones/agregar.png" />
+							<a href="">
+								<label id="btnAbrirEstudio" sclass="pointer" value="Crear nuevo Estudio"
+									class="abrir" />
+							</a>
 						</hbox>
+							<separator />
 						<hbox widths="42%,3%,55%" width="100%">
 							<listbox mold="paging" pageSize="6" id="ltbEstudios"
 								width="100%" height="100%" emptyMessage="No hay Estudios Registrados">
@@ -106,11 +132,11 @@
 								</template>
 							</listbox>
 							<vbox width="100%">
-								<button class="abrir" id="pasar1"
+								<button class="pasar" id="pasar1"
 									image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Estudio"
 									width="30px" />
 								<separator />
-								<button class="abrir" id="pasar2"
+								<button class="pasar" id="pasar2"
 									image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Estudio"
 									width="30px" />
 							</vbox>
@@ -138,21 +164,19 @@
 								</template>
 							</listbox>
 						</hbox>
-						<div align="right" style="float: right;">
-							<separator />
-							<button class="btn" id="btnSiguientePestanna" label="Siguiente"
-								image="/public/imagenes/botones/adelante.png" />
-						</div>
 					</tabpanel>
 					<tabpanel>
 						<hbox>
 							<textbox tooltiptext="Ingrese el Nombre del Examen"
-								placeholder="Ingrese el Examen a Buscar" width="195px"
+								placeholder="Ingrese el Examen a Buscar" width="300px"
 								id="txtBuscadorExamen"></textbox>
 							<separator />
-							<button class="abrir" id="btnAbrirExamen" label=""
-								tooltiptext="Crear un Nuevo Examen" image="/public/imagenes/botones/agregar.png" />
+							<a href="">
+								<label id="btnAbrirExamen" sclass="pointer" value="Crear nuevo Examen"
+									class="abrir" />
+							</a>
 						</hbox>
+							<separator />
 						<hbox width="100%" widths="42%,3%,55%">
 							<listbox mold="paging" pageSize="6" id="ltbExamen" width="100%"
 								height="100%" emptyMessage="No hay Examenes Registrados">
@@ -176,11 +200,11 @@
 								</template>
 							</listbox>
 							<vbox width="100%">
-								<button class="abrir" id="pasar11"
+								<button class="pasar" id="pasar11"
 									image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Examen"
 									width="30px" />
 								<separator />
-								<button class="abrir" id="pasar22"
+								<button class="pasar" id="pasar22"
 									image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Examen"
 									width="30px" />
 							</vbox>
@@ -208,14 +232,6 @@
 								</template>
 							</listbox>
 						</hbox>
-						<separator />
-						<div align="left" style="float: right;">
-							<button class="btn" label="Anterior" id="btnAnteriorPestanna"
-								image="/public/imagenes/botones/atras.png" />
-						</div>
-						<vbox>
-							<div width="50%" id="botoneraProveedor" align="left" style="float: left;" />
-						</vbox>
 					</tabpanel>
 				</tabpanels>
 			</tabbox>

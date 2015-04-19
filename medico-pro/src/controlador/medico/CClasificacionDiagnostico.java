@@ -38,7 +38,6 @@ public class CClasificacionDiagnostico extends CGenerico {
 	private Div divClasificacionDiagnostico;
 	private long id = 0;
 	Catalogo<ClasificacionDiagnostico> catalogo;
-	String nombre = "";
 
 	@Override
 	public void inicializar() throws IOException {
@@ -47,16 +46,26 @@ public class CClasificacionDiagnostico extends CGenerico {
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
-				nombre = (String) mapa.get("titulo");
+				titulo = (String) mapa.get("titulo");
 				mapa.clear();
 				mapa = null;
+			}
+		}
+		
+		HashMap<String, Object> mapaa = (HashMap<String, Object>) Sessions
+				.getCurrent().getAttribute("itemsCatalogo");
+		if (mapaa != null) {
+			if (mapaa.get("titulo") != null) {
+				titulo = (String) mapaa.get("titulo");
+				mapaa.clear();
+				mapaa = null;
 			}
 		}
 		Botonera botonera = new Botonera() {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divClasificacionDiagnostico, nombre, tabs);
+				cerrarVentana(divClasificacionDiagnostico, titulo, tabs);
 			}
 
 			@Override

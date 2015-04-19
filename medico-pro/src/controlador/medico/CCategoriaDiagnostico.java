@@ -47,7 +47,6 @@ public class CCategoriaDiagnostico extends CGenerico {
 	private long id = 0;
 	Catalogo<CategoriaDiagnostico> catalogo;
 	CArbol cArbol = new CArbol();
-
 	@Override
 	public void inicializar() {
 		contenido = (Include) divCategoriaDiagnostico.getParent();
@@ -63,6 +62,16 @@ public class CCategoriaDiagnostico extends CGenerico {
 				titulo = (String) map.get("titulo");
 				map.clear();
 				map = null;
+			}
+		}
+		
+		HashMap<String, Object> mapaa = (HashMap<String, Object>) Sessions
+				.getCurrent().getAttribute("itemsCatalogo");
+		if (mapaa != null) {
+			if (mapaa.get("titulo") != null) {
+				titulo = (String) mapaa.get("titulo");
+				mapaa.clear();
+				mapaa = null;
 			}
 		}
 		Botonera botonera = new Botonera() {
@@ -213,6 +222,9 @@ public class CCategoriaDiagnostico extends CGenerico {
 	public void abrirEstado() {
 		List<Arbol> arboles = servicioArbol
 				.buscarPorNombreArbol("Clasificacion Categoria Diagnostico");
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Clasificacion Categoria Diagnostico");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
