@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -83,6 +84,7 @@ import componente.Botonera;
 import componente.Buscar;
 import componente.Catalogo;
 import componente.Mensaje;
+import componente.Validador;
 import controlador.security.CArbol;
 import controlador.utils.CGenerico;
 
@@ -1523,7 +1525,7 @@ public class CConsulta extends CGenerico {
 
 		};
 		catalogoPaciente.setParent(divCatalogoPacientes);
-		Listbox lsita = (Listbox) catalogoPaciente.getChildren().get(3);
+		Listbox lsita = (Listbox) catalogoPaciente.getChildren().get(5);
 		lsita.setEmptyMessage("Utilice el filtro para buscar el paciente que desea buscar");
 		catalogoPaciente.doModal();
 	}
@@ -1543,7 +1545,26 @@ public class CConsulta extends CGenerico {
 
 				switch (combo) {
 				case "Fecha":
-					return servicioConsulta.filtroFecha(valor);
+					if (Validador.validarFormato(valor)) {
+						Calendar calendario = Calendar.getInstance();
+						Date fecha1 = fecha;
+						try {
+							fecha1 = formatoFecha.parse(valor);
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+						calendario.setTime(fecha1);
+						calendario.set(Calendar.HOUR, 0);
+						calendario.set(Calendar.HOUR_OF_DAY, 0);
+						calendario.set(Calendar.SECOND, 0);
+						calendario.set(Calendar.MILLISECOND, 0);
+						calendario.set(Calendar.MINUTE, 0);
+						fecha1 = calendario.getTime();
+						Timestamp fecha2 = new Timestamp(fecha1.getTime());
+						return servicioConsulta.filtroFecha(fecha2,
+								agregarDia(fecha2));
+					}
+					return consultasPaciente;
 				case "Doctor":
 					if (valor.length() != 0)
 						return servicioConsulta.filtroDoctor(valor);
@@ -4139,7 +4160,7 @@ public class CConsulta extends CGenerico {
 
 		};
 		catalogoPaciente2.setParent(divCatalogoPacientes2);
-		Listbox lsita = (Listbox) catalogoPaciente2.getChildren().get(3);
+		Listbox lsita = (Listbox) catalogoPaciente2.getChildren().get(5);
 		lsita.setEmptyMessage("Utilice el filtro para buscar el paciente que desea buscar");
 		catalogoPaciente2.doModal();
 	}

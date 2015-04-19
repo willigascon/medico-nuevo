@@ -1,5 +1,6 @@
 package interfaceDAO.seguridad;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import modelo.medico.maestro.Paciente;
@@ -74,6 +75,10 @@ public interface IInformeDAO extends JpaRepository<Informe, Long> {
 	String buscarMaxCodigo();
 
 	List<Informe> findByAccidente(Accidente accidente);
+
+	List<Informe> findByFa(Timestamp valor);
+
+	List<Informe> findByFaBetween(Timestamp valor, Timestamp timestamp);
 
 	
 

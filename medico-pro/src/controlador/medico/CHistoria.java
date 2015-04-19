@@ -996,7 +996,7 @@ public class CHistoria extends CGenerico {
 
 		};
 		catalogoPaciente.setParent(divCatalogoPacientes);
-		Listbox lsita = (Listbox) catalogoPaciente.getChildren().get(3);
+		Listbox lsita = (Listbox) catalogoPaciente.getChildren().get(5);
 		lsita.setEmptyMessage("Utilice el filtro para buscar el paciente que desea buscar");
 		catalogoPaciente.doModal();
 	}

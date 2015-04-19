@@ -2,6 +2,7 @@ package servicio.medico.consulta;
 
 import interfaceDAO.medico.consulta.IConsultaDAO;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,8 +48,8 @@ public class SConsulta {
 		return consultaDAO.findByPacienteAndAccidenteLaboralTrue(paciente);
 	}
 
-	public List<Consulta> filtroFecha(String valor) {
-		return consultaDAO.findByFechaConsultaStartingWithAllIgnoreCase(valor);
+	public List<Consulta> filtroFecha(Timestamp valor, Date date) {
+		return consultaDAO.findByFechaConsultaBetween(valor, new Timestamp(date.getTime()));
 	}
 
 	public List<Consulta> filtroDoctor(String valor) {

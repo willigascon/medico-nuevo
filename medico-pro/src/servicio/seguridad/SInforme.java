@@ -2,6 +2,8 @@ package servicio.seguridad;
 
 import interfaceDAO.seguridad.IInformeDAO;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import modelo.medico.maestro.Paciente;
@@ -138,9 +140,8 @@ public class SInforme {
 		return informeDAO.findByCodigoNotNull();
 	}
 
-	public List<Informe> filtroFecha(String valor) {
-		return informeDAO
-				.findByFaStartingWithAllIgnoreCase(valor);
+	public List<Informe> filtroFecha(Timestamp valor, Date date) {
+		return informeDAO.findByFaBetween(valor, new Timestamp(date.getTime()));
 	}
 
 	public String buscarMaxCodigo() {

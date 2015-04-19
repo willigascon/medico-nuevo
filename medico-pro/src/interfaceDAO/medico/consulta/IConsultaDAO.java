@@ -1,5 +1,6 @@
 package interfaceDAO.medico.consulta;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -131,5 +132,10 @@ public interface IConsultaDAO extends JpaRepository<Consulta, Long> {
 
 	List<Consulta> findByFechaConsultaBetweenAndPacienteCedulaLikeAndPacienteTrabajador(
 			Date desde, Date hasta, String idTrabajador, boolean b, Sort o);
+
+	List<Consulta> findByFechaConsulta(Timestamp valor);
+
+	List<Consulta> findByFechaConsultaBetween(Timestamp valor,
+			Timestamp timestamp);
 
 }

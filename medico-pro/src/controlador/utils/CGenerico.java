@@ -88,7 +88,6 @@ import servicio.seguridad.SAccidente;
 import servicio.seguridad.SClasificacionAccidente;
 import servicio.seguridad.SCondicion;
 import servicio.seguridad.SGrupoInspectores;
-import servicio.seguridad.SHorasHombre;
 import servicio.seguridad.SInforme;
 import servicio.seguridad.SPlanAccion;
 import componente.Mensaje;
@@ -99,8 +98,6 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 	private static final long serialVersionUID = -2264423023637489596L;
 	private static ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 			"/META-INF/AppContext.xml");
-	@WireVariable("SHorasHombre")
-	protected SHorasHombre servicioHorasHombre;
 	@WireVariable("SEstadoCivil")
 	protected SEstadoCivil servicioEstadoCivil;
 	@WireVariable("SAccidente")

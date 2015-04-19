@@ -2,7 +2,9 @@ package controlador.seguridad;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,7 @@ import org.zkoss.zul.Textbox;
 import componente.Botonera;
 import componente.Catalogo;
 import componente.Mensaje;
-
+import componente.Validador;
 import controlador.utils.CGenerico;
 
 public class CEvaluarPlan extends CGenerico {
@@ -225,7 +227,7 @@ public class CEvaluarPlan extends CGenerico {
 		final List<Informe> informes = servicioInforme.buscarConCodigo();
 		catalogo = new Catalogo<Informe>(divCatalogoInforme,
 				"Catalogo de Informes", informes, false, "Codigo",
-				"Nombre Trabajador", "Apellido Trabajador", "Empresa") {
+				"Nombre Trabajador", "Apellido Trabajador", "Empresa", "Fecha") {
 
 			@Override
 			protected List<Informe> buscar(String valor, String combo) {
@@ -239,6 +241,25 @@ public class CEvaluarPlan extends CGenerico {
 					return servicioInforme.filtroApellidoTrabajador(valor);
 				case "Empresa":
 					return servicioInforme.filtroEmpresa(valor);
+				case "Fecha":
+					if (Validador.validarFormato(valor)) {
+						Calendar calendario = Calendar.getInstance();
+						Date fecha1 = fecha;
+						try {
+							fecha1 = formatoFecha.parse(valor);
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+						calendario.setTime(fecha1);
+						calendario.set(Calendar.HOUR, 0);
+						calendario.set(Calendar.HOUR_OF_DAY, 0);
+						calendario.set(Calendar.SECOND, 0);
+						calendario.set(Calendar.MILLISECOND, 0);
+						calendario.set(Calendar.MINUTE, 0);
+						fecha1 = calendario.getTime();
+						Timestamp fecha = new Timestamp(fecha1.getTime());
+						return servicioInforme.filtroFecha(fecha, agregarDia(fecha));
+					}
 				default:
 					return informes;
 				}
@@ -247,14 +268,18 @@ public class CEvaluarPlan extends CGenerico {
 
 			@Override
 			protected String[] crearRegistros(Informe objeto) {
+				String fecha = "";
+				if (objeto.getFa() != null)
+					fecha = traerFecha2(objeto.getFa());
 				String nombreEmpresa = "";
 				if (objeto.getEmpresaA() != null)
 					nombreEmpresa = objeto.getEmpresaA().getNombre();
-				String[] registros = new String[4];
+				String[] registros = new String[5];
 				registros[0] = objeto.getCodigo();
 				registros[1] = objeto.getPacienteA().getPrimerNombre();
 				registros[2] = objeto.getPacienteA().getPrimerApellido();
 				registros[3] = nombreEmpresa;
+				registros[4] = fecha;
 				return registros;
 			}
 
