@@ -82,6 +82,7 @@ public class CEspecialista extends CGenerico {
 				.getCurrent().getAttribute("mapaGeneral");
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
+				titulo = (String) mapa.get("titulo");
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
 				mapa.clear();
 				mapa = null;
@@ -106,11 +107,16 @@ public class CEspecialista extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divEspecialista, "Especialista", tabs);
+				cerrarVentana(divEspecialista, titulo, tabs);
 			}
 
 			@Override
 			public void limpiar() {
+
+				limpiarColores(txtApellidoEspecialista, txtCedulaEspecialista,
+						txtNombreEspecialista, txtRif, dspCosto,
+						txtDireccionEspecialista, txtTelefonoEspecialista,
+						cmbEspecialidad);
 				txtApellidoEspecialista.setValue("");
 				txtCedulaEspecialista.setValue("");
 				txtTelefonoEspecialista.setValue("");
@@ -200,6 +206,11 @@ public class CEspecialista extends CGenerico {
 				|| txtDireccionEspecialista.getText().compareTo("") == 0
 				|| txtTelefonoEspecialista.getText().compareTo("") == 0
 				|| cmbEspecialidad.getText().compareTo("") == 0) {
+
+			aplicarColores(txtApellidoEspecialista, txtCedulaEspecialista,
+					txtNombreEspecialista, txtRif, dspCosto,
+					txtDireccionEspecialista, txtTelefonoEspecialista,
+					cmbEspecialidad);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else {
@@ -231,7 +242,7 @@ public class CEspecialista extends CGenerico {
 				.buscarTodos();
 		catalogo = new Catalogo<Especialista>(catalogoEspecialista,
 				"Catalogo de Especialistas", especialistas, false, "Cedula",
-				"Nombre", "Apellido", "Costo Servicio", "Especialidad") {
+				"Nombres", "Apellidos", "Costo Servicio", "Especialidad") {
 
 			@Override
 			protected List<Especialista> buscar(String valor, String combo) {
@@ -239,9 +250,9 @@ public class CEspecialista extends CGenerico {
 				switch (combo) {
 				case "Cedula":
 					return servicioEspecialista.filtroCedula(valor);
-				case "Nombre":
+				case "Nombres":
 					return servicioEspecialista.filtroNombre(valor);
-				case "Apellido":
+				case "Apellidos":
 					return servicioEspecialista.filtroApellido(valor);
 				case "Costo Servicio":
 					return servicioEspecialista.filtroCosto(valor);

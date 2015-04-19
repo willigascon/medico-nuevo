@@ -64,6 +64,7 @@ public class CCiudad extends CGenerico {
 		if (map != null) {
 			if (map.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) map.get("tabsGenerales");
+				titulo = (String) map.get("titulo");
 				map.clear();
 				map = null;
 			}
@@ -73,7 +74,7 @@ public class CCiudad extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divCiudad, "Ciudad", tabs);
+				cerrarVentana(divCiudad,titulo, tabs);
 			}
 
 			@Override
@@ -81,6 +82,7 @@ public class CCiudad extends CGenerico {
 				txtNombreCiudad.setText("");
 				cmbEstado.setValue("");
 				cmbEstado.setPlaceholder("Seleccione un Estado");
+				limpiarColores(txtNombreCiudad,cmbEstado);
 				id = 0;
 			}
 
@@ -140,6 +142,7 @@ public class CCiudad extends CGenerico {
 
 		if (cmbEstado.getText().compareTo("") == 0
 				|| txtNombreCiudad.getText().compareTo("") == 0) {
+			aplicarColores(txtNombreCiudad,cmbEstado);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else

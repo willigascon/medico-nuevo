@@ -40,9 +40,6 @@ public class Diagnostico implements Serializable {
 	@Column(name="fecha_auditoria")
 	private Timestamp fechaAuditoria;
 
-	@Column(length=50)
-	private String grupo;
-
 	@Column(name="hora_auditoria", length=10)
 	private String horaAuditoria;
 
@@ -72,13 +69,12 @@ public class Diagnostico implements Serializable {
 	
 
 	public Diagnostico(long idDiagnostico, String codigo,
-			Timestamp fechaAuditoria, String grupo, String horaAuditoria,
+			Timestamp fechaAuditoria,String horaAuditoria,
 			String nombre, String usuarioAuditoria, CategoriaDiagnostico categoria, Boolean epi) {
 		super();
 		this.idDiagnostico = idDiagnostico;
 		this.codigo = codigo;
 		this.fechaAuditoria = fechaAuditoria;
-		this.grupo = grupo;
 		this.horaAuditoria = horaAuditoria;
 		this.nombre = nombre;
 		this.usuarioAuditoria = usuarioAuditoria;
@@ -111,13 +107,6 @@ public class Diagnostico implements Serializable {
 		this.fechaAuditoria = fechaAuditoria;
 	}
 
-	public String getGrupo() {
-		return this.grupo;
-	}
-
-	public void setGrupo(String grupo) {
-		this.grupo = grupo;
-	}
 
 	public String getHoraAuditoria() {
 		return this.horaAuditoria;

@@ -1,107 +1,132 @@
 <zk>
-	<div id="divEspecialista" apply="controlador.medico.CEspecialista">
-		<groupbox width="60%" mold="3d" title="Especialista">
+	<div id="divEspecialista" apply="controlador.medico.CEspecialista"
+		align="center">
+		<groupbox width="75%" mold="3d" title="Registro de Especialistas">
+			<div id="botoneraEspecialista" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
-					<column label="" width="25%" />
-					<column label="" width="45%" />
-					<column label="" width="30%" />
+					<column label="" width="21%" />
+					<column label="" width="21%" />
+					<column label="" width="21%" />
+					<column label="" width="21%" />
+					<column label="" width="16%" />
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Cedula:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox maxlength="12" id="txtCedulaEspecialista" hflex="1"
-							tooltiptext="Ingrese la Cedula del Especialista" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Cedula:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox maxlength="12" id="txtCedulaEspecialista"
+									hflex="1" tooltiptext="Ingrese la Cedula del Especialista" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Rif:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox maxlength="20" id="txtRif" hflex="1"
+									tooltiptext="Ingrese el Rif del Especialista (J-12345678-0)" />
+							</vlayout>
+						</cell>
 						<button autodisable="self" id="btnBuscarEspecialista"
-							class="btn" label="Buscar" tooltiptext="Catalogo"
-							image="/public/imagenes/botones/buscar.png" />
+							class="btn" label="Buscar" tooltiptext="Catalogo de Especialistas"
+							image="/public/imagenes/botones/buscar.png" dir="reverse" />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Rif:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox maxlength="20" id="txtRif" hflex="1"
-							tooltiptext="Ingrese el Rif del Especialista (J-12345678-0)" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombres:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox maxlength="100" id="txtNombreEspecialista"
+									hflex="1" tooltiptext="Ingrese los Nombres del Especialista" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Apellidos:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox maxlength="100" id="txtApellidoEspecialista"
+									hflex="1" tooltiptext="Ingrese los Apellidos del Especialista" />
+							</vlayout>
+						</cell>
 						<hbox />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombres:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox maxlength="100" id="txtNombreEspecialista" hflex="1"
-							tooltiptext="Ingrese el Nombre del Especialista" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Telefono:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox maxlength="20" id="txtTelefonoEspecialista"
+									hflex="1" tooltiptext="Ingrese el Telefono del Especialista (1234-1234567)" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Direccion:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox multiline="true" maxlength="1024"
+									id="txtDireccionEspecialista" hflex="1"
+									tooltiptext="Ingrese el Direccion del Especialista" />
+							</vlayout>
+						</cell>
 						<hbox />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Apellidos:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox maxlength="100" id="txtApellidoEspecialista"
-							hflex="1" tooltiptext="Ingrese el Apellido del Especialista" />
-						<hbox />
-					</row>
-					<row>
-						<hbox>
-							<label class="etiqueta" value="Telefono:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox maxlength="20" id="txtTelefonoEspecialista"
-							hflex="1" tooltiptext="Ingrese el Telefono del Especialista" />
-						<hbox />
-					</row>
-					<row>
-						<hbox>
-							<label class="etiqueta" value="Direccion:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox multiline="true" class="multilinea" maxlength="1024"
-							id="txtDireccionEspecialista" hflex="1"
-							tooltiptext="Ingrese el Direccion del Especialista" />
-						<hbox />
-					</row>
-					<row>
-						<hbox>
-							<label class="etiqueta" value="Costo por Servicio:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<doublespinner id="dspCosto" value="0"
-							constraint="min 0 max 100000000" tooltiptext="Ingrese Costo por Servicio del Especialista"
-							step="0.1" format="#.##" width="98%" />
-						<hbox />
-					</row>
-					<row>
-						<hbox>
-							<label class="etiqueta" value="Especialidad" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox tooltiptext="Seleccione una Especialidad"
-							placeholder="Seleccione una Especialidad" id="cmbEspecialidad"
-							readonly="true" width="100%">
-							<template name="model">
-								<comboitem label="${each.descripcion}" context="${each.idEspecialidad}" />
-							</template>
-						</combobox>
-						<button class="abrir" id="btnAbrirEspecialidad" label=""
-							tooltiptext="Crear una Nueva Especialidad" image="/public/imagenes/botones/agregar.png" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Costo por Servicio:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<doublespinner id="dspCosto" value="0"
+									constraint="min 0 max 100000000" tooltiptext="Ingrese Costo por Servicio del Especialista"
+									step="0.1" format="#.##" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Especialidad" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox tooltiptext="Seleccione una Especialidad"
+									placeholder="Seleccione una Especialidad" id="cmbEspecialidad"
+									readonly="true" width="100%">
+									<template name="model">
+										<comboitem label="${each.descripcion}" context="${each.idEspecialidad}" />
+									</template>
+								</combobox>
+							</vlayout>
+						</cell>
+						<a href="">
+							<label id="btnAbrirEspecialidad" sclass="pointer"
+								value="Crear nueva Especialidad" class="abrir" />
+						</a>
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraEspecialista" />
 			<div id="catalogoEspecialista" />
 		</groupbox>
 	</div>

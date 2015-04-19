@@ -61,6 +61,8 @@ public abstract class Catalogo<Clase> extends Window {
 		final Label lblBuscar = new Label();
 		final Textbox txtBuscar = new Textbox();
 		final Separator separador1 = new Separator();
+		final Separator separador3 = new Separator();
+		final Separator separador4 = new Separator();
 		Hbox hbx1 = new Hbox();
 		Hbox hbx2 = new Hbox();
 		hbx1.setStyle("background:#999999");
@@ -132,6 +134,7 @@ public abstract class Catalogo<Clase> extends Window {
 		separador1.setStyle("background:#800400");
 		separador2.setStyle("background:#800400");
 		this.appendChild(separador1);
+		this.appendChild(separador4);
 		this.appendChild(hbxBusqueda);
 		lblBuscar.setValue("Filtrar Por :");
 		lblBuscar.setSclass("etiqueta2");
@@ -141,6 +144,7 @@ public abstract class Catalogo<Clase> extends Window {
 		hbxBusqueda.appendChild(cmbBuscarPor);
 		hbxBusqueda.appendChild(txtBuscar);
 		hbxBusqueda.appendChild(hbx2);
+		this.appendChild(separador3);
 		this.appendChild(separador2);
 		this.appendChild(lsbCatalogo);
 		if (multiple) {

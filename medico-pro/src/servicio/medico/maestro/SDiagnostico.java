@@ -54,10 +54,6 @@ public class SDiagnostico {
 		return diagnosticoDAO.findByCodigoStartingWithAllIgnoreCase(valor);
 	}
 
-	public List<Diagnostico> filtroGrupo(String valor) {
-		return diagnosticoDAO.findByGrupoStartingWithAllIgnoreCase(valor);
-	}
-
 	public List<Diagnostico> filtroCategoria(String valor) {
 		return diagnosticoDAO.findByCategoriaNombreStartingWithAllIgnoreCase(valor);
 	}

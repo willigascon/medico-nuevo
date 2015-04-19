@@ -50,6 +50,7 @@ public class CVacuna extends CGenerico {
 				.getCurrent().getAttribute("mapaGeneral");
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
+				titulo = (String) mapa.get("titulo");
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
 				mapa.clear();
 				mapa = null;
@@ -70,12 +71,13 @@ public class CVacuna extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divVacuna, "Vacuna", tabs);
+				cerrarVentana(divVacuna, titulo, tabs);
 			}
 
 			@Override
 			public void limpiar() {
 				txtNombre.setValue("");
+				limpiarColores(txtNombre);
 				id = 0;
 			}
 
@@ -86,17 +88,6 @@ public class CVacuna extends CGenerico {
 					Vacuna vacuna = new Vacuna(id, nombre, fechaHora,
 							horaAuditoria, nombreUsuarioSesion());
 					servicioVacuna.guardar(vacuna);
-//					if (consulta) {
-//						if (id != 0)
-//							vacuna = servicioVacuna.buscar(id);
-//						else {
-//							vacuna = servicioVacuna.buscarUltimo();
-//							vacunas.add(vacuna);
-//						}
-//						cConsulta.recibirVacuna(vacunas, listaConsulta,
-//								servicioVacuna, historia,
-//								servicioHistoriaVacuna);
-//					}
 					msj.mensajeInformacion(Mensaje.guardado);
 					limpiar();
 				}
@@ -136,6 +127,7 @@ public class CVacuna extends CGenerico {
 
 	protected boolean validar() {
 		if (txtNombre.getText().compareTo("") == 0) {
+			aplicarColores(txtNombre);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -146,7 +138,7 @@ public class CVacuna extends CGenerico {
 	public void mostrarCatalogo() {
 		final List<Vacuna> paises = servicioVacuna.buscarTodos();
 		catalogo = new Catalogo<Vacuna>(catalogoVacuna,
-				"Catalogo de Intervenciones", paises,false, "Nombre") {
+				"Catalogo de Vacunas", paises,false, "Nombre") {
 
 			@Override
 			protected List<Vacuna> buscar(String valor, String combo) {

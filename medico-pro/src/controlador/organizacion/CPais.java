@@ -46,6 +46,7 @@ public class CPais extends CGenerico {
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
+				titulo = (String) mapa.get("titulo");
 				mapa.clear();
 				mapa = null;
 			}
@@ -54,12 +55,13 @@ public class CPais extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divPais, "Pais", tabs);
+				cerrarVentana(divPais, titulo, tabs);
 			}
 
 			@Override
 			public void limpiar() {
 				txtNombrePais.setValue("");
+				limpiarColores(txtNombrePais);
 				id = 0;
 			}
 
@@ -109,6 +111,7 @@ public class CPais extends CGenerico {
 	/* Permite validar que todos los campos esten completos */
 	public boolean validar() {
 		if (txtNombrePais.getText().compareTo("") == 0) {
+			aplicarColores(txtNombrePais);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else

@@ -45,6 +45,7 @@ public class CEspecialidad extends CGenerico {
 				.getCurrent().getAttribute("mapaGeneral");
 		if (map != null) {
 			if (map.get("tabsGenerales") != null) {
+				titulo = (String) map.get("titulo");
 				tabs = (List<Tab>) map.get("tabsGenerales");
 				map.clear();
 				map = null;
@@ -67,12 +68,13 @@ public class CEspecialidad extends CGenerico {
 			@Override
 			public void limpiar() {
 				txtDescripcionEspecialidad.setValue("");
+				limpiarColores(txtDescripcionEspecialidad);
 				id = 0;
 			}
 
 			@Override
 			public void salir() {
-				cerrarVentana(divEspecialidad, "Especialidad", tabs);
+				cerrarVentana(divEspecialidad, titulo, tabs);
 			}
 
 			@Override
@@ -117,6 +119,7 @@ public class CEspecialidad extends CGenerico {
 	/* Permite validar que todos los campos esten completos */
 	public boolean validar() {
 		if (txtDescripcionEspecialidad.getText().compareTo("") == 0) {
+			aplicarColores(txtDescripcionEspecialidad);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -128,11 +131,11 @@ public class CEspecialidad extends CGenerico {
 	public void mostrarCatalogo() {
 		List<Especialidad> especialidades = servicioEspecialidad.buscarTodas();
 		catalogo = new Catalogo<Especialidad>(catalogoEspecialidad,
-				"Catalogo de Categorias", especialidades,false, "Descripcion") {
+				"Catalogo de Especialidades", especialidades,false, "Nombre") {
 
 			@Override
 			protected List<Especialidad> buscar(String valor, String combo) {
-				if (combo.equals("Descripcion"))
+				if (combo.equals("Nombre"))
 					return servicioEspecialidad.filtroNombre(valor);
 				else
 					return servicioEspecialidad.buscarTodas();

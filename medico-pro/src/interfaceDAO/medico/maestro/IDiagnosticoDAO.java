@@ -18,8 +18,6 @@ public interface IDiagnosticoDAO extends JpaRepository<Diagnostico, Long> {
 
 	List<Diagnostico> findByCodigoStartingWithAllIgnoreCase(String valor);
 
-	List<Diagnostico> findByGrupoStartingWithAllIgnoreCase(String valor);
-
 	List<Diagnostico> findByCategoriaNombreStartingWithAllIgnoreCase(
 			String valor);
 

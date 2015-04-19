@@ -14,6 +14,7 @@ import modelo.medico.consulta.Consulta;
 import modelo.medico.maestro.Cita;
 import modelo.medico.maestro.DoctorInterno;
 import modelo.medico.maestro.Especialidad;
+import modelo.security.Arbol;
 import modelo.security.Grupo;
 import modelo.security.Usuario;
 
@@ -92,7 +93,8 @@ public class CDoctorInterno extends CGenerico {
 	private Radio rdoSexoMUsuario;
 	String id = "";
 	Catalogo<DoctorInterno> catalogo;
-
+	private CArbol cArbol = new CArbol();
+	
 	@Override
 	public void inicializar() throws IOException {
 		contenido = (Include) divDoctor.getParent();
@@ -287,7 +289,7 @@ public class CDoctorInterno extends CGenerico {
 	public void mostrarCatalogo() throws IOException {
 		final List<DoctorInterno> usuarios = servicioDoctor.buscarTodos();
 		catalogo = new Catalogo<DoctorInterno>(catalogoDoctor,
-				"Catalogo de Usuarios", usuarios, false, "Cedula", "Ficha",
+				"Catalogo de Doctores", usuarios, false, "Cedula", "Ficha",
 				"Nombre", "Apellido") {
 
 			@Override
@@ -363,5 +365,13 @@ public class CDoctorInterno extends CGenerico {
 		txtCedulaUsuario.setDisabled(true);
 		id = usuario.getCedula();
 	}
-
+	/* Abre la vista de Estado */
+	@Listen("onClick = #btnAbrirEspecialidad")
+	public void abrirEstado() {
+		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Especialidad");
+		if (!arboles.isEmpty()) {
+			Arbol arbolItem = arboles.get(0);
+			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
+		}
+	}
 }

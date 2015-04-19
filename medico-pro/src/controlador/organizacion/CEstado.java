@@ -63,6 +63,7 @@ public class CEstado extends CGenerico {
 		if (map != null) {
 			if (map.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) map.get("tabsGenerales");
+				titulo = (String) map.get("titulo");
 				map.clear();
 				map = null;
 			}
@@ -71,7 +72,7 @@ public class CEstado extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divEstado, "Estado", tabs);
+				cerrarVentana(divEstado, titulo, tabs);
 
 			}
 
@@ -81,6 +82,7 @@ public class CEstado extends CGenerico {
 				cmbPais.setValue("");
 				cmbPais.setPlaceholder("Seleccione un Pais");
 				id = 0;
+				limpiarColores(txtNombreEstado,cmbPais);
 			}
 
 			@Override
@@ -133,6 +135,7 @@ public class CEstado extends CGenerico {
 	public boolean validar() {
 		if (cmbPais.getText().compareTo("") == 0
 				|| txtNombreEstado.getText().compareTo("") == 0) {
+			aplicarColores(txtNombreEstado,cmbPais);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else

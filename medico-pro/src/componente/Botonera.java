@@ -5,6 +5,7 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Hbox;
+import org.zkoss.zul.Vbox;
 
 public abstract class Botonera extends Hbox {
 
@@ -20,29 +21,31 @@ public abstract class Botonera extends Hbox {
 		this.appendChild(btnEliminar);
 		this.appendChild(btnLimpiar);
 		this.appendChild(btnSalir);
-		
-		btnGuardar
-				.setImage("/public/imagenes/botones/guardar.png");
-		btnEliminar
-				.setImage("/public/imagenes/botones/eliminar.png");
-		btnLimpiar
-				.setImage("/public/imagenes/botones/limpiar.png");
+
+		btnGuardar.setImage("/public/imagenes/botones/guardar.png");
+		btnEliminar.setImage("/public/imagenes/botones/eliminar.png");
+		btnLimpiar.setImage("/public/imagenes/botones/limpiar.png");
 		btnSalir.setImage("/public/imagenes/botones/salir.png");
-		
+
 		btnGuardar.setLabel("Guardar");
 		btnEliminar.setLabel("Eliminar");
 		btnLimpiar.setLabel("Limpiar");
 		btnSalir.setLabel("Salir");
-		
+
 		btnGuardar.setTooltiptext("Guardar");
 		btnEliminar.setTooltiptext("Eliminar");
 		btnLimpiar.setTooltiptext("Limpiar");
 		btnSalir.setTooltiptext("Salir");
-		
+
 		btnEliminar.setSclass("btn");
 		btnLimpiar.setSclass("btn");
 		btnSalir.setSclass("btn");
 		btnGuardar.setSclass("btn");
+
+		btnEliminar.setDir("reverse");
+		btnLimpiar.setDir("reverse");
+		btnSalir.setDir("reverse");
+		btnGuardar.setDir("reverse");
 
 		btnGuardar.addEventListener(Events.ON_CLICK,
 				new EventListener<Event>() {
@@ -75,7 +78,8 @@ public abstract class Botonera extends Hbox {
 
 	/**
 	 * Metodo que guarda un registro nuevo si no a sido guardado con
-	 * anterioridad, de ser así se modifica aquellos datos que el usuario cambie
+	 * anterioridad, de ser así se modifica aquellos datos que el usuario
+	 * cambie
 	 */
 	public abstract void guardar();
 
@@ -91,8 +95,8 @@ public abstract class Botonera extends Hbox {
 	public abstract void salir();
 
 	/**
-	 * Metodo que permite la eliminacion de un registro siempre y cuando
-	 * no este asociado a otra entidad
+	 * Metodo que permite la eliminacion de un registro siempre y cuando no este
+	 * asociado a otra entidad
 	 */
 	public abstract void eliminar();
 }

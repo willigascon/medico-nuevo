@@ -48,6 +48,7 @@ public class COrgano extends CGenerico {
 				.getCurrent().getAttribute("mapaGeneral");
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
+				titulo = (String) mapa.get("titulo");
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
 				mapa.clear();
 				mapa = null;
@@ -67,12 +68,13 @@ public class COrgano extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divOrgano, "Organo", tabs);
+				cerrarVentana(divOrgano, titulo, tabs);
 			}
 
 			@Override
 			public void limpiar() {
 				txtNombre.setValue("");
+				limpiarColores(txtNombre);
 				id = 0;
 			}
 
@@ -132,6 +134,7 @@ public class COrgano extends CGenerico {
 
 	protected boolean validar() {
 		if (txtNombre.getText().compareTo("") == 0) {
+			aplicarColores(txtNombre);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -142,7 +145,7 @@ public class COrgano extends CGenerico {
 	public void mostrarCatalogo() {
 		final List<ParteCuerpo> paises = servicioParteCuerpo.buscarTodos();
 		catalogo = new Catalogo<ParteCuerpo>(catalogoOrgano,
-				"Catalogo de Organos/Sistemas", paises, false,"Nombre") {
+				"Catalogo de Partes del Cuerpo", paises, false,"Nombre") {
 
 			@Override
 			protected List<ParteCuerpo> buscar(String valor, String combo) {

@@ -1,7 +1,10 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divEspecialidad" apply="controlador.medico.CEspecialidad">
-		<groupbox width="50%" mold="3d" title="Especialidad">
+	<div id="divEspecialidad" apply="controlador.medico.CEspecialidad"
+		align="center">
+		<groupbox width="70%" mold="3d" title="Registro de Especialidades">
+			<div id="botoneraEspecialidad" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
 					<column label="" width="25%" />
@@ -10,22 +13,24 @@
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtDescripcionEspecialidad" hflex="1"
-							maxlength="500" tooltiptext="Ingrese la Descripcion de la Especialidad"
-							multiline="true" class="multilinea" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtDescripcionEspecialidad" hflex="1"
+									maxlength="500" tooltiptext="Ingrese el nombre de la Especialidad"
+									multiline="true" />
+							</vlayout>
+						</cell>
 						<button autodisable="self" id="btnBuscarEspecialidad"
-							class="btn" label="Buscar" tooltiptext="Catalogo"
-							image="/public/imagenes/botones/buscar.png" />
+							class="btn" label="Buscar" tooltiptext="Catalogo de Especialidades"
+							image="/public/imagenes/botones/buscar.png" dir="reverse" />
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraEspecialidad" />
 			<div id="catalogoEspecialidad" />
 		</groupbox>
 	</div>

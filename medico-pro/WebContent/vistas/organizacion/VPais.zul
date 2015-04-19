@@ -1,7 +1,9 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divPais" apply="controlador.organizacion.CPais">
-		<groupbox width="50%" mold="3d" title="Pais">
+	<div id="divPais" apply="controlador.organizacion.CPais" align="center">
+		<groupbox mold="3d" title="Registro de Paises" width="70%">
+			<div id="botoneraPais" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
 					<column label="" width="25%" />
@@ -10,22 +12,24 @@
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox class="multilinea" id="txtNombrePais" hflex="1"
-							maxlength="500" tooltiptext="Ingrese el Nombre del Pais"
-							multiline="true" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox multiline="true" id="txtNombrePais" hflex="1"
+									maxlength="500" tooltiptext="Ingrese el Nombre del Pais" />
+							</vlayout>
+						</cell>
 						<button autodisable="self" id="btnBuscarPais" class="btn"
-							label="Buscar" tooltiptext="Catalogo Paises" image="/public/imagenes/botones/buscar.png" />
+							dir="reverse" label="Buscar" tooltiptext="Catalogo de Paises"
+							image="/public/imagenes/botones/buscar.png" />
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraPais" />
-			<div id="catalogoPais" />
 		</groupbox>
+		<div id="catalogoPais" />
 	</div>
 </zk>

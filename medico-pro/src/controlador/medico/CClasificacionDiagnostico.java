@@ -62,6 +62,7 @@ public class CClasificacionDiagnostico extends CGenerico {
 			@Override
 			public void limpiar() {
 				txtNombre.setValue("");
+				limpiarColores(txtNombre);
 				id = 0;
 			}
 
@@ -112,6 +113,7 @@ public class CClasificacionDiagnostico extends CGenerico {
 	public boolean validar() {
 		if (txtNombre.getText().compareTo("") == 0) {
 			msj.mensajeError(Mensaje.camposVacios);
+			aplicarColores(txtNombre);
 			return false;
 		} else
 			return true;
@@ -123,7 +125,7 @@ public class CClasificacionDiagnostico extends CGenerico {
 		List<ClasificacionDiagnostico> unidades = servicioClasificacion
 				.buscarTodas();
 		catalogo = new Catalogo<ClasificacionDiagnostico>(
-				catalogoClasificacionDiagnostico, "Catalogo de Unidades",
+				catalogoClasificacionDiagnostico, "Catalogo de Clasificaciones",
 				unidades,false, "Nombre") {
 
 			@Override

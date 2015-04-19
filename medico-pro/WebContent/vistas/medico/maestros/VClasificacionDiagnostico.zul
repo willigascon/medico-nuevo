@@ -1,7 +1,11 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divClasificacionDiagnostico" apply="controlador.medico.CClasificacionDiagnostico">
-		<groupbox width="50%" mold="3d" title="Clasificacion de Categorias de Diagnostico">
+	<div id="divClasificacionDiagnostico" apply="controlador.medico.CClasificacionDiagnostico"
+		align="center">
+		<groupbox width="70%" mold="3d"
+			title="Registro de Clasificaciones de Categorias de Diagnostico">
+			<div id="botoneraClasificacionDiagnostico" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
 					<column label="" width="25%" />
@@ -10,21 +14,23 @@
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox class="multilinea" id="txtNombre" hflex="1"
-							maxlength="500" tooltiptext="Ingrese el Nombre de la Unidad"
-							multiline="true" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtNombre" hflex="1" maxlength="500"
+									tooltiptext="Ingrese el Nombre de la Clasificacion" multiline="true" />
+							</vlayout>
+						</cell>
 						<button autodisable="self" id="btnBuscarUnidad" class="btn"
-							label="Buscar" tooltiptext="Catalogo" image="/public/imagenes/botones/buscar.png" />
+							dir="reverse" label="Buscar" tooltiptext="Catalogo de Clasificaciones"
+							image="/public/imagenes/botones/buscar.png" />
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraClasificacionDiagnostico" />
 			<div id="catalogoClasificacionDiagnostico" />
 		</groupbox>
 	</div>

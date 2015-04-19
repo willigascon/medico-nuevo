@@ -60,6 +60,7 @@ public class CCategoriaDiagnostico extends CGenerico {
 		if (map != null) {
 			if (map.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) map.get("tabsGenerales");
+				titulo = (String) map.get("titulo");
 				map.clear();
 				map = null;
 			}
@@ -84,12 +85,13 @@ public class CCategoriaDiagnostico extends CGenerico {
 			public void limpiar() {
 				txtNombreCategoriaDiagnostico.setValue("");
 				cmbClasificacion.setValue("");
+				limpiarColores(txtNombreCategoriaDiagnostico,cmbClasificacion);
 				id = 0;
 			}
 
 			@Override
 			public void salir() {
-				cerrarVentana(divCategoriaDiagnostico, "Categoria Diagnostico",
+				cerrarVentana(divCategoriaDiagnostico, titulo,
 						tabs);
 			}
 
@@ -133,6 +135,7 @@ public class CCategoriaDiagnostico extends CGenerico {
 	public boolean validar() {
 		if (txtNombreCategoriaDiagnostico.getText().compareTo("") == 0
 				|| cmbClasificacion.getText().compareTo("") == 0) {
+			aplicarColores(txtNombreCategoriaDiagnostico,cmbClasificacion);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else

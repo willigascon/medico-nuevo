@@ -1,44 +1,45 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divDiagnostico" apply="controlador.medico.CDiagnostico">
-		<groupbox width="60%" mold="3d" title="Diagnostico">
+	<div id="divDiagnostico" apply="controlador.medico.CDiagnostico"
+		align="center">
+		<groupbox width="73%" mold="3d" title="Registro de Diagnosticos">
+			<div id="botoneraDiagnostico" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
-					<column label="" width="25%" />
-					<column label="" width="45%" />
-					<column label="" width="30%" />
+					<column label="" width="18%" />
+					<column label="" width="43%" />
+					<column label="" width="39%" />
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Codigo:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtCodigoDiagnostico" hflex="1" maxlength="50"
-							tooltiptext="Ingrese el Codigo del Diagnostico" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Codigo:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtCodigoDiagnostico" hflex="1" maxlength="50"
+									tooltiptext="Ingrese el Codigo del Diagnostico" />
+							</vlayout>
+						</cell>
 						<button autodisable="self" id="btnBuscarDiagnostico" class="btn"
-							label="Buscar" tooltiptext="Catalogo" image="/public/imagenes/botones/buscar.png" />
+							dir="reverse" label="Buscar" tooltiptext="Catalogo de Diagnosticos"
+							image="/public/imagenes/botones/buscar.png" />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtNombreDiagnostico" hflex="1" maxlength="500"
-							class="multilinea" tooltiptext="Ingrese el Nombre del Diagnostico"
-							multiline="true" />
-						<hbox />
-					</row>
-					<row>
-						<hbox>
-							<label class="etiqueta" value="Grupo:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtGrupoDiagnostico" hflex="1" maxlength="50"
-							tooltiptext="Ingrese el Grupo del Diagnostico" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtNombreDiagnostico" hflex="1" maxlength="500"
+									tooltiptext="Ingrese el Nombre del Diagnostico" multiline="true" />
+							</vlayout>
+						</cell>
 						<hbox />
 					</row>
 					<row>
@@ -54,25 +55,30 @@
 						<hbox />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Categoria:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox id="cmbCategoria" readonly="true" tabindex="1"
-							width="100%" tooltiptext="Seleccione una Categoria" placeholder="Seleccione una Categoria">
-							<template name="model">
-								<comboitem context="${each.idCategoriaDiagnostico}"
-									label="${each.nombre}" />
-							</template>
-						</combobox>
-						<button class="abrir"  id="btnAbrirCategoria" label=""
-							tooltiptext="Crear una Nueva Categoria de Diagnostico" image="/public/imagenes/botones/agregar.png" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Categoria:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox id="cmbCategoria" readonly="true" tabindex="1"
+									width="100%" tooltiptext="Seleccione una Categoria"
+									placeholder="Seleccione una Categoria">
+									<template name="model">
+										<comboitem context="${each.idCategoriaDiagnostico}"
+											label="${each.nombre}" />
+									</template>
+								</combobox>
+							</vlayout>
+						</cell>
+						<a href="">
+							<label id="btnAbrirCategoria" sclass="pointer"
+								value="Crear una Nueva Categoria de Diagnostico" class="abrir" />
+						</a>
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraDiagnostico" />
 			<div id="catalogoDiagnostico" />
 		</groupbox>
 	</div>

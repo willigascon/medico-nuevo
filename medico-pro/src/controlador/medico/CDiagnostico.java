@@ -47,8 +47,6 @@ public class CDiagnostico extends CGenerico {
 	@Wire
 	private Textbox txtCodigoDiagnostico;
 	@Wire
-	private Textbox txtGrupoDiagnostico;
-	@Wire
 	private Combobox cmbCategoria;
 	@Wire
 	private Button btnBuscarDiagnostico;
@@ -76,6 +74,7 @@ public class CDiagnostico extends CGenerico {
 				.getCurrent().getAttribute("mapaGeneral");
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
+				titulo = (String) mapa.get("titulo");
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
 				mapa.clear();
 				mapa = null;
@@ -97,30 +96,29 @@ public class CDiagnostico extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divDiagnostico, "Diagnostico", tabs);
+				cerrarVentana(divDiagnostico, titulo, tabs);
 			}
 
 			@Override
 			public void limpiar() {
 				txtNombreDiagnostico.setValue("");
 				txtCodigoDiagnostico.setValue("");
-				txtGrupoDiagnostico.setValue("");
 				cmbCategoria.setValue("");
 				cmbCategoria.setPlaceholder("Seleccione una Categoria");
 				if (rdoNoEpi.isChecked())
 					rdoNoEpi.setChecked(false);
 				if (rdoSiEpi.isChecked())
 					rdoSiEpi.setChecked(false);
+				limpiarColores(txtNombreDiagnostico,txtCodigoDiagnostico,cmbCategoria);
 				id = 0;
 			}
 
 			@Override
 			public void guardar() {
 				if (validar()) {
-					String nombre, codigo, grupo;
+					String nombre, codigo;
 					nombre = txtNombreDiagnostico.getValue();
 					codigo = txtCodigoDiagnostico.getValue();
-					grupo = txtGrupoDiagnostico.getValue();
 					Boolean epi = false;
 					if (rdoSiEpi.isChecked())
 						epi = true;
@@ -128,7 +126,7 @@ public class CDiagnostico extends CGenerico {
 							.buscar(Long.parseLong(cmbCategoria
 									.getSelectedItem().getContext()));
 					Diagnostico diagnostico = new Diagnostico(id, codigo,
-							fechaHora, grupo, horaAuditoria, nombre,
+							fechaHora,horaAuditoria, nombre,
 							nombreUsuarioSesion(), categoria, epi);
 					servicioDiagnostico.guardar(diagnostico);
 					if (consulta) {
@@ -182,9 +180,9 @@ public class CDiagnostico extends CGenerico {
 	public boolean validar() {
 		if (txtNombreDiagnostico.getText().compareTo("") == 0
 				|| txtCodigoDiagnostico.getText().compareTo("") == 0
-				|| txtGrupoDiagnostico.getText().compareTo("") == 0
 				|| cmbCategoria.getText().compareTo("") == 0
 				|| (!rdoNoEpi.isChecked() && !rdoSiEpi.isChecked())) {
+			aplicarColores(txtNombreDiagnostico,txtCodigoDiagnostico,cmbCategoria);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -197,8 +195,7 @@ public class CDiagnostico extends CGenerico {
 		final List<Diagnostico> diagnosticos = servicioDiagnostico
 				.buscarTodas();
 		catalogo = new Catalogo<Diagnostico>(catalogoDiagnostico,
-				"Catalogo de Diagnosticos", diagnosticos, false,"Codigo", "Nombre",
-				"Grupo", "Categoria") {
+				"Catalogo de Diagnosticos", diagnosticos, false,"Codigo", "Nombre", "Categoria") {
 
 			@Override
 			protected List<Diagnostico> buscar(String valor, String combo) {
@@ -208,8 +205,6 @@ public class CDiagnostico extends CGenerico {
 					return servicioDiagnostico.filtroNombre(valor);
 				case "Codigo":
 					return servicioDiagnostico.filtroCodigo(valor);
-				case "Grupo":
-					return servicioDiagnostico.filtroGrupo(valor);
 				case "Categoria":
 					return servicioDiagnostico.filtroCategoria(valor);
 				default:
@@ -220,11 +215,10 @@ public class CDiagnostico extends CGenerico {
 
 			@Override
 			protected String[] crearRegistros(Diagnostico objeto) {
-				String[] registros = new String[4];
+				String[] registros = new String[3];
 				registros[0] = objeto.getCodigo();
 				registros[1] = objeto.getNombre();
-				registros[2] = objeto.getGrupo();
-				registros[3] = objeto.getCategoria().getNombre();
+				registros[2] = objeto.getCategoria().getNombre();
 				return registros;
 			}
 
@@ -262,7 +256,6 @@ public class CDiagnostico extends CGenerico {
 	/* LLena los campos del formulario dado un diagnostico */
 	private void llenarCampos(Diagnostico diagnostico) {
 		txtCodigoDiagnostico.setValue(diagnostico.getCodigo());
-		txtGrupoDiagnostico.setValue(diagnostico.getGrupo());
 		txtNombreDiagnostico.setValue(diagnostico.getNombre());
 		cmbCategoria.setValue(diagnostico.getCategoria().getNombre());
 		if (diagnostico.getEpi() != null) {

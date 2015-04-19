@@ -48,6 +48,7 @@ public class CIntervencion extends CGenerico {
 				.getCurrent().getAttribute("mapaGeneral");
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
+				titulo = (String) mapa.get("titulo");
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
 				mapa.clear();
 				mapa = null;
@@ -68,12 +69,13 @@ public class CIntervencion extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divIntervencion, "Intervencion", tabs);
+				cerrarVentana(divIntervencion,titulo, tabs);
 			}
 
 			@Override
 			public void limpiar() {
 				txtNombre.setValue("");
+				limpiarColores(txtNombre);
 				listaConsulta = null;
 				interConsulta = null;
 				consulta = false;
@@ -87,16 +89,6 @@ public class CIntervencion extends CGenerico {
 					Intervencion intervencion = new Intervencion(id, nombre,
 							fechaHora, horaAuditoria, nombreUsuarioSesion());
 					servicioIntervencion.guardar(intervencion);
-//					if (consulta) {
-//						if (id != 0)
-//							intervencion = servicioIntervencion.buscar(id);
-//						else {
-//							intervencion = servicioIntervencion.buscarUltimo();
-//							interConsulta.add(intervencion);
-//						}
-//						cConsulta.recibirIntervencion(interConsulta,
-//								listaConsulta);
-//					}
 					msj.mensajeInformacion(Mensaje.guardado);
 					limpiar();
 				}
@@ -138,6 +130,7 @@ public class CIntervencion extends CGenerico {
 
 	protected boolean validar() {
 		if (txtNombre.getText().compareTo("") == 0) {
+			aplicarColores(txtNombre);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else

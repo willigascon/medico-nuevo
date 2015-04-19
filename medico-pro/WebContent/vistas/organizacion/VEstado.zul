@@ -1,8 +1,10 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divEstado" apply="controlador.organizacion.CEstado">
-		<groupbox width="50%" mold="3d" title="Estado">
-			<grid width="100%">
+	<div id="divEstado" apply="controlador.organizacion.CEstado" align="center">
+		<groupbox width="70%" mold="3d" title="Registro de Estados">
+			<div id="botoneraEstado" />
+			<separator />
+			<grid width="98%">
 				<columns visible="false">
 					<column label="" width="25%" />
 					<column label="" width="45%" />
@@ -10,36 +12,44 @@
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtNombreEstado" hflex="1" maxlength="500"
-							tooltiptext="Ingrese el Nombre del Estado" multiline="true"
-							class="multilinea" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtNombreEstado" hflex="1" maxlength="500"
+									tooltiptext="Ingrese el Nombre del Estado" multiline="true" />
+							</vlayout>
+						</cell>
 						<button autodisable="self" id="btnBuscarEstado" class="btn"
-							label="Buscar" tooltiptext="Catalogo" image="/public/imagenes/botones/buscar.png" />
+							label="Buscar" tooltiptext="Catalogo de Estados" image="/public/imagenes/botones/buscar.png"
+							dir="reverse" />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Pais:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox tooltiptext="Seleccione un Pais" placeholder="Seleccione un Pais"
-							id="cmbPais" readonly="true" width="100%">
-							<template name="model">
-								<comboitem label="${each.nombre}" context="${each.idPais}" />
-							</template>
-						</combobox>
-						<button class="abrir" id="btnAbrirPais" label="" tooltiptext="Crear un Nuevo Pais"
-							image="/public/imagenes/botones/agregar.png" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Pais:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox tooltiptext="Seleccione un Pais" placeholder="Seleccione un Pais"
+									id="cmbPais" readonly="true" width="100%">
+									<template name="model">
+										<comboitem label="${each.nombre}" context="${each.idPais}" />
+									</template>
+								</combobox>
+							</vlayout>
+						</cell>
+						<a href="">
+							<label id="btnAbrirPais" sclass="pointer" value="Crear nuevo Pais"
+								class="abrir" />
+						</a>
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraEstado" />
 			<div id="catalogoEstado" />
 		</groupbox>
 	</div>
