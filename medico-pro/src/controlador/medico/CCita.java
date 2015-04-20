@@ -92,8 +92,6 @@ public class CCita extends CGenerico {
 	@Wire
 	private Label lblApellidoPaciente;
 	@Wire
-	private Label lblEmpresaPaciente;
-	@Wire
 	private Textbox txtObservacion;
 	@Wire
 	private Timebox tmbHoraCita;
@@ -135,6 +133,7 @@ public class CCita extends CGenerico {
 		if (map != null) {
 			if (map.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) map.get("tabsGenerales");
+				titulo = (String) map.get("titulo");
 				map.clear();
 				map = null;
 			}
@@ -145,7 +144,7 @@ public class CCita extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divCita, "Cita", tabs);
+				cerrarVentana(divCita, titulo, tabs);
 
 			}
 
@@ -158,6 +157,7 @@ public class CCita extends CGenerico {
 				ltbCitas.getItems().clear();
 				tabCita.setSelected(true);
 				limpiar2();
+				
 			}
 
 			@Override
@@ -187,6 +187,8 @@ public class CCita extends CGenerico {
 					llenarListaCitas(usuario);
 					limpiar2();
 					Mensaje.mensajeInformacion(Mensaje.guardado);
+					llenarListaCitas(usuario);
+					
 				}
 
 			}
@@ -209,7 +211,6 @@ public class CCita extends CGenerico {
 		txtCedulaPaciente.setValue("");
 		lblNombrePaciente.setValue("");
 		lblApellidoPaciente.setValue("");
-		lblEmpresaPaciente.setValue("");
 		txtObservacion.setValue("");
 		tmbHoraCita.setValue(dt);
 		dtbFechaCita.setValue(fecha);
@@ -217,6 +218,7 @@ public class CCita extends CGenerico {
 		cmbMotivo.setPlaceholder("Seleccione un Motivo");
 		id = 0;
 		idPaciente = "";
+		limpiarColores(txtCedulaPaciente,cmbMotivo);
 
 	}
 
@@ -225,7 +227,7 @@ public class CCita extends CGenerico {
 	public void mostrarCatalogo() throws IOException {
 		final List<DoctorInterno> usuarios = servicioDoctor.buscarTodos();
 		catalogo = new Catalogo<DoctorInterno>(catalogoUsuarios,
-				"Catalogo de Usuarios", usuarios, false, "Cedula", "Ficha",
+				"Catalogo de Doctores", usuarios, false, "Cedula", "Ficha",
 				"Nombre", "Apellido") {
 
 			@Override
@@ -369,8 +371,6 @@ public class CCita extends CGenerico {
 				+ paciente.getSegundoNombre());
 		lblApellidoPaciente.setValue(paciente.getPrimerApellido() + " "
 				+ paciente.getSegundoApellido());
-		if (paciente.isTrabajador())
-			lblEmpresaPaciente.setValue(paciente.getEmpresa().getNombre());
 		idPaciente = paciente.getCedula();
 	}
 
@@ -387,6 +387,7 @@ public class CCita extends CGenerico {
 				|| tmbHoraCita.getText().compareTo("") == 0
 				|| dtbFechaCita.getText().compareTo("") == 0
 				|| idDoctor.equals("") || idPaciente.equals("")) {
+			aplicarColores(txtCedulaPaciente,cmbMotivo);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -617,6 +618,9 @@ public class CCita extends CGenerico {
 	@Listen("onClick = #btnAbrirMotivo")
 	public void abrirMotivo() {
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Motivo");
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Motivo");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
