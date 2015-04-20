@@ -157,11 +157,11 @@ public class CConsulta extends CGenerico {
 	@Wire
 	private Label lblNombres;
 	@Wire
+	private Label lblEstado;
+	@Wire
 	private Label lblCedula;
 	@Wire
 	private Label lblApellidos;
-	@Wire
-	private Label lblEmpresa;
 	@Wire
 	private Label lblFicha;
 	@Wire
@@ -199,8 +199,6 @@ public class CConsulta extends CGenerico {
 	@Wire
 	private Label lblObservacionDiscapacidad;
 	@Wire
-	private Label lblCargo;
-	@Wire
 	private Label lblCiudad;
 	@Wire
 	private Label lblDireccion;
@@ -211,15 +209,13 @@ public class CConsulta extends CGenerico {
 	@Wire
 	private Label lblCorreo;
 	@Wire
-	private Label lblNombresE;
+	private Label lblEtiquetaOrigen;
 	@Wire
-	private Label lblApellidosE;
+	private Label lblEtiquetaTipo;
 	@Wire
-	private Label lblParentesco;
+	private Label lblEtiquetaAlergias;
 	@Wire
-	private Label lblTelefono1E;
-	@Wire
-	private Label lblTelefono2E;
+	private Label lblEtiquetaObservacion;
 	@Wire
 	private Combobox cmbTipoConsulta;
 	@Wire
@@ -1835,8 +1831,6 @@ public class CConsulta extends CGenerico {
 				+ paciente.getSegundoNombre());
 		lblApellidos.setValue(paciente.getPrimerApellido() + " "
 				+ paciente.getSegundoApellido());
-		if (paciente.getEmpresa() != null)
-			lblEmpresa.setValue(paciente.getEmpresa().getNombre());
 		lblCedula.setValue(paciente.getCedula());
 		lblCiudad.setValue(paciente.getCiudadVivienda().getNombre());
 		lblFicha.setValue(paciente.getFicha());
@@ -1857,33 +1851,31 @@ public class CConsulta extends CGenerico {
 		lblTelefono1.setValue(paciente.getTelefono1());
 		lblTelefono2.setValue(paciente.getTelefono2());
 		lblCorreo.setValue(paciente.getEmail());
-		lblNombresE.setValue(paciente.getNombresEmergencia());
-		lblApellidosE.setValue(paciente.getApellidosEmergencia());
-		lblTelefono1E.setValue(paciente.getTelefono1Emergencia());
-		lblTelefono2E.setValue(paciente.getTelefono2Emergencia());
-		lblParentesco.setValue(paciente.getParentescoEmergencia());
-		// lblParentescoFamiliar.setValue(paciente.getParentescoFamiliar());
 		lblEdad.setValue(String.valueOf(calcularEdad(paciente
 				.getFechaNacimiento())));
 		lblEstatura.setValue(String.valueOf(paciente.getEstatura()));
 		lblPeso.setValue(String.valueOf(paciente.getPeso()));
-		// lblCiudad.setValue(paciente.getCiudadVivienda().getNombre());
+		lblEstado
+				.setValue(paciente.getCiudadVivienda().getEstado().getNombre());
 
-		if (paciente.isAlergia())
+		if (paciente.isAlergia()) {
 			lblAlergico.setValue("SI");
-		else
+			lblEtiquetaAlergias.setVisible(true);
+		} else
 			lblAlergico.setValue("NO");
 
-		if (paciente.isTrabajador()) {
+		if (!paciente.isTrabajador()) {
 			lblTrabajador.setValue("SI");
-			lblCargo.setValue(paciente.getCargoReal().getNombre());
 			lblArea.setValue(paciente.getArea().getNombre());
 		} else
 			lblTrabajador.setValue("NO");
 
-		if (paciente.isDiscapacidad())
+		if (paciente.isDiscapacidad()) {
 			lblDiscapacidad.setValue("SI");
-		else
+			lblEtiquetaObservacion.setVisible(true);
+			lblEtiquetaOrigen.setVisible(true);
+			lblEtiquetaTipo.setVisible(true);
+		} else
 			lblDiscapacidad.setValue("NO");
 
 		if (paciente.isLentes())
@@ -2626,10 +2618,10 @@ public class CConsulta extends CGenerico {
 		lblNombres.setValue("");
 		lblCedula.setValue("");
 		lblApellidos.setValue("");
-		lblEmpresa.setValue("");
 		imagenPaciente.setVisible(false);
 		lblFicha.setValue("");
 		lblAlergico.setValue("");
+		lblFechaNac.setValue("");
 		lblLugarNac.setValue("");
 		lblSexo.setValue("");
 		lblEstadoCivil.setValue("");
@@ -2638,16 +2630,11 @@ public class CConsulta extends CGenerico {
 		lblOrigen.setValue("");
 		lblTipoDiscapacidad.setValue("");
 		lblObservacionDiscapacidad.setValue("");
-		lblCargo.setValue("");
 		lblDireccion.setValue("");
 		lblTelefono1.setValue("");
 		lblTelefono2.setValue("");
 		lblCorreo.setValue("");
-		lblNombresE.setValue("");
-		lblApellidosE.setValue("");
-		lblTelefono1E.setValue("");
-		lblTelefono2E.setValue("");
-		lblParentesco.setValue("");
+		lblEstado.setValue("");
 		lblPeso.setValue("");
 		lblEdad.setValue("");
 		lblEstatura.setValue("");
@@ -2701,6 +2688,11 @@ public class CConsulta extends CGenerico {
 			rdoNoRitmicoF3.setChecked(true);
 		tabIdentificacion.setSelected(true);
 		txtExamenPreempleo.setValue("");
+		tabIdentificacion.setSelected(false);
+		lblEtiquetaObservacion.setVisible(false);
+		lblEtiquetaOrigen.setVisible(false);
+		lblEtiquetaTipo.setVisible(false);
+		lblEtiquetaAlergias.setVisible(false);
 	}
 
 	@Listen("onClick = #btnAbrirExamen")

@@ -8,32 +8,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import modelo.generico.DetalleAccidente;
-import modelo.medico.consulta.Consulta;
-import modelo.medico.consulta.ConsultaDiagnostico;
-import modelo.medico.consulta.ConsultaEspecialista;
-import modelo.medico.consulta.ConsultaExamen;
-import modelo.medico.consulta.ConsultaMedicina;
-import modelo.medico.consulta.ConsultaParteCuerpo;
-import modelo.medico.consulta.ConsultaServicioExterno;
 import modelo.medico.historia.Historia;
 import modelo.medico.historia.HistoriaAccidente;
 import modelo.medico.historia.HistoriaIntervencion;
 import modelo.medico.historia.HistoriaVacuna;
-import modelo.medico.maestro.Diagnostico;
-import modelo.medico.maestro.DoctorInterno;
-import modelo.medico.maestro.Especialista;
-import modelo.medico.maestro.Examen;
 import modelo.medico.maestro.Intervencion;
-import modelo.medico.maestro.Medicina;
 import modelo.medico.maestro.Paciente;
-import modelo.medico.maestro.ParteCuerpo;
-import modelo.medico.maestro.Proveedor;
-import modelo.medico.maestro.ServicioExterno;
 import modelo.medico.maestro.Vacuna;
 import modelo.seguridad.Accidente;
 
@@ -42,23 +25,18 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
-import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Doublespinner;
-import org.zkoss.zul.GroupsModel;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.ListitemRenderer;
 import org.zkoss.zul.Radio;
 import org.zkoss.zul.Radiogroup;
-import org.zkoss.zul.Row;
-import org.zkoss.zul.SimpleGroupsModel;
 import org.zkoss.zul.Spinner;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Textbox;
@@ -68,13 +46,11 @@ import componente.Botonera;
 import componente.Buscar;
 import componente.Catalogo;
 import componente.Mensaje;
+
 import controlador.utils.CGenerico;
 
 public class CHistoria extends CGenerico {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Wire
 	private Div botoneraHistoria;
@@ -88,7 +64,14 @@ public class CHistoria extends CGenerico {
 	private Div divHistoria;
 	@Wire
 	private Tab tabIdentificacion;
-	//
+	@Wire
+	private Label lblEtiquetaOrigen;
+	@Wire
+	private Label lblEtiquetaTipo;
+	@Wire
+	private Label lblEtiquetaAlergias;
+	@Wire
+	private Label lblEtiquetaObservacion;
 	@Wire
 	private Image imagenPaciente;
 	@Wire
@@ -98,9 +81,9 @@ public class CHistoria extends CGenerico {
 	@Wire
 	private Label lblCedula;
 	@Wire
-	private Label lblApellidos;
+	private Label lblEstado;
 	@Wire
-	private Label lblEmpresa;
+	private Label lblApellidos;
 	@Wire
 	private Label lblFicha;
 	@Wire
@@ -138,8 +121,6 @@ public class CHistoria extends CGenerico {
 	@Wire
 	private Label lblObservacionDiscapacidad;
 	@Wire
-	private Label lblCargo;
-	@Wire
 	private Label lblCiudad;
 	@Wire
 	private Label lblDireccion;
@@ -150,18 +131,7 @@ public class CHistoria extends CGenerico {
 	@Wire
 	private Label lblCorreo;
 	@Wire
-	private Label lblNombresE;
-	@Wire
-	private Label lblApellidosE;
-	@Wire
-	private Label lblParentesco;
-	@Wire
-	private Label lblTelefono1E;
-	@Wire
-	private Label lblTelefono2E;
-	@Wire
 	private Label lblCargo1;
-	//
 	@Wire
 	private Radio rdoSiPeso;
 	@Wire
@@ -418,13 +388,6 @@ public class CHistoria extends CGenerico {
 	private Doublespinner spnCircunferenciaC;
 	@Wire
 	private Doublespinner spnCaderaAbdominal;
-	//
-	@Wire
-	private Button btnAbrirAntecedente3;
-	@Wire
-	private Button btnAbrirAntecedente2;
-	@Wire
-	private Button btnAbrirAntecedente1;
 	@Wire
 	private Textbox txtBuscadorIntervencion;
 	@Wire
@@ -1025,10 +988,10 @@ public class CHistoria extends CGenerico {
 				+ paciente.getSegundoNombre());
 		lblApellidos.setValue(paciente.getPrimerApellido() + " "
 				+ paciente.getSegundoApellido());
-		if (paciente.getEmpresa() != null)
-			lblEmpresa.setValue(paciente.getEmpresa().getNombre());
 		lblCedula.setValue(paciente.getCedula());
 		lblCiudad.setValue(paciente.getCiudadVivienda().getNombre());
+		lblEstado.setValue(paciente.getCiudadVivienda().getEstado().getNombre());
+
 		lblFicha.setValue(paciente.getFicha());
 		lblAlergias.setValue(paciente.getObservacionAlergias());
 		lblFechaNac.setValue(String.valueOf(formatoFecha.format(paciente
@@ -1039,41 +1002,38 @@ public class CHistoria extends CGenerico {
 			lblEstadoCivil.setValue(paciente.getEstadoCivil().getNombre());
 		lblGrupoSanguineo.setValue(paciente.getGrupoSanguineo());
 		lblMano.setValue(paciente.getMano());
-		lblOrigen.setValue(paciente.getOrigenDiscapacidad());
-		lblTipoDiscapacidad.setValue(paciente.getTipoDiscapacidad());
-		lblObservacionDiscapacidad.setValue(paciente
-				.getObservacionDiscapacidad());
+
 		lblDireccion.setValue(paciente.getDireccion());
 		lblTelefono1.setValue(paciente.getTelefono1());
 		lblTelefono2.setValue(paciente.getTelefono2());
 		lblCorreo.setValue(paciente.getEmail());
-		lblNombresE.setValue(paciente.getNombresEmergencia());
-		lblApellidosE.setValue(paciente.getApellidosEmergencia());
-		lblTelefono1E.setValue(paciente.getTelefono1Emergencia());
-		lblTelefono2E.setValue(paciente.getTelefono2Emergencia());
-		lblParentesco.setValue(paciente.getParentescoEmergencia());
-		// lblParentescoFamiliar.setValue(paciente.getParentescoFamiliar());
 		lblEdad.setValue(String.valueOf(calcularEdad(paciente
 				.getFechaNacimiento())));
 		lblEstatura.setValue(String.valueOf(paciente.getEstatura()));
 		lblPeso.setValue(String.valueOf(paciente.getPeso()));
-		// lblCiudad.setValue(paciente.getCiudadVivienda().getNombre());
 
-		if (paciente.isAlergia())
+		if (paciente.isAlergia()) {
 			lblAlergico.setValue("SI");
-		else
+			lblEtiquetaAlergias.setVisible(true);
+		} else
 			lblAlergico.setValue("NO");
 
-		if (paciente.isTrabajador()) {
+		if (!paciente.isTrabajador()) {
 			lblTrabajador.setValue("SI");
-			lblCargo.setValue(paciente.getCargoReal().getNombre());
 			lblArea.setValue(paciente.getArea().getNombre());
 		} else
 			lblTrabajador.setValue("NO");
 
-		if (paciente.isDiscapacidad())
+		if (paciente.isDiscapacidad()) {
 			lblDiscapacidad.setValue("SI");
-		else
+			lblOrigen.setValue(paciente.getOrigenDiscapacidad());
+			lblTipoDiscapacidad.setValue(paciente.getTipoDiscapacidad());
+			lblObservacionDiscapacidad.setValue(paciente
+					.getObservacionDiscapacidad());
+			lblEtiquetaObservacion.setVisible(true);
+			lblEtiquetaOrigen.setVisible(true);
+			lblEtiquetaTipo.setVisible(true);
+		} else
 			lblDiscapacidad.setValue("NO");
 
 		if (paciente.isLentes())
@@ -1383,7 +1343,6 @@ public class CHistoria extends CGenerico {
 		lblNombres.setValue("");
 		lblCedula.setValue("");
 		lblApellidos.setValue("");
-		lblEmpresa.setValue("");
 		imagenPaciente.setVisible(false);
 		lblFicha.setValue("");
 		lblAlergico.setValue("");
@@ -1395,20 +1354,16 @@ public class CHistoria extends CGenerico {
 		lblOrigen.setValue("");
 		lblTipoDiscapacidad.setValue("");
 		lblObservacionDiscapacidad.setValue("");
-		lblCargo.setValue("");
 		lblDireccion.setValue("");
 		lblTelefono1.setValue("");
 		lblTelefono2.setValue("");
 		lblCorreo.setValue("");
-		lblNombresE.setValue("");
-		lblApellidosE.setValue("");
-		lblTelefono1E.setValue("");
-		lblTelefono2E.setValue("");
-		lblParentesco.setValue("");
 		lblPeso.setValue("");
+		lblFechaNac.setValue("");
 		lblEdad.setValue("");
 		lblEstatura.setValue("");
 		lblCiudad.setValue("");
+		lblEstado.setValue("");
 		lblAlergias.setValue("");
 		lblTrabajador.setValue("");
 		lblDiscapacidad.setValue("");
@@ -1613,6 +1568,10 @@ public class CHistoria extends CGenerico {
 		cmbCarta.setValue("");
 		dtbFecha.setValue(fecha);
 		tabIdentificacion.setSelected(true);
+		lblEtiquetaObservacion.setVisible(false);
+		lblEtiquetaOrigen.setVisible(false);
+		lblEtiquetaTipo.setVisible(false);
+		lblEtiquetaAlergias.setVisible(false);
 	}
 
 	private void limpiarListas() {
