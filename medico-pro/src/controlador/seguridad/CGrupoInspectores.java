@@ -51,6 +51,7 @@ public class CGrupoInspectores extends CGenerico {
 
 			@Override
 			public void limpiar() {
+				actualizar();
 
 			}
 
@@ -83,12 +84,13 @@ public class CGrupoInspectores extends CGenerico {
 		GrupoInspectores grupo = servicioGrupoInspectores.buscar(1);
 		if (grupo != null)
 			txtGrupo.setValue(grupo.getGrupo());
-
+		limpiarColores(txtGrupo);
 	}
 
 	/* Permite validar que todos los campos esten completos */
 	public boolean validar() {
 		if (txtGrupo.getText().compareTo("") == 0) {
+			aplicarColores(txtGrupo);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else {

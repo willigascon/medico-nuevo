@@ -49,22 +49,34 @@ public class CMotivoCita extends CGenerico {
 				.getCurrent().getAttribute("mapaGeneral");
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
+				titulo = (String) mapa.get("titulo");
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
 				mapa.clear();
 				mapa = null;
+			}
+		}
+		
+		HashMap<String, Object> mapaa = (HashMap<String, Object>) Sessions
+				.getCurrent().getAttribute("itemsCatalogo");
+		if (mapaa != null) {
+			if (mapaa.get("titulo") != null) {
+				titulo = (String) mapaa.get("titulo");
+				mapaa.clear();
+				mapaa = null;
 			}
 		}
 		Botonera botonera = new Botonera() {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divMotivoCita, "Motivo", tabs);
+				cerrarVentana(divMotivoCita, titulo, tabs);
 
 			}
 
 			@Override
 			public void limpiar() {
 				txtDescripcionMotivoCita.setText("");
+				limpiarColores(txtDescripcionMotivoCita);
 				id = 0;
 
 			}
@@ -147,8 +159,8 @@ public class CMotivoCita extends CGenerico {
 
 	/* Validaciones de pantalla para poder realizar el guardar */
 	public boolean validar() {
-
 		if (txtDescripcionMotivoCita.getText().compareTo("") == 0) {
+			aplicarColores(txtDescripcionMotivoCita);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else

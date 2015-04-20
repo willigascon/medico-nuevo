@@ -1,68 +1,89 @@
 <zk>
-	<div id="divExamen" apply="controlador.medico.CExamen">
-		<groupbox width="50%" mold="3d" title="Examen">
+	<div id="divExamen" apply="controlador.medico.CExamen" align="center">
+		<groupbox closable="false" width="70%" mold="3d"
+			title="Registro de Examenes">
+			<div id="botoneraExamen" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
-					<column label="" width="25%" />
-					<column label="" width="45%" />
+					<column label="" width="40%" />
+					<column label="" width="30%" />
 					<column label="" width="30%" />
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox maxlength="500" id="txtNombreExamen" hflex="1"
-							tooltiptext="Ingrese el Nombre del Examen" class="multilinea" />
-						<button autodisable="self" id="btnBuscarExamen" class="btn"
-							label="Buscar" tooltiptext="Catalogo" image="/public/imagenes/botones/buscar.png" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox maxlength="500" id="txtNombreExamen" hflex="1"
+									tooltiptext="Ingrese el Nombre del Examen" />
+							</vlayout>
+						</cell>
+						<button dir="reverse" autodisable="self" id="btnBuscarExamen"
+							class="btn" label="Buscar" tooltiptext="Catalogo de Examenes"
+							image="/public/imagenes/botones/buscar.png" />
 					</row>
 					<row>
-						<label class="etiqueta" value="Tipo:" />
-						<textbox maxlength="50" id="txtTipoExamen" hflex="1"
-							tooltiptext="Ingrese el Tipo del Examen" />
+						<cell colspan="2">
+							<vlayout>
+								<label class="etiqueta" value="Tipo:" />
+								<textbox maxlength="50" id="txtTipoExamen" hflex="1"
+									tooltiptext="Ingrese el Tipo del Examen" />
+							</vlayout>
+						</cell>
 						<hbox />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Costo (Bs):" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<doublespinner id="dspCostoExamen" value="0"
-							constraint="min 0 max 100000000" tooltiptext="Ingrese el Costo del Examen"
-							step="0.1" format="#.##" width="98%" />
-						<hbox />
-					</row>
-					<row>
-						<hbox>
-							<label class="etiqueta" value="Valor Minimo:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<doublespinner id="dspMinExamen" value="0"
-							constraint="min 0 max 100000000" tooltiptext="Ingrese el Valor Minimo del Examen"
-							step="0.1" format="#.##" width="98%" />
-						<hbox />
-					</row>
-					<row>
-						<hbox>
-							<label class="etiqueta" value="Valor Maximo:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
 
-						<doublespinner id="dspMaxExamen" value="0"
-							constraint="min 0 max 100000000" tooltiptext="Ingrese el Valor Maximo del Examen"
-							step="0.1" format="#.##" width="98%" />
+						<vlayout>
+							<hbox>
+								<label class="etiqueta" value="Costo (Bs):" />
+								<space />
+								<label value="*" style="font-weight:bold;color:red" />
+							</hbox>
+							<doublespinner id="dspCostoExamen" value="0"
+								constraint="min 0 max 100000000" tooltiptext="Ingrese el Costo del Examen"
+								step="0.1" format="#.##" width="98%" />
+						</vlayout>
+						<hbox />
+						<hbox />
+					</row>
+					<row>
+
+						<vlayout>
+							<hbox>
+								<label class="etiqueta" value="Valor Minimo:" />
+								<space />
+								<label value="*" style="font-weight:bold;color:red" />
+							</hbox>
+							<doublespinner id="dspMinExamen" value="0"
+								constraint="min 0 max 100000000" tooltiptext="Ingrese el Valor Minimo del Examen"
+								step="0.1" format="#.##" width="98%" />
+						</vlayout>
+						<hbox />
+						<hbox />
+					</row>
+					<row>
+
+						<vlayout>
+							<hbox>
+								<label class="etiqueta" value="Valor Maximo:" />
+								<space />
+								<label value="*" style="font-weight:bold;color:red" />
+							</hbox>
+							<doublespinner id="dspMaxExamen" value="0"
+								constraint="min 0 max 100000000" tooltiptext="Ingrese el Valor Maximo del Examen"
+								step="0.1" format="#.##" width="98%" />
+						</vlayout>
+						<hbox />
 						<hbox />
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraExamen" />
 			<div id="catalogoExamen" />
 		</groupbox>
 	</div>

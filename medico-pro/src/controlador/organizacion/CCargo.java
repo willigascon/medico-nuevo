@@ -52,6 +52,17 @@ public class CCargo extends CGenerico {
 				map = null;
 			}
 		}
+		
+		
+		HashMap<String, Object> mapaa = (HashMap<String, Object>) Sessions
+				.getCurrent().getAttribute("itemsCatalogo");
+		if (mapaa != null) {
+			if (mapaa.get("titulo") != null) {
+				titulo = (String) mapaa.get("titulo");
+				mapaa.clear();
+				mapaa = null;
+			}
+		}
 		txtNombreCargo.setFocus(true);
 
 		Botonera botonera = new Botonera() {

@@ -74,7 +74,7 @@
 						</cell>
 						<a href="">
 							<label id="btnAbrirCategoria" sclass="pointer"
-								value="Crear una Nueva Categoria de Diagnostico" class="abrir" />
+								value="Crear nueva Categoria de Diagnostico" class="abrir" />
 						</a>
 					</row>
 				</rows>

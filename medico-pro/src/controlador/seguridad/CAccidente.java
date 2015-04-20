@@ -87,6 +87,7 @@ public class CAccidente extends CGenerico {
 				accidentes = (List<Accidente>) map.get("lista");
 				listaConsulta = (Listbox) map.get("listbox");
 				tipo = (String) map.get("tipo");
+				titulo = (String) map.get("titulo");
 				map.clear();
 				map = null;
 			}

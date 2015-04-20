@@ -50,6 +50,7 @@ public class CReinicioPassword extends CGenerico {
 			public void limpiar() {
 				txtCorreoUsuario.setValue("");
 				txtCedulaUsuario.setValue("");
+				limpiarColores(txtCorreoUsuario,txtCedulaUsuario);
 			}
 
 			@Override
@@ -66,7 +67,7 @@ public class CReinicioPassword extends CGenerico {
 						servicioUsuario.guardar(usuario);
 						enviarEmailNotificacion(
 								correo,
-								"Ha Solicitado Reiniciar su Password, sus nuevos datos para el inicio de sesion son: "
+								"Ha Solicitado Reiniciar su Password, los nuevos datos para el inicio de sesion son: "
 										+ " Usuario: "
 										+ usuario.getLogin()
 										+ "  " + " Password: " + password);
@@ -94,6 +95,7 @@ public class CReinicioPassword extends CGenerico {
 	protected boolean validar() {
 		if (txtCedulaUsuario.getText().compareTo("") == 0
 				|| txtCorreoUsuario.getText().compareTo("") == 0) {
+			aplicarColores(txtCorreoUsuario,txtCedulaUsuario);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -110,11 +112,4 @@ public class CReinicioPassword extends CGenerico {
 		}
 	}
 
-	/* Valida la cedula */
-	@Listen("onChange = #txtCedulaUsuario")
-	public void validarCedula() {
-		if (!Validador.validarNumero(txtCedulaUsuario.getValue())) {
-			msj.mensajeAlerta(Mensaje.cedulaInvalida);
-		}
-	}
 }

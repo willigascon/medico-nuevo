@@ -1,6 +1,9 @@
 <zk>
-	<div id="divPaciente" apply="controlador.medico.CPaciente">
-		<groupbox width="100%" mold="3d" title="Pacientes">
+	<div id="divPaciente" apply="controlador.medico.CPaciente" align="center">
+		<groupbox closable="false" width="100%" mold="3d"
+			title="Registro de Pacientes">
+			<div id="botoneraPaciente" />
+			<separator />
 			<tabbox height="auto" id="taxPaciente" orient="horizontal">
 				<tabs id="tbsPaciente">
 					<tab label="Datos Basicos" id="tabDatosBasicos" />
@@ -10,653 +13,833 @@
 					<tabpanel>
 						<grid width="100%">
 							<columns visible="false">
-								<column label="" width="13%" />
-								<column label="" width="12%" />
-								<column label="" width="12%" />
-								<column label="" width="14%" />
-								<column label="" width="11%" />
-								<column label="" width="13%" />
-								<column label="" width="9%" />
-								<column label="" width="16%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
 							</columns>
 							<rows>
 								<row>
-
-									<label class="etiqueta" value="Buscar Trabajador" />
-									<button autodisable="self" id="btnBuscarPaciente" class="btn"
-										label="Buscar" tooltiptext="Catalogo"
-										image="/public/imagenes/botones/buscar.png" />
-									<label class="etiqueta" value="Estatus" />
 									<cell colspan="2">
-										<vbox>
-											<radiogroup id="rdgEstatus">
-												<radio label="Activo" value="Activo" id="rdoActivo" />
-												<radio label="Inactivo" value="Inactivo" id="rdoInactivo" />
-												<radio label="Deceso" value="Deceso" id="rdoMuerte" />
-											</radiogroup>
-											<datebox visible="false" readonly="true" width="100%"
-												id="dtbFechaMuerte" onCreate="self.value = new Date()"
-												tooltiptext="Indique la Fecha de Nacimiento" constraint="no future,no empty" />
-											<datebox visible="false" width="100%" readonly="true"
-												id="dtbFechaEgreso" onCreate="self.value = new Date()"
-												tooltiptext="Indique la Fecha de Egreso" />
-										</vbox>
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Cedula:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<hbox>
+												<textbox maxlength="15" id="txtCedulaPaciente"
+													hflex="1" tooltiptext="Ingrese la Cedula del Paciente" />
+												<radiogroup>
+													<radio label="V" value="Venezolano" id="rdoV" />
+													<radio label="E" value="Extranjero" id="rdoE" />
+												</radiogroup>
+											</hbox>
+										</vlayout>
 									</cell>
-									<cell colspan="2">
-										<textbox maxlength="100" id="txtObservacionEstatus"
-											hflex="1" multiline="true"
-											tooltiptext="Ingrese una Informacion Adicional del Estatus del Paciente" />
+									<cell colspan="1">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Ficha:" />
+												<space />
+												<label id="lblFichaI" value="*"
+													style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox maxlength="50" id="txtFichaPaciente" hflex="1"
+												tooltiptext="Ingrese la Ficha del Paciente" />
+										</vlayout>
 									</cell>
-									<hbox />
-								</row>
-								<row>
-									<hbox>
-										<label class="etiqueta" value="Cedula:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<textbox maxlength="15" id="txtCedulaPaciente" hflex="1"
-										tooltiptext="Ingrese la Cedula del Paciente" />
-									<radiogroup>
-										<radio label="V" value="Venezolano" id="rdoV" />
-										<radio label="E" value="Extranjero" id="rdoE" />
-									</radiogroup>
-									<hbox>
-										<label class="etiqueta" value="Ficha:" />
-										<space />
-										<label id="lblFichaI" value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<textbox maxlength="50" id="txtFichaPaciente" hflex="1"
-										tooltiptext="Ingrese la Ficha del Paciente" />
-									<hbox />
-									<cell rowspan="3">
-										<vbox>
-											<image id="imagenPaciente" width="80px" height="75px" />
-										</vbox>
+									<cell colspan="1">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Rif:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox maxlength="20" id="txtRif" hflex="1"
+												tooltiptext="Ingrese el Rif del Paciente (J-12345678-0)" />
+										</vlayout>
 									</cell>
+									<vbox>
+										<image id="imagenPaciente" width="65px" height="55px" />
+									</vbox>
 									<button
-										style="	background: #952C2C;font-size: 11px;color: white;cursor: pointer;width: 95px;height: 29px;	-webkit-border-radius: 0.7em;-moz-border-radius: 0.7em;	border-radius: 0.7em;"
+									dir="reverse" 	style="	background: #999999;font-size: 12px;color: #8A0808;cursor: pointer;width: 105px;height: 30px;	font-weight: 800"
 										upload="true" image="/public/imagenes/botones/cargar.png" id="fudImagenPaciente"
 										label="Foto">
 									</button>
-								</row>
-								<row>
-									<hbox>
-										<label class="etiqueta" value="Primer Nombre:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<cell colspan="2">
-										<textbox maxlength="100" id="txtNombre1Paciente"
-											hflex="1" tooltiptext="Ingrese el primer Nombre del Paciente" />
-									</cell>
-									<label class="etiqueta" value="Segundo Nombre:" />
-									<cell colspan="2">
-										<textbox maxlength="100" id="txtNombre2Paciente"
-											hflex="1" tooltiptext="Ingrese el segundo Nombre del Paciente" />
-									</cell>
-									<hbox>
-										<hbox>
-											<label class="etiqueta" value="¿Pre- Empleado?" />
-											<space />
-											<label value="*" style="font-weight:bold;color:red" />
-										</hbox>
-										<radiogroup>
-											<radio label="SI" value="trabajador" id="rdoSiPreempleado" />
-											<radio label="NO" value="familiar" id="rdoNoPreempleado" />
-										</radiogroup>
-									</hbox>
-								</row>
-								<row>
-									<hbox>
-										<label class="etiqueta" value="Primer Apellido:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<cell colspan="2">
-										<textbox maxlength="100" id="txtApellido1Paciente"
-											hflex="1" tooltiptext="Ingrese el primer Apellido del Paciente" />
-									</cell>
-									<label class="etiqueta" value="Segundo Apellido:" />
-									<cell colspan="2">
-										<textbox maxlength="100" id="txtApellido2Paciente"
-											hflex="1" tooltiptext="Ingrese el segundo Apellido del Paciente" />
-									</cell>
 									<hbox />
-									<hbox />
+									<button autodisable="self" id="btnBuscarPaciente" class="btn"
+										label="Buscar" tooltiptext="Catalogo de Pacientes"
+										image="/public/imagenes/botones/buscar.png" dir="reverse" />
 								</row>
 								<row>
-									<hbox>
-										<label class="etiqueta" value="Rif:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<textbox maxlength="20" id="txtRif" hflex="1"
-										tooltiptext="Ingrese el Rif del Paciente (J-12345678-0)" />
-									<hbox>
-										<label class="etiqueta" value="Fecha Nacimiento:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<datebox readonly="true" width="100%" id="dtbFechaNac"
-										onCreate="self.value = new Date()" tooltiptext="Indique la Fecha de Nacimiento"
-										constraint="no future,no empty" />
-									<label class="etiqueta" value="Lugar Nacimiento:" />
-									<cell colspan="3">
-										<vbox>
-											<textbox maxlength="500" id="txtLugarNacimiento"
-												multiline="true" tooltiptext="Ingrese el Lugar de Nacimiento"
-												width="380px" />
-										</vbox>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Primer Nombre:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox maxlength="100" id="txtNombre1Paciente"
+												hflex="1" tooltiptext="Ingrese el primer Nombre del Paciente" />
+										</vlayout>
 									</cell>
-								</row>
-								<row>
-									<hbox>
-										<label class="etiqueta" value="Edad:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<label id="lblEdad" />
-									<hbox>
-										<label class="etiqueta" value="Sexo:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<combobox tooltiptext="Seleccione el Sexo"
-										placeholder="Seleccione el Sexo" id="cmbSexo" width="100%"
-										readonly="true">
-										<comboitem label="Femenino" />
-										<comboitem label="Masculino" />
-									</combobox>
-									<hbox>
-										<label class="etiqueta" value="Estado Civil:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<combobox hflex="1" tooltiptext="Seleccione un Estado Civil"
-										placeholder="Seleccione un Estado Civil" id="cmbEstadoCivil"
-										readonly="true" width="100%">
-										<template name="model">
-											<comboitem label="${each.nombre}" context="${each.idEstadoCivil}" />
-										</template>
-									</combobox>
-									<button class="abrir" id="btnAbrirEstadoCivil" label=""
-										tooltiptext="Crear un Nuevo Estado Civil" image="/public/imagenes/botones/agregar.png" />
-									<hbox />
-								</row>
-								<row>
-									<label class="etiqueta" value="Nivel Educativo:" />
-									<combobox tooltiptext="Seleccione el Nivel Educativo"
-										placeholder="Seleccione el Nivel Educativo" id="cmbNivelEducativo"
-										width="100%" readonly="true">
-										<comboitem label="Maternal" />
-										<comboitem label="Pre-Escolar" />
-										<comboitem label="Iletrado" />
-										<comboitem label="Primaria" />
-										<comboitem label="Secundaria" />
-										<comboitem label="Tecnica" />
-										<comboitem label="Superior" />
-										<comboitem label="Post-Grado" />
-										<comboitem label="N/A" />
-									</combobox>
-									<hbox>
-										<label class="etiqueta" value="Fecha Ingreso:" />
-										<space />
-										<label id="lblFecha" value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<datebox readonly="true" width="140px" id="dtbFechaIngreso"
-										onCreate="self.value = new Date()" tooltiptext="Indique la Fecha de Ingreso" />
-									<hbox>
-										<label class="etiqueta" value="Carga Familiar:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<spinner tooltiptext="Indique la Cantidad" id="spnCarga"
-										width="98%" value="0" constraint="min 0 max 100" />
-									<label class="etiqueta" value="Profesion:" />
-									<textbox maxlength="100" id="txtProfesion"
-										tooltiptext="Ingrese la Profesion del Paciente" />
-								</row>
-								<row>
-									<hbox>
-										<label class="etiqueta" value="Grupo Sanguineo:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<combobox tooltiptext="Seleccione el Grupo Sanguineo"
-										placeholder="Seleccione el Grupo" id="cmbGrupoSanguineo"
-										width="100%" readonly="true">
-										<comboitem label="A+" />
-										<comboitem label="A-" />
-										<comboitem label="B-" />
-										<comboitem label="B+" />
-										<comboitem label="AB+" />
-										<comboitem label="AB-" />
-										<comboitem label="O-" />
-										<comboitem label="O+" />
-										<comboitem label="N/A" />
-									</combobox>
-									<hbox>
-										<label class="etiqueta" value="¿Es Alergico?" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<radiogroup id="rdgAlergia">
-										<radio label="SI" value="alergico" id="rdoSiAlergico" />
-										<radio label="NO" value="no alergico" id="rdoNoAlergico" />
-									</radiogroup>
-									<hbox>
-										<label class="etiqueta" value="Indique:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<cell colspan="3">
-										<textbox id="txtAlergia" width="100%" maxlength="500"
-											tooltiptext="Ingrese las Especificaciones de las Alergias"
-											multiline="true" />
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Segundo Nombre:" />
 
+											<textbox maxlength="100" id="txtNombre2Paciente"
+												hflex="1" tooltiptext="Ingrese el segundo Nombre del Paciente" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Primer Apellido:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox maxlength="100" id="txtApellido1Paciente"
+												hflex="1" tooltiptext="Ingrese el primer Apellido del Paciente" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Segundo Apellido:" />
+											<textbox maxlength="100" id="txtApellido2Paciente"
+												hflex="1" tooltiptext="Ingrese el segundo Apellido del Paciente" />
+										</vlayout>
 									</cell>
 								</row>
 								<row>
-									<hbox>
-										<label class="etiqueta" value="Mano Dominante:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<combobox tooltiptext="Seleccione la Mano Dominante"
-										placeholder="Seleccione el Valor" id="cmbMano" width="100%"
-										readonly="true">
-										<comboitem label="Derecho" />
-										<comboitem label="Zurdo" />
-										<comboitem label="N/A" />
-									</combobox>
-									<hbox>
-										<label class="etiqueta" value="Estatura:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<doublespinner tooltiptext="Indique la Estatura (Mts)"
-										id="dspEstatura" hflex="1" width="90px" constraint="min 0 max 300"
-										step="1" format="#.##" value="0" />
-									<hbox>
-										<label class="etiqueta" value="Peso:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<doublespinner hflex="1" tooltiptext="Indique el Peso (Kgs)"
-										id="dspPeso" width="90px" constraint="min 0 max 500" step="1"
-										format="#.##" value="0" />
-									<hbox>
-										<label class="etiqueta" value="¿Usa Lentes?" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<radiogroup id="rdgLentes">
-										<radio label="SI" value="lentes" id="rdoSiLentes" />
-										<radio label="NO" value="no lentes" id="rdoNoLentes" />
-									</radiogroup>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="¿Pre- Empleado?" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<radiogroup>
+												<radio label="SI" value="trabajador" id="rdoSiPreempleado" />
+												<radio label="NO" value="familiar" id="rdoNoPreempleado" />
+											</radiogroup>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Estatus" />
+											<vbox>
+												<radiogroup id="rdgEstatus">
+													<radio label="Activo" value="Activo" id="rdoActivo" />
+													<radio label="Inactivo" value="Inactivo" id="rdoInactivo" />
+													<radio label="Deceso" value="Deceso" id="rdoMuerte" />
+												</radiogroup>
+												<datebox visible="false" readonly="true" width="100%"
+													id="dtbFechaMuerte" onCreate="self.value = new Date()"
+													tooltiptext="Indique la Fecha de Nacimiento" constraint="no future,no empty" />
+												<datebox visible="false" width="100%" readonly="true"
+													id="dtbFechaEgreso" onCreate="self.value = new Date()"
+													tooltiptext="Indique la Fecha de Egreso" />
+											</vbox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Observacion:" />
+											<textbox maxlength="100" id="txtObservacionEstatus"
+												hflex="1" multiline="true"
+												tooltiptext="Ingrese una Informacion Adicional del Estatus del Paciente" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Sexo:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<combobox tooltiptext="Seleccione el Sexo"
+												placeholder="Seleccione el Sexo" id="cmbSexo" width="100%"
+												readonly="true">
+												<comboitem label="Femenino" />
+												<comboitem label="Masculino" />
+											</combobox>
+										</vlayout>
+									</cell>
 								</row>
 								<row>
-									<hbox>
-										<label class="etiqueta" value="¿Posee Discapacidad?" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<radiogroup id="rdgDiscapacidad">
-										<radio label="SI" value="discapacidad" id="rdoSiDiscapacidad" />
-										<radio label="NO" value="no discapacidad" id="rdoNoDiscapacidad" />
-									</radiogroup>
-									<hbox>
-										<label class="etiqueta" value="Origen:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<combobox tooltiptext="Seleccione el Origen de la Discapacidad"
-										placeholder="Seleccione el Origen" id="cmbOrigen" width="100%"
-										readonly="true">
-										<comboitem label="Congenita" />
-										<comboitem label="Adquirida" />
-									</combobox>
-									<hbox>
-										<label class="etiqueta" value="Tipo:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<combobox tooltiptext="Seleccione un Tipo de Discapacidad"
-										placeholder="Seleccione un Tipo" id="cmbTipoDiscapacidad"
-										width="100%" readonly="true">
-										<comboitem label="Auditiva" />
-										<comboitem label="Mental" />
-										<comboitem label="Motora" />
-										<comboitem label="Sensorial" />
-										<comboitem label="Visual" />
-										<comboitem label="Otra" />
-									</combobox>
-									<label class="etiqueta" value="Otra(s):" />
-									<textbox id="txtOtras" width="100%" maxlength="500"
-										tooltiptext="Ingrese Otros Datos de Discapacidad" multiline="true" />
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Fecha Nacimiento:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+												<space />
+												<label class="etiqueta" value="Edad:" />
+											</hbox>
+											<hbox>
+												<datebox readonly="true" width="100%" id="dtbFechaNac"
+													onCreate="self.value = new Date()" tooltiptext="Indique la Fecha de Nacimiento"
+													constraint="no future,no empty" />
+												<space />
+												<label id="lblEdad" />
+											</hbox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Lugar Nacimiento:" />
+											<textbox maxlength="500" id="txtLugarNacimiento"
+												multiline="true" tooltiptext="Ingrese el Lugar de Nacimiento" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Estado Civil:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<combobox hflex="1" tooltiptext="Seleccione un Estado Civil"
+												placeholder="Seleccione un Estado Civil" id="cmbEstadoCivil"
+												readonly="true" width="100%">
+												<template name="model">
+													<comboitem label="${each.nombre}" context="${each.idEstadoCivil}" />
+												</template>
+											</combobox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<a href="">
+											<label id="btnAbrirEstadoCivil" sclass="pointer"
+												value="Crear nuevo Estado Civil" class="abrir" />
+										</a>
+									</cell>
+								</row>
+								<row>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Nivel Educativo:" />
+											<combobox tooltiptext="Seleccione el Nivel Educativo"
+												placeholder="Seleccione el Nivel Educativo" id="cmbNivelEducativo"
+												width="100%" readonly="true">
+												<comboitem label="Maternal" />
+												<comboitem label="Pre-Escolar" />
+												<comboitem label="Iletrado" />
+												<comboitem label="Primaria" />
+												<comboitem label="Secundaria" />
+												<comboitem label="Tecnica" />
+												<comboitem label="Superior" />
+												<comboitem label="Post-Grado" />
+												<comboitem label="N/A" />
+											</combobox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Fecha Ingreso:" />
+												<space />
+												<label id="lblFecha" value="*"
+													style="font-weight:bold;color:red" />
+											</hbox>
+											<datebox readonly="true" width="140px" id="dtbFechaIngreso"
+												onCreate="self.value = new Date()" tooltiptext="Indique la Fecha de Ingreso" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Carga Familiar:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<spinner tooltiptext="Indique la Cantidad" id="spnCarga"
+												width="98%" value="0" constraint="min 0 max 100" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Profesion:" />
+											<textbox maxlength="100" id="txtProfesion"
+												tooltiptext="Ingrese la Profesion del Paciente" />
+										</vlayout>
+									</cell>
+								</row>
+								<row>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Grupo Sanguineo:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<combobox tooltiptext="Seleccione el Grupo Sanguineo"
+												placeholder="Seleccione el Grupo" id="cmbGrupoSanguineo"
+												width="100%" readonly="true">
+												<comboitem label="A+" />
+												<comboitem label="A-" />
+												<comboitem label="B-" />
+												<comboitem label="B+" />
+												<comboitem label="AB+" />
+												<comboitem label="AB-" />
+												<comboitem label="O-" />
+												<comboitem label="O+" />
+												<comboitem label="N/A" />
+											</combobox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="¿Es Alergico?" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<radiogroup id="rdgAlergia">
+												<radio label="SI" value="alergico" id="rdoSiAlergico" />
+												<radio label="NO" value="no alergico" id="rdoNoAlergico" />
+											</radiogroup>
+										</vlayout>
+									</cell>
+									<cell colspan="4">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Indique:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox id="txtAlergia" width="100%" maxlength="500"
+												tooltiptext="Ingrese las Especificaciones de las Alergias"
+												multiline="true" />
+
+										</vlayout>
+									</cell>
+								</row>
+								<row>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Mano Dominante:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<combobox tooltiptext="Seleccione la Mano Dominante"
+												placeholder="Seleccione el Valor" id="cmbMano" width="100%"
+												readonly="true">
+												<comboitem label="Derecho" />
+												<comboitem label="Zurdo" />
+												<comboitem label="N/A" />
+											</combobox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Estatura:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<doublespinner tooltiptext="Indique la Estatura (Mts)"
+												id="dspEstatura"  width="98%" constraint="min 0 max 300"
+												step="1" format="#.##" value="0" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Peso:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<doublespinner tooltiptext="Indique el Peso (Kgs)"
+												id="dspPeso" width="98%" constraint="min 0 max 500" step="1"
+												format="#.##" value="0" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="¿Usa Lentes?" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<radiogroup id="rdgLentes">
+												<radio label="SI" value="lentes" id="rdoSiLentes" />
+												<radio label="NO" value="no lentes" id="rdoNoLentes" />
+											</radiogroup>
+										</vlayout>
+									</cell>
+								</row>
+								<row>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="¿Posee Discapacidad?" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<radiogroup id="rdgDiscapacidad">
+												<radio label="SI" value="discapacidad" id="rdoSiDiscapacidad" />
+												<radio label="NO" value="no discapacidad" id="rdoNoDiscapacidad" />
+											</radiogroup>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Origen:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<combobox tooltiptext="Seleccione el Origen de la Discapacidad"
+												placeholder="Seleccione el Origen" id="cmbOrigen" width="100%"
+												readonly="true">
+												<comboitem label="Congenita" />
+												<comboitem label="Adquirida" />
+											</combobox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Tipo:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<combobox tooltiptext="Seleccione un Tipo de Discapacidad"
+												placeholder="Seleccione un Tipo" id="cmbTipoDiscapacidad"
+												width="100%" readonly="true">
+												<comboitem label="Auditiva" />
+												<comboitem label="Mental" />
+												<comboitem label="Motora" />
+												<comboitem label="Sensorial" />
+												<comboitem label="Visual" />
+												<comboitem label="Otra" />
+											</combobox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Otra(s):" />
+											<textbox id="txtOtras" width="100%" maxlength="500"
+												tooltiptext="Ingrese Otros Datos de Discapacidad" multiline="true" />
+										</vlayout>
+									</cell>
 								</row>
 								<row id="rowCargoyEmpresa">
-									<cell colspan="8">
-										<hbox hflex="1" vflex="1" align="center" pack="center"
-											widths="11%,25%,11%,53%">
+									<cell colspan="2">
+										<vlayout>
 											<hbox>
 												<label class="etiqueta" value="Empresa:" />
 												<space />
 												<label value="*" style="font-weight:bold;color:red" />
 											</hbox>
-											<hbox>
-												<combobox hflex="1" tooltiptext="Seleccione una Empresa"
-													placeholder="Seleccione una Empresa" id="cmbEmpresa"
-													readonly="true" width="250px">
-													<template name="model">
-														<comboitem label="${each.nombre}" context="${each.idEmpresa}" />
-													</template>
-												</combobox>
-												<button class="abrir" id="btnAbrirEmpresa" label=""
-													tooltiptext="Crear una Nueva Empresa" image="/public/imagenes/botones/agregar.png" />
-											</hbox>
+											<combobox hflex="1" tooltiptext="Seleccione una Empresa"
+												placeholder="Seleccione una Empresa" id="cmbEmpresa"
+												readonly="true" width="250px">
+												<template name="model">
+													<comboitem label="${each.nombre}" context="${each.idEmpresa}" />
+												</template>
+											</combobox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<a href="">
+											<label id="btnAbrirEmpresa" sclass="pointer"
+												value="Crear nueva Empresa" class="abrir" />
+										</a>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
 											<hbox>
 												<label class="etiqueta" value="Cargo:" />
 												<space />
 												<label value="*" style="font-weight:bold;color:red" />
 											</hbox>
-											<hbox>
-												<combobox hflex="1" id="cmbCargo" placeholder="Seleccione un Cargo"
-													readonly="true" tooltiptext="Seleccione un Cargo" width="250px">
-													<template name="model">
-														<comboitem label="${each.nombre}" context="${each.idCargo}" />
-													</template>
-												</combobox>
-												<button class="abrir" id="btnAbrirCargo" label=""
-													tooltiptext="Crear un nuevo Cargo" image="/public/imagenes/botones/agregar.png" />
-											</hbox>
-										</hbox>
+											<combobox hflex="1" id="cmbCargo" placeholder="Seleccione un Cargo"
+												readonly="true" tooltiptext="Seleccione un Cargo" width="250px">
+												<template name="model">
+													<comboitem label="${each.nombre}" context="${each.idCargo}" />
+												</template>
+											</combobox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<a href="">
+											<label id="btnAbrirCargo" sclass="pointer" value="Crear nuevo Cargo"
+												class="abrir" />
+										</a>
 									</cell>
 								</row>
 								<row id="rowAreayNomina">
-									<cell colspan="8">
-										<hbox hflex="1" vflex="1" align="center" pack="center"
-											widths="11%,25%,11%,53%">
+									<cell colspan="2">
+										<vlayout>
 											<hbox>
 												<label class="etiqueta" value="Area:" />
 												<space />
 												<label value="*" style="font-weight:bold;color:red" />
 											</hbox>
-											<hbox>
-												<combobox hflex="1" tooltiptext="Seleccione un Area"
-													placeholder="Seleccione un Area" id="cmbArea" readonly="true"
-													width="250px">
-													<template name="model">
-														<comboitem label="${each.nombre}" context="${each.idArea}" />
-													</template>
-												</combobox>
-												<button class="abrir" id="btnAbrirArea" label=""
-													tooltiptext="Crear una Nueva Area" image="/public/imagenes/botones/agregar.png" />
-											</hbox>
+											<combobox hflex="1" tooltiptext="Seleccione un Area"
+												placeholder="Seleccione un Area" id="cmbArea" readonly="true"
+												width="250px">
+												<template name="model">
+													<comboitem label="${each.nombre}" context="${each.idArea}" />
+												</template>
+											</combobox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<a href="">
+											<label id="btnAbrirArea" sclass="pointer" value="Crear nueva Area"
+												class="abrir" />
+										</a>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
 											<hbox>
 												<label class="etiqueta" value="Tipo Nomina:" />
 												<space />
 												<label value="*" style="font-weight:bold;color:red" />
 											</hbox>
-											<hbox>
-												<combobox hflex="1" tooltiptext="Seleccione un Tipo de Nomina"
-													placeholder="Seleccione un Tipo de Nomina" id="cmbNomina"
-													readonly="true" width="250px">
-													<comboitem label="Empleado" />
-													<comboitem label="Obrero" />
-												</combobox>
-												<!-- <button class="abrir" id="btnAbrirNomina" label="" tooltiptext="Crear 
-													una Nueva Nomina" image="/public/imagenes/botones/agregar.png" /> -->
-											</hbox>
-										</hbox>
+											<combobox hflex="1" tooltiptext="Seleccione un Tipo de Nomina"
+												placeholder="Seleccione un Tipo de Nomina" id="cmbNomina"
+												readonly="true" width="250px">
+												<comboitem label="Empleado" />
+												<comboitem label="Obrero" />
+											</combobox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Turno:" />
+											<combobox width="100%" tooltiptext="Seleccione un Turno"
+												placeholder="Seleccione un Turno" id="cmbTurno" readonly="true">
+												<comboitem label="Jornada Completa" />
+												<comboitem label="Jornada Parcial" />
+												<comboitem label="Turno Fijo Normal" />
+												<comboitem label="Turno Fijo Mañanas" />
+												<comboitem label="Turno Fijo Tardes" />
+												<comboitem label="Turno Fijo Noches" />
+												<comboitem label="Turno Fijo Administrativo" />
+												<comboitem label="Turno Rotativo" />
+												<comboitem label="Turno Rotativo 1/2" />
+												<comboitem label="Turno Mixto" />
+												<comboitem label="N/A" />
+											</combobox>
+										</vlayout>
 									</cell>
 								</row>
 								<row>
-									<label class="etiqueta" value="Turno:" />
-									<combobox width="100%" tooltiptext="Seleccione un Turno"
-										placeholder="Seleccione un Turno" id="cmbTurno" readonly="true">
-										<comboitem label="Jornada Completa" />
-										<comboitem label="Jornada Parcial" />
-										<comboitem label="Turno Fijo Normal" />
-										<comboitem label="Turno Fijo Mañanas" />
-										<comboitem label="Turno Fijo Tardes" />
-										<comboitem label="Turno Fijo Noches" />
-										<comboitem label="Turno Fijo Administrativo" />
-										<comboitem label="Turno Rotativo" />
-										<comboitem label="Turno Rotativo 1/2" />
-										<comboitem label="Turno Mixto" />
-										<comboitem label="N/A" />
-									</combobox>
 									<cell colspan="2">
-										<label class="etiqueta" value="N° Registro INPSASEL:" />
+										<vlayout>
+											<label class="etiqueta" value="¿Es Brigadista?" />
+											<radiogroup>
+												<radio label="SI" value="trabajador" id="rdoSiBrigadista" />
+												<radio label="NO" value="familiar" id="rdoNoBrigadista" />
+											</radiogroup>
+										</vlayout>
 									</cell>
-									<textbox maxlength="100" id="txtNroInpsasel"
-										tooltiptext="Ingrese el N° Registro INPSASEL" />
 									<cell colspan="2">
-										<label class="etiqueta" value="Inscripcion ante el IVSS (FORMATO 14.02):" />
+										<vlayout>
+											<label class="etiqueta" value="¿Delegado Higine Salud Laboral?" />
+											<radiogroup>
+												<radio label="SI" value="trabajador" id="rdoSiComite" />
+												<radio label="NO" value="familiar" id="rdoNoComite" />
+											</radiogroup>
+										</vlayout>
 									</cell>
-									<datebox readonly="true" id="dtbInscripcionIVSS"
-										onCreate="self.value = new Date()" tooltiptext="Indique la Inscripcion ante el IVSS" />
-									<hbox />
-									<hbox />
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="N° Registro INPSASEL:" />
+											<textbox maxlength="100" id="txtNroInpsasel"
+												tooltiptext="Ingrese el N° Registro INPSASEL" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Retiro de IVSS (FORMATO 14.03): " />
+											<textbox maxlength="100" id="txtRetiroIVSS"
+												tooltiptext="Ingrese el Retiro de IVSS (FORMATO 14.03)" />
+										</vlayout>
+									</cell>
 								</row>
 								<row>
-									<label class="etiqueta" value="Retiro de IVSS (FORMATO 14.03): " />
-									<textbox maxlength="100" id="txtRetiroIVSS"
-										tooltiptext="Ingrese el Retiro de IVSS (FORMATO 14.03)" />
-									<label class="etiqueta" value="¿Es Brigadista?" />
-									<radiogroup>
-										<radio label="SI" value="trabajador" id="rdoSiBrigadista" />
-										<radio label="NO" value="familiar" id="rdoNoBrigadista" />
-									</radiogroup>
-									<label class="etiqueta" value="¿Delegado Higine Salud Laboral?" />
-									<radiogroup>
-										<radio label="SI" value="trabajador" id="rdoSiComite" />
-										<radio label="NO" value="familiar" id="rdoNoComite" />
-									</radiogroup>
-									<hbox />
-									<hbox />
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta"
+												value="Inscripcion ante el IVSS (FORMATO 14.02):" />
+											<datebox readonly="true" id="dtbInscripcionIVSS"
+												onCreate="self.value = new Date()" tooltiptext="Indique la Inscripcion ante el IVSS" />
+										</vlayout>
+									</cell>
+									<cell colspan="4">
+										<vlayout>
+											<label class="etiqueta" value="Medio de Transporte Utilizado:" />
+											<vlayout>
+												<hlayout>
+													<checkbox id="chkDusa" label="Transporte Empresa" />
+													<checkbox id="chkPrivado" label="Vehiculo Propio" />
+													<checkbox id="chkMoto" label="Moto" />
+													<checkbox id="chkBicicleta" label="Bicicleta" />
+												</hlayout>
+												<hlayout>
+													<checkbox id="chkPublico" label="Transporte Publico" />
+													<checkbox id="chkOtro" label="Otro" />
+												</hlayout>
+											</vlayout>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Cual:" />
+											<textbox id="txtOtroTransporte" tooltiptext="Especifique el Tipo de Transporte"
+												maxlength="100" multiline="true" />
+										</vlayout>
+									</cell>
 								</row>
 							</rows>
 						</grid>
-						<div align="right" style="float: right;">
-							<separator />
-							<separator />
-							<button class="btn" id="btnSiguientePestanna" label="Siguiente"
-								image="/public/imagenes/botones/adelante.png" tooltiptext="Siguiente Pestaña" />
-						</div>
 					</tabpanel>
 					<tabpanel>
 						<separator />
 						<grid width="100%">
 							<columns visible="false">
-								<column label="" width="12%" />
-								<column label="" width="20%" />
-								<column label="" width="13%" />
-								<column label="" width="20%" />
-								<column label="" width="13%" />
-								<column label="" width="22%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
+								<column label="" width="12.5%" />
 							</columns>
 							<rows>
 								<row>
-									<cell colspan="6">
-										<hbox>
-											<label class="etiqueta" value="Direccion"
-												style="font-weight:bold;color:black" />
-											<space />
-											<label value="*" style="font-weight:bold;color:red" />
-										</hbox>
-									</cell>
-								</row>
-								<row>
-									<cell colspan="2">
-										<textbox id="txtDireccion" maxlength="1000"
-											tooltiptext="Ingrese la Direccion Actual" multiline="true" />
-									</cell>
-									<hbox>
-										<label class="etiqueta" value="Ciudad:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<combobox tooltiptext="Seleccione una Ciudad"
-										placeholder="Seleccione una Ciudad" id="cmbCiudad" readonly="true">
-										<template name="model">
-											<comboitem label="${each.nombre}" context="${each.idCiudad}" />
-										</template>
-									</combobox>
-									<button class="abrir" id="btnAbrirCiudad" label=""
-										tooltiptext="Crear una Nueva Ciudad" image="/public/imagenes/botones/agregar.png" />
-									<label class="etiqueta" value="" id="lblEstado" />
-								</row>
-								<row>
-									<hbox>
-										<label class="etiqueta" value="Telefono Fijo:" />
-										<space />
-										<label value="" style="font-weight:bold;color:red" />
-									</hbox>
-									<textbox id="txtTelefono1" hflex="1" maxlength="50"
-										tooltiptext="Ingrese el Numero de telefono del Paciente (0426-9999999)" />
-									<hbox>
-										<label class="etiqueta" value="Telefono Celular:" />
-										<space />
-										<label value="*" style="font-weight:bold;color:red" />
-									</hbox>
-									<textbox id="txtTelefono2" hflex="1" maxlength="50"
-										tooltiptext="Ingrese el Numero de telefono del Paciente (0426-9999999)" />
-									<label class="etiqueta" value="Email:" />
-									<textbox id="txtCorreo" width="180px"
-										tooltiptext="Ingrese el Correo Electronico (ejemplo@ejemplo.com)"
-										maxlength="50" />
-								</row>
-								<row>
-									<cell colspan="6">
-										<label class="etiqueta" value="Direccion Detallada"
-											style="font-weight:bold;color:black" />
-									</cell>
-								</row>
-								<row>
-									<label class="etiqueta" value="Municipio:" />
-									<textbox id="txtMunicipio" tooltiptext="Ingrese el Municipio del Paciente"
-										maxlength="100" />
-									<label class="etiqueta" value="Parroquia:" />
-									<textbox id="txtParroquia" hflex="1" maxlength="100"
-										tooltiptext="Ingrese la Parroquia del Paciente" />
-									<label class="etiqueta" value="Punto de Referencia:" />
-									<textbox id="txtPuntoReferencia" hflex="1" maxlength="100"
-										tooltiptext="Ingrese el Punto de Referencia" />
-								</row>
-								<row>
-									<label class="etiqueta" value="Urb/Barrio:" />
-									<textbox id="txtUrb" hflex="1" maxlength="100"
-										tooltiptext="Ingrese la Urb/Barrio del Paciente" />
-									<label class="etiqueta" value="Av/Calle:" />
-									<textbox id="txtAvCalle" hflex="1" maxlength="100"
-										tooltiptext="Ingrese la Av/Calle del Paciente" />
-									<label class="etiqueta" value="Sector:" />
-									<textbox id="txtSector" tooltiptext="Ingrese el Sector del Paciente"
-										maxlength="100" />
-								</row>
-								<row>
-									<hbox>
-										<label class="etiqueta" value="Nro. Casa:" />
-										<textbox width="20px" id="txtNro" hflex="1" maxlength="100"
-											tooltiptext="Ingrese el Nro de la Casa del Paciente" />
-									</hbox>
-									<label class="etiqueta" value="Medio de Transporte Utilizado:" />
 									<cell colspan="2">
 										<vlayout>
-											<hlayout>
-												<checkbox id="chkDusa" label="Transporte Empresa" />
-												<checkbox id="chkPrivado" label="Vehiculo Propio" />
-												<checkbox id="chkMoto" label="Moto" />
-											</hlayout>
-											<hlayout>
-												<checkbox id="chkBicicleta" label="Bicicleta" />
-												<checkbox id="chkPublico" label="Transporte Publico" />
-												<checkbox id="chkOtro" label="Otro" />
-											</hlayout>
+											<hbox>
+												<label class="etiqueta" value="Direccion" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox id="txtDireccion" maxlength="1000"
+												tooltiptext="Ingrese la Direccion Actual" multiline="true" />
 										</vlayout>
 									</cell>
-									<label class="etiqueta" value="Cual:" />
-									<textbox id="txtOtroTransporte" tooltiptext="Especifique el Tipo de Transporte"
-										maxlength="100" multiline="true" />
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Ciudad:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<combobox tooltiptext="Seleccione una Ciudad"
+												placeholder="Seleccione una Ciudad" id="cmbCiudad" readonly="true">
+												<template name="model">
+													<comboitem label="${each.nombre}" context="${each.idCiudad}" />
+												</template>
+											</combobox>
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<a href="">
+											<label id="btnAbrirCiudad" sclass="pointer" value="Crear nueva Ciudad"
+												class="abrir" />
+										</a>
+									</cell>
+									<cell colspan="2">
+										<hlayout>
+											<label class="etiqueta" value="Estado:" />
+											<space />
+											<label class="etiqueta" value="" id="lblEstado" />
+										</hlayout>
+									</cell>
+								</row>
+								<row>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Municipio:" />
+											<textbox id="txtMunicipio" tooltiptext="Ingrese el Municipio del Paciente"
+												maxlength="100" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Parroquia:" />
+											<textbox id="txtParroquia" hflex="1" maxlength="100"
+												tooltiptext="Ingrese la Parroquia del Paciente" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Punto de Referencia:" />
+											<textbox id="txtPuntoReferencia" hflex="1" maxlength="100"
+												tooltiptext="Ingrese el Punto de Referencia" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Urb/Barrio:" />
+											<textbox id="txtUrb" hflex="1" maxlength="100"
+												tooltiptext="Ingrese la Urb/Barrio del Paciente" />
+										</vlayout>
+									</cell>
+
+								</row>
+								<row>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Av/Calle:" />
+											<textbox id="txtAvCalle" hflex="1" maxlength="100"
+												tooltiptext="Ingrese la Av/Calle del Paciente" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Sector:" />
+											<textbox id="txtSector" tooltiptext="Ingrese el Sector del Paciente"
+												maxlength="100" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Nro. Casa:" />
+											<textbox width="20px" id="txtNro" hflex="1"
+												maxlength="100" tooltiptext="Ingrese el Nro de la Casa del Paciente" />
+										</vlayout>
+									</cell>
+									<hbox />
+									<hbox />
+								</row>
+								<row>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Telefono Fijo:" />
+												<space />
+												<label value="" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox id="txtTelefono1" hflex="1" maxlength="50"
+												tooltiptext="Ingrese el Numero de telefono del Paciente (0426-9999999)" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Telefono Celular:" />
+												<space />
+												<label value="*" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox id="txtTelefono2" hflex="1" maxlength="50"
+												tooltiptext="Ingrese el Numero de telefono del Paciente (0426-9999999)" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<label class="etiqueta" value="Email:" />
+											<textbox id="txtCorreo" width="180px"
+												tooltiptext="Ingrese el Correo Electronico (ejemplo@ejemplo.com)"
+												maxlength="50" />
+										</vlayout>
+									</cell>
+									<hbox />
+									<hbox />
 								</row>
 								<row>
 									<cell colspan="6">
 										<label class="etiqueta" value="En Caso de Emergencia, Comunicarse con:"
-											style="font-weight:bold;color:black" />
+											style="font-weight:bold;color:#8A0808" />
 									</cell>
 								</row>
 								<row>
-									<hbox>
-										<label class="etiqueta" value="Nombres:" />
-										<space />
-										<label value="" style="font-weight:bold;color:red" />
-									</hbox>
-									<textbox maxlength="200" id="txtNombresEmergencia"
-										hflex="1" tooltiptext="Ingrese el Nombre de la Persona a Contactar" />
-									<hbox>
-										<label class="etiqueta" value="Apellidos:" />
-										<space />
-										<label value="" style="font-weight:bold;color:red" />
-									</hbox>
-									<textbox maxlength="200" id="txtApellidosEmergencia"
-										hflex="1" tooltiptext="Ingrese el Apellido de la Persona a Contactar" />
-									<hbox>
-										<label class="etiqueta" value="Parentesco:" />
-										<space />
-										<label value="" style="font-weight:bold;color:red" />
-									</hbox>
-									<combobox tooltiptext="Seleccione un Parentesco"
-										placeholder="Seleccione un Parentesco" id="cmbParentescoEmergencia"
-										width="100%" readonly="true">
-										<comboitem label="Hermano(a)" />
-										<comboitem label="Conyuge" />
-										<comboitem label="Concubino(a)" />
-										<comboitem label="Hijastro(a)" />
-										<comboitem label="Hijo(a)" />
-										<comboitem label="Padre" />
-										<comboitem label="Madre" />
-										<comboitem label="Nieto(a)" />
-										<comboitem label="Yerno/Nuera" />
-										<comboitem label="Suegro(a)" />
-										<comboitem label="Abuelo(a)" />
-										<comboitem label="Otro" />
-									</combobox>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Nombres:" />
+												<space />
+												<label value="" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox maxlength="200" id="txtNombresEmergencia"
+												hflex="1" tooltiptext="Ingrese el Nombre de la Persona a Contactar" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Apellidos:" />
+												<space />
+												<label value="" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox maxlength="200" id="txtApellidosEmergencia"
+												hflex="1" tooltiptext="Ingrese el Apellido de la Persona a Contactar" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Parentesco:" />
+												<space />
+												<label value="" style="font-weight:bold;color:red" />
+											</hbox>
+											<combobox tooltiptext="Seleccione un Parentesco"
+												placeholder="Seleccione un Parentesco" id="cmbParentescoEmergencia"
+												width="100%" readonly="true">
+												<comboitem label="Hermano(a)" />
+												<comboitem label="Conyuge" />
+												<comboitem label="Concubino(a)" />
+												<comboitem label="Hijastro(a)" />
+												<comboitem label="Hijo(a)" />
+												<comboitem label="Padre" />
+												<comboitem label="Madre" />
+												<comboitem label="Nieto(a)" />
+												<comboitem label="Yerno/Nuera" />
+												<comboitem label="Suegro(a)" />
+												<comboitem label="Abuelo(a)" />
+												<comboitem label="Otro" />
+											</combobox>
+										</vlayout>
+									</cell>
+									<hbox />
+									<hbox />
 								</row>
 								<row>
-									<hbox>
-										<label class="etiqueta" value="Telefono Fijo:" />
-										<space />
-										<label value="" style="font-weight:bold;color:red" />
-									</hbox>
-									<textbox id="txtTelefono1Emergencia" hflex="1"
-										maxlength="50"
-										tooltiptext="Ingrese el Numero de telefono de Emergencia (0426-9999999)" />
-									<hbox>
-										<label class="etiqueta" value="Telefono Celular:" />
-										<space />
-										<label value="" style="font-weight:bold;color:red" />
-									</hbox>
-									<textbox id="txtTelefono2Emergencia" hflex="1"
-										maxlength="50"
-										tooltiptext="Ingrese el Numero de telefono de Emergencia (0426-9999999)" />
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Telefono Fijo:" />
+												<space />
+												<label value="" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox id="txtTelefono1Emergencia" hflex="1"
+												maxlength="50"
+												tooltiptext="Ingrese el Numero de telefono de Emergencia (0426-9999999)" />
+										</vlayout>
+									</cell>
+									<cell colspan="2">
+										<vlayout>
+											<hbox>
+												<label class="etiqueta" value="Telefono Celular:" />
+												<space />
+												<label value="" style="font-weight:bold;color:red" />
+											</hbox>
+											<textbox id="txtTelefono2Emergencia" hflex="1"
+												maxlength="50"
+												tooltiptext="Ingrese el Numero de telefono de Emergencia (0426-9999999)" />
+										</vlayout>
+									</cell>
+									<hbox />
+									<hbox />
 									<hbox />
 									<hbox />
 								</row>
 							</rows>
 						</grid>
-						<separator />
-						<vbox>
-							<hbox>
-								<div align="left">
-									<button class="btn" label="Anterior" id="btnAnteriorPestanna"
-										image="/public/imagenes/botones/atras.png" tooltiptext="Pestaña Anterior" />
-								</div>
-							</hbox>
-							<div width="50%" id="botoneraPaciente" align="left" style="float: left;" />
-						</vbox>
 					</tabpanel>
 				</tabpanels>
 			</tabbox>

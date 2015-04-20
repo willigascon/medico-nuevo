@@ -37,10 +37,6 @@ public class CEmpresa extends CGenerico {
 
 	private static final long serialVersionUID = -8397437400900885743L;
 	@Wire
-	private Tab tabBasicos;
-	@Wire
-	private Tab tabEmpleados;
-	@Wire
 	private Button btnSiguientePestanna;
 	@Wire
 	private Button btnAnteriorPestanna;
@@ -136,15 +132,27 @@ public class CEmpresa extends CGenerico {
 		if (map != null) {
 			if (map.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) map.get("tabsGenerales");
+				titulo = (String) map.get("titulo");
 				map.clear();
 				map = null;
+			}
+		}
+		
+		
+		HashMap<String, Object> mapaa = (HashMap<String, Object>) Sessions
+				.getCurrent().getAttribute("itemsCatalogo");
+		if (mapaa != null) {
+			if (mapaa.get("titulo") != null) {
+				titulo = (String) mapaa.get("titulo");
+				mapaa.clear();
+				mapaa = null;
 			}
 		}
 		Botonera botonera = new Botonera() {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divEmpresa, "Empresa", tabs);
+				cerrarVentana(divEmpresa, titulo, tabs);
 			}
 
 			@Override
@@ -184,7 +192,9 @@ public class CEmpresa extends CGenerico {
 				spnConapdis.setValue(0);
 				spnExtranjeros.setValue(0);
 				id = 0;
-				tabBasicos.setSelected(true);
+				limpiarColores(txtDireccionRazon, txtRazon, txtRifEmpresa,
+						txtNilEmpresa, txtNroIvssEmpresa, txtActividadEconomica,
+						txtTelefonoEmpresa,txtCorreo);
 			}
 
 			@Override
@@ -335,28 +345,16 @@ public class CEmpresa extends CGenerico {
 		botoneraEmpresa.appendChild(botonera);
 	}
 
-	@Listen("onClick = #btnSiguientePestanna")
-	public void siguientePestanna() {
-		tabEmpleados.setSelected(true);
-	}
-
-	/* Abre la pestanna de especificaciones */
-	@Listen("onClick = #btnAnteriorPestanna")
-	public void anteriorPestanna() {
-		tabBasicos.setSelected(true);
-	}
-
 	/* Permite validar que todos los campos esten completos */
 	public boolean validar() {
-		if (txtDireccionCentro.getText().compareTo("") == 0
-				|| txtNombreEmpresa.getText().compareTo("") == 0
+		if (txtDireccionRazon.getText().compareTo("") == 0
 				|| txtRazon.getText().compareTo("") == 0
-				|| txtDireccionRazon.getText().compareTo("") == 0
 				|| txtRifEmpresa.getText().compareTo("") == 0
 				|| txtNilEmpresa.getText().compareTo("") == 0
 				|| txtNroIvssEmpresa.getText().compareTo("") == 0
 				|| txtActividadEconomica.getText().compareTo("") == 0
 				|| txtTelefonoEmpresa.getText().compareTo("") == 0
+				|| txtCorreo.getText().compareTo("") == 0
 				|| spnAdolescentes.getText().compareTo("") == 0
 				|| spnAprendices.getText().compareTo("") == 0
 				|| spnConapdis.getText().compareTo("") == 0
@@ -365,6 +363,9 @@ public class CEmpresa extends CGenerico {
 				|| spnLopcymat.getText().compareTo("") == 0
 				|| spnMujeres.getText().compareTo("") == 0
 				|| spnNroTrabajadores.getText().compareTo("") == 0) {
+			aplicarColores(txtDireccionRazon, txtRazon, txtRifEmpresa,
+					txtNilEmpresa, txtNroIvssEmpresa, txtActividadEconomica,
+					txtTelefonoEmpresa,txtCorreo);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else {

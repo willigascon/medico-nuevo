@@ -65,6 +65,7 @@ public class CExamen extends CGenerico {
 				.getCurrent().getAttribute("mapaGeneral");
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
+				titulo = (String) mapa.get("titulo");
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
 				mapa.clear();
 				mapa = null;
@@ -79,6 +80,7 @@ public class CExamen extends CGenerico {
 				else
 					consulta = true;
 				examenConsulta = (List<Examen>) map.get("lista");
+				titulo = (String) map.get("titulo");
 				listaConsulta = (Listbox) map.get("listbox");
 				if (map.get("id").equals("proveedor"))
 					proveedor = true;
@@ -90,7 +92,7 @@ public class CExamen extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divExamen, "Examen", tabs);
+				cerrarVentana(divExamen, titulo, tabs);
 			}
 
 			@Override
@@ -101,7 +103,7 @@ public class CExamen extends CGenerico {
 				dspMaxExamen.setValue(0.0);
 				dspMinExamen.setValue(0.0);
 				id = 0;
-				limpiarColores(txtNombreExamen, txtTipoExamen, dspCostoExamen,
+				limpiarColores(txtNombreExamen, dspCostoExamen,
 						dspMaxExamen, dspMinExamen);
 			}
 
@@ -178,7 +180,7 @@ public class CExamen extends CGenerico {
 				|| dspMaxExamen.getText().compareTo("") == 0
 				|| dspMinExamen.getText().compareTo("") == 0) {
 			Mensaje.mensajeError(Mensaje.camposVacios);
-			aplicarColores(txtNombreExamen, txtTipoExamen, dspCostoExamen,
+			aplicarColores(txtNombreExamen, dspCostoExamen,
 					dspMaxExamen, dspMinExamen);
 			return false;
 		} else

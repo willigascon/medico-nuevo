@@ -1,59 +1,69 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divVMenuArbol" apply="controlador.security.CMenu">
-		<groupbox width="50%" mold="3d" title="Menu">
+	<div id="divVMenuArbol" apply="controlador.security.CMenu" align="center">
+		<groupbox closable="false" width="50%" mold="3d"
+			title="Registro de Items de Menu">
+			<div id="botoneraMenuArbol" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
 					<column label="" width="20%" />
-					<column label="" width="10%" />
-					<column label="" width="25%" />
-					<column label="" width="45%" />
+					<column label="" width="40%" />
+					<column label="" width="35%" />
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red">
-							</label>
-						</hbox>
 						<cell colspan="2">
-							<textbox id="txtNombre" hflex="1" maxlength="100"
-								tooltiptext="Ingrese el Nombre del Item del Menu Arbol (nombre)"
-								width="100%" />
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red">
+									</label>
+								</hbox>
+								<textbox id="txtNombre" hflex="1" maxlength="100"
+									tooltiptext="Ingrese el Nombre del Item del Menu" />
+							</vlayout>
 						</cell>
-						<button autodisable="self" id="btnBuscarMenu" class="btn"
-							label="Buscar" tooltiptext="Catalogo Menues" image="/public/imagenes/botones/buscar.png" />
+						<button dir="reverse" autodisable="self" id="btnBuscarMenu"
+							class="btn" label="Buscar" tooltiptext="Catalogo de Items"
+							image="/public/imagenes/botones/buscar.png" />
+						<hbox />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Padre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red">
-							</label>
-						</hbox>
-						<longbox id="txtPadre" hflex="1" maxlength="5"
-							tooltiptext="Ingrese el Padre del Item (padre)" width="100%" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Padre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red">
+									</label>
+								</hbox>
+								<longbox id="txtPadre" hflex="1" maxlength="5"
+									tooltiptext="Ingrese el Padre del Item" />
+							</vlayout>
+						</cell>
 						<hbox />
 						<hbox />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Url:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red">
-							</label>
-						</hbox>
 						<cell colspan="2">
-							<textbox id="txtUrl" hflex="1" maxlength="100"
-								tooltiptext="Ingrese la Url de la Vista (url)" />
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Url:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red">
+									</label>
+								</hbox>
+								<textbox id="txtUrl" hflex="1" maxlength="100"
+									tooltiptext="Ingrese la Url de la Vista" />
+							</vlayout>
 						</cell>
+						<hbox />
 						<hbox />
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraMenuArbol" />
 			<div id="divCatalogoMenuArbol" />
 		</groupbox>
 	</div>

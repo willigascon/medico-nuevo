@@ -125,7 +125,7 @@ public class CEspecialista extends CGenerico {
 				txtRif.setValue("");
 				cmbEspecialidad.setValue("");
 				cmbEspecialidad.setPlaceholder("Seleccione una Especialidad");
-				dspCosto.setValue(null);
+				dspCosto.setValue(0.0);
 				id = 0;
 			}
 

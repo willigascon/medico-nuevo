@@ -1,7 +1,10 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divUsuario" apply="controlador.security.CUsuario" width="85%">
-		<groupbox width="100%" mold="3d" title="Usuario">
+	<div id="divUsuario" apply="controlador.security.CUsuario" align="center">
+		<groupbox closable="false" width="70%" mold="3d"
+			title="Registro de Usuario">
+			<div id="botoneraUsuario" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
 					<column label="" width="25%" />
@@ -11,118 +14,148 @@
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Login de Usuario:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtLoginUsuario" hflex="1" maxlength="50"
-							tooltiptext="Ingrese el Login del Usuario" />
-						<button autodisable="self" id="btnBuscarUsuario" class="btn"
-							label="Buscar" tooltiptext="Catalogo Usuarios" image="/public/imagenes/botones/buscar.png" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Login de Usuario:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtLoginUsuario" hflex="1" maxlength="50"
+									tooltiptext="Ingrese el Login del Usuario" />
+							</vlayout>
+						</cell>
+						<button dir="reverse" autodisable="self" id="btnBuscarUsuario"
+							class="btn" label="Buscar" tooltiptext="Catalogo de Usuarios"
+							image="/public/imagenes/botones/buscar.png" />
 						<hbox />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Password:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtPasswordUsuario" hflex="1" maxlength="256"
-							tooltiptext="Ingrese la Contraseña del Usuario" />
-						<hbox>
-							<label class="etiqueta" value="Reescriba el Password:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtPassword2Usuario" hflex="1" maxlength="256"
-							tooltiptext="Reescriba el Login del Usuario" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Contraseña" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtPasswordUsuario" hflex="1" maxlength="256"
+									tooltiptext="Ingrese la Contraseña del Usuario" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Reescriba la contraseña:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtPassword2Usuario" hflex="1" maxlength="256"
+									tooltiptext="Reescriba la contraseña del Usuario" />
+							</vlayout>
+						</cell>
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtNombre" hflex="1" maxlength="100"
-							tooltiptext="Ingrese el Nombre del Usuario" />
-						<hbox>
-							<label class="etiqueta" value="Apellido:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtApellido" hflex="1" maxlength="100"
-							tooltiptext="Ingrese el Apellido del Usuario" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtNombre" hflex="1" maxlength="100"
+									tooltiptext="Ingrese el Nombre del Usuario" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Apellido:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtApellido" hflex="1" maxlength="100"
+									tooltiptext="Ingrese el Apellido del Usuario" />
+							</vlayout>
+						</cell>
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Correo:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtCorreo" hflex="1" maxlength="50"
-							tooltiptext="Ingrese el Correo Electronico del Usuario (ejemplo@ejemplo.com)" />
-						<button
-							style="	background: #952C2C;font-size: 11px;color: white;cursor: pointer;width: 95px;height: 29px;	-webkit-border-radius: 0.7em;-moz-border-radius: 0.7em;	border-radius: 0.7em;"
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Correo:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtCorreo" hflex="1" maxlength="50"
+									tooltiptext="Ingrese el Correo Electronico del Usuario (ejemplo@ejemplo.com)" />
+							</vlayout>
+						</cell>
+						<button dir="reverse"
+							style="	background: #999999;font-size: 12px;color: #8A0808;cursor: pointer;width: 105px;height: 30px;	font-weight: 800"
 							upload="true" image="/public/imagenes/botones/cargar.png" id="fudImagenUsuario"
 							label="Foto">
 						</button>
 						<image id="imagen" width="50px" height="50px" />
 					</row>
 					<row>
-						<label
-							tooltiptext="En caso de que el Usuario que esta creando sea destinado para un Doctor, seleccione desde el catalogo el doctor al que se asociara el Usuario"
-							class="etiqueta" value="Doctor Asociado al Usuario" />
-						<hbox>
-							<button id="btnBuscarDoctor" label="Buscar" class="btn"
-								image="/public/imagenes/botones/buscar.png" />
-						</hbox>
 						<cell colspan="2">
-							<label id="lblNombreDoctor" />
+							<vlayout>
+								<label
+									tooltiptext="En caso de que el Usuario que esta creando sea destinado para un Doctor, seleccione desde el catalogo el doctor al que se asociara el Usuario"
+									class="etiqueta" value="Doctor Asociado al Usuario" />
+								<label id="lblNombreDoctor" />
+							</vlayout>
+						</cell>
+						<button dir="reverse" id="btnBuscarDoctor" label="Buscar"
+							class="btn" image="/public/imagenes/botones/buscar.png"
+							tooltiptext="Catalogo de Doctores" />
+						<hbox />
+					</row>
+					<row>
+						<cell colspan="4">
+							<label class="etiqueta" value="Seleccione los grupos que tendra el usuario" />
 						</cell>
 					</row>
 				</rows>
 			</grid>
 			<separator />
-			<groupbox width="100%"
-				title="Seleccione los Grupos Correspondientes al Usuario">
+			<vbox>
+				<a href="">
+					<label id="btnAbrirGrupo" sclass="pointer" value="Crear nuevo Grupo"
+						class="abrir" />
+				</a>
+			</vbox>
+			<hbox>
+				<listbox id="ltbGruposDisponibles" height="150px"
+					emptyMessage="No hay Grupos registrados">
+					<template name="model">
+						<listitem>
+							<listcell label="${each.nombre}">
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
 				<vbox>
-					<button class="abrir" id="btnAbrirGrupo" label=""
-						tooltiptext="Crear un Nuevo Grupo" image="/public/imagenes/botones/agregar.png" />
+					<button class="pasar" id="pasar1"
+						image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Grupos"
+						width="30px" />
+					<separator />
+					<button class="pasar" id="pasar2"
+						image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Grupos"
+						width="30px" />
 				</vbox>
-				<hbox>
-					<listbox id="ltbGruposDisponibles" height="160px"
-						emptyMessage="No hay Grupos registrados">
-						<template name="model">
-							<listitem>
-								<listcell label="${each.nombre}">
-								</listcell>
-							</listitem>
-						</template>
-					</listbox>
-					<vbox>
-						<button class="abrir" id="pasar1"
-							image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Grupos"
-							width="30px" />
-						<separator />
-						<button class="abrir" id="pasar2"
-							image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Grupos"
-							width="30px" />
-					</vbox>
-					<listbox id="ltbGruposAgregados" height="160px"
-						emptyMessage="No ha Seleccionado ningun Grupo" checkmark="true">
-						<template name="model">
-							<listitem>
-								<listcell label="${each.nombre}">
-								</listcell>
-							</listitem>
-						</template>
-					</listbox>
-				</hbox>
-			</groupbox>
-			<div id="botoneraUsuario" />
-			<div id="catalogoUsuario" />
-			<div id="catalogoDoctores" />
+				<listbox id="ltbGruposAgregados" height="150px"
+					emptyMessage="No ha Seleccionado ningun Grupo" checkmark="true">
+					<template name="model">
+						<listitem>
+							<listcell label="${each.nombre}">
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+			</hbox>
 		</groupbox>
+		<div id="catalogoUsuario" />
+		<div id="catalogoDoctores" />
 	</div>
 </zk>

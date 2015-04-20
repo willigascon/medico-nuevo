@@ -104,27 +104,27 @@ public class Informe implements Serializable {
 	private Accidente accidente;
 
 	@ManyToMany
-	@JoinTable(name = "informe_condicion_a", schema = "dusa_sims.dbo", joinColumns = { @JoinColumn(name = "id_informe", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_condicion", nullable = false) })
+	@JoinTable(name = "informe_condicion_a",  joinColumns = { @JoinColumn(name = "id_informe", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_condicion", nullable = false) })
 	private Set<Condicion> condicionA;
 
 	@ManyToMany
-	@JoinTable(name = "informe_condicion_b", schema = "dusa_sims.dbo", joinColumns = { @JoinColumn(name = "id_informe", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_condicion", nullable = false) })
+	@JoinTable(name = "informe_condicion_b",  joinColumns = { @JoinColumn(name = "id_informe", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_condicion", nullable = false) })
 	private Set<Condicion> condicionB;
 
 	@ManyToMany
-	@JoinTable(name = "informe_condicion_c", schema = "dusa_sims.dbo", joinColumns = { @JoinColumn(name = "id_informe", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_condicion", nullable = false) })
+	@JoinTable(name = "informe_condicion_c",  joinColumns = { @JoinColumn(name = "id_informe", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_condicion", nullable = false) })
 	private Set<Condicion> condicionC;
 
 	@ManyToMany
-	@JoinTable(name = "informe_condicion_d", schema = "dusa_sims.dbo", joinColumns = { @JoinColumn(name = "id_informe", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_condicion", nullable = false) })
+	@JoinTable(name = "informe_condicion_d",  joinColumns = { @JoinColumn(name = "id_informe", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_condicion", nullable = false) })
 	private Set<Condicion> condicionD;
 
 	@ManyToMany
-	@JoinTable(name = "informe_condicion_e", schema = "dusa_sims.dbo", joinColumns = { @JoinColumn(name = "id_informe", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_condicion", nullable = false) })
+	@JoinTable(name = "informe_condicion_e", joinColumns = { @JoinColumn(name = "id_informe", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_condicion", nullable = false) })
 	private Set<Condicion> condicionE;
 
 	@ManyToMany
-	@JoinTable(name = "informe_condicion_f", schema = "dusa_sims.dbo", joinColumns = { @JoinColumn(name = "id_informe", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_condicion", nullable = false) })
+	@JoinTable(name = "informe_condicion_f", joinColumns = { @JoinColumn(name = "id_informe", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_condicion", nullable = false) })
 	private Set<Condicion> condicionF;
 
 	@Column(name = "fecha_visita")

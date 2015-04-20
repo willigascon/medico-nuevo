@@ -69,7 +69,7 @@
 									<separator />
 									<separator />
 									<button type="submit" class="btn" label="Ingresar"
-										style="font-size:20px" />
+										style="font-size:18px" dir="reverse"/>
 								</h:form>
 							</hlayout>
 						</div>

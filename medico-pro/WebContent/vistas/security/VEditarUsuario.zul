@@ -1,7 +1,10 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div apply="controlador.security.CEditarUsuario" id="divEditarUsuario">
-		<groupbox width="52%" mold="3d" title="Editar Usuario">
+	<div apply="controlador.security.CEditarUsuario" id="divEditarUsuario"
+		align="center">
+		<groupbox closable="false" width="45%" mold="3d" title="Editar Usuario">
+			<div id="botoneraEditarUsuario" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
 					<column label="" width="35%" />
@@ -9,72 +12,98 @@
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label value="Nombre de Usuario:" class="etiqueta" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtNombreUsuarioEditar" maxlength="50"
-							disabled="true" />
+						<cell colspan="2">
+							<vlayout>
+								<label value="Nombre de Usuario:" class="etiqueta" />
+								<textbox id="txtNombreUsuarioEditar" maxlength="50"
+									disabled="true" tooltiptext="Nombre de Usuario Actual" />
+							</vlayout>
+						</cell>
 					</row>
 					<row>
-						<hbox>
-							<label value="Nombre:" class="etiqueta" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtNombre" maxlength="50" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label value="Nombre:" class="etiqueta" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtNombre" maxlength="50"
+									tooltiptext="Ingrese el nombre de Usuario" />
+							</vlayout>
+						</cell>
 					</row>
 					<row>
-						<hbox>
-							<label value="Apellido:" class="etiqueta" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtApellido" maxlength="50" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label value="Apellido:" class="etiqueta" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtApellido" maxlength="50"
+									tooltiptext="Ingrese el apellido de Usuario" />
+							</vlayout>
+						</cell>
 					</row>
 					<row>
-						<hbox>
-							<label value="Correo:" class="etiqueta" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtCorreo" maxlength="50" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label value="Correo:" class="etiqueta" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtCorreo" maxlength="50"
+									tooltiptext="Ingrese el correo de Usuario (ejemplo@ejemplo.com)" />
+							</vlayout>
+						</cell>
 					</row>
 					<row>
-						<hbox>
-							<label value="Contraseña nueva:" class="etiqueta" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtClaveUsuarioNueva" type="password"
-							maxlength="256" width="250px" tabindex="8"
-							tooltiptext="Ingrese una Nueva Contraseña" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label value="Contraseña nueva:" class="etiqueta" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtClaveUsuarioNueva" type="password"
+									maxlength="256" width="250px" tabindex="8"
+									tooltiptext="Ingrese una Nueva Contraseña" />
+							</vlayout>
+						</cell>
 					</row>
 					<row>
-						<hbox>
-							<label value="
-							Confirme su contraseña: " class="etiqueta" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtClaveUsuarioConfirmar" type="password"
-							maxlength="256" width="250px" tabindex="8" tooltiptext="Confirme su Contraseña" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label value="Confirme su contraseña:" class="etiqueta" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtClaveUsuarioConfirmar" type="password"
+									maxlength="256" width="250px" tabindex="8" tooltiptext="Confirme su Contraseña" />
+							</vlayout>
+						</cell>
 					</row>
 					<row>
-						<label class="etiqueta" value="Adjuntar Imagen:" />
-						<fileupload label="Foto" id="fudImagenUsuario"
-							image="/public/imagenes/botones/cargar.png"
-							style="	background: #952C2C;font-size: 11px;color: white;cursor: pointer;width: 95px;height: 29px;	-webkit-border-radius: 0.7em;-moz-border-radius: 0.7em;	border-radius: 0.7em;" />
-					</row>
-					<row>
-						<label class="etiqueta" value="Imagen Seleccionada:" />
-						<image id="imgUsuario" width="50px" height="50px" />
+						<cell colspan="1">
+							<vlayout>
+								<label class="etiqueta" value="Adjuntar Imagen:" />
+								<fileupload label="Foto" id="fudImagenUsuario"
+									image="/public/imagenes/botones/cargar.png" dir="reverse"
+									style="	background: #999999;font-size: 12px;color: #8A0808;cursor: pointer;width: 105px;height: 30px;	font-weight: 800" />
+							</vlayout>
+						</cell>
+						<cell colspan="1">
+							<vlayout>
+								<label class="etiqueta" value="Imagen Seleccionada:" />
+								<image id="imgUsuario" width="50px" height="50px" />
+							</vlayout>
+						</cell>
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraEditarUsuario" />
 		</groupbox>
 	</div>
 </zk>

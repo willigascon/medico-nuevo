@@ -1,32 +1,38 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divGrupo" apply="controlador.security.CGrupo" width="80%">
-		<groupbox width="80%" mold="3d" title="Grupos">
+	<div id="divGrupo" apply="controlador.security.CGrupo" align="center">
+		<groupbox closable="false" width="70%" mold="3d"
+			title="Registro de Grupos">
+			<div id="botoneraGrupo" />
+			<separator />
 			<grid>
 				<columns visible="false">
-					<column label="" width="28%" />
-					<column label="" width="48%" />
-					<column label="" width="6%" />
-					<column label="" width="18%" />
+					<column label="" width="40%" />
+					<column label="" width="35%" />
+					<column label="" width="25%" />
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox id="txtNombreGrupo" tooltiptext="Ingrese el Nombre del Grupo" />
-						<hbox />
-						<button autodisable="self" id="btnCatalogoGrupo" class="btn"
-							label="Buscar" tooltiptext="Catalogo" image="/public/imagenes/botones/buscar.png" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox id="txtNombreGrupo" tooltiptext="Ingrese el Nombre del Grupo" />
+							</vlayout>
+						</cell>
+						<button dir="reverse" autodisable="self" id="btnCatalogoGrupo"
+							class="btn" label="Buscar" tooltiptext="Catalogo de Grupos"
+							image="/public/imagenes/botones/buscar.png" />
 					</row>
 				</rows>
 			</grid>
 			<separator />
-
 			<hbox width="100%">
-				<groupbox width="100%" title="Funcionalidades Disponibles">
+				<groupbox closable="false" width="100%"
+					title="Funcionalidades Disponibles">
 					<tree id="treeGrupo" width="99%">
 						<template name="model">
 							<treeitem context="menupopup" open="true">
@@ -37,7 +43,7 @@
 						</template>
 					</tree>
 				</groupbox>
-				<groupbox width="100%" title="Funcionalidades Seleccionadas">
+				<groupbox closable="false" width="100%" title="Funcionalidades Seleccionadas">
 					<listbox width="auto" id="ltbFuncionalidadesSeleccionados">
 						<listhead></listhead>
 						<template name="model">
@@ -48,8 +54,6 @@
 					</listbox>
 				</groupbox>
 			</hbox>
-			<separator />
-			<div id="botoneraGrupo" />
 			<div id="catalogoGrupo" />
 		</groupbox>
 	</div>

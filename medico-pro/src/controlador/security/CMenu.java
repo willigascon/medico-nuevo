@@ -137,7 +137,7 @@ public class CMenu extends CGenerico {
 	public void mostrarCatalogo() throws IOException {
 		final List<Arbol> usuarios = servicioArbol.listarArbol();
 		catalogo = new Catalogo<Arbol>(divCatalogoMenuArbol,
-				"Catalogo de Menu", usuarios, false, "Nombre", "Padre", "Url") {
+				"Catalogo de Items", usuarios, false, "Nombre", "Padre", "Url") {
 
 			@Override
 			protected List<Arbol> buscar(String valor, String combo) {

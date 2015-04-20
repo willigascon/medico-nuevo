@@ -73,10 +73,12 @@ public class CGrupo extends CGenerico {
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
+				titulo = (String) mapa.get("titulo");
 				mapa.clear();
 				mapa = null;
 			}
 		}
+		
 		treeGrupo.setModel(getModel());
 		treeGrupo.setCheckmark(true);
 		treeGrupo.setMultiple(true);
@@ -88,6 +90,7 @@ public class CGrupo extends CGenerico {
 				usuario = true;
 				grupoUsuario = (List<Grupo>) map.get("lista");
 				listas = (Listbox) map.get("listbox");
+				titulo = (String) map.get("titulo");
 				map.clear();
 				map = null;
 			}
@@ -96,7 +99,7 @@ public class CGrupo extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divGrupo, "Grupo", tabs);
+				cerrarVentana(divGrupo, titulo, tabs);
 			}
 
 			@Override
@@ -495,6 +498,7 @@ public class CGrupo extends CGenerico {
 	public void metodoLimpiar() {
 		txtNombreGrupo.setValue("");
 		txtNombreGrupo.setDisabled(false);
+		limpiarColores(txtNombreGrupo);
 		Treechildren treeChildren = treeGrupo.getTreechildren();
 		Collection<Treeitem> lista = treeChildren.getItems();
 		for (int i = 0; i < treeChildren.getItemCount(); i++) {
@@ -553,6 +557,7 @@ public class CGrupo extends CGenerico {
 
 	private boolean validar() {
 		if (txtNombreGrupo.getValue().equals("")) {
+			aplicarColores(txtNombreGrupo);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		}

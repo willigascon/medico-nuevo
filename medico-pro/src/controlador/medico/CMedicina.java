@@ -35,8 +35,6 @@ public class CMedicina extends CGenerico {
 	private static final long serialVersionUID = -6022315737961269719L;
 
 	@Wire
-	private Tab tabEspecificaciones;
-	@Wire
 	private Textbox txtNombre;
 	@Wire
 	private Doublespinner spnPrecio;
@@ -90,6 +88,7 @@ public class CMedicina extends CGenerico {
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
+				titulo = (String) mapa.get("titulo");
 				mapa.clear();
 				mapa = null;
 			}
@@ -103,6 +102,7 @@ public class CMedicina extends CGenerico {
 				if (map.get("id").equals("paciente"))
 					paciente = true;
 				medicinaConsulta = (List<Medicina>) map.get("lista");
+				titulo = (String) mapa.get("titulo");
 				listaConsulta = (Listbox) map.get("listbox");
 				map.clear();
 				map = null;
@@ -165,13 +165,12 @@ public class CMedicina extends CGenerico {
 				txtContraindicaciones.setText("");
 				txtEmbarazo.setText("");
 				id = 0;
-				tabEspecificaciones.setSelected(true);
-				limpiarColores(txtNombre, txtCategoria, txtLaboratorio, spnPrecio);
+				limpiarColores(txtNombre, txtCategoria, txtLaboratorio);
 			}
 
 			@Override
 			public void salir() {
-				cerrarVentana(divMedicina, "Medicina", tabs);
+				cerrarVentana(divMedicina,titulo, tabs);
 			}
 
 			@Override
@@ -256,7 +255,7 @@ public class CMedicina extends CGenerico {
 				|| txtNombre.getText().compareTo("") == 0
 				|| spnPrecio.getText().compareTo("") == 0) {
 			Mensaje.mensajeError(Mensaje.camposVacios);
-			aplicarColores(txtLaboratorio, txtCategoria, txtNombre, spnPrecio);
+			aplicarColores(txtLaboratorio, txtCategoria, txtNombre);
 			return false;
 		} else
 			return true;

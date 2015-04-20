@@ -61,6 +61,7 @@ public class CCondicion extends CGenerico {
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
+				titulo = (String) mapa.get("titulo");
 				mapa.clear();
 				mapa = null;
 			}
@@ -69,7 +70,7 @@ public class CCondicion extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divCondicion, "Condicion", tabs);
+				cerrarVentana(divCondicion,titulo, tabs);
 			}
 
 			@Override
@@ -81,6 +82,7 @@ public class CCondicion extends CGenerico {
 				rdoDisergonomicos.setChecked(false);
 				rdoOrganizacion.setChecked(false);
 				rdoAmbiente.setChecked(false);
+				limpiarColores(txtNombreCondicion);
 				id = 0;
 			}
 
@@ -138,6 +140,7 @@ public class CCondicion extends CGenerico {
 				||(!rdoAmbiente.isChecked() && !rdoDisergonomicos.isChecked()
 				&& !rdoEquipos.isChecked() && !rdoInstalaciones.isChecked()
 				&& !rdoMateriales.isChecked() && !rdoOrganizacion.isChecked())) {
+			aplicarColores(txtNombreCondicion);
 			msj.mensajeAlerta(Mensaje.camposVacios);
 			return false;
 		} else

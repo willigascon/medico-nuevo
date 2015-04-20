@@ -58,6 +58,17 @@ public class CArea extends CGenerico {
 				mapa = null;
 			}
 		}
+		
+		
+		HashMap<String, Object> mapaa = (HashMap<String, Object>) Sessions
+				.getCurrent().getAttribute("itemsCatalogo");
+		if (mapaa != null) {
+			if (mapaa.get("titulo") != null) {
+				titulo = (String) mapaa.get("titulo");
+				mapaa.clear();
+				mapaa = null;
+			}
+		}
 		txtNombreArea.setFocus(true);
 
 		Botonera botonera = new Botonera() {

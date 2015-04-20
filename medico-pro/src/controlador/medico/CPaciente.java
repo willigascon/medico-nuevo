@@ -283,6 +283,7 @@ public class CPaciente extends CGenerico {
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
+				titulo = (String) mapa.get("titulo");
 				mapa.clear();
 				mapa = null;
 			}
@@ -297,7 +298,7 @@ public class CPaciente extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divPaciente, "Paciente", tabs);
+				cerrarVentana(divPaciente, titulo, tabs);
 
 			}
 
@@ -995,6 +996,9 @@ public class CPaciente extends CGenerico {
 	@Listen("onClick = #btnAbrirEmpresa")
 	public void abrirEmpresa() {
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Empresa");
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Empresa");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
@@ -1005,16 +1009,9 @@ public class CPaciente extends CGenerico {
 	@Listen("onClick = #btnAbrirCargo")
 	public void abrirCargo() {
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Cargo");
-		if (!arboles.isEmpty()) {
-			Arbol arbolItem = arboles.get(0);
-			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
-		}
-	}
-
-	/* Abre la vista de Nomina */
-	@Listen("onClick = #btnAbrirNomina")
-	public void abrirNomina() {
-		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Nomina");
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Cargo");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
@@ -1025,6 +1022,9 @@ public class CPaciente extends CGenerico {
 	@Listen("onClick = #btnAbrirArea")
 	public void abrirArea() {
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Area");
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Area");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
@@ -1035,6 +1035,9 @@ public class CPaciente extends CGenerico {
 	@Listen("onClick = #btnAbrirCiudad")
 	public void abrirCiudad() {
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Ciudad");
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Ciudad");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
@@ -1046,6 +1049,9 @@ public class CPaciente extends CGenerico {
 	public void abrirCivil() {
 		List<Arbol> arboles = servicioArbol
 				.buscarPorNombreArbol("Estado Civil");
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Estado Civil");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);

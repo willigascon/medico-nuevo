@@ -128,6 +128,7 @@ public class CEditarUsuario extends CGenerico {
 						e.printStackTrace();
 					}
 				}
+				limpiarColores(txtClaveUsuarioConfirmar,txtClaveUsuarioNueva,txtApellido,txtCorreo,txtNombre);
 			}
 
 			@Override
@@ -185,6 +186,7 @@ public class CEditarUsuario extends CGenerico {
 				|| txtApellido.getText().compareTo("") == 0
 				|| txtCorreo.getText().compareTo("") == 0
 				|| txtNombre.getText().compareTo("") == 0) {
+			aplicarColores(txtClaveUsuarioConfirmar,txtClaveUsuarioNueva,txtApellido,txtCorreo,txtNombre);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else {

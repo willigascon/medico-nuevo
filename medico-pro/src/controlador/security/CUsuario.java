@@ -468,6 +468,7 @@ public class CUsuario extends CGenerico {
 		map.put("id", "medicina");
 		map.put("lista", gruposDisponibles);
 		map.put("listbox", ltbGruposDisponibles);
+		map.put("titulo", "Grupo");
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Grupo");
 		if (!arboles.isEmpty()) {

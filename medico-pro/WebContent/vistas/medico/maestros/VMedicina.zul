@@ -1,122 +1,141 @@
 <zk>
-	<div id="divMedicina" apply="controlador.medico.CMedicina">
-		<groupbox width="90%" mold="3d" title="Medicina">
+	<div id="divMedicina" apply="controlador.medico.CMedicina" align="center">
+		<groupbox closable="false" width="75%" mold="3d"
+			title="Registro de Medicinas">
+			<div id="botoneraMedicina" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
-					<column label="" width="20%" />
-					<column label="" width="60%" />
-					<column label="" width="20%" />
+					<column label="" width="25%" />
+					<column label="" width="25%" />
+					<column label="" width="25%" />
+					<column label="" width="25%" />
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Nombre:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<textbox maxlength="500" id="txtNombre" hflex="1"
-							tooltiptext="Ingrese el Nombre de la Medicina" />
-						<button autodisable="self" id="btnBuscarMedicina" class="btn"
-							label="Buscar" tooltiptext="Catalogo" image="/public/imagenes/botones/buscar.png" />
+						<cell colspan="3">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nombre:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox maxlength="500" id="txtNombre" hflex="1"
+									tooltiptext="Ingrese el Nombre de la Medicina" />
+							</vlayout>
+						</cell>
+						<button dir="reverse" autodisable="self" id="btnBuscarMedicina"
+							class="btn" label="Buscar" tooltiptext="Catalogo de Medicinas"
+							image="/public/imagenes/botones/buscar.png" />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Categoria:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
 						<cell colspan="2">
-							<textbox maxlength="250" id="txtCategoria" hflex="1"
-								tooltiptext="Ingrese la Categoria de la Medicina" />
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Categoria:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox maxlength="250" id="txtCategoria" hflex="1"
+									tooltiptext="Ingrese la Categoria de la Medicina" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Laboratorio:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<textbox maxlength="250" id="txtLaboratorio" hflex="1"
+									tooltiptext="Ingrese el Laboratorio que elabora la Medicina" />
+							</vlayout>
 						</cell>
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Laboratorio:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
 						<cell colspan="2">
-							<textbox maxlength="250" id="txtLaboratorio" hflex="1"
-								tooltiptext="Ingrese el Laboratorio que elabora la Medicina" />
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Precio (Bs):" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<doublespinner id="spnPrecio" value="0"
+									constraint="min 0 max 100000" tooltiptext="Ingrese el Precio del Medicamento"
+									step="1" format="#.##" width="98%" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<label class="etiqueta" value="Denominacion Generica:" />
+								<textbox maxlength="1000" multiline="true"
+									id="txtDenominacionGenerica" hflex="1"
+									tooltiptext="Ingrese la Denominacion Generica" />
+							</vlayout>
 						</cell>
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Precio (Bs):" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<doublespinner id="spnPrecio" value="0"
-							constraint="min 0 max 100000" tooltiptext="Ingrese el Precio del Medicamento"
-							step="1" format="#.##" width="98%" />
+						<cell colspan="2">
+							<vlayout>
+								<label class="etiqueta" value="Composicion:" />
+								<textbox maxlength="1000" multiline="true" id="txtComposicion"
+									hflex="1" tooltiptext="Ingrese la Composicion" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<label class="etiqueta" value="Posologia:" />
+								<textbox maxlength="1000" multiline="true" id="txtPosologia"
+									hflex="1" tooltiptext="Ingrese la Posologia" />
+							</vlayout>
+						</cell>
+					</row>
+					<row>
+						<cell colspan="2">
+							<vlayout>
+								<label class="etiqueta" value="Indicaciones:" />
+								<textbox maxlength="1000" multiline="true" id="txtIndicaciones"
+									hflex="1" tooltiptext="Ingrese las Indicaciones" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<label class="etiqueta" value="Efectos Secundarios:" />
+								<textbox maxlength="1000" multiline="true" id="txtEfectos"
+									hflex="1" tooltiptext="Ingrese los Efectos" />
+							</vlayout>
+						</cell>
+					</row>
+					<row>
+						<cell colspan="2">
+							<vlayout>
+								<label class="etiqueta" value="Precauciones:" />
+								<textbox maxlength="1000" multiline="true" id="txtPrecauciones"
+									hflex="1" tooltiptext="Ingrese las Precauciones" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<label class="etiqueta" value="Contraindicaciones:" />
+								<textbox maxlength="1000" multiline="true"
+									id="txtContraindicaciones" hflex="1"
+									tooltiptext="Ingrese las Contraindicaciones" />
+							</vlayout>
+						</cell>
+					</row>
+					<row>
+						<cell colspan="2">
+							<vlayout>
+								<label class="etiqueta" value="Indicaciones Embarazo:" />
+								<textbox maxlength="1000" multiline="true" id="txtEmbarazo"
+									hflex="1" tooltiptext="Ingrese las Indicaciones en caso de Embarazo" />
+							</vlayout>
+						</cell>
+						<hbox />
 						<hbox />
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<tabbox id="taxMedicinaGeneral" orient="horizontal">
-				<tabs id="tbsMedicinaGeneral" width="10em">
-					<tab label="Especificaciones" id="tabEspecificaciones" />
-				</tabs>
-				<tabpanels>
-					<tabpanel>
-						<grid width="100%">
-							<columns visible="false">
-								<column label="" width="20%" />
-								<column label="" width="80%" />
-							</columns>
-							<rows>
-								<row>
-									<label class="etiqueta" value="Denominacion Generica:" />
-									<textbox maxlength="1000" class="multilinea" multiline="true"
-										id="txtDenominacionGenerica" hflex="1"
-										tooltiptext="Ingrese la Denominacion Generica" />
-								</row>
-								<row>
-									<label class="etiqueta" value="Composicion:" />
-									<textbox maxlength="1000" class="multilinea" multiline="true"
-										id="txtComposicion" hflex="1" tooltiptext="Ingrese la Composicion" />
-								</row>
-								<row>
-									<label class="etiqueta" value="Posologia:" />
-									<textbox maxlength="1000" class="multilinea" multiline="true"
-										id="txtPosologia" hflex="1" tooltiptext="Ingrese la Posologia" />
-								</row>
-								<row>
-									<label class="etiqueta" value="Indicaciones:" />
-									<textbox maxlength="1000" class="multilinea" multiline="true"
-										id="txtIndicaciones" hflex="1" tooltiptext="Ingrese las Indicaciones" />
-								</row>
-								<row>
-									<label class="etiqueta" value="Efectos Secundarios:" />
-									<textbox maxlength="1000" class="multilinea" multiline="true"
-										id="txtEfectos" hflex="1" tooltiptext="Ingrese los Efectos" />
-								</row>
-								<row>
-									<label class="etiqueta" value="Precauciones:" />
-									<textbox maxlength="1000" class="multilinea" multiline="true"
-										id="txtPrecauciones" hflex="1" tooltiptext="Ingrese las Precauciones" />
-								</row>
-								<row>
-									<label class="etiqueta" value="Contraindicaciones:" />
-									<textbox maxlength="1000" class="multilinea" multiline="true"
-										id="txtContraindicaciones" hflex="1"
-										tooltiptext="Ingrese las Contraindicaciones" />
-								</row>
-								<row>
-									<label class="etiqueta" value="Indicaciones Embarazo:" />
-									<textbox maxlength="1000" class="multilinea" multiline="true"
-										id="txtEmbarazo" hflex="1"
-										tooltiptext="Ingrese las Indicaciones en caso de Embarazo" />
-								</row>
-							</rows>
-						</grid>
-					</tabpanel>
-				</tabpanels>
-			</tabbox>
-			<separator />
-			<div id="botoneraMedicina" />
 			<div id="catalogoMedicina" />
 		</groupbox>
 	</div>
