@@ -27,8 +27,6 @@ public interface ICitaDAO extends JpaRepository<Cita, Long> {
 
 	List<Cita> findByMotivoCitaDescripcionStartingWithAllIgnoreCase(String valor);
 
-	List<Cita> findByFechaCitaStartingWithAllIgnoreCase(String valor);
-
 	List<Cita> findByDoctorInternoAndEstadoAndFechaCita(DoctorInterno usuario,
 			String string, Date value);
 
@@ -87,5 +85,8 @@ public interface ICitaDAO extends JpaRepository<Cita, Long> {
 
 	List<Cita> findByDoctorInternoCedulaAndEstadoAndMotivoCitaDescripcionStartingWithAllIgnoreCase(
 			String idDoctor, String string, String valor);
+
+	List<Cita> findByDoctorInternoCedulaAndFechaCitaBetweenOrderByFechaCitaAsc(String idDoctor,
+			Timestamp fecha, Timestamp timestamp);
 
 }

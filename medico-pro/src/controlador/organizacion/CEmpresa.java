@@ -137,8 +137,7 @@ public class CEmpresa extends CGenerico {
 				map = null;
 			}
 		}
-		
-		
+
 		HashMap<String, Object> mapaa = (HashMap<String, Object>) Sessions
 				.getCurrent().getAttribute("itemsCatalogo");
 		if (mapaa != null) {
@@ -193,8 +192,11 @@ public class CEmpresa extends CGenerico {
 				spnExtranjeros.setValue(0);
 				id = 0;
 				limpiarColores(txtDireccionRazon, txtRazon, txtRifEmpresa,
-						txtNilEmpresa, txtNroIvssEmpresa, txtActividadEconomica,
-						txtTelefonoEmpresa,txtCorreo);
+						txtNilEmpresa, txtNroIvssEmpresa,
+						txtActividadEconomica, txtTelefonoEmpresa, txtCorreo,
+						spnAdolescentes, spnAprendices, spnConapdis,
+						spnExtranjeros, spnHombres, spnLopcymat, spnMujeres,
+						spnNroTrabajadores);
 			}
 
 			@Override
@@ -365,7 +367,9 @@ public class CEmpresa extends CGenerico {
 				|| spnNroTrabajadores.getText().compareTo("") == 0) {
 			aplicarColores(txtDireccionRazon, txtRazon, txtRifEmpresa,
 					txtNilEmpresa, txtNroIvssEmpresa, txtActividadEconomica,
-					txtTelefonoEmpresa,txtCorreo);
+					txtTelefonoEmpresa, txtCorreo, spnAdolescentes,
+					spnAprendices, spnConapdis, spnExtranjeros, spnHombres,
+					spnLopcymat, spnMujeres, spnNroTrabajadores);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else {

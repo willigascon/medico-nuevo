@@ -165,12 +165,13 @@ public class CMedicina extends CGenerico {
 				txtContraindicaciones.setText("");
 				txtEmbarazo.setText("");
 				id = 0;
-				limpiarColores(txtNombre, txtCategoria, txtLaboratorio);
+				limpiarColores(txtNombre, txtCategoria, txtLaboratorio,
+						spnPrecio);
 			}
 
 			@Override
 			public void salir() {
-				cerrarVentana(divMedicina,titulo, tabs);
+				cerrarVentana(divMedicina, titulo, tabs);
 			}
 
 			@Override
@@ -255,7 +256,7 @@ public class CMedicina extends CGenerico {
 				|| txtNombre.getText().compareTo("") == 0
 				|| spnPrecio.getText().compareTo("") == 0) {
 			Mensaje.mensajeError(Mensaje.camposVacios);
-			aplicarColores(txtLaboratorio, txtCategoria, txtNombre);
+			aplicarColores(txtLaboratorio, txtCategoria, txtNombre, spnPrecio);
 			return false;
 		} else
 			return true;

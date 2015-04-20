@@ -13,8 +13,6 @@ public interface IExamenDAO extends JpaRepository<Examen, Long>{
 
 	List<Examen> findByTipoStartingWithAllIgnoreCase(String valor);
 
-	List<Examen> findByCostoStartingWithAllIgnoreCase(String valor);
-
 	List<Examen> findByMinimoStartingWithAllIgnoreCase(String valor);
 
 	List<Examen> findByMaximoStartingWithAllIgnoreCase(String valor);

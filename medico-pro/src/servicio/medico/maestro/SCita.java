@@ -3,6 +3,7 @@ package servicio.medico.maestro;
 import interfaceDAO.medico.maestro.ICitaDAO;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -52,10 +53,6 @@ public class SCita {
 		return citaDAO
 				.findByDoctorInternoCedulaAndPacienteEmpresaNombreStartingWithAllIgnoreCase(
 						idDoctor, valor);
-	}
-
-	public List<Cita> filtroFecha(String valor) {
-		return citaDAO.findByFechaCitaStartingWithAllIgnoreCase(valor);
 	}
 
 	public List<Cita> filtroMotivo(String valor, String idDoctor) {
@@ -110,7 +107,17 @@ public class SCita {
 				estado, fecha, o);
 	}
 
-	public List<Cita> filtroFecha(Timestamp fecha, String idDoctor) {
-		return citaDAO.findByDoctorInternoCedulaAndFechaCita(idDoctor, fecha);
+	public List<Cita> filtroFecha(Timestamp fecha, Date date, String idDoctor) {
+		Calendar calendario = Calendar.getInstance();
+		calendario.setTime(date);
+		calendario.set(Calendar.HOUR, 11);
+		calendario.set(Calendar.HOUR_OF_DAY, 23);
+		calendario.set(Calendar.SECOND, 59);
+		calendario.set(Calendar.MILLISECOND, 0);
+		calendario.set(Calendar.MINUTE, 59);
+		date = calendario.getTime();
+		return citaDAO
+				.findByDoctorInternoCedulaAndFechaCitaBetweenOrderByFechaCitaAsc(
+						idDoctor, fecha, new Timestamp(date.getTime()));
 	}
 }

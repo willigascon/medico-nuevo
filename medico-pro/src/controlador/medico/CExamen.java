@@ -36,8 +36,6 @@ public class CExamen extends CGenerico {
 	@Wire
 	private Textbox txtTipoExamen;
 	@Wire
-	private Doublespinner dspCostoExamen;
-	@Wire
 	private Doublespinner dspMinExamen;
 	@Wire
 	private Doublespinner dspMaxExamen;
@@ -99,11 +97,10 @@ public class CExamen extends CGenerico {
 			public void limpiar() {
 				txtNombreExamen.setValue("");
 				txtTipoExamen.setValue("");
-				dspCostoExamen.setValue(0.0);
 				dspMaxExamen.setValue(0.0);
 				dspMinExamen.setValue(0.0);
 				id = 0;
-				limpiarColores(txtNombreExamen, dspCostoExamen,
+				limpiarColores(txtNombreExamen,
 						dspMaxExamen, dspMinExamen);
 			}
 
@@ -112,10 +109,9 @@ public class CExamen extends CGenerico {
 				if (validar()) {
 					String nombre = txtNombreExamen.getValue();
 					String tipo = txtTipoExamen.getValue();
-					double costo = dspCostoExamen.getValue();
 					double minimo = dspMinExamen.getValue();
 					double maximo = dspMaxExamen.getValue();
-					Examen examen = new Examen(id, nombre, tipo, costo, minimo,
+					Examen examen = new Examen(id, nombre, tipo, minimo,
 							maximo, fechaHora, horaAuditoria,
 							nombreUsuarioSesion());
 					servicioExamen.guardar(examen);
@@ -176,11 +172,10 @@ public class CExamen extends CGenerico {
 	/* Permite validar que todos los campos esten completos */
 	public boolean validar() {
 		if (txtNombreExamen.getText().compareTo("") == 0
-				|| dspCostoExamen.getText().compareTo("") == 0
 				|| dspMaxExamen.getText().compareTo("") == 0
 				|| dspMinExamen.getText().compareTo("") == 0) {
 			Mensaje.mensajeError(Mensaje.camposVacios);
-			aplicarColores(txtNombreExamen, dspCostoExamen,
+			aplicarColores(txtNombreExamen, 
 					dspMaxExamen, dspMinExamen);
 			return false;
 		} else
@@ -192,7 +187,7 @@ public class CExamen extends CGenerico {
 	public void mostrarCatalogo() {
 		final List<Examen> examenes = servicioExamen.buscarTodos();
 		catalogo = new Catalogo<Examen>(catalogoExamen, "Catalogo de Examenes",
-				examenes, false, "Nombre", "Tipo", "Costo", "Valor Minimo",
+				examenes, false, "Nombre", "Tipo", "Valor Minimo",
 				"Valor Maximo") {
 
 			@Override
@@ -202,8 +197,6 @@ public class CExamen extends CGenerico {
 					return servicioExamen.filtroNombre(valor);
 				case "Tipo":
 					return servicioExamen.filtroTipo(valor);
-				case "Costo":
-					return servicioExamen.filtroCosto(valor);
 				case "Valor Minimo":
 					return servicioExamen.filtroMinimo(valor);
 				case "Valor Maximo":
@@ -215,12 +208,11 @@ public class CExamen extends CGenerico {
 
 			@Override
 			protected String[] crearRegistros(Examen examen) {
-				String[] registros = new String[5];
+				String[] registros = new String[4];
 				registros[0] = examen.getNombre();
 				registros[1] = examen.getTipo();
-				registros[2] = String.valueOf(examen.getCosto());
-				registros[3] = String.valueOf(examen.getMinimo());
-				registros[4] = String.valueOf(examen.getMaximo());
+				registros[2] = String.valueOf(examen.getMinimo());
+				registros[3] = String.valueOf(examen.getMaximo());
 				return registros;
 			}
 		};
@@ -249,7 +241,6 @@ public class CExamen extends CGenerico {
 	private void llenarCampos(Examen examen) {
 		txtNombreExamen.setValue(examen.getNombre());
 		txtTipoExamen.setValue(examen.getTipo());
-		dspCostoExamen.setValue(examen.getCosto());
 		dspMaxExamen.setValue(examen.getMaximo());
 		dspMinExamen.setValue(examen.getMinimo());
 		id = examen.getIdExamen();

@@ -157,7 +157,7 @@ public class CCita extends CGenerico {
 				ltbCitas.getItems().clear();
 				tabCita.setSelected(true);
 				limpiar2();
-				
+
 			}
 
 			@Override
@@ -188,7 +188,7 @@ public class CCita extends CGenerico {
 					limpiar2();
 					Mensaje.mensajeInformacion(Mensaje.guardado);
 					llenarListaCitas(usuario);
-					
+
 				}
 
 			}
@@ -218,7 +218,7 @@ public class CCita extends CGenerico {
 		cmbMotivo.setPlaceholder("Seleccione un Motivo");
 		id = 0;
 		idPaciente = "";
-		limpiarColores(txtCedulaPaciente,cmbMotivo);
+		limpiarColores(txtCedulaPaciente, cmbMotivo);
 
 	}
 
@@ -387,7 +387,7 @@ public class CCita extends CGenerico {
 				|| tmbHoraCita.getText().compareTo("") == 0
 				|| dtbFechaCita.getText().compareTo("") == 0
 				|| idDoctor.equals("") || idPaciente.equals("")) {
-			aplicarColores(txtCedulaPaciente,cmbMotivo);
+			aplicarColores(txtCedulaPaciente, cmbMotivo);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -589,9 +589,9 @@ public class CCita extends CGenerico {
 						calendario.set(Calendar.MILLISECOND, 0);
 						calendario.set(Calendar.MINUTE, 0);
 						fecha1 = calendario.getTime();
-						Timestamp fecha = new Timestamp(fecha1.getTime());
-						return recorrer(servicioCita.filtroFecha(fecha,
-								idDoctor));
+						Timestamp fecha2 = new Timestamp(fecha1.getTime());
+						return recorrer(servicioCita.filtroFecha(fecha2,
+								fecha2, idDoctor));
 					}
 					return citas;
 				case "Motivo":

@@ -70,7 +70,7 @@ public class CCondicion extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divCondicion,titulo, tabs);
+				cerrarVentana(divCondicion, titulo, tabs);
 			}
 
 			@Override
@@ -82,7 +82,7 @@ public class CCondicion extends CGenerico {
 				rdoDisergonomicos.setChecked(false);
 				rdoOrganizacion.setChecked(false);
 				rdoAmbiente.setChecked(false);
-				limpiarColores(txtNombreCondicion);
+				limpiarColores(txtNombreCondicion, rdgCondicion);
 				id = 0;
 			}
 
@@ -95,7 +95,7 @@ public class CCondicion extends CGenerico {
 					Condicion condicion = new Condicion(id, nombre, tipo,
 							fechaHora, horaAuditoria, nombreUsuarioSesion());
 					servicioCondicion.guardar(condicion);
-					msj.mensajeInformacion(Mensaje.guardado);
+					Mensaje.mensajeInformacion(Mensaje.guardado);
 					limpiar();
 				}
 			}
@@ -116,18 +116,18 @@ public class CCondicion extends CGenerico {
 												.buscarPorCondicion(condicion);
 
 										if (!informes.isEmpty()) {
-											msj.mensajeError(Mensaje.noEliminar);
+											Mensaje.mensajeError(Mensaje.noEliminar);
 										} else {
 											servicioCondicion
 													.eliminar(condicion);
 											limpiar();
-											msj.mensajeInformacion(Mensaje.eliminado);
+											Mensaje.mensajeInformacion(Mensaje.eliminado);
 										}
 									}
 								}
 							});
 				} else {
-					msj.mensajeAlerta(Mensaje.noSeleccionoRegistro);
+					Mensaje.mensajeAlerta(Mensaje.noSeleccionoRegistro);
 				}
 			}
 		};
@@ -137,11 +137,13 @@ public class CCondicion extends CGenerico {
 	/* Permite validar que todos los campos esten completos */
 	public boolean validar() {
 		if (txtNombreCondicion.getText().compareTo("") == 0
-				||(!rdoAmbiente.isChecked() && !rdoDisergonomicos.isChecked()
-				&& !rdoEquipos.isChecked() && !rdoInstalaciones.isChecked()
-				&& !rdoMateriales.isChecked() && !rdoOrganizacion.isChecked())) {
-			aplicarColores(txtNombreCondicion);
-			msj.mensajeAlerta(Mensaje.camposVacios);
+				|| (!rdoAmbiente.isChecked() && !rdoDisergonomicos.isChecked()
+						&& !rdoEquipos.isChecked()
+						&& !rdoInstalaciones.isChecked()
+						&& !rdoMateriales.isChecked() && !rdoOrganizacion
+							.isChecked())) {
+			aplicarColores(txtNombreCondicion, rdgCondicion);
+			Mensaje.mensajeAlerta(Mensaje.camposVacios);
 			return false;
 		} else
 			return true;
@@ -152,7 +154,7 @@ public class CCondicion extends CGenerico {
 	public void mostrarCatalogo() {
 		final List<Condicion> condiciones = servicioCondicion.buscarTodos();
 		catalogo = new Catalogo<Condicion>(catalogoCondicion,
-				"Catalogo de Condiciones", condiciones, false,"Nombre", "Tipo") {
+				"Catalogo de Condiciones", condiciones, false, "Nombre", "Tipo") {
 
 			@Override
 			protected List<Condicion> buscar(String valor, String combo) {

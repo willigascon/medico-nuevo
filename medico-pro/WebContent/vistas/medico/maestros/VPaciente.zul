@@ -34,7 +34,7 @@
 											<hbox>
 												<textbox maxlength="15" id="txtCedulaPaciente"
 													hflex="1" tooltiptext="Ingrese la Cedula del Paciente" />
-												<radiogroup>
+												<radiogroup id="rdgF">
 													<radio label="V" value="Venezolano" id="rdoV" />
 													<radio label="E" value="Extranjero" id="rdoE" />
 												</radiogroup>
@@ -124,7 +124,7 @@
 												<space />
 												<label value="*" style="font-weight:bold;color:red" />
 											</hbox>
-											<radiogroup>
+											<radiogroup id="rdgPre">
 												<radio label="SI" value="trabajador" id="rdoSiPreempleado" />
 												<radio label="NO" value="familiar" id="rdoNoPreempleado" />
 											</radiogroup>

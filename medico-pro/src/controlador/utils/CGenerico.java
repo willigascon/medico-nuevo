@@ -37,10 +37,12 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Include;
+import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.West;
 import org.zkoss.zul.impl.InputElement;
+import org.zkoss.zul.impl.XulElement;
 
 import servicio.medico.consulta.SConsulta;
 import servicio.medico.consulta.SConsultaDiagnostico;
@@ -218,7 +220,7 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 			+ String.valueOf(calendario.get(Calendar.SECOND));
 	public Timestamp fechaHora = new Timestamp(fecha.getTime());
 	public String titulo;
-	
+
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
@@ -329,7 +331,7 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 	public static SCondicion getServicioCondicion() {
 		return applicationContext.getBean(SCondicion.class);
 	}
-	
+
 	public static SPeriodoPaciente getServicioPeriodoPaciente() {
 		return applicationContext.getBean(SPeriodoPaciente.class);
 	}
@@ -505,22 +507,46 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 		return fecha = calendario.getTime();
 	}
 
-	public void limpiarColores(InputElement... cajas) {
+	public void limpiarColores(XulElement... cajas) {
 		for (int i = 0; i < cajas.length; i++) {
-			cajas[i].setStyle("border-color:default");
-			if (cajas[i] instanceof Combobox)
+			if (cajas[i] instanceof InputElement
+					|| cajas[i] instanceof Combobox) {
 				cajas[i].setStyle("border: 1px solid default");
+				cajas[i].setWidth("100%");
+			}
+			if (cajas[i] instanceof Radiogroup) {
+				Radiogroup group = (Radiogroup) cajas[i];
+				for (int j = 0; j < group.getItems().size(); j++) {
+					group.getItemAtIndex(j).setStyle(
+							"border: 1px solid default");
+				}
+			}
+
 		}
 	}
 
-	public void aplicarColores(InputElement... cajas) {
+	public void aplicarColores(XulElement... cajas) {
 		limpiarColores(cajas);
 		for (int i = 0; i < cajas.length; i++) {
-			if (cajas[i].getText().compareTo("") == 0)
-				cajas[i].setStyle("border-color:red");
-			if (cajas[i] instanceof Combobox)
-				if (((Combobox) cajas[i]).getSelectedItem() == null)
+			if (cajas[i] instanceof InputElement)
+				if (((InputElement) cajas[i]).getText().compareTo("") == 0) {
 					cajas[i].setStyle("border: 1px solid red");
+					cajas[i].setWidth("100%");
+				}
+			if (cajas[i] instanceof Combobox)
+				if (((Combobox) cajas[i]).getSelectedItem() == null) {
+					cajas[i].setStyle("border: 1px solid red");
+					cajas[i].setWidth("100%");
+				}
+			if (cajas[i] instanceof Radiogroup) {
+				if (((Radiogroup) cajas[i]).getSelectedItem() == null) {
+					Radiogroup group = (Radiogroup) cajas[i];
+					for (int j = 0; j < group.getItems().size(); j++) {
+						group.getItemAtIndex(j).setStyle(
+								"border: 1px solid red");
+					}
+				}
+			}
 		}
 	}
 }

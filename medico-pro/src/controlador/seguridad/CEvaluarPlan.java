@@ -258,7 +258,7 @@ public class CEvaluarPlan extends CGenerico {
 						calendario.set(Calendar.MINUTE, 0);
 						fecha1 = calendario.getTime();
 						Timestamp fecha = new Timestamp(fecha1.getTime());
-						return servicioInforme.filtroFecha(fecha, agregarDia(fecha));
+						return servicioInforme.filtroFecha(fecha, fecha);
 					}
 				default:
 					return informes;

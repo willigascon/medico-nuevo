@@ -45,10 +45,6 @@ public class SExamen {
 		return examenDAO.findByTipoStartingWithAllIgnoreCase(valor);
 	}
 
-	public List<Examen> filtroCosto(String valor) {
-		return examenDAO.findByCostoStartingWithAllIgnoreCase(valor);
-	}
-
 	public List<Examen> filtroMinimo(String valor) {
 		return examenDAO.findByMinimoStartingWithAllIgnoreCase(valor);
 	}

@@ -124,7 +124,7 @@ public class CDoctorInterno extends CGenerico {
 			public void limpiar() {
 				limpiarColores(txtApellidoUsuario, txtCedulaUsuario,
 						txtDireccionUsuario, txtFichaUsuario, txtNombreUsuario,
-						txtTelefonoUsuario, cmbEspecialidad);
+						txtTelefonoUsuario, cmbEspecialidad, rdbSexoUsuario);
 				cmbEspecialidad.setValue("");
 				txtApellidoUsuario.setValue("");
 				txtApellido2Usuario.setValue("");
@@ -229,7 +229,7 @@ public class CDoctorInterno extends CGenerico {
 						.isChecked())) {
 			aplicarColores(txtApellidoUsuario, txtCedulaUsuario,
 					txtDireccionUsuario, txtFichaUsuario, txtNombreUsuario,
-					txtTelefonoUsuario, cmbEspecialidad);
+					txtTelefonoUsuario, cmbEspecialidad, rdbSexoUsuario);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else {

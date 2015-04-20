@@ -4,6 +4,7 @@ import interfaceDAO.medico.consulta.IConsultaDAO;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +50,16 @@ public class SConsulta {
 	}
 
 	public List<Consulta> filtroFecha(Timestamp valor, Date date) {
-		return consultaDAO.findByFechaConsultaBetween(valor, new Timestamp(date.getTime()));
+		Calendar calendario = Calendar.getInstance();
+		calendario.setTime(date);
+		calendario.set(Calendar.HOUR, 11);
+		calendario.set(Calendar.HOUR_OF_DAY, 23);
+		calendario.set(Calendar.SECOND, 59);
+		calendario.set(Calendar.MILLISECOND, 0);
+		calendario.set(Calendar.MINUTE, 59);
+		date = calendario.getTime();
+		return consultaDAO.findByFechaConsultaBetween(valor,
+				new Timestamp(date.getTime()));
 	}
 
 	public List<Consulta> filtroDoctor(String valor) {

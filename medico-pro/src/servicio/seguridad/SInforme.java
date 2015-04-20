@@ -3,6 +3,7 @@ package servicio.seguridad;
 import interfaceDAO.seguridad.IInformeDAO;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -141,6 +142,14 @@ public class SInforme {
 	}
 
 	public List<Informe> filtroFecha(Timestamp valor, Date date) {
+		Calendar calendario = Calendar.getInstance();
+		calendario.setTime(date);
+		calendario.set(Calendar.HOUR, 11);
+		calendario.set(Calendar.HOUR_OF_DAY, 23);
+		calendario.set(Calendar.SECOND, 59);
+		calendario.set(Calendar.MILLISECOND, 0);
+		calendario.set(Calendar.MINUTE, 59);
+		date = calendario.getTime();
 		return informeDAO.findByFaBetween(valor, new Timestamp(date.getTime()));
 	}
 

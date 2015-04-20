@@ -41,21 +41,6 @@
 
 						<vlayout>
 							<hbox>
-								<label class="etiqueta" value="Costo (Bs):" />
-								<space />
-								<label value="*" style="font-weight:bold;color:red" />
-							</hbox>
-							<doublespinner id="dspCostoExamen" value="0"
-								constraint="min 0 max 100000000" tooltiptext="Ingrese el Costo del Examen"
-								step="0.1" format="#.##" width="98%" />
-						</vlayout>
-						<hbox />
-						<hbox />
-					</row>
-					<row>
-
-						<vlayout>
-							<hbox>
 								<label class="etiqueta" value="Valor Minimo:" />
 								<space />
 								<label value="*" style="font-weight:bold;color:red" />

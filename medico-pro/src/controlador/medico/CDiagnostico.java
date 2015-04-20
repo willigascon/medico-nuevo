@@ -22,6 +22,7 @@ import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Radio;
+import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Textbox;
@@ -29,7 +30,6 @@ import org.zkoss.zul.Textbox;
 import componente.Botonera;
 import componente.Catalogo;
 import componente.Mensaje;
-
 import controlador.security.CArbol;
 import controlador.utils.CGenerico;
 
@@ -54,7 +54,9 @@ public class CDiagnostico extends CGenerico {
 	private Radio rdoSiEpi;
 	@Wire
 	private Radio rdoNoEpi;
-	
+	@Wire
+	private Radiogroup rdgEpi;
+
 	private CArbol cArbol = new CArbol();
 	long id = 0;
 	Catalogo<Diagnostico> catalogo;
@@ -109,7 +111,8 @@ public class CDiagnostico extends CGenerico {
 					rdoNoEpi.setChecked(false);
 				if (rdoSiEpi.isChecked())
 					rdoSiEpi.setChecked(false);
-				limpiarColores(txtNombreDiagnostico,txtCodigoDiagnostico,cmbCategoria);
+				limpiarColores(txtNombreDiagnostico, txtCodigoDiagnostico,
+						cmbCategoria, rdgEpi);
 				id = 0;
 			}
 
@@ -126,7 +129,7 @@ public class CDiagnostico extends CGenerico {
 							.buscar(Long.parseLong(cmbCategoria
 									.getSelectedItem().getContext()));
 					Diagnostico diagnostico = new Diagnostico(id, codigo,
-							fechaHora,horaAuditoria, nombre,
+							fechaHora, horaAuditoria, nombre,
 							nombreUsuarioSesion(), categoria, epi);
 					servicioDiagnostico.guardar(diagnostico);
 					if (consulta) {
@@ -140,7 +143,7 @@ public class CDiagnostico extends CGenerico {
 								listaConsulta);
 					}
 					limpiar();
-					msj.mensajeInformacion(Mensaje.guardado);
+					Mensaje.mensajeInformacion(Mensaje.guardado);
 				}
 			}
 
@@ -159,17 +162,17 @@ public class CDiagnostico extends CGenerico {
 										List<ConsultaDiagnostico> consultas = servicioConsultaDiagnostico
 												.buscarPorDiagnostico(diag);
 										if (!consultas.isEmpty())
-											msj.mensajeError(Mensaje.noEliminar);
+											Mensaje.mensajeError(Mensaje.noEliminar);
 										else {
 											servicioDiagnostico.eliminar(diag);
 											limpiar();
-											msj.mensajeInformacion(Mensaje.eliminado);
+											Mensaje.mensajeInformacion(Mensaje.eliminado);
 										}
 									}
 								}
 							});
 				} else {
-					msj.mensajeAlerta(Mensaje.noSeleccionoRegistro);
+					Mensaje.mensajeAlerta(Mensaje.noSeleccionoRegistro);
 				}
 			}
 		};
@@ -182,8 +185,9 @@ public class CDiagnostico extends CGenerico {
 				|| txtCodigoDiagnostico.getText().compareTo("") == 0
 				|| cmbCategoria.getText().compareTo("") == 0
 				|| (!rdoNoEpi.isChecked() && !rdoSiEpi.isChecked())) {
-			aplicarColores(txtNombreDiagnostico,txtCodigoDiagnostico,cmbCategoria);
-			msj.mensajeError(Mensaje.camposVacios);
+			aplicarColores(txtNombreDiagnostico, txtCodigoDiagnostico,
+					cmbCategoria, rdgEpi);
+			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
 			return true;
@@ -195,7 +199,8 @@ public class CDiagnostico extends CGenerico {
 		final List<Diagnostico> diagnosticos = servicioDiagnostico
 				.buscarTodas();
 		catalogo = new Catalogo<Diagnostico>(catalogoDiagnostico,
-				"Catalogo de Diagnosticos", diagnosticos, false,"Codigo", "Nombre", "Categoria") {
+				"Catalogo de Diagnosticos", diagnosticos, false, "Codigo",
+				"Nombre", "Categoria") {
 
 			@Override
 			protected List<Diagnostico> buscar(String valor, String combo) {

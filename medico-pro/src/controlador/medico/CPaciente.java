@@ -195,6 +195,8 @@ public class CPaciente extends CGenerico {
 	@Wire
 	private Datebox dtbFechaMuerte;
 	@Wire
+	private Radiogroup rdgF;
+	@Wire
 	private Radio rdoV;
 	@Wire
 	private Radio rdoE;
@@ -218,6 +220,8 @@ public class CPaciente extends CGenerico {
 	private Radio rdoSiBrigadista;
 	@Wire
 	private Radio rdoNoBrigadista;
+	@Wire
+	private Radiogroup rdgPre;
 	@Wire
 	private Radio rdoSiPreempleado;
 	@Wire
@@ -556,7 +560,8 @@ public class CPaciente extends CGenerico {
 				|| (rdoInactivo.isChecked() && (dtbFechaEgreso.getText()
 						.compareTo("") == 0))) {
 			Mensaje.mensajeError(Mensaje.camposVacios);
-			aplicarColores(txtApellido1Paciente, txtNombre1Paciente,
+			aplicarColores(rdgF, rdgAlergia, rdgDiscapacidad, rdgLentes,
+					rdgPre, txtApellido1Paciente, txtNombre1Paciente,
 					txtCedulaPaciente, spnCarga, cmbEstadoCivil,
 					cmbGrupoSanguineo, cmbMano, cmbSexo, dspPeso, dspEstatura,
 					cmbCiudad, cmbCargo, txtTelefono2, cmbEmpresa, cmbArea,
@@ -1095,11 +1100,11 @@ public class CPaciente extends CGenerico {
 	}
 
 	public void limpiarCampos() {
-		limpiarColores(txtApellido1Paciente, txtNombre1Paciente,
-				txtCedulaPaciente, spnCarga, cmbEstadoCivil, cmbGrupoSanguineo,
-				cmbMano, cmbSexo, dspPeso, dspEstatura, cmbCiudad, cmbCargo,
-				txtTelefono2, cmbEmpresa, cmbArea, cmbNomina, txtFichaPaciente,
-				txtRif);
+		limpiarColores(rdgF, rdgAlergia, rdgDiscapacidad, rdgLentes, rdgPre,
+				txtApellido1Paciente, txtNombre1Paciente, txtCedulaPaciente,
+				spnCarga, cmbEstadoCivil, cmbGrupoSanguineo, cmbMano, cmbSexo,
+				dspPeso, dspEstatura, cmbCiudad, cmbCargo, txtTelefono2,
+				cmbEmpresa, cmbArea, cmbNomina, txtFichaPaciente, txtRif);
 		txtNro.setValue("");
 		txtOtroTransporte.setValue("");
 		txtUrb.setValue("");

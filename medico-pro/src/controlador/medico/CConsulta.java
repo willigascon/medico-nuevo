@@ -1558,7 +1558,7 @@ public class CConsulta extends CGenerico {
 						fecha1 = calendario.getTime();
 						Timestamp fecha2 = new Timestamp(fecha1.getTime());
 						return servicioConsulta.filtroFecha(fecha2,
-								agregarDia(fecha2));
+								fecha2);
 					}
 					return consultasPaciente;
 				case "Doctor":

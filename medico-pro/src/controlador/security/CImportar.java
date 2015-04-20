@@ -774,7 +774,6 @@ public class CImportar extends CGenerico {
 						if (!error) {
 							examen.setNombre(nombre);
 							examen.setIdReferencia(idRef);
-							examen.setCosto(0);
 							examen.setMaximo(0);
 							examen.setMinimo(0);
 							examen.setFechaAuditoria(fechaHora);

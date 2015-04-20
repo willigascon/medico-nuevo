@@ -202,73 +202,78 @@ public class CArbol extends CGenerico {
 			Tab taba = new Tab();
 			// if (arbolMenu.getSelectedItem().getLevel() > 0) {
 			final Arbol arbolItem = servicioArbol.buscar(item);
-			if (!arbolItem.getUrl().equals("inicio")) {
-				mapGeneral.put("titulo", arbolItem.getNombre());
-				if (String.valueOf(arbolMenu.getSelectedItem().getValue())
-						.equals("Consulta")
-						|| String.valueOf(
-								arbolMenu.getSelectedItem().getValue()).equals(
-								"Historia Medica"))
-					west.setOpen(false);
-				for (int i = 0; i < tabs.size(); i++) {
-					if (tabs.get(i).getLabel().equals(arbolItem.getNombre())) {
-						abrir = false;
-						taba = tabs.get(i);
+			if (arbolItem != null)
+				if (!arbolItem.getUrl().equals("inicio")) {
+					mapGeneral.put("titulo", arbolItem.getNombre());
+					if (String.valueOf(arbolMenu.getSelectedItem().getValue())
+							.equals("Consulta")
+							|| String.valueOf(
+									arbolMenu.getSelectedItem().getValue())
+									.equals("Historia Medica"))
+						west.setOpen(false);
+					for (int i = 0; i < tabs.size(); i++) {
+						if (tabs.get(i).getLabel()
+								.equals(arbolItem.getNombre())) {
+							abrir = false;
+							taba = tabs.get(i);
+						}
 					}
-				}
-				if (abrir) {
-					String ruta = "/vistas/" + arbolItem.getUrl() + ".zul";
-					contenido = new Include();
-					contenido.setSrc(null);
-					contenido.setSrc(ruta);
-					Tab newTab = new Tab(arbolItem.getNombre());
-					newTab.setClosable(true);
-					newTab.addEventListener(Events.ON_CLOSE,
-							new EventListener<Event>() {
-								@Override
-								public void onEvent(Event arg0)
-										throws Exception {
-									if (arbolItem.getNombre()
-											.equals("Consulta")
-											|| arbolItem.getNombre().equals(
-													"Historia Medica"))
-										west.setOpen(true);
-									for (int i = 0; i < tabs.size(); i++) {
-										if (tabs.get(i).getLabel()
-												.equals(arbolItem.getNombre())) {
-											if (i == (tabs.size() - 1)
-													&& tabs.size() > 1) {
-												tabs.get(i - 1).setSelected(
-														true);
-											}
+					if (abrir) {
+						String ruta = "/vistas/" + arbolItem.getUrl() + ".zul";
+						contenido = new Include();
+						contenido.setSrc(null);
+						contenido.setSrc(ruta);
+						Tab newTab = new Tab(arbolItem.getNombre());
+						newTab.setClosable(true);
+						newTab.addEventListener(Events.ON_CLOSE,
+								new EventListener<Event>() {
+									@Override
+									public void onEvent(Event arg0)
+											throws Exception {
+										if (arbolItem.getNombre().equals(
+												"Consulta")
+												|| arbolItem
+														.getNombre()
+														.equals("Historia Medica"))
+											west.setOpen(true);
+										for (int i = 0; i < tabs.size(); i++) {
+											if (tabs.get(i)
+													.getLabel()
+													.equals(arbolItem
+															.getNombre())) {
+												if (i == (tabs.size() - 1)
+														&& tabs.size() > 1) {
+													tabs.get(i - 1)
+															.setSelected(true);
+												}
 
-											tabs.get(i).close();
-											tabs.remove(i);
+												tabs.get(i).close();
+												tabs.remove(i);
+											}
 										}
 									}
-								}
-							});
-					newTab.setSelected(true);
-					Tabpanel newTabpanel = new Tabpanel();
-					newTabpanel.appendChild(contenido);
-					tabBox.getTabs().insertBefore(newTab, tab);
-					newTabpanel.setParent(tabBox.getTabpanels());
-					tabs.add(newTab);
-					mapGeneral.put("tabsGenerales", tabs);
-					mapGeneral.put("nombre", arbolItem.getNombre());
-					mapGeneral.put("west", west);
-					Sessions.getCurrent().setAttribute("mapaGeneral",
-							mapGeneral);
+								});
+						newTab.setSelected(true);
+						Tabpanel newTabpanel = new Tabpanel();
+						newTabpanel.appendChild(contenido);
+						tabBox.getTabs().insertBefore(newTab, tab);
+						newTabpanel.setParent(tabBox.getTabpanels());
+						tabs.add(newTab);
+						mapGeneral.put("tabsGenerales", tabs);
+						mapGeneral.put("nombre", arbolItem.getNombre());
+						mapGeneral.put("west", west);
+						Sessions.getCurrent().setAttribute("mapaGeneral",
+								mapGeneral);
+					} else {
+						taba.setSelected(true);
+					}
+					// }
 				} else {
-					taba.setSelected(true);
+					if (!arbolMenu.getSelectedItem().isOpen())
+						arbolMenu.getSelectedItem().setOpen(true);
+					else
+						arbolMenu.getSelectedItem().setOpen(false);
 				}
-				// }
-			} else {
-				if (!arbolMenu.getSelectedItem().isOpen())
-					arbolMenu.getSelectedItem().setOpen(true);
-				else
-					arbolMenu.getSelectedItem().setOpen(false);
-			}
 		}
 		tabBox2 = tabBox;
 		contenido2 = contenido;
