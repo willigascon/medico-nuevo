@@ -102,7 +102,7 @@ public class CMedicina extends CGenerico {
 				if (map.get("id").equals("paciente"))
 					paciente = true;
 				medicinaConsulta = (List<Medicina>) map.get("lista");
-				titulo = (String) mapa.get("titulo");
+				titulo = (String) map.get("titulo");
 				listaConsulta = (Listbox) map.get("listbox");
 				map.clear();
 				map = null;

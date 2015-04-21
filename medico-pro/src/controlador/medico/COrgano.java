@@ -60,6 +60,7 @@ public class COrgano extends CGenerico {
 			if (map.get("id") != null) {
 				consulta = true;
 				listaConsulta = (Listbox) map.get("listbox");
+				titulo = (String) map.get("titulo");
 				map.clear();
 				map = null;
 			}

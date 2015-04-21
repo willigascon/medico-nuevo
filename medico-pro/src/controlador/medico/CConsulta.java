@@ -478,6 +478,7 @@ public class CConsulta extends CGenerico {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
 				west = (West) mapa.get("west");
+				titulo = (String) mapa.get("titulo");
 				mapa.clear();
 				mapa = null;
 			}
@@ -716,7 +717,7 @@ public class CConsulta extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divConsulta, "Consulta", tabs);
+				cerrarVentana(divConsulta, titulo, tabs);
 				west.setOpen(true);
 			}
 
@@ -2622,6 +2623,8 @@ public class CConsulta extends CGenerico {
 		lblFicha.setValue("");
 		lblAlergico.setValue("");
 		lblFechaNac.setValue("");
+		lblArea.setValue("");
+		lblCargo1.setValue("");
 		lblLugarNac.setValue("");
 		lblSexo.setValue("");
 		lblEstadoCivil.setValue("");
@@ -2701,6 +2704,7 @@ public class CConsulta extends CGenerico {
 		map.put("id", "consulta");
 		map.put("lista", examenesDisponibles);
 		map.put("listbox", ltbExamenes);
+		map.put("titulo", "Examen");
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Examen");
 		if (!arboles.isEmpty()) {
@@ -2715,8 +2719,9 @@ public class CConsulta extends CGenerico {
 		map.put("id", "consulta");
 		map.put("lista", modelFisico);
 		map.put("listbox", ltbExamenFisico);
+		map.put("titulo", "Parte del Cuerpo");
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
-		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Organo");
+		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Parte del Cuerpo");
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
@@ -2729,8 +2734,10 @@ public class CConsulta extends CGenerico {
 		map.put("id", "consulta");
 		map.put("lista", diagnosticosDisponibles);
 		map.put("listbox", ltbDiagnosticos);
+		map.put("titulo", "Diagnostico");
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Diagnostico");
+
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
@@ -2743,9 +2750,11 @@ public class CConsulta extends CGenerico {
 		map.put("id", "consulta");
 		map.put("lista", especialistasDisponibles);
 		map.put("listbox", ltbEspecialistas);
+		map.put("titulo", "Especialista");
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		List<Arbol> arboles = servicioArbol
 				.buscarPorNombreArbol("Especialista");
+		
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
@@ -2758,9 +2767,10 @@ public class CConsulta extends CGenerico {
 		map.put("id", "consulta");
 		map.put("lista", serviciosDisponibles);
 		map.put("listbox", ltbServicioExterno);
+		map.put("titulo", "Estudios");
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		List<Arbol> arboles = servicioArbol
-				.buscarPorNombreArbol("Estudios Externos");
+				.buscarPorNombreArbol("Estudios");
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
@@ -2773,7 +2783,9 @@ public class CConsulta extends CGenerico {
 		map.put("id", "consulta");
 		map.put("lista", medicinasDisponibles);
 		map.put("listbox", ltbMedicinas);
+		map.put("titulo", "Medicina");
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
+
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Medicina");
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
