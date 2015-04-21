@@ -50,9 +50,9 @@
 							</vlayout>
 						</cell>
 						<button dir="reverse" autodisable="self" id="btnBuscarPaciente"
-							class="btn" label="Buscar" tooltiptext="Catalogo"
+							class="btn" label="Buscar" tooltiptext="Catalogo de Pacientes"
 							image="/public/imagenes/botones/buscar.png" />
-
+<hbox/>
 					</row>
 					<row>
 						<cell colspan="2">

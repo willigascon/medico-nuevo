@@ -50,7 +50,7 @@
 								<label id="lblTrabajador" tooltiptext="Nombre del Paciente" />
 							</vlayout>
 						</cell>
-						<button id="btnBuscarTrabajador" label="Buscar" class="btn"
+						<button dir="reverse" id="btnBuscarTrabajador" label="Buscar" class="btn"
 							image="/public/imagenes/botones/buscar.png" tooltiptext="Catalogo de Pacientes" />
 					</row>
 					<row>

@@ -62,13 +62,15 @@
 									<space />
 									<label value="*" style="font-weight:bold;color:red" />
 								</hbox>
+								<hbox>
 								<label class="etiqueta" value="De:" width="100%" />
 								<spinner id="spnDe" step="1" constraint="min 0 max 100"
-									value="0" width="100%" />
+									value="0" width="80px" />
 								<label class="etiqueta" value="A:" width="100%" />
-								<spinner width="100%" value="100" id="spnA" step="1"
+								<spinner width="80px" value="100" id="spnA" step="1"
 									constraint="min 0 max 100" />
 								<label class="etiqueta" value="Años" width="100%" />
+								</hbox>
 							</vlayout>
 						</cell>
 						<cell colspan="2">

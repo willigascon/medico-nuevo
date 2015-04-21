@@ -263,7 +263,7 @@
 								<tab label="Accidentes" id="tabIAntecedentesII" />
 								<tab label="Paciente Mujer" id="tabMujer" />
 								<tab label="Vacunas" id="tabVacunas" />
-								<tab label="Medidas" id="tabDiente" visible="false"/>
+								<tab label="Medidas" id="tabDiente" visible="false" />
 							</tabs>
 							<tabpanels>
 								<tabpanel>
@@ -724,199 +724,202 @@
 									</hbox>
 								</tabpanel>
 								<tabpanel>
-									<tabbox height="auto" id="taxAccidentes" orient="horizontal">
-										<tabs width="auto">
-											<tab label="Accidentes Laborales" />
-											<tab label="Accidentes Comunes" />
-										</tabs>
-										<tabpanels>
-											<tabpanel>
-												<hbox>
-													<textbox tooltiptext="Ingrese el Nombre del Accidente"
-														placeholder="Ingrese el Accidente a Buscar" width="195px"
-														id="txtBuscadorAccidenteLaboral"></textbox>
-													<separator />
-													<button class="abrir" id="btnAbrirAccidenteLaboral"
-														label="" tooltiptext="Crear un Nuevo Accidente"
-														image="/public/imagenes/botones/agregar.png" />
-												</hbox>
-												<hbox widths="32%,3%,65%">
-													<listbox id="ltbAccidentesLaborales" height="250px"
-														width="100%" emptyMessage="No hay Accidentes Laborales Registrados">
-														<listhead>
-															<listheader label="Accidente Laboral" width="100%" />
-														</listhead>
-														<template name="model">
-															<listitem>
-																<listcell label="${each.nombre}">
-																</listcell>
-																<listcell>
-																	<datebox width="98%" onCreate="self.value = new Date()" />
-																</listcell>
-																<listcell>
-																	<textbox width="98%" />
-																</listcell>
-																<listcell>
-																	<textbox width="98%" />
-																</listcell>
-																<listcell>
-																	<spinner width="98%" step="1" />
-																</listcell>
-																<listcell>
-																	<textbox width="98%" />
-																</listcell>
-																<listcell>
-																	<spinner inplace="true" width="98%"
-																		value="${each.idAccidente}" visible="false" disabled="true" />
-																</listcell>
-															</listitem>
-														</template>
-													</listbox>
-													<vbox align="center" pack="center">
-														<button class="abrir" id="pasar1AccidentesLaborales"
-															image="/public/imagenes/botones/adelante.png"
-															tooltiptext="Agregar AccidentesLaborales" width="30px" />
-														<separator />
-														<button class="abrir" id="pasar2AccidentesLaborales"
-															image="/public/imagenes/botones/atras.png" tooltiptext="Quitar AccidentesLaborales"
-															width="30px" />
-													</vbox>
-													<listbox id="ltbAccidentesLaboralesAgregados"
-														height="250px" width="100%"
-														emptyMessage="No ha Seleccionado Ningún Accidente Laboral">
-														<listhead>
-															<listheader label="Accidente" width="30%" />
-															<listheader label="Fecha" width="10%" />
-															<listheader label="Lugar" width="15%" />
-															<listheader label="Tipo Lesion" width="15%" />
-															<listheader label="Dias Reposo" width="10%" />
-															<listheader label="Secuelas" width="20%" />
-															<listheader label="id" visible="false" />
-														</listhead>
-														<template name="model">
-															<listitem>
-																<listcell label="${each.accidente.nombre}">
-																</listcell>
-																<listcell>
-																	<datebox readonly="true" value="${each.fecha}"
-																		width="98%" />
-																</listcell>
-																<listcell>
-																	<textbox value="${each.lugar}" width="98%"></textbox>
-																</listcell>
-																<listcell>
-																	<textbox value="${each.tipoLesion}" width="98%"></textbox>
-																</listcell>
-																<listcell>
-																	<spinner value="${each.diasReposo}" width="98%"
-																		step="1" />
-																</listcell>
-																<listcell>
-																	<textbox value="${each.secuelas}" width="98%"></textbox>
-																</listcell>
-																<listcell>
-																	<spinner value="${each.accidente.idAccidente}"
-																		width="98%" visible="false" disabled="true" />
-																</listcell>
-															</listitem>
-														</template>
-													</listbox>
-												</hbox>
-											</tabpanel>
-											<tabpanel>
-												<hbox>
-													<textbox tooltiptext="Ingrese el Nombre del Accidente"
-														placeholder="Ingrese el Accidente a Buscar" width="195px"
-														id="txtBuscadorAccidenteComun"></textbox>
-													<separator />
-													<button class="abrir" id="btnAbrirAccidenteComun"
-														label="" tooltiptext="Crear un Nuevo Accidente"
-														image="/public/imagenes/botones/agregar.png" />
-												</hbox>
-												<hbox widths="32%,3%,65%">
-													<listbox id="ltbAccidentesComunes" height="250px"
-														width="100%" emptyMessage="No hay Accidentes Comunes Registrados">
-														<listhead>
-															<listheader label="Accidente Comun" width="100%" />
-														</listhead>
-														<template name="model">
-															<listitem>
-																<listcell label="${each.nombre}">
-																</listcell>
-																<listcell>
-																	<datebox width="98%" onCreate="self.value = new Date()" />
-																</listcell>
-																<listcell>
-																	<textbox width="98%" />
-																</listcell>
-																<listcell>
-																	<textbox width="98%" />
-																</listcell>
-																<listcell>
-																	<spinner width="98%" step="1" />
-																</listcell>
-																<listcell>
-																	<textbox width="98%" />
-																</listcell>
-																<listcell>
-																	<spinner inplace="true" width="98%"
-																		value="${each.idAccidente}" visible="false" disabled="true" />
-																</listcell>
-															</listitem>
-														</template>
-													</listbox>
-													<vbox align="center" pack="center">
-														<button class="abrir" id="pasar1AccidentesComunes"
-															image="/public/imagenes/botones/adelante.png"
-															tooltiptext="Agregar Accidentes Comunes" width="30px" />
-														<separator />
-														<button class="abrir" id="pasar2AccidentesComunes"
-															image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Accidentes Comunes"
-															width="30px" />
-													</vbox>
-													<listbox id="ltbAccidentesComunesAgregados" height="250px"
-														width="100%" emptyMessage="No ha Seleccionado Ningún Accidente Comun">
-														<listhead>
-															<listheader label="Accidente" width="30%" />
-															<listheader label="Fecha" width="10%" />
-															<listheader label="Lugar" width="15%" />
-															<listheader label="Tipo Lesion" width="15%" />
-															<listheader label="Dias Reposo" width="10%" />
-															<listheader label="Secuelas" width="20%" />
-															<listheader label="id" visible="false" />
-														</listhead>
-														<template name="model">
-															<listitem>
-																<listcell label="${each.accidente.nombre}">
-																</listcell>
-																<listcell>
-																	<datebox readonly="true" value="${each.fecha}"
-																		width="98%" />
-																</listcell>
-																<listcell>
-																	<textbox value="${each.lugar}" width="98%"></textbox>
-																</listcell>
-																<listcell>
-																	<textbox value="${each.tipoLesion}" width="98%"></textbox>
-																</listcell>
-																<listcell>
-																	<spinner value="${each.diasReposo}" width="98%"
-																		step="1" />
-																</listcell>
-																<listcell>
-																	<textbox value="${each.secuelas}" width="98%"></textbox>
-																</listcell>
-																<listcell>
-																	<spinner value="${each.accidente.idAccidente}"
-																		width="98%" visible="false" disabled="true" />
-																</listcell>
-															</listitem>
-														</template>
-													</listbox>
-												</hbox>
-											</tabpanel>
-										</tabpanels>
-									</tabbox>
+									<separator />
+									<div align="left">
+										<vbox>
+											<label class="etiqueta3" value="Accidentes Laborales" />
+											<hbox>
+												<textbox tooltiptext="Ingrese el Nombre del Accidente"
+													placeholder="Ingrese el Accidente a Buscar" width="280px"
+													id="txtBuscadorAccidenteLaboral"></textbox>
+												<separator />
+												<a href="">
+													<label id="btnAbrirAccidenteLaboral" sclass="pointer"
+														value="Crear nuevo Accidente" class="abrir" />
+												</a>
+											</hbox>
+										</vbox>
+									</div>
+									<separator />
+									<hbox widths="32%,3%,65%">
+										<listbox id="ltbAccidentesLaborales" height="250px"
+											width="100%" emptyMessage="No hay Accidentes Laborales Registrados">
+											<listhead>
+												<listheader label="Accidente Laboral" width="100%" />
+											</listhead>
+											<template name="model">
+												<listitem>
+													<listcell label="${each.nombre}">
+													</listcell>
+													<listcell>
+														<datebox width="98%" onCreate="self.value = new Date()" />
+													</listcell>
+													<listcell>
+														<textbox width="98%" />
+													</listcell>
+													<listcell>
+														<textbox width="98%" />
+													</listcell>
+													<listcell>
+														<spinner width="98%" step="1" />
+													</listcell>
+													<listcell>
+														<textbox width="98%" />
+													</listcell>
+													<listcell>
+														<spinner inplace="true" width="98%"
+															value="${each.idAccidente}" visible="false" disabled="true" />
+													</listcell>
+												</listitem>
+											</template>
+										</listbox>
+										<vbox align="center" pack="center">
+											<button class="pasar" id="pasar1AccidentesLaborales"
+												image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar AccidentesLaborales"
+												width="30px" />
+											<separator />
+											<button class="pasar" id="pasar2AccidentesLaborales"
+												image="/public/imagenes/botones/atras.png" tooltiptext="Quitar AccidentesLaborales"
+												width="30px" />
+										</vbox>
+										<listbox id="ltbAccidentesLaboralesAgregados" height="250px"
+											width="100%" emptyMessage="No ha Seleccionado Ningún Accidente Laboral">
+											<listhead>
+												<listheader label="Accidente" width="30%" />
+												<listheader label="Fecha" width="10%" />
+												<listheader label="Lugar" width="15%" />
+												<listheader label="Tipo Lesion" width="15%" />
+												<listheader label="Dias Reposo" width="10%" />
+												<listheader label="Secuelas" width="20%" />
+												<listheader label="id" visible="false" />
+											</listhead>
+											<template name="model">
+												<listitem>
+													<listcell label="${each.accidente.nombre}">
+													</listcell>
+													<listcell>
+														<datebox readonly="true" value="${each.fecha}"
+															width="98%" />
+													</listcell>
+													<listcell>
+														<textbox value="${each.lugar}" width="98%"></textbox>
+													</listcell>
+													<listcell>
+														<textbox value="${each.tipoLesion}" width="98%"></textbox>
+													</listcell>
+													<listcell>
+														<spinner value="${each.diasReposo}" width="98%"
+															step="1" />
+													</listcell>
+													<listcell>
+														<textbox value="${each.secuelas}" width="98%"></textbox>
+													</listcell>
+													<listcell>
+														<spinner value="${each.accidente.idAccidente}"
+															width="98%" visible="false" disabled="true" />
+													</listcell>
+												</listitem>
+											</template>
+										</listbox>
+									</hbox>
+									<separator />
+									<div align="left">
+										<vbox>
+											<label class="etiqueta3" value="Accidentes Comunes" />
+											<hbox>
+												<textbox tooltiptext="Ingrese el Nombre del Accidente"
+													placeholder="Ingrese el Accidente a Buscar" width="280px"
+													id="txtBuscadorAccidenteComun"></textbox>
+												<separator />
+												<a href="">
+													<label id="btnAbrirAccidenteComun" sclass="pointer"
+														value="Crear nuevo Accidente" class="abrir" />
+												</a>
+											</hbox>
+										</vbox>
+									</div>
+									<separator />
+									<hbox widths="32%,3%,65%">
+										<listbox id="ltbAccidentesComunes" height="250px"
+											width="100%" emptyMessage="No hay Accidentes Comunes Registrados">
+											<listhead>
+												<listheader label="Accidente Comun" width="100%" />
+											</listhead>
+											<template name="model">
+												<listitem>
+													<listcell label="${each.nombre}">
+													</listcell>
+													<listcell>
+														<datebox width="98%" onCreate="self.value = new Date()" />
+													</listcell>
+													<listcell>
+														<textbox width="98%" />
+													</listcell>
+													<listcell>
+														<textbox width="98%" />
+													</listcell>
+													<listcell>
+														<spinner width="98%" step="1" />
+													</listcell>
+													<listcell>
+														<textbox width="98%" />
+													</listcell>
+													<listcell>
+														<spinner inplace="true" width="98%"
+															value="${each.idAccidente}" visible="false" disabled="true" />
+													</listcell>
+												</listitem>
+											</template>
+										</listbox>
+										<vbox align="center" pack="center">
+											<button class="pasar" id="pasar1AccidentesComunes"
+												image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Accidentes Comunes"
+												width="30px" />
+											<separator />
+											<button class="pasar" id="pasar2AccidentesComunes"
+												image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Accidentes Comunes"
+												width="30px" />
+										</vbox>
+										<listbox id="ltbAccidentesComunesAgregados" height="250px"
+											width="100%" emptyMessage="No ha Seleccionado Ningún Accidente Comun">
+											<listhead>
+												<listheader label="Accidente" width="30%" />
+												<listheader label="Fecha" width="10%" />
+												<listheader label="Lugar" width="15%" />
+												<listheader label="Tipo Lesion" width="15%" />
+												<listheader label="Dias Reposo" width="10%" />
+												<listheader label="Secuelas" width="20%" />
+												<listheader label="id" visible="false" />
+											</listhead>
+											<template name="model">
+												<listitem>
+													<listcell label="${each.accidente.nombre}">
+													</listcell>
+													<listcell>
+														<datebox readonly="true" value="${each.fecha}"
+															width="98%" />
+													</listcell>
+													<listcell>
+														<textbox value="${each.lugar}" width="98%"></textbox>
+													</listcell>
+													<listcell>
+														<textbox value="${each.tipoLesion}" width="98%"></textbox>
+													</listcell>
+													<listcell>
+														<spinner value="${each.diasReposo}" width="98%"
+															step="1" />
+													</listcell>
+													<listcell>
+														<textbox value="${each.secuelas}" width="98%"></textbox>
+													</listcell>
+													<listcell>
+														<spinner value="${each.accidente.idAccidente}"
+															width="98%" visible="false" disabled="true" />
+													</listcell>
+												</listitem>
+											</template>
+										</listbox>
+									</hbox>
 								</tabpanel>
 								<tabpanel>
 									<grid width="100%">
@@ -1001,7 +1004,7 @@
 												<hbox>
 													<label class="etiqueta" value="Partos" />
 													<spinner value="0" id="spnPartos" step="1" format="#"
-														constraint="min 0 max 100000" width="100%" />
+														constraint="min 0 max 100000" width="80px" />
 													<space />
 													<space />
 													<space />
@@ -1012,12 +1015,12 @@
 													<space />
 													<label class="etiqueta" value="Cesareas" />
 													<spinner value="0" id="spnCesareas" step="1"
-														format="#" constraint="min 0 max 100000" width="100%" />
+														format="#" constraint="min 0 max 100000" width="80px"/>
 												</hbox>
 												<hbox>
 													<label class="etiqueta" value="Abortos" />
 													<spinner value="0" id="spnAbortos" step="1" format="#"
-														constraint="min 0 max 100000" width="100%" />
+														constraint="min 0 max 100000" width="80px" />
 												</hbox>
 											</row>
 											<row>
@@ -1064,10 +1067,13 @@
 									</grid>
 								</tabpanel>
 								<tabpanel>
-									<button class="abrir" id="btnAbrirVacuna" label=""
-										tooltiptext="Crear una Nueva Vacuna" image="/public/imagenes/botones/agregar.png" />
+								<div align="left">
+									<a href="">
+										<label id="btnAbrirVacuna" sclass="pointer" value="Crear nueva Vacuna"
+											class="abrir" />
+									</a>
 									<listbox id="ltbVacunas" model="${$composer.modelVacunas}"
-										height="300px" width="100%" emptyMessage="El Paciente no posee Vacunas Recibidas">
+										height="300px" width="70%" emptyMessage="El Paciente no posee Vacunas Recibidas">
 										<listhead>
 											<listheader label="Nombre" width="70%" />
 											<listheader label="Fecha" width="40%" />
@@ -1083,6 +1089,7 @@
 											</listitem>
 										</template>
 									</listbox>
+									</div>
 								</tabpanel>
 								<tabpanel visible="false">
 									<grid width="100%">

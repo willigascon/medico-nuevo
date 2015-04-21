@@ -196,11 +196,13 @@
 				</rows>
 			</grid>
 			<separator />
+			<div align="left">
 			<hbox id="box2" visible="false">
 				<textbox tooltiptext="Ingrese el Nombre del Diagnostico"
-					placeholder="Ingrese el Diagnostico a Buscar" width="195px"
+					placeholder="Ingrese el Diagnostico a Buscar" width="280px"
 					id="txtBuscadorDiagnostico"></textbox>
 			</hbox>
+			</div>
 			<separator />
 			<hbox id="box" widths="48%,4%,48%" visible="false">
 				<listbox mold="paging" pageSize="8" id="ltbDiagnosticos"
@@ -220,11 +222,11 @@
 					</template>
 				</listbox>
 				<vbox>
-					<button class="abrir" id="pasar1"
+					<button class="pasar" id="pasar1"
 						image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Diagnostico"
 						width="30px" />
 					<separator />
-					<button class="abrir" id="pasar2"
+					<button class="pasar" id="pasar2"
 						image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Diagnostico"
 						width="30px" />
 				</vbox>

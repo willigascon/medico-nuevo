@@ -148,6 +148,7 @@ public class CPacientes extends CGenerico {
 		};
 		Button guardar = (Button) botonera.getChildren().get(0);
 		guardar.setLabel("Reporte");
+		guardar.setTooltiptext("Generar Reporte");
 		guardar.setImage("/public/imagenes/botones/reporte.png");
 		botonera.getChildren().get(1).setVisible(false);
 		botoneraRPacientes.appendChild(botonera);

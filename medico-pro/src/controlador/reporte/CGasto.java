@@ -49,8 +49,6 @@ public class CGasto extends CGenerico {
 	@Wire
 	private Label lblPaciente;
 	@Wire
-	private Hbox boxParentesco;
-	@Wire
 	private Combobox cmbTipo;
 	@Wire
 	private Div divGasto;
@@ -81,14 +79,12 @@ public class CGasto extends CGenerico {
 			tipo = 1;
 			break;
 		case "Gastos por Trabajador":
-			boxParentesco.setVisible(false);
 			tipo = 2;
 			break;
 		case "Gastos de Ordenes por Familiares":
 			tipo = 3;
 			break;
 		case "Gastos de Ordenes por Trabajador":
-			boxParentesco.setVisible(false);
 			tipo = 4;
 			break;
 		}
@@ -153,6 +149,7 @@ public class CGasto extends CGenerico {
 		};
 		Button guardar = (Button) botonera.getChildren().get(0);
 		guardar.setLabel("Reporte");
+		guardar.setTooltiptext("Generar Reporte");
 		guardar.setSrc("/public/imagenes/botones/reporte.png");
 		botonera.getChildren().get(1).setVisible(false);
 		botoneraGasto.appendChild(botonera);

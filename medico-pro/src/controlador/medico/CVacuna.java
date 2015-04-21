@@ -63,6 +63,7 @@ public class CVacuna extends CGenerico {
 				consulta = true;
 				listaConsulta = (Listbox) map.get("listbox");
 				historia = (Historia) map.get("historia");
+				titulo = (String) map.get("titulo");
 				map.clear();
 				map = null;
 			}

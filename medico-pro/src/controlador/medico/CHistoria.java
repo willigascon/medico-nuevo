@@ -1915,6 +1915,29 @@ public class CHistoria extends CGenerico {
 		listasMultiples();
 	}
 
+	@Listen("onClick = #btnAbrirVacuna")
+	public void divVacuna() {
+		Paciente paciente = servicioPaciente.buscarPorCedula(String
+				.valueOf(idPaciente));
+		Historia historia = new Historia();
+		if (paciente != null) {
+			historia = paciente.getHistoria();
+		} else
+			historia = null;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", "consulta");
+		map.put("historia", historia);
+		map.put("listbox", ltbVacunas);
+		map.put("titulo", "Vacuna");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
+		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Vacuna");
+		if (!arboles.isEmpty()) {
+			Arbol arbolItem = arboles.get(0);
+			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
+		}
+	}
+
+	
 	@Listen("onClick = #btnAbrirIntervencion")
 	public void divIntervencion() {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
