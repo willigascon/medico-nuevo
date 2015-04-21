@@ -705,7 +705,7 @@ public class CConsulta extends CGenerico {
 						cita.setEstado("Finalizada");
 						servicioCita.guardar(cita);
 					}
-					if (tipoSecundaria.equals("Pre-Empleo"))
+					if (tipoSecundaria.equals("Pre-Vacacional"))
 						if (paciente.getEmail() != null)
 							enviarEmailNotificacion(
 									paciente.getEmail(),
@@ -4165,8 +4165,7 @@ public class CConsulta extends CGenerico {
 		catalogoPaciente2 = new Catalogo<Paciente>(divCatalogoPacientes2,
 				"Catalogo de Pacientes con consulta post-vacacional pendiente",
 				pacientes, false, "Cedula", "Ficha", "Primer Nombre",
-				"Segundo Nombre", "Primer Apellido", "Segundo Apellido",
-				"Trabajador Asociado") {
+				"Segundo Nombre", "Primer Apellido", "Segundo Apellido") {
 
 			@Override
 			protected List<Paciente> buscar(String valor, String combo) {
@@ -4177,14 +4176,13 @@ public class CConsulta extends CGenerico {
 
 			@Override
 			protected String[] crearRegistros(Paciente objeto) {
-				String[] registros = new String[7];
+				String[] registros = new String[6];
 				registros[0] = objeto.getCedula();
 				registros[1] = objeto.getFicha();
 				registros[2] = objeto.getPrimerNombre();
 				registros[3] = objeto.getSegundoNombre();
 				registros[4] = objeto.getPrimerApellido();
 				registros[5] = objeto.getSegundoApellido();
-				registros[6] = objeto.getCedulaFamiliar();
 				return registros;
 			}
 

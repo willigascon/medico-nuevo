@@ -26,6 +26,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Image;
@@ -362,13 +363,20 @@ public class CDoctorInterno extends CGenerico {
 		else
 			rdoSexoMUsuario.setChecked(true);
 		cmbEspecialidad.setValue(usuario.getEspecialidad().getDescripcion());
+		Comboitem item = cmbEspecialidad.appendItem(usuario.getEspecialidad()
+				.getDescripcion());
+		item.setContext(String.valueOf(usuario.getEspecialidad()
+				.getIdEspecialidad()));
+		cmbEspecialidad.setSelectedItem(item);
 		txtCedulaUsuario.setDisabled(true);
 		id = usuario.getCedula();
 	}
+
 	/* Abre la vista de Estado */
 	@Listen("onClick = #btnAbrirEspecialidad")
 	public void abrirEstado() {
-		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Especialidad");
+		List<Arbol> arboles = servicioArbol
+				.buscarPorNombreArbol("Especialidad");
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("titulo", "Especialidad");
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);

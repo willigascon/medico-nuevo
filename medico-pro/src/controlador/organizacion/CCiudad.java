@@ -17,6 +17,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.ListModelList;
@@ -29,7 +30,6 @@ import org.zkoss.zul.Textbox;
 import componente.Botonera;
 import componente.Catalogo;
 import componente.Mensaje;
-
 import controlador.security.CArbol;
 import controlador.utils.CGenerico;
 
@@ -85,7 +85,7 @@ public class CCiudad extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divCiudad,titulo, tabs);
+				cerrarVentana(divCiudad, titulo, tabs);
 			}
 
 			@Override
@@ -93,7 +93,7 @@ public class CCiudad extends CGenerico {
 				txtNombreCiudad.setText("");
 				cmbEstado.setValue("");
 				cmbEstado.setPlaceholder("Seleccione un Estado");
-				limpiarColores(txtNombreCiudad,cmbEstado);
+				limpiarColores(txtNombreCiudad, cmbEstado);
 				id = 0;
 			}
 
@@ -153,7 +153,7 @@ public class CCiudad extends CGenerico {
 
 		if (cmbEstado.getText().compareTo("") == 0
 				|| txtNombreCiudad.getText().compareTo("") == 0) {
-			aplicarColores(txtNombreCiudad,cmbEstado);
+			aplicarColores(txtNombreCiudad, cmbEstado);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -165,7 +165,7 @@ public class CCiudad extends CGenerico {
 	public void mostrarCatalogo() throws IOException {
 		final List<Ciudad> ciudades = servicioCiudad.buscarTodas();
 		catalogo = new Catalogo<Ciudad>(catalogoCiudad, "Catalogo de Ciudades",
-				ciudades,false, "Nombre", "Estado", "Pais") {
+				ciudades, false, "Nombre", "Estado", "Pais") {
 
 			@Override
 			protected String[] crearRegistros(Ciudad ciudad) {
@@ -225,6 +225,9 @@ public class CCiudad extends CGenerico {
 	public void llenarCampos(Ciudad ciudad) {
 		txtNombreCiudad.setValue(ciudad.getNombre());
 		cmbEstado.setValue(ciudad.getEstado().getNombre());
+		Comboitem item = cmbEstado.appendItem(ciudad.getEstado().getNombre());
+		item.setContext(String.valueOf(ciudad.getEstado().getIdEstado()));
+		cmbEstado.setSelectedItem(item);
 		id = ciudad.getIdCiudad();
 	}
 

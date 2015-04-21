@@ -15,6 +15,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.ListModelList;
@@ -26,7 +27,6 @@ import org.zkoss.zul.Textbox;
 import componente.Botonera;
 import componente.Catalogo;
 import componente.Mensaje;
-
 import controlador.security.CArbol;
 import controlador.utils.CGenerico;
 
@@ -91,7 +91,7 @@ public class CEstado extends CGenerico {
 				cmbPais.setValue("");
 				cmbPais.setPlaceholder("Seleccione un Pais");
 				id = 0;
-				limpiarColores(txtNombreEstado,cmbPais);
+				limpiarColores(txtNombreEstado, cmbPais);
 			}
 
 			@Override
@@ -144,7 +144,7 @@ public class CEstado extends CGenerico {
 	public boolean validar() {
 		if (cmbPais.getText().compareTo("") == 0
 				|| txtNombreEstado.getText().compareTo("") == 0) {
-			aplicarColores(txtNombreEstado,cmbPais);
+			aplicarColores(txtNombreEstado, cmbPais);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -156,7 +156,7 @@ public class CEstado extends CGenerico {
 	public void mostrarCatalogo() {
 		final List<Estado> estados = servicioEstado.buscarTodos();
 		catalogo = new Catalogo<Estado>(catalogoEstado, "Catalogo de Estados",
-				estados,false, "Nombre", "Pais") {
+				estados, false, "Nombre", "Pais") {
 
 			@Override
 			protected List<Estado> buscar(String valor, String combo) {
@@ -203,6 +203,9 @@ public class CEstado extends CGenerico {
 	private void llenarCampos(Estado estado) {
 		txtNombreEstado.setValue(estado.getNombre());
 		cmbPais.setValue(estado.getPais().getNombre());
+		Comboitem item = cmbPais.appendItem(estado.getPais().getNombre());
+		item.setContext(String.valueOf(estado.getPais().getIdPais()));
+		cmbPais.setSelectedItem(item);
 		id = estado.getIdEstado();
 	}
 

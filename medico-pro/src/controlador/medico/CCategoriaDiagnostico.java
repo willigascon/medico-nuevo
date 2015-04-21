@@ -14,6 +14,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.ListModelList;
@@ -25,7 +26,6 @@ import org.zkoss.zul.Textbox;
 import componente.Botonera;
 import componente.Catalogo;
 import componente.Mensaje;
-
 import controlador.security.CArbol;
 import controlador.utils.CGenerico;
 
@@ -47,6 +47,7 @@ public class CCategoriaDiagnostico extends CGenerico {
 	private long id = 0;
 	Catalogo<CategoriaDiagnostico> catalogo;
 	CArbol cArbol = new CArbol();
+
 	@Override
 	public void inicializar() {
 		contenido = (Include) divCategoriaDiagnostico.getParent();
@@ -64,7 +65,7 @@ public class CCategoriaDiagnostico extends CGenerico {
 				map = null;
 			}
 		}
-		
+
 		HashMap<String, Object> mapaa = (HashMap<String, Object>) Sessions
 				.getCurrent().getAttribute("itemsCatalogo");
 		if (mapaa != null) {
@@ -80,7 +81,8 @@ public class CCategoriaDiagnostico extends CGenerico {
 				if (validar()) {
 					String nombre = txtNombreCategoriaDiagnostico.getValue();
 					ClasificacionDiagnostico clasificacion = servicioClasificacion
-							.buscarPorNombre(cmbClasificacion.getValue());
+							.buscar(Long.valueOf(cmbClasificacion
+									.getSelectedItem().getContext()));
 					CategoriaDiagnostico categoria = new CategoriaDiagnostico(
 							id, fechaHora, horaAuditoria, nombre,
 							nombreUsuarioSesion(), clasificacion);
@@ -94,14 +96,13 @@ public class CCategoriaDiagnostico extends CGenerico {
 			public void limpiar() {
 				txtNombreCategoriaDiagnostico.setValue("");
 				cmbClasificacion.setValue("");
-				limpiarColores(txtNombreCategoriaDiagnostico,cmbClasificacion);
+				limpiarColores(txtNombreCategoriaDiagnostico, cmbClasificacion);
 				id = 0;
 			}
 
 			@Override
 			public void salir() {
-				cerrarVentana(divCategoriaDiagnostico, titulo,
-						tabs);
+				cerrarVentana(divCategoriaDiagnostico, titulo, tabs);
 			}
 
 			@Override
@@ -144,7 +145,7 @@ public class CCategoriaDiagnostico extends CGenerico {
 	public boolean validar() {
 		if (txtNombreCategoriaDiagnostico.getText().compareTo("") == 0
 				|| cmbClasificacion.getText().compareTo("") == 0) {
-			aplicarColores(txtNombreCategoriaDiagnostico,cmbClasificacion);
+			aplicarColores(txtNombreCategoriaDiagnostico, cmbClasificacion);
 			msj.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else
@@ -158,7 +159,7 @@ public class CCategoriaDiagnostico extends CGenerico {
 				.buscarTodas();
 		catalogo = new Catalogo<CategoriaDiagnostico>(
 				catalogoCategoriaDiagnostico, "Catalogo de Categorias",
-				categorias, false,"Nombre") {
+				categorias, false, "Nombre") {
 
 			@Override
 			protected List<CategoriaDiagnostico> buscar(String valor,
@@ -202,12 +203,12 @@ public class CCategoriaDiagnostico extends CGenerico {
 	private void llenarCampos(CategoriaDiagnostico categoria) {
 		txtNombreCategoriaDiagnostico.setValue(categoria.getNombre());
 		id = categoria.getIdCategoriaDiagnostico();
-		if (categoria.getClasificacion() != null) {
-			cmbClasificacion.setValue(categoria.getClasificacion().getNombre());
-//			cmbClasificacion.getSelectedItem().setContext(
-//					String.valueOf(categoria.getClasificacion()
-//							.getIdClasificacion()));
-		}
+		cmbClasificacion.setValue(categoria.getClasificacion().getNombre());
+		Comboitem item = cmbClasificacion.appendItem(categoria
+				.getClasificacion().getNombre());
+		item.setContext(String.valueOf(categoria.getClasificacion()
+				.getIdClasificacion()));
+		cmbClasificacion.setSelectedItem(item);
 	}/* Llena el combo de estado cada vez que se abre */
 
 	@Listen("onOpen = #cmbClasificacion")

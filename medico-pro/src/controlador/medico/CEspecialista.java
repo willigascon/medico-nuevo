@@ -16,6 +16,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Doublespinner;
 import org.zkoss.zul.Include;
@@ -30,7 +31,6 @@ import componente.Botonera;
 import componente.Catalogo;
 import componente.Mensaje;
 import componente.Validador;
-
 import controlador.security.CArbol;
 import controlador.utils.CGenerico;
 
@@ -70,7 +70,7 @@ public class CEspecialista extends CGenerico {
 	private CConsulta cConsulta = new CConsulta();
 	List<Especialista> especialistaConsulta = new ArrayList<Especialista>();
 	Listbox listaConsulta;
-	
+
 	@Override
 	public void inicializar() throws IOException {
 		contenido = (Include) divEspecialista.getParent();
@@ -352,6 +352,11 @@ public class CEspecialista extends CGenerico {
 		dspCosto.setValue(especialista.getCosto());
 		cmbEspecialidad.setValue(especialista.getEspecialidad()
 				.getDescripcion());
+		Comboitem item = cmbEspecialidad.appendItem(especialista
+				.getEspecialidad().getDescripcion());
+		item.setContext(String.valueOf(especialista.getEspecialidad()
+				.getIdEspecialidad()));
+		cmbEspecialidad.setSelectedItem(item);
 		id = Long.parseLong(especialista.getCedula());
 	}
 

@@ -16,6 +16,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.ListModelList;
@@ -265,6 +266,11 @@ public class CDiagnostico extends CGenerico {
 		txtCodigoDiagnostico.setValue(diagnostico.getCodigo());
 		txtNombreDiagnostico.setValue(diagnostico.getNombre());
 		cmbCategoria.setValue(diagnostico.getCategoria().getNombre());
+		Comboitem item = cmbCategoria.appendItem(diagnostico.getCategoria()
+				.getNombre());
+		item.setContext(String.valueOf(diagnostico.getCategoria()
+				.getIdCategoriaDiagnostico()));
+		cmbCategoria.setSelectedItem(item);
 		if (diagnostico.getEpi() != null) {
 			Boolean epi = diagnostico.getEpi();
 			if (epi)

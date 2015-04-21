@@ -26,6 +26,7 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.A;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Doublespinner;
 import org.zkoss.zul.Filedownload;
@@ -41,12 +42,12 @@ import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Textbox;
 
 import com.csvreader.CsvReader;
+
 import componente.Botonera;
 import componente.Buscar;
 import componente.Catalogo;
 import componente.Mensaje;
 import componente.Validador;
-
 import controlador.security.CArbol;
 import controlador.utils.CGenerico;
 
@@ -85,7 +86,6 @@ public class CProveedor extends CGenerico {
 	@Wire
 	private Tab tabBasicos;
 
-
 	private CArbol cArbol = new CArbol();
 	long id = 0;
 	Catalogo<Proveedor> catalogo;
@@ -96,7 +96,6 @@ public class CProveedor extends CGenerico {
 	List<ServicioExterno> estudiosDisponibles = new ArrayList<ServicioExterno>();
 	List<ProveedorServicio> estudiosUsados = new ArrayList<ProveedorServicio>();
 
-	
 	@Override
 	public void inicializar() throws IOException {
 		contenido = (Include) divProveedor.getParent();
@@ -145,7 +144,8 @@ public class CProveedor extends CGenerico {
 				examenesDisponibles.clear();
 				examenesUsados.clear();
 				tabBasicos.setSelected(true);
-				limpiarColores(txtDireccionProveedor,txtNombreProveedor,txtTelefonoProveedor,cmbCiudadProveedor);
+				limpiarColores(txtDireccionProveedor, txtNombreProveedor,
+						txtTelefonoProveedor, cmbCiudadProveedor);
 			}
 
 			@Override
@@ -287,7 +287,8 @@ public class CProveedor extends CGenerico {
 				|| txtNombreProveedor.getText().compareTo("") == 0
 				|| txtTelefonoProveedor.getText().compareTo("") == 0
 				|| cmbCiudadProveedor.getText().compareTo("") == 0) {
-			aplicarColores(txtDireccionProveedor,txtNombreProveedor,txtTelefonoProveedor,cmbCiudadProveedor);
+			aplicarColores(txtDireccionProveedor, txtNombreProveedor,
+					txtTelefonoProveedor, cmbCiudadProveedor);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else {
@@ -304,8 +305,8 @@ public class CProveedor extends CGenerico {
 	public void mostrarCatalogo() {
 		final List<Proveedor> proveedores = servicioProveedor.buscarTodos();
 		catalogo = new Catalogo<Proveedor>(catalogoProveedor,
-				"Catalogo de Proveedores", proveedores, false,"Nombre", "Direccion",
-				"Telefono", "Ciudad") {
+				"Catalogo de Proveedores", proveedores, false, "Nombre",
+				"Direccion", "Telefono", "Ciudad") {
 
 			@Override
 			protected List<Proveedor> buscar(String valor, String combo) {
@@ -338,6 +339,7 @@ public class CProveedor extends CGenerico {
 		catalogo.setParent(catalogoProveedor);
 		catalogo.doModal();
 	}
+
 	/* Valida el numero telefonico */
 	@Listen("onChange = #txtTelefonoProveedor")
 	public void validarTelefono() {
@@ -369,6 +371,10 @@ public class CProveedor extends CGenerico {
 		txtNombreProveedor.setValue(proveedor.getNombre());
 		txtTelefonoProveedor.setValue(proveedor.getTelefono());
 		cmbCiudadProveedor.setValue(proveedor.getCiudad().getNombre());
+		Comboitem item = cmbCiudadProveedor.appendItem(proveedor.getCiudad()
+				.getNombre());
+		item.setContext(String.valueOf(proveedor.getCiudad().getIdCiudad()));
+		cmbCiudadProveedor.setSelectedItem(item);
 		llenarListaEstudios(proveedor);
 		llenarListaExamenes(proveedor);
 		id = proveedor.getIdProveedor();
@@ -669,8 +675,7 @@ public class CProveedor extends CGenerico {
 		map.put("listbox", ltbEstudios);
 		map.put("titulo", "Estudios");
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
-		List<Arbol> arboles = servicioArbol
-				.buscarPorNombreArbol("Estudios");
+		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Estudios");
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
@@ -692,7 +697,6 @@ public class CProveedor extends CGenerico {
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
 		}
 	}
-
 
 	public void recibirExamen(List<Examen> lista, Listbox l) {
 		ltbExamen = l;

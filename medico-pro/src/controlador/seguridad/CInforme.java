@@ -41,6 +41,7 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Fileupload;
@@ -991,6 +992,8 @@ public class CInforme extends CGenerico {
 		llenarComboArea();
 		txt1.setDisabled(true);
 		String c = servicioInforme.buscarMaxCodigo();
+		if (c == null)
+			c = "2015";
 		int n = c.length();
 		char car = c.charAt(n - 1);
 		String nro = Character.toString(car);
@@ -1024,7 +1027,7 @@ public class CInforme extends CGenerico {
 				limpiarCamposPlan();
 				limpiarCamposPlan2();
 				org.zkoss.image.Image imagenUsuario1 = null;
-				}
+			}
 
 			@Override
 			public void guardar() {
@@ -1618,8 +1621,7 @@ public class CInforme extends CGenerico {
 			Mensaje.mensajeError("Debe seleccionar un trabajador y una empresa");
 			return false;
 		} else
-				return true;
-		
+			return true;
 
 	}
 
@@ -2419,8 +2421,18 @@ public class CInforme extends CGenerico {
 		txt66.setValue(informe.getFf());
 		if (informe.getAccidente() != null) {
 			cmbAccidente.setValue(informe.getAccidente().getNombre());
+			Comboitem item = cmbAccidente.appendItem(informe.getAccidente()
+					.getNombre());
+			item.setContext(String.valueOf(informe.getAccidente()
+					.getIdAccidente()));
+			cmbAccidente.setSelectedItem(item);
 			cmb67.setValue(informe.getAccidente().getClasificacion()
 					.getNombre());
+			Comboitem item2 = cmb67.appendItem(informe.getAccidente()
+					.getClasificacion().getNombre());
+			item2.setContext(String.valueOf(informe.getAccidente()
+					.getClasificacion().getIdClasificacionAccidente()));
+			cmb67.setSelectedItem(item2);
 		} else {
 			cmbAccidente.setValue("");
 			cmb67.setValue("");
@@ -2450,8 +2462,12 @@ public class CInforme extends CGenerico {
 		txt6710.setValue(informe.getFgj());
 		txt6711.setValue(informe.getFgaa());
 		txt6712.setValue(informe.getFgab());
-		if (informe.getArea() != null)
+		if (informe.getArea() != null) {
 			cmb6713.setValue(informe.getArea().getNombre());
+			Comboitem item = cmb6713.appendItem(informe.getArea().getNombre());
+			item.setContext(String.valueOf(informe.getArea().getIdArea()));
+			cmb6713.setSelectedItem(item);
+		}
 		txt6714.setValue(informe.getFgad());
 		txt711.setValue(informe.getGaa());
 

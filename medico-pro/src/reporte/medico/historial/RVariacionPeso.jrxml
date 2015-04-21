@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RVariacionPeso" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4e8318ff-ce90-44fa-9181-469d67b26325">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="139"/>
 	<parameter name="desde" class="java.lang.String"/>
 	<parameter name="hasta" class="java.lang.String"/>
+	<parameter name="grafica" class="java.lang.String"/>
 	<field name="paciente.cedula" class="java.lang.String"/>
 	<field name="paciente.primerNombre" class="java.lang.String"/>
 	<field name="paciente.primerApellido" class="java.lang.String"/>
@@ -240,4 +241,50 @@
 			</staticText>
 		</band>
 	</lastPageFooter>
+	<summary>
+		<band height="487">
+			<printWhenExpression><![CDATA[$P{grafica}.equals( "Si" )]]></printWhenExpression>
+			<staticText>
+				<reportElement x="140" y="22" width="284" height="20" uuid="db4da194-58a2-434b-973c-d985a912692e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Variacion del Indice de Masa Muscular]]></text>
+			</staticText>
+			<lineChart>
+				<chart>
+					<reportElement x="3" y="87" width="549" height="359" uuid="47da2b5c-33ed-4ec2-843c-da683db17803"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["I.M.C."]]></seriesExpression>
+						<categoryExpression><![CDATA[new SimpleDateFormat("yyyy-MM").format($F{fechaConsulta})]]></categoryExpression>
+						<valueExpression><![CDATA[$F{peso}/($F{estatura}*$F{estatura})]]></valueExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Valores Minimos"]]></seriesExpression>
+						<categoryExpression><![CDATA[new SimpleDateFormat("yyyy-MM").format($F{fechaConsulta})]]></categoryExpression>
+						<valueExpression><![CDATA[18.5]]></valueExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Valores Maximos"]]></seriesExpression>
+						<categoryExpression><![CDATA[new SimpleDateFormat("yyyy-MM").format($F{fechaConsulta})]]></categoryExpression>
+						<valueExpression><![CDATA[25]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+		</band>
+	</summary>
 </jasperReport>

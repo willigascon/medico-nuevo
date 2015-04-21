@@ -17,7 +17,7 @@ public interface IConsultaMedicinaDAO extends
 
 	List<ConsultaMedicina> findByMedicina(Medicina medicina);
 
-	@Query("select coalesce(c.cantidad,'0') * coalesce(c.precio,'0') from ConsultaMedicina c where c.consulta=?1")
+	@Query("select sum(coalesce(c.cantidad,'0') * coalesce(c.precio,'0')) from ConsultaMedicina c where c.consulta=?1")
 	Double costByConsulta(Consulta consulta);
 
 }

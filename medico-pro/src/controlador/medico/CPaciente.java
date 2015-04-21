@@ -30,6 +30,7 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Doublespinner;
@@ -51,7 +52,6 @@ import componente.Buscar;
 import componente.Catalogo;
 import componente.Mensaje;
 import componente.Validador;
-
 import controlador.security.CArbol;
 import controlador.utils.CGenerico;
 
@@ -851,8 +851,12 @@ public class CPaciente extends CGenerico {
 		txtAlergia.setValue(paciente.getObservacionAlergias());
 		txtLugarNacimiento.setValue(paciente.getLugarNacimiento());
 		cmbSexo.setValue(paciente.getSexo());
-		if (paciente.getEstadoCivil() != null)
+		if (paciente.getEstadoCivil() != null){
 			cmbEstadoCivil.setValue(paciente.getEstadoCivil().getNombre());
+			Comboitem item = cmbEstadoCivil.appendItem(paciente.getEstadoCivil().getNombre());
+			item.setContext(String.valueOf(paciente.getEstadoCivil().getIdEstadoCivil()));
+			cmbEstadoCivil.setSelectedItem(item);
+		}
 		cmbGrupoSanguineo.setValue(paciente.getGrupoSanguineo());
 		cmbMano.setValue(paciente.getMano());
 		cmbOrigen.setValue(paciente.getOrigenDiscapacidad());
@@ -872,6 +876,11 @@ public class CPaciente extends CGenerico {
 		dspEstatura.setValue(paciente.getEstatura());
 		dspPeso.setValue(paciente.getPeso());
 		cmbCiudad.setValue(paciente.getCiudadVivienda().getNombre());
+		Comboitem item = cmbCiudad.appendItem(paciente.getCiudadVivienda()
+				.getNombre());
+		item.setContext(String.valueOf(paciente.getCiudadVivienda()
+				.getIdCiudad()));
+		cmbCiudad.setSelectedItem(item);
 		spnCarga.setValue(paciente.getCarga());
 		txtNroInpsasel.setValue(paciente.getNroInpsasel());
 		txtProfesion.setValue(paciente.getProfesion());
@@ -907,12 +916,26 @@ public class CPaciente extends CGenerico {
 				rdoActivo.setChecked(true);
 		}
 
-		if (paciente.getCargoReal() != null)
+		if (paciente.getCargoReal() != null) {
 			cmbCargo.setValue(paciente.getCargoReal().getNombre());
-		if (paciente.getArea() != null)
+			Comboitem item2 = cmbCargo.appendItem(paciente.getCargoReal()
+					.getNombre());
+			item2.setContext(String.valueOf(paciente.getCargoReal()
+					.getIdCargo()));
+			cmbCargo.setSelectedItem(item2);
+		}
+		if (paciente.getArea() != null){
 			cmbArea.setValue(paciente.getArea().getNombre());
-		if (paciente.getEmpresa() != null)
+			Comboitem item2 = cmbArea.appendItem(paciente.getArea().getNombre());
+			item2.setContext(String.valueOf(paciente.getArea().getIdArea()));
+			cmbArea.setSelectedItem(item2);
+		}
+		if (paciente.getEmpresa() != null){
 			cmbEmpresa.setValue(paciente.getEmpresa().getNombre());
+			Comboitem item2 = cmbEmpresa.appendItem(paciente.getEmpresa().getNombre());
+			item2.setContext(String.valueOf(paciente.getEmpresa().getIdEmpresa()));
+			cmbEmpresa.setSelectedItem(item2);
+		}
 		if (paciente.getNomina() != null)
 			cmbNomina.setValue(paciente.getNomina());
 

@@ -301,6 +301,10 @@ public class CHistorial extends CGenerico {
 		Map<String, Object> p = new HashMap<String, Object>();
 		p.put("desde", par6);
 		p.put("hasta", par7);
+		if (par8.equals("%"))
+			p.put("grafica", "No");
+		else
+			p.put("grafica", "Si");
 		JasperReport reporte = null;
 		try {
 			reporte = (JasperReport) JRLoader.loadObject(getClass()

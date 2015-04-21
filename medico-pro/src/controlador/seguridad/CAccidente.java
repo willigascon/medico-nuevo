@@ -18,6 +18,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.ListModelList;
@@ -235,6 +236,9 @@ public class CAccidente extends CGenerico {
 		txtCodigo.setValue(accidente.getIdAccidente());
 		txtNombre.setValue(accidente.getNombre());
 		cmbClasificacion.setValue(accidente.getClasificacion().getNombre());
+		Comboitem item = cmbClasificacion.appendItem(accidente.getClasificacion().getNombre());
+		item.setContext(String.valueOf(accidente.getClasificacion().getIdClasificacionAccidente()));
+		cmbClasificacion.setSelectedItem(item);
 		txtCodigo.setDisabled(true);
 		catalogo.setParent(null);
 	}
