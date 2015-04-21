@@ -975,6 +975,7 @@ public class CInforme extends CGenerico {
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
+				titulo = (String) mapa.get("titulo");
 				mapa.clear();
 				mapa = null;
 			}
@@ -1001,7 +1002,7 @@ public class CInforme extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divInforme, "Informe", tabs);
+				cerrarVentana(divInforme, titulo, tabs);
 			}
 
 			@Override
@@ -1614,7 +1615,7 @@ public class CInforme extends CGenerico {
 	protected boolean validar() {
 		if (txt1.getText().compareTo("") == 0 || lbl53.getValue() == ""
 				|| lbl31.getValue() == "") {
-			Mensaje.mensajeError(Mensaje.camposVacios);
+			Mensaje.mensajeError("Debe seleccionar un trabajador y una empresa");
 			return false;
 		} else
 				return true;
@@ -2043,7 +2044,7 @@ public class CInforme extends CGenerico {
 			tab3.setSelected(true);
 	}
 
-	@Listen("onClick = #btnAtras2,#btnAtras3,#btnAtras4,#btnAtras5,#btnAtras6,#btnAtras7, #btnAtras8")
+	@Listen("onClick = #btnAtras2,#btnAtras3,#btnAtras4,#btnAtras5,#btnAtras6,#btnAtras7")
 	public void atras() {
 		if (tab3.isSelected())
 			tab1y2.setSelected(true);

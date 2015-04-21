@@ -1,7 +1,16 @@
 <zk>
 	<script src="/public/progress.js" />
-	<div id="divInforme" apply="controlador.seguridad.CInforme" width="auto">
-		<groupbox width="auto" mold="3d" title="Informe">
+	<div align="center" id="divInforme" apply="controlador.seguridad.CInforme"
+		width="auto">
+		<groupbox closable="false" width="auto" mold="3d"
+			title="Registro de Informe de Insapsel">
+			<hbox>
+				<div id="botoneraInforme" />
+				<button dir="reverse" autodisable="self" id="btnReporte"
+					class="btn" label="Reporte" tooltiptext="Reporte de Insapsel"
+					image="/public/imagenes/botones/reporte.png" />
+			</hbox>
+			<separator />
 			<grid width="auto">
 				<columns>
 					<column label="" width="30%" />
@@ -10,14 +19,9 @@
 				<rows>
 					<row>
 						<label class="etiqueta" value="Buscar Informe Registrado" />
-						<button autodisable="self" id="btnBuscar1" class="btn"
-							label="Buscar" tooltiptext="Catalogo" image="/public/imagenes/botones/buscar.png" />
-					</row>
-					<row>
-						<label class="etiqueta" value="Imprimir" />
-						<button autodisable="self" id="btnReporte" class="btn"
-							label="Reporte" tooltiptext="Reporte"
-							image="/public/imagenes/botones/reporte.png" />
+						<button dir="reverse" autodisable="self" id="btnBuscar1"
+							class="btn" label="Buscar" tooltiptext="Catalogo de Informes"
+							image="/public/imagenes/botones/buscar.png" />
 					</row>
 				</rows>
 			</grid>
@@ -84,8 +88,8 @@
 									<label id="lbl212" />
 									<label id="lbl213" />
 									<label id="lbl214" />
-									<button autodisable="self" id="btnBuscar21" class="btn"
-										label="Buscar" tooltiptext="Catalogo"
+									<button dir="reverse" autodisable="self" id="btnBuscar21"
+										class="btn" label="Buscar" tooltiptext="Catalogo"
 										image="/public/imagenes/botones/buscar.png" />
 								</row>
 								<row>
@@ -93,8 +97,8 @@
 									<label id="lbl222" />
 									<label id="lbl223" />
 									<label id="lbl224" />
-									<button autodisable="self" id="btnBuscar22" class="btn"
-										label="Buscar" tooltiptext="Catalogo"
+									<button dir="reverse" autodisable="self" id="btnBuscar22"
+										class="btn" label="Buscar" tooltiptext="Catalogo"
 										image="/public/imagenes/botones/buscar.png" />
 								</row>
 								<row>
@@ -102,8 +106,8 @@
 									<label id="lbl232" />
 									<label id="lbl233" />
 									<label id="lbl234" />
-									<button autodisable="self" id="btnBuscar23" class="btn"
-										label="Buscar" tooltiptext="Catalogo"
+									<button dir="reverse" autodisable="self" id="btnBuscar23"
+										class="btn" label="Buscar" tooltiptext="Catalogo"
 										image="/public/imagenes/botones/buscar.png" />
 								</row>
 								<row>
@@ -119,8 +123,8 @@
 									<label id="lbl242" />
 									<label id="lbl243" />
 									<label id="lbl244" />
-									<button autodisable="self" id="btnBuscar24" class="btn"
-										label="Buscar" tooltiptext="Catalogo"
+									<button dir="reverse" autodisable="self" id="btnBuscar24"
+										class="btn" label="Buscar" tooltiptext="Catalogo"
 										image="/public/imagenes/botones/buscar.png" />
 								</row>
 								<row>
@@ -128,8 +132,8 @@
 									<label id="lbl252" />
 									<label id="lbl253" />
 									<label id="lbl254" />
-									<button autodisable="self" id="btnBuscar25" class="btn"
-										label="Buscar" tooltiptext="Catalogo"
+									<button dir="reverse" autodisable="self" id="btnBuscar25"
+										class="btn" label="Buscar" tooltiptext="Catalogo"
 										image="/public/imagenes/botones/buscar.png" />
 								</row>
 								<row>
@@ -137,8 +141,8 @@
 									<label id="lbl262" />
 									<label id="lbl263" />
 									<label id="lbl264" />
-									<button autodisable="self" id="btnBuscar26" class="btn"
-										label="Buscar" tooltiptext="Catalogo"
+									<button dir="reverse" autodisable="self" id="btnBuscar26"
+										class="btn" label="Buscar" tooltiptext="Catalogo"
 										image="/public/imagenes/botones/buscar.png" />
 								</row>
 							</rows>
@@ -146,7 +150,7 @@
 						<hbox>
 							<space width="800px" />
 							<div align="right">
-								<button class="btn" id="btnSiguiente1" label="Siguiente"
+								<button class="btn" id="btnSiguiente1" label=""
 									image="/public/imagenes/botones/adelante.png" tooltiptext="Siguiente Pestaña" />
 							</div>
 						</hbox>
@@ -184,8 +188,8 @@
 									<cell colspan="2">
 										<label id="lbl32" />
 									</cell>
-									<button autodisable="self" id="btnBuscar3" class="btn"
-										label="Buscar" tooltiptext="Catalogo"
+									<button  dir="reverse" autodisable="self" id="btnBuscar3" class="btn"
+										label="Buscar" tooltiptext="Catalogo de Empresas"
 										image="/public/imagenes/botones/buscar.png" />
 									<hbox />
 								</row>
@@ -314,12 +318,12 @@
 						<separator />
 						<hbox>
 							<div align="left">
-								<button class="btn" id="btnAtras2" label="Anterior"
+								<button class="btn" id="btnAtras2" label=""
 									image="/public/imagenes/botones/atras.png" tooltiptext="Anterior Pestaña" />
 							</div>
 							<space width="700px" />
 							<div align="right">
-								<button class="btn" id="btnSiguiente2" label="Siguiente"
+								<button class="btn" id="btnSiguiente2" label=""
 									image="/public/imagenes/botones/adelante.png" tooltiptext="Siguiente Pestaña" />
 							</div>
 						</hbox>
@@ -353,8 +357,8 @@
 									<cell colspan="2">
 										<label id="lbl42" />
 									</cell>
-									<button autodisable="self" id="btnBuscar4" class="btn"
-										label="Buscar" tooltiptext="Catalogo"
+									<button dir="reverse" autodisable="self" id="btnBuscar4" class="btn"
+										label="Buscar" tooltiptext="Catalogo de Empresas"
 										image="/public/imagenes/botones/buscar.png" />
 									<hbox />
 								</row>
@@ -483,12 +487,12 @@
 						<separator />
 						<hbox>
 							<div align="left">
-								<button class="btn" id="btnAtras3" label="Anterior"
+								<button class="btn" id="btnAtras3" label=""
 									image="/public/imagenes/botones/atras.png" tooltiptext="Anterior Pestaña" />
 							</div>
 							<space width="700px" />
 							<div align="right">
-								<button class="btn" id="btnSiguiente3" label="Siguiente"
+								<button class="btn" id="btnSiguiente3" label=""
 									image="/public/imagenes/botones/adelante.png" tooltiptext="Siguiente Pestaña" />
 							</div>
 						</hbox>
@@ -530,8 +534,8 @@
 										<label value="  " />
 										<label id="lbl54" />
 									</cell>
-									<button id="btnBuscar5" class="btn" label="Buscar"
-										tooltiptext="Catalogo" image="/public/imagenes/botones/buscar.png" />
+									<button dir="reverse" id="btnBuscar5" class="btn" label="Buscar"
+										tooltiptext="Catalogo de Pacientes" image="/public/imagenes/botones/buscar.png" />
 								</row>
 								<row>
 									<label class="etiqueta" value="Sexo:" />
@@ -702,12 +706,12 @@
 						<separator />
 						<hbox>
 							<div align="left">
-								<button class="btn" id="btnAtras4" label="Anterior"
+								<button class="btn" id="btnAtras4" label=""
 									image="/public/imagenes/botones/atras.png" tooltiptext="Anterior Pestaña" />
 							</div>
 							<space width="700px" />
 							<div align="right">
-								<button class="btn" id="btnSiguiente4" label="Siguiente"
+								<button class="btn" id="btnSiguiente4" label=""
 									image="/public/imagenes/botones/adelante.png" tooltiptext="Siguiente Pestaña" />
 							</div>
 						</hbox>
@@ -900,12 +904,12 @@
 						<separator />
 						<hbox>
 							<div align="left">
-								<button class="btn" id="btnAtras5" label="Anterior"
+								<button class="btn" id="btnAtras5" label=""
 									image="/public/imagenes/botones/atras.png" tooltiptext="Anterior Pestaña" />
 							</div>
 							<space width="700px" />
 							<div align="right">
-								<button class="btn" id="btnSiguiente5" label="Siguiente"
+								<button class="btn" id="btnSiguiente5" label=""
 									image="/public/imagenes/botones/adelante.png" tooltiptext="Siguiente Pestaña" />
 							</div>
 						</hbox>
@@ -1724,12 +1728,12 @@
 						</tabbox>
 						<hbox>
 							<div align="left">
-								<button class="btn" id="btnAtras6" label="Anterior"
+								<button class="btn" id="btnAtras6" label=""
 									image="/public/imagenes/botones/atras.png" tooltiptext="Anterior Pestaña" />
 							</div>
 							<space width="700px" />
 							<div align="right">
-								<button class="btn" id="btnSiguiente6" label="Siguiente"
+								<button class="btn" id="btnSiguiente6" label=""
 									image="/public/imagenes/botones/adelante.png" tooltiptext="Siguiente Pestaña" />
 							</div>
 						</hbox>
@@ -2163,7 +2167,7 @@
 																<label id="lbl931414" />
 																<label id="lbl931415" />
 																<label id="lbl931416" />
-																<button autodisable="self" id="btnBuscar93141"
+																<button dir="reverse" autodisable="self" id="btnBuscar93141"
 																	class="btn" label="Buscar" tooltiptext="Catalogo"
 																	image="/public/imagenes/botones/buscar.png" />
 															</row>
@@ -2174,8 +2178,8 @@
 																<label id="lbl931424" />
 																<label id="lbl931425" />
 																<label id="lbl931426" />
-																<button autodisable="self" id="btnBuscar93142"
-																	class="btn" label="Buscar" tooltiptext="Catalogo"
+																<button dir="reverse" autodisable="self" id="btnBuscar93142"
+																	class="btn" label="Buscar" tooltiptext="Catalogo de Pacientes"
 																	image="/public/imagenes/botones/buscar.png" />
 															</row>
 															<row>
@@ -2185,7 +2189,7 @@
 																<label id="lbl931434" />
 																<label id="lbl931435" />
 																<label id="lbl931436" />
-																<button autodisable="self" id="btnBuscar93143"
+																<button dir="reverse" autodisable="self" id="btnBuscar93143"
 																	class="btn" label="Buscar" tooltiptext="Catalogo"
 																	image="/public/imagenes/botones/buscar.png" />
 															</row>
@@ -2196,7 +2200,7 @@
 																<label id="lbl931444" />
 																<label id="lbl931445" />
 																<label id="lbl931446" />
-																<button autodisable="self" id="btnBuscar93144"
+																<button dir="reverse" autodisable="self" id="btnBuscar93144"
 																	class="btn" label="Buscar" tooltiptext="Catalogo"
 																	image="/public/imagenes/botones/buscar.png" />
 															</row>
@@ -2207,7 +2211,7 @@
 																<label id="lbl931454" />
 																<label id="lbl931455" />
 																<label id="lbl931456" />
-																<button autodisable="self" id="btnBuscar93145"
+																<button dir="reverse" autodisable="self" id="btnBuscar93145"
 																	class="btn" label="Buscar" tooltiptext="Catalogo"
 																	image="/public/imagenes/botones/buscar.png" />
 															</row>
@@ -2218,7 +2222,7 @@
 																<label id="lbl931464" />
 																<label id="lbl931465" />
 																<label id="lbl931466" />
-																<button autodisable="self" id="btnBuscar93146"
+																<button dir="reverse" autodisable="self" id="btnBuscar93146"
 																	class="btn" label="Buscar" tooltiptext="Catalogo"
 																	image="/public/imagenes/botones/buscar.png" />
 															</row>
@@ -2400,12 +2404,12 @@
 						</tabbox>
 						<hbox>
 							<div align="left">
-								<button class="btn" id="btnAtras7" label="Anterior"
+								<button class="btn" id="btnAtras7" label=""
 									image="/public/imagenes/botones/atras.png" tooltiptext="Anterior Pestaña" />
 							</div>
 							<space width="700px" />
 							<div align="right">
-								<button class="btn" id="btnSiguiente7" label="Siguiente"
+								<button class="btn" id="btnSiguiente7" label=""
 									image="/public/imagenes/botones/adelante.png" tooltiptext="Siguiente Pestaña" />
 							</div>
 						</hbox>
@@ -2421,7 +2425,7 @@
 							<rows>
 								<row>
 									<hbox>
-										<label class="etiqueta" value="Descripcion:" />
+										<label class="etiqueta" value="Que:" />
 										<space />
 										<label value="*" style="font-weight:bold;color:red" />
 									</hbox>
@@ -2463,7 +2467,7 @@
 									<datebox width="100%" readonly="true" id="dtbCuando"
 										onCreate="self.value = new Date()" tooltiptext="Indique la Fecha del Plan" />
 									<label class="etiqueta" value="Agregar Accion:" />
-									<button autodisable="self" id="btnAgregarItems" class="btn"
+									<button  dir="reverse" autodisable="self" id="btnAgregarItems" class="btn"
 										label="Agregar Accion" tooltiptext="Agregar items al Plan de Accion"
 										image="/public/imagenes/botones/annadir.png" width="150px" />
 								</row>
@@ -2474,7 +2478,7 @@
 								<listbox span="true" rows="10" id="ltbPlan" width="100%"
 									emptyMessage="No se han asignado Planes de Accion">
 									<listhead>
-										<listheader label="Quien" width="30%" />
+										<listheader label="Que" width="30%" />
 										<listheader label="Quien" width="10%" />
 										<listheader label="Cuando" width="10%" />
 										<listheader label="Donde" width="30%" />
@@ -2492,21 +2496,15 @@
 								</listbox>
 							</div>
 							<vbox width="100%">
-								<button autodisable="self" label="Editar" id="btnEditar"
+								<button  dir="reverse" autodisable="self" label="Editar" id="btnEditar"
 									image="/public/imagenes/botones/generar.png"
 									tooltiptext="Seleccione un item y presione este boton para editar la informacion existente"
 									hflex="1" height="32px" class="btn" />
-								<button autodisable="self" label="Remover" id="btnRemover"
+								<button  dir="reverse" autodisable="self" label="Remover" id="btnRemover"
 									image="/public/imagenes/botones/anular.png"
 									tooltiptext="Seleccione un item y presione este boton para removerlo de la lista"
 									hflex="1" height="32px" class="btn" />
 							</vbox>
-						</hbox>
-						<hbox>
-							<div align="left">
-								<button class="btn" id="btnAtras8" label="Anterior"
-									image="/public/imagenes/botones/atras.png" tooltiptext="Anterior Pestaña" />
-							</div>
 						</hbox>
 					</tabpanel>
 					<tabpanel>
@@ -2551,7 +2549,7 @@
 								</row>
 								<row>
 									<hbox>
-										<label class="etiqueta" value="Descripcion:" />
+										<label class="etiqueta" value="Que:" />
 										<space />
 										<label value="*" style="font-weight:bold;color:red" />
 									</hbox>
@@ -2593,7 +2591,7 @@
 									<datebox width="100%" readonly="true" id="dtbCuandoVisita"
 										onCreate="self.value = new Date()" tooltiptext="Indique la Fecha del Plan" />
 									<label class="etiqueta" value="Agregar Accion:" />
-									<button autodisable="self" id="btnAgregarItemsVisita"
+									<button  dir="reverse" autodisable="self" id="btnAgregarItemsVisita"
 										class="btn" label="Agregar Accion" tooltiptext="Agregar items al Plan de Accion"
 										image="/public/imagenes/botones/annadir.png" width="150px" />
 								</row>
@@ -2604,7 +2602,7 @@
 								<listbox span="true" rows="10" id="ltbPlanVisita" width="100%"
 									emptyMessage="No se han asignado Planes de Accion">
 									<listhead>
-										<listheader label="Quien" width="30%" />
+										<listheader label="Que" width="30%" />
 										<listheader label="Quien" width="10%" />
 										<listheader label="Cuando" width="10%" />
 										<listheader label="Donde" width="30%" />
@@ -2622,27 +2620,19 @@
 								</listbox>
 							</div>
 							<vbox width="100%">
-								<button autodisable="self" label="Editar" id="btnEditarVisita"
+								<button  dir="reverse" autodisable="self" label="Editar" id="btnEditarVisita"
 									image="/public/imagenes/botones/generar.png"
 									tooltiptext="Seleccione un item y presione este boton para editar la informacion existente"
 									hflex="1" height="32px" class="btn" />
-								<button autodisable="self" label="Remover" id="btnRemoverVisita"
+								<button  dir="reverse" autodisable="self" label="Remover" id="btnRemoverVisita"
 									image="/public/imagenes/botones/anular.png"
 									tooltiptext="Seleccione un item y presione este boton para removerlo de la lista"
 									hflex="1" height="32px" class="btn" />
 							</vbox>
 						</hbox>
-						<hbox>
-							<div align="left">
-								<button class="btn" id="btnAtras9" label="Anterior"
-									image="/public/imagenes/botones/atras.png" tooltiptext="Anterior Pestaña" />
-							</div>
-						</hbox>
 					</tabpanel>
 				</tabpanels>
 			</tabbox>
-			<separator />
-			<div id="botoneraInforme" />
 			<div id="divCatalogoPlan" />
 			<div id="catalogoPaciente" />
 			<div id="catalogoEmpresa" />

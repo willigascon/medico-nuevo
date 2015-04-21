@@ -240,6 +240,9 @@ public class CAccidenteDetalle extends CGenerico {
 	@Listen("onClick = #btnAbrirAccidente")
 	public void divAccidenteComun() {
 		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Accidente");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("titulo", "Accidente");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		if (!arboles.isEmpty()) {
 			wdwRegistro.onClose();
 			Arbol arbolItem = arboles.get(0);

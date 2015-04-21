@@ -98,6 +98,7 @@ public class CEspecialista extends CGenerico {
 					consulta = true;
 				especialistaConsulta = (List<Especialista>) map.get("lista");
 				listaConsulta = (Listbox) map.get("listbox");
+				titulo = (String) map.get("titulo");
 				map.clear();
 				map = null;
 			}

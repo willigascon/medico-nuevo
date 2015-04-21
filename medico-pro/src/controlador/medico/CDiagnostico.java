@@ -89,10 +89,12 @@ public class CDiagnostico extends CGenerico {
 				consulta = true;
 				diagnosticoConsulta = (List<Diagnostico>) map.get("lista");
 				listaConsulta = (Listbox) map.get("listbox");
+				titulo = (String) map.get("titulo");
 				map.clear();
 				map = null;
 			}
 		}
+
 		llenarComboCategoria();
 		Botonera botonera = new Botonera() {
 

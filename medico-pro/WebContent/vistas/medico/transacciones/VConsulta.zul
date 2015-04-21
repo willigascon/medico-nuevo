@@ -3,64 +3,72 @@
 		.z-groupbox-hr { background: #EBE8E8 }
 		.rojo .z-tab-text{
 		<!-- background: red; -->
-		color:red;
+		color:#8A0808;
 		}
 	</style>
 	<div id="divConsulta" apply="controlador.medico.CConsulta" sclass="font-size:s"
-		width="auto">
-		<groupbox width="auto" mold="3d" title="Historia Medica">
+		width="auto" align="center">
+		<groupbox closable="false" width="auto" mold="3d"
+			title="Registro de Consulta">
+			<hbox>
+				<div id="botoneraConsulta" />
+				<button dir="reverse" class="btn" autodisable="true"
+					id="btnVerHistoria" label="Historial" tooltiptext="Historial de Consultas del Paciente"
+					image="/public/imagenes/botones/generar.png" width="130px" />
+				<button dir="reverse" class="btn" autodisable="self" id="btnFaltantes"
+					label="Post-Pendientes" tooltiptext="Pacientes con consultas post-vacacionales pendientes"
+					image="/public/imagenes/botones/buscar.png" width="160px" />
+				<div id="botoneraConsultaGeneral" />
+			</hbox>
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
-					<column label="" width="10%" />
-					<column label="" width="11.5%" />
 					<column label="" width="12.5%" />
 					<column label="" width="12.5%" />
-					<column label="" width="4%" />
-					<column label="" width="18%" />
-					<column label="" width="4%" />
-					<column label="" width="18%" />
-					<column label="" width="11%" />
+					<column label="" width="15%" />
+					<column label="" width="5%" />
+					<column label="" width="19%" />
+					<column label="" width="5%" />
+					<column label="" width="19%" />
+					<column label="" width="12%" />
 				</columns>
 				<rows>
 					<row>
 						<hbox>
-							<label class="etiqueta" value="Buscar Cedula:" />
+							<label class="etiqueta" value="Cedula:" />
 							<space />
 							<label value="*" style="font-weight:bold;color:red" />
 						</hbox>
 						<textbox maxlength="500" id="txtCedula" hflex="1"
 							tooltiptext="Ingrese la Cedula del Paciente" />
-						<button class="btn" autodisable="self" id="btnBuscarPaciente"
-							label="Buscar Paciente" tooltiptext="Catalogo"
-							image="/public/imagenes/botones/buscar.png" width="130px" />
-						<button class="btn" autodisable="true" id="btnVerHistoria"
-							label="Ver Historia" tooltiptext="Catalogo"
-							image="/public/imagenes/botones/generar.png" width="130px" />
+						<button dir="reverse" class="btn" autodisable="self"
+							id="btnBuscarPaciente" label="Buscar Paciente" tooltiptext="Catalogo de Pacientes"
+							image="/public/imagenes/botones/buscar.png" width="160px" />
 						<label class="etiqueta" value="Cargo:" />
 						<label id="lblCargo1" />
 						<label class="etiqueta" value="Area:" />
 						<label id="lblArea" />
-						<button class="btn" autodisable="true" id="btnConstancia"
-							label="Constancia" tooltiptext="Catalogo" visible="false"
-							image="/public/imagenes/botones/generar.png" width="110px" />
+						<button dir="reverse" class="btn" autodisable="true"
+							id="btnConstancia" label="Constancia" tooltiptext="Constancia de Asistencia a Consulta"
+							visible="false" image="/public/imagenes/botones/generar.png"
+							width="120px" />
 					</row>
 					<row>
 						<hbox>
-							<label class="etiqueta" value="Buscar Paciente con cita:" />
+							<label class="etiqueta" value="Paciente con cita:" />
 							<space />
 							<label value="*" style="font-weight:bold;color:red" />
 						</hbox>
 						<textbox maxlength="500" id="txtCedulaCita" hflex="1"
 							tooltiptext="Ingrese la Cedula del Paciente" />
-						<button class="btn" autodisable="self" id="btnBuscarPacienteCita"
-							label="Buscar Paciente" tooltiptext="Catalogo"
-							image="/public/imagenes/botones/buscar.png" width="130px" />
-						<cell colspan="5">
-							<hbox />
-						</cell>
-						<button class="btn" autodisable="self" id="btnFaltantes"
-							label="Post-Pendientes" tooltiptext="Catalogo"
-							image="/public/imagenes/botones/buscar.png" width="130px" />
+						<button dir="reverse" class="btn" autodisable="self"
+							id="btnBuscarPacienteCita" label="Buscar Paciente" tooltiptext="Catalogo de Citas"
+							image="/public/imagenes/botones/buscar.png" width="160px" />
+						<hbox />
+						<hbox />
+						<hbox />
+						<hbox />
+						<hbox />
 					</row>
 				</rows>
 			</grid>
@@ -272,10 +280,10 @@
 						<grid width="100%">
 							<columns visible="false">
 								<column label="" width="13%" />
-								<column label="" width="14%" />
+								<column label="" width="16%" />
 								<column label="" width="17%" />
-								<column label="" width="14%" />
-								<column label="" width="14%" />
+								<column label="" width="13%" />
+								<column label="" width="13%" />
 								<column label="" width="14%" />
 								<column label="" width="14%" />
 							</columns>
@@ -312,8 +320,8 @@
 											<comboitem label="${each}" />
 										</template>
 									</combobox>
-									<button visible="false" class="btn" autodisable="self"
-										label="Inf. Pre-Empleo" id="btnPreEmpleo"
+									<button dir="reverse" visible="false" class="btn"
+										autodisable="self" label="Inf. Pre-Empleo" id="btnPreEmpleo"
 										image="/public/imagenes/botones/generar.png"
 										tooltiptext="Generar el reporte de la informacion preempleo del paciente"
 										vflex="1" hflex="1" />
@@ -368,8 +376,9 @@
 										<space />
 										<label value="*" style="font-weight:bold;color:red" />
 									</hbox>
-									<button class="btn" autodisable="self" label="Consulta Asociada"
-										id="btnConsultaAsociada" image="/public/imagenes/botones/buscar.png"
+									<button dir="reverse" class="btn" autodisable="self"
+										label="Consulta Asociada" id="btnConsultaAsociada"
+										image="/public/imagenes/botones/buscar.png"
 										tooltiptext="Seleccione la consulta asociada a la consulta de control que esta realizando"
 										vflex="1" hflex="1" />
 									<label class="etiqueta" id="lblEnfermedadAsociada"
@@ -409,7 +418,7 @@
 								<tab label="Medicinas" id="tabMedicinas" sclass="rojo" />
 								<tab label="Examenes" id="tabExamenes" sclass="rojo" />
 								<tab label="Especialistas" id="tabEspecialistas" sclass="rojo" />
-								<tab label="Estudios Externos" id="tabEstudios" sclass="rojo" />
+								<tab label="Estudios" id="tabEstudios" sclass="rojo" />
 								<tab label="Resumen" id="tabResumen" sclass="rojo" />
 							</tabs>
 							<tabpanels>
@@ -427,35 +436,42 @@
 										</columns>
 										<rows>
 											<row>
-												<hbox>
-													<label class="etiqueta" value="Motivo de la Consulta:" />
-													<space />
-													<label value="*" style="font-weight:bold;color:red" />
-												</hbox>
-												<cell colspan="2">
-													<textbox maxlength="1000" class="multilineab"
-														multiline="true" id="txtMotivo" hflex="1"
-														tooltiptext="Ingrese el Motivo de la Consulta" />
+												<cell colspan="3">
+													<vlayout>
+														<hbox>
+															<label class="etiqueta" value="Motivo de la Consulta:" />
+															<space />
+															<label value="*" style="font-weight:bold;color:red" />
+														</hbox>
+														<textbox maxlength="1000" multiline="true" id="txtMotivo"
+															hflex="1" tooltiptext="Ingrese el Motivo de la Consulta" />
+													</vlayout>
 												</cell>
-												<hbox>
-													<label class="etiqueta" value="Enfermedad Actual:" />
-													<space />
-													<label value="*" style="font-weight:bold;color:red" />
-												</hbox>
-												<cell colspan="2">
-													<textbox maxlength="2500" class="multilineab"
-														multiline="true" id="txtEnfermedad" hflex="1"
-														tooltiptext="Ingrese la Enfermedad Actual Observada" />
+												<cell colspan="3">
+													<vlayout>
+														<hbox>
+															<label class="etiqueta" value="Enfermedad Actual:" />
+															<space />
+															<label value="*" style="font-weight:bold;color:red" />
+														</hbox>
+														<textbox maxlength="2500" multiline="true"
+															id="txtEnfermedad" hflex="1"
+															tooltiptext="Ingrese la Enfermedad Actual Observada" />
+													</vlayout>
 												</cell>
-												<hbox>
-													<label class="etiqueta" value="¿Consulta por Accidente Laboral?" />
-													<space />
-													<label value="*" style="font-weight:bold;color:red" />
-												</hbox>
-												<radiogroup>
-													<radio label="SI" value="si" id="rdoSiLaboral" />
-													<radio label="NO" value="no" id="rdoNoLaboral" />
-												</radiogroup>
+												<cell colspan="2">
+													<vlayout>
+														<hbox>
+															<label class="etiqueta" value="¿Consulta por Accidente Laboral?" />
+															<space />
+															<label value="*" style="font-weight:bold;color:red" />
+														</hbox>
+														<radiogroup>
+															<radio label="SI" value="si" id="rdoSiLaboral" />
+															<radio label="NO" value="no" id="rdoNoLaboral" />
+														</radiogroup>
+													</vlayout>
+												</cell>
 											</row>
 											<row>
 												<label class="etiqueta" value="Estatura (Mts):" />
@@ -570,52 +586,57 @@
 												<cell colspan="8">
 													<textbox maxlength="1000" class="multilinea"
 														multiline="true" id="txtExamenPreempleo" hflex="1"
-														tooltiptext="Ingrese el Motivo de la Consulta" />
+														tooltiptext="Ingrese los examenes pre-empleo" />
+												</cell>
+											</row>
+											<row>
+												<label class="etiqueta3" value="Examen Fisico" />
+												<cell colspan="8">
+													<a href="">
+														<label id="btnAbrirCuerpo" sclass="pointer"
+															value="Crear nueva parte del Cuerpo" class="abrir" />
+													</a>
 												</cell>
 											</row>
 										</rows>
 									</grid>
-									<separator />
-									<groupbox id="gpxExamenFisico" closable="false" open="true">
-										<caption label="Examen Fisico"
-											style="color:black; font-size: 12px; font-weight:bold" />
-										<separator />
-										<button class="abrir" id="btnAbrirCuerpo" label=""
-											tooltiptext="Crear una Nueva parte del Cuerpo" image="/public/imagenes/botones/agregar.png" />
-										<listbox id="ltbExamenFisico" model="${$composer.modelFisico}"
-											height="150px" width="100%" emptyMessage="No hay sistemas fisicos registrados">
-											<listhead>
-												<listheader label="Nombre" width="30%" />
-												<listheader label="Observacion" width="70%" />
-											</listhead>
-											<template name="model">
-												<listitem>
-													<listcell label="${each.nombre}">
-													</listcell>
-													<listcell>
-														<textbox multiline="true" class="multilinea"
-															maxlength="100" width="100%" placeholder="Ingrese la observacion"
-															tooltiptext="Ingrese la observacion que resulto luego de realizar el examen de esta parte del cuerpo"></textbox>
-													</listcell>
-												</listitem>
-											</template>
-										</listbox>
-									</groupbox>
+									<listbox id="ltbExamenFisico" model="${$composer.modelFisico}"
+										height="150px" width="100%" emptyMessage="No hay partes del cuerpo registradas">
+										<listhead>
+											<listheader label="Nombre" width="30%" />
+											<listheader label="Observacion" width="70%" />
+										</listhead>
+										<template name="model">
+											<listitem>
+												<listcell label="${each.nombre}">
+												</listcell>
+												<listcell>
+													<textbox multiline="true" class="multilinea"
+														maxlength="100" width="100%" placeholder="Ingrese la observacion"
+														tooltiptext="Ingrese la observacion que resulto luego de realizar el examen de esta parte del cuerpo"></textbox>
+												</listcell>
+											</listitem>
+										</template>
+									</listbox>
 								</tabpanel>
 								<tabpanel>
 									<!--Diagnosticos -->
-									<hbox>
-										<textbox tooltiptext="Ingrese el Nombre del Diagnostico"
-											placeholder="Ingrese el Diagnostico a Buscar" width="195px"
-											id="txtBuscadorDiagnostico"></textbox>
-										<separator />
-										<button class="abrir" id="btnAbrirDiagnostico" label=""
-											tooltiptext="Crear un Nuevo Diagnostico" image="/public/imagenes/botones/agregar.png" />
-										<button class="abrir" id="btnRefrescarDiagnostico"
-											label=""
-											tooltiptext="Presione para actualizar la lista de los diagnosticos (actualizara tambien la lista de los diagnosticos agregados)"
-											image="/public/imagenes/botones/refresh2.png" />
-									</hbox>
+									<div align="left">
+										<hbox>
+											<textbox tooltiptext="Ingrese el Nombre del Diagnostico"
+												placeholder="Ingrese el Diagnostico a Buscar" width="280px"
+												id="txtBuscadorDiagnostico"></textbox>
+											<separator />
+											<a href="">
+												<label id="btnAbrirDiagnostico" sclass="pointer"
+													value="Crear nuevo Diagnostico" class="abrir" />
+											</a>
+											<button style="	background: #999999;" id="btnRefrescarDiagnostico"
+												label=""
+												tooltiptext="Presione para actualizar la lista de los diagnosticos (actualizara tambien la lista de los diagnosticos agregados)"
+												image="/public/imagenes/botones/refresh2.png" />
+										</hbox>
+									</div>
 									<hbox widths="25%,5%,50%,20">
 										<listbox mold="paging" pageSize="8" id="ltbDiagnosticos"
 											height="370px" width="100%" emptyMessage="No hay Diagnosticos Registrados">
@@ -651,11 +672,11 @@
 											</template>
 										</listbox>
 										<vbox>
-											<button class="abrir" id="pasar1Diagnostico"
+											<button class="pasar" id="pasar1Diagnostico"
 												image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Diagnostico"
 												width="30px" />
 											<separator />
-											<button class="abrir" id="pasar2Diagnostico"
+											<button class="pasar" id="pasar2Diagnostico"
 												image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Diagnostico"
 												width="30px" />
 										</vbox>
@@ -664,8 +685,8 @@
 											<listhead>
 												<listheader label="Diagnostico" width="35%" />
 												<listheader label="Tipo" width="25%" />
-												<listheader label="Observacion" width="35%" />
-												<listheader label=" " width="10%" />
+												<listheader label="Observacion" width="32%" />
+												<listheader label=" " width="13%" />
 												<listheader label="id" visible="false" />
 											</listhead>
 											<template name="model">
@@ -690,7 +711,7 @@
 													</listcell>
 													<listcell>
 														<button class="btn" label="Ver" autodisable="true"
-															onClick="$composer.ventanaBoton(self)" height="70%"
+															onClick="$composer.ventanaBoton(self)" height="80%"
 															hflex="1" vflex="1" visible="false"
 															image="/public/imagenes/botones/ver.png"
 															tooltiptext="Presione para ver los Detalles agregados del Accidente" />
@@ -711,7 +732,7 @@
 												<rows>
 													<row>
 														<cell colspan="2">
-															<button class="btn" label="Agregar Diagnosticos"
+															<button dir="reverse" class="btn" label="Agregar Diagnosticos"
 																id="btnAgregarDiagnosticos" image="/public/imagenes/botones/agregar.png"
 																tooltiptext="Agregar Diagnosticos" vflex="1" hflex="1" />
 														</cell>
@@ -811,18 +832,22 @@
 								</tabpanel>
 								<tabpanel>
 									<!-- title="Agregar Medicinas" -->
-									<hbox>
-										<textbox tooltiptext="Ingrese el Nombre de la Medicina"
-											placeholder="Ingrese la Medicina a Buscar" width="195px"
-											id="txtBuscadorMedicina"></textbox>
-										<separator />
-										<button class="abrir" id="btnAbrirMedicina" label=""
-											tooltiptext="Crear una Nueva Medicina" image="/public/imagenes/botones/agregar.png" />
-
-										<button class="abrir" id="btnRefrescarMedicina" label=""
-											tooltiptext="Presione para actualizar la lista de las medicinas (actualizara tambien la lista de las medicinas agregadas)"
-											image="/public/imagenes/botones/refresh2.png" />
-									</hbox>
+									<div align="left">
+										<hbox>
+											<textbox tooltiptext="Ingrese el Nombre de la Medicina"
+												placeholder="Ingrese la Medicina a Buscar" width="280px"
+												id="txtBuscadorMedicina"></textbox>
+											<separator />
+											<a href="">
+												<label id="btnAbrirMedicina" sclass="pointer"
+													value="Crear nueva Medicina" class="abrir" />
+											</a>
+											<button class="abrir" style="	background: #999999;"
+												id="btnRefrescarMedicina" label=""
+												tooltiptext="Presione para actualizar la lista de las medicinas (actualizara tambien la lista de las medicinas agregadas)"
+												image="/public/imagenes/botones/refresh2.png" />
+										</hbox>
+									</div>
 									<hbox widths="25%,5%,50%,20">
 										<listbox mold="paging" pageSize="8" id="ltbMedicinas"
 											height="370px" width="100%" emptyMessage="No hay Medicinas Registradas">
@@ -848,11 +873,11 @@
 											</template>
 										</listbox>
 										<vbox>
-											<button class="abrir" id="pasar1Medicina"
+											<button class="pasar" id="pasar1Medicina"
 												image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Medicina"
 												width="30px" />
 											<separator />
-											<button class="abrir" id="pasar2Medicina"
+											<button class="pasar" id="pasar2Medicina"
 												image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Medicina"
 												width="30px" />
 										</vbox>
@@ -860,7 +885,7 @@
 											width="100%" emptyMessage="No ha Seleccionado Ningúna Medicina">
 											<listhead>
 												<listheader label="Medicina" width="40%" />
-												<listheader label="Cantidad" width="8%" />
+												<listheader label="Cant." width="8%" />
 												<listheader label="Dosis" width="52%" />
 												<listheader label="id" visible="false" />
 											</listhead>
@@ -892,8 +917,8 @@
 												<rows>
 													<row>
 														<cell colspan="2">
-															<button class="btn" label="Agregar Medicinas" id="btnAgregarMedicinas"
-																image="/public/imagenes/botones/agregar.png"
+															<button dir="reverse" class="btn" label="Agregar Medicinas"
+																id="btnAgregarMedicinas" image="/public/imagenes/botones/agregar.png"
 																tooltiptext="Agregar Medicinas" vflex="1" hflex="1" />
 														</cell>
 													</row>
@@ -936,17 +961,22 @@
 									</hbox>
 								</tabpanel>
 								<tabpanel>
-									<hbox align="center" pack="center">
-										<textbox tooltiptext="Ingrese el Nombre del Examen"
-											placeholder="Ingrese el Examen a Buscar" width="195px"
-											id="txtBuscadorExamen"></textbox>
-										<separator />
-										<button class="abrir" id="btnAbrirExamen" label=""
-											tooltiptext="Crear un Nuevo Examen" image="/public/imagenes/botones/agregar.png" />
-										<button class="abrir" id="btnRefrescarExamen" label=""
-											tooltiptext="Presione para actualizar la lista de los examenes (actualizara tambien la lista de los examenes agregados)"
-											image="/public/imagenes/botones/refresh2.png" />
-									</hbox>
+									<div align="left">
+										<hbox align="center" pack="center">
+											<textbox tooltiptext="Ingrese el Nombre del Examen"
+												placeholder="Ingrese el Examen a Buscar" width="280px"
+												id="txtBuscadorExamen"></textbox>
+											<separator />
+											<a href="">
+												<label id="btnAbrirExamen" sclass="pointer" value="Crear nuevo Examen"
+													class="abrir" />
+											</a>
+											<button class="abrir" id="btnRefrescarExamen" label=""
+												style="	background: #999999;"
+												tooltiptext="Presione para actualizar la lista de los examenes (actualizara tambien la lista de los examenes agregados)"
+												image="/public/imagenes/botones/refresh2.png" />
+										</hbox>
+									</div>
 									<hbox widths="25%,5%,50%,20">
 										<listbox mold="paging" pageSize="8" id="ltbExamenes"
 											height="370px" width="100%" emptyMessage="No hay Examenes Registrados">
@@ -977,11 +1007,11 @@
 											</template>
 										</listbox>
 										<vbox>
-											<button class="abrir" id="pasar1Examen"
+											<button class="pasar" id="pasar1Examen"
 												image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Examen"
 												width="30px" />
 											<separator />
-											<button class="abrir" id="pasar2Examen"
+											<button class="pasar" id="pasar2Examen"
 												image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Examen"
 												width="30px" />
 										</vbox>
@@ -1029,8 +1059,8 @@
 												<rows>
 													<row>
 														<cell colspan="3">
-															<button class="btn" label="Agregar Examenes" id="btnAgregarExamenes"
-																image="/public/imagenes/botones/agregar.png"
+															<button class="btn" dir="reverse" label="Agregar Examenes"
+																id="btnAgregarExamenes" image="/public/imagenes/botones/agregar.png"
 																tooltiptext="Agregar Examenes" vflex="1" hflex="1" />
 														</cell>
 													</row>
@@ -1056,18 +1086,22 @@
 									</hbox>
 								</tabpanel>
 								<tabpanel>
-									<hbox>
-										<textbox tooltiptext="Ingrese el Nombre del Especialista"
-											placeholder="Ingrese la especialidad a Buscar" width="195px"
-											id="txtBuscadorEspecialista"></textbox>
-										<separator />
-										<button class="abrir" id="btnAbrirEspecialista" label=""
-											tooltiptext="Crear un Nuevo Especialista" image="/public/imagenes/botones/agregar.png" />
-										<button class="abrir" id="btnRefrescarEspecialista"
-											label=""
-											tooltiptext="Presione para actualizar la lista de los especialistas (actualizara tambien la lista de los especialistas agregados)"
-											image="/public/imagenes/botones/refresh2.png" />
-									</hbox>
+									<div align="left">
+										<hbox>
+											<textbox tooltiptext="Ingrese el Nombre del Especialista"
+												placeholder="Ingrese la especialidad a Buscar" width="280px"
+												id="txtBuscadorEspecialista"></textbox>
+											<separator />
+											<a href="">
+												<label id="btnAbrirEspecialista" sclass="pointer"
+													value="Crear nuevo Especialista" class="abrir" />
+											</a>
+											<button class="abrir" id="btnRefrescarEspecialista"
+												label="" style="background: #999999;"
+												tooltiptext="Presione para actualizar la lista de los especialistas (actualizara tambien la lista de los especialistas agregados)"
+												image="/public/imagenes/botones/refresh2.png" />
+										</hbox>
+									</div>
 									<hbox widths="25%,5%,50%,20">
 										<listbox mold="paging" pageSize="8" id="ltbEspecialistas"
 											height="370px" width="100%" emptyMessage="No hay Especialistas Registrados">
@@ -1097,11 +1131,11 @@
 											</template>
 										</listbox>
 										<vbox>
-											<button class="abrir" id="pasar1Especialista"
+											<button class="pasar" id="pasar1Especialista"
 												image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Especialista"
 												width="30px" />
 											<separator />
-											<button class="abrir" id="pasar2Especialista"
+											<button class="pasar" id="pasar2Especialista"
 												image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Especialista"
 												width="30px" />
 										</vbox>
@@ -1144,8 +1178,9 @@
 												<rows>
 													<row>
 														<cell colspan="2">
-															<button class="btn" label="Agregar Especialistas"
-																id="btnAgregarEspecialistas" image="/public/imagenes/botones/agregar.png"
+															<button dir="reverse" class="btn"
+																label="Agregar Especialistas" id="btnAgregarEspecialistas"
+																image="/public/imagenes/botones/agregar.png"
 																tooltiptext="Agregar Especialistas" vflex="1" hflex="1" />
 														</cell>
 													</row>
@@ -1169,22 +1204,27 @@
 									</hbox>
 								</tabpanel>
 								<tabpanel>
-									<hbox>
-										<textbox tooltiptext="Ingrese el Nombre del Estudio Externo"
-											placeholder="Ingrese el Estudio Externo a Buscar" width="195px"
-											id="txtBuscadorServicioExterno"></textbox>
-										<separator />
-										<button class="abrir" id="btnAbrirServicioExterno"
-											label="" tooltiptext="Crear un Nuevo Estudio Externo" image="/public/imagenes/botones/agregar.png" />
-										<button class="abrir" id="btnRefrescarServicio" label=""
-											tooltiptext="Presione para actualizar la lista de los estudios externos (actualizara tambien la lista de los estudios externos agregados)"
-											image="/public/imagenes/botones/refresh2.png" />
-									</hbox>
+									<div align="left">
+										<hbox>
+											<textbox tooltiptext="Ingrese el Nombre del Estudio"
+												placeholder="Ingrese el Estudio a Buscar" width="280px"
+												id="txtBuscadorServicioExterno"></textbox>
+											<separator />
+											<a href="">
+												<label id="btnAbrirServicioExterno" sclass="pointer"
+													value="Crear nuevo Estudio" class="abrir" />
+											</a>
+											<button style="background: #999999;" class="abrir"
+												id="btnRefrescarServicio" label=""
+												tooltiptext="Presione para actualizar la lista de los estudios (actualizara tambien la lista de los estudios agregados)"
+												image="/public/imagenes/botones/refresh2.png" />
+										</hbox>
+									</div>
 									<hbox widths="25%,5%,50%,20">
 										<listbox mold="paging" pageSize="8" id="ltbServicioExterno"
-											height="370px" width="100%" emptyMessage="No hay Estudios Externos Registrados">
+											height="370px" width="100%" emptyMessage="No hay Estudios Registrados">
 											<listhead>
-												<listheader label="Estudio Externo" width="100%" />
+												<listheader label="Estudio" width="100%" />
 											</listhead>
 											<template name="model">
 												<listitem>
@@ -1211,18 +1251,18 @@
 											</template>
 										</listbox>
 										<vbox>
-											<button class="abrir" id="pasar1ServicioExterno"
-												image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Estudio Externo"
+											<button class="pasar" id="pasar1ServicioExterno"
+												image="/public/imagenes/botones/adelante.png" tooltiptext="Agregar Estudio"
 												width="30px" />
 											<separator />
-											<button class="abrir" id="pasar2ServicioExterno"
-												image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Estudio Externo"
+											<button class="pasar" id="pasar2ServicioExterno"
+												image="/public/imagenes/botones/atras.png" tooltiptext="Quitar Estudio"
 												width="30px" />
 										</vbox>
 										<listbox id="ltbServicioExternoAgregados" height="370px"
-											width="100%" emptyMessage="No ha Seleccionado Ningún Estudio Externo">
+											width="100%" emptyMessage="No ha Seleccionado Ningún Estudio">
 											<listhead>
-												<listheader label="Estudio Externo" width="35%" />
+												<listheader label="Estudio" width="35%" />
 												<!-- <listheader label="Costo" width="20%" /> -->
 												<listheader label="Observacion" width="35%" />
 												<listheader label="Centro" width="30%" />
@@ -1267,7 +1307,7 @@
 												<rows>
 													<row>
 														<cell colspan="2">
-															<button class="btn" label="Agregar Estudios" id="btnAgregarServicios"
+															<button class="btn" dir="reverse" label="Agregar Estudios" id="btnAgregarServicios"
 																image="/public/imagenes/botones/agregar.png"
 																tooltiptext="Agregar Estudios Externos" vflex="1" hflex="1" />
 														</cell>
@@ -1292,9 +1332,6 @@
 									</hbox>
 								</tabpanel>
 								<tabpanel>
-									<groupbox id="gpxResumen" open="true">
-										<caption label="Resumen de la Consulta"
-											style="color:black; font-size: 12px; font-weight:bold" />
 										<hbox width="100%" widths="20%,20%,20%,20%,20%">
 											<vbox width="100%">
 												<separator />
@@ -1388,14 +1425,14 @@
 											</vbox>
 											<vbox width="100%">
 												<separator />
-												<label class="etiqueta" value="ESTUDIOS EXTERNOS" />
+												<label class="etiqueta" value="ESTUDIOS" />
 												<button class="btn" visible="false" label="Generar Orden"
 													id="btnGenerarOrdenServicios" image="/public/imagenes/botones/generar.png"
 													tooltiptext="Generar Orden" width="200px" />
 												<listbox id="ltbResumenServicios" height="350px"
-													width="100%" emptyMessage="No ha Seleccionado Ningún Estudio Externo">
+													width="100%" emptyMessage="No ha Seleccionado Ningún Estudio">
 													<listhead>
-														<listheader label="Estudio Externo" width="50%" />
+														<listheader label="Estudio" width="50%" />
 														<listheader label="Observacion" width="50%" />
 														<!-- <listheader label="Costo" width="18%" /> -->
 													</listhead>
@@ -1412,25 +1449,23 @@
 												</listbox>
 											</vbox>
 										</hbox>
-									</groupbox>
 								</tabpanel>
 							</tabpanels>
 						</tabbox>
-						<div id="botoneraConsulta" />
 					</tabpanel>
 					<tabpanel style="overflow-x:scroll;" width="100%">
-						<hbox width="100%" widths="87%,13%">
+						<hbox width="100%" widths="85%,15%">
 							<div width="100%">
 								<listbox span="true" mold="paging" autopaging="true"
 									pagingPosition="bottom" id="ltbConsultas" height="450px" width="100%"
 									emptyMessage="El Paciente no posee Consultas Registradas">
 									<listhead>
-										<listheader label="Fecha" width="8%" />
+										<listheader label="Fecha" width="10%" />
 										<listheader label="SubTipo de Consulta" width="10%" />
 										<listheader label="Enfermedad Actual" width="35%" />
-										<listheader label="Motivo de Consulta" width="29%" />
+										<listheader label="Motivo de Consulta" width="26%" />
 										<listheader label="¿Accidente?" width="10%" />
-										<listheader label="Doctor" width="8%" />
+										<listheader label="Doctor" width="9%" />
 										<listheader label="id" visible="false" />
 									</listhead>
 									<template name="model">
@@ -1456,17 +1491,17 @@
 								</listbox>
 							</div>
 							<vbox width="100%">
-								<button autodisable="self" label="Ver Consulta" id="btnVerConsulta"
+								<button dir="reverse" autodisable="self" label="Ver Consulta" id="btnVerConsulta"
 									image="/public/imagenes/botones/ver.png"
 									tooltiptext="Seleccione una consulta y presione este boton para ver el detalle de la consulta"
 									hflex="1" height="32px" class="btn" />
-								<button autodisable="self" label="Reporte Consulta" id="btnReporteConsulta"
+								<button dir="reverse"  autodisable="self" label="Reporte Consulta" id="btnReporteConsulta"
 									image="/public/imagenes/botones/generar.png"
 									tooltiptext="Seleccione una consulta y presione este boton para generar el reporte de la consulta"
 									hflex="1" height="32px" class="btn" />
-								<button autodisable="self" id="btnVerResultado" label="Agregar Resultados"
+								<button dir="reverse"  autodisable="self" id="btnVerResultado" label="Agregar Resultados"
 									sclass="btn" image="/public/imagenes/botones/agregar.png"
-									hflex="1" height="32px" />
+									hflex="1" height="32px"  width="150px"/>
 							</vbox>
 						</hbox>
 					</tabpanel>
@@ -1475,7 +1510,6 @@
 			<div id="divCatalogoPacientes" />
 			<div id="divCatalogoPacientes2" />
 			<div id="divCatalogoOrden" />
-			<div id="botoneraConsultaGeneral" />
 			<div id="catalogoConsulta" />
 		</groupbox>
 	</div>
