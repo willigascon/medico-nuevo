@@ -51,8 +51,6 @@ public class CGasto extends CGenerico {
 	@Wire
 	private Hbox boxParentesco;
 	@Wire
-	private Combobox cmbParentescoFamiliar;
-	@Wire
 	private Combobox cmbTipo;
 	@Wire
 	private Div divGasto;
@@ -84,7 +82,6 @@ public class CGasto extends CGenerico {
 			break;
 		case "Gastos por Trabajador":
 			boxParentesco.setVisible(false);
-			cmbParentescoFamiliar.setVisible(false);
 			tipo = 2;
 			break;
 		case "Gastos de Ordenes por Familiares":
@@ -92,7 +89,6 @@ public class CGasto extends CGenerico {
 			break;
 		case "Gastos de Ordenes por Trabajador":
 			boxParentesco.setVisible(false);
-			cmbParentescoFamiliar.setVisible(false);
 			tipo = 4;
 			break;
 		}
@@ -107,7 +103,6 @@ public class CGasto extends CGenerico {
 			public void limpiar() {
 				dtbDesde.setValue(fecha);
 				dtbHasta.setValue(fecha);
-				cmbParentescoFamiliar.setValue("TODOS");
 				lblPaciente.setValue("");
 			}
 
@@ -119,53 +114,10 @@ public class CGasto extends CGenerico {
 					String fecha1 = formatoReporte.format(desde);
 					String fecha2 = formatoReporte.format(hasta);
 					String paciente = idPaciente;
-					String parentesco = cmbParentescoFamiliar.getValue();
 					String tipoReporte = cmbTipo.getValue();
 					List<Consulta> consultas = new ArrayList<Consulta>();
 					switch (tipo) {
 					// Reporte 1
-
-					// No se toma en cuenta si tiene un familiar trabajando en
-					// la empresa
-					case 1:
-						if (parentesco.equals("TODOS")) {
-							if (paciente.equals("TODOS"))
-								consultas = servicioConsulta
-										.buscarEntreFechasFamiliaresTodosTrabajadores(
-												desde, hasta);
-							else
-								consultas = servicioConsulta
-										.buscarEntreFechasFamiliaresYUnTrabajador(
-												desde, hasta, paciente);
-						} else {
-							if (paciente.equals("TODOS"))
-								consultas = servicioConsulta
-										.buscarEntreFechasFamiliaresTodosTrabajadoresUnParentesco(
-												desde, hasta, parentesco);
-							else
-								consultas = servicioConsulta
-										.buscarEntreFechasFamiliaresUnTrabajadorYunParentesco(
-												desde, hasta, paciente,
-												parentesco);
-						}
-						if (!consultas.isEmpty())
-							Clients.evalJavaScript("window.open('"
-									+ damePath()
-									+ "Reportero?valor=28&valor6="
-									+ fecha1
-									+ "&valor7="
-									+ fecha2
-									+ "&valor8="
-									+ parentesco
-									+ "&valor9="
-									+ paciente
-									+ "&valor20="
-									+ tipoReporte
-									+ "','','top=100,left=200,height=600,width=800,scrollbars=1,resizable=1')");
-						else
-							Mensaje.mensajeAlerta(Mensaje.noHayRegistros);
-						break;
-					// Reporte 2
 					case 2:
 						if (paciente.equals("TODOS"))
 							consultas = servicioConsulta
@@ -207,8 +159,7 @@ public class CGasto extends CGenerico {
 	}
 
 	protected boolean validar() {
-		if ((tipo == 1 && (lblPaciente.getValue().compareTo("") == 0 || cmbParentescoFamiliar
-				.getValue().compareTo("") == 0))) {
+		if ((tipo == 1 && (lblPaciente.getValue().compareTo("") == 0))) {
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else {

@@ -1,7 +1,11 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divHistorial" apply="controlador.reporte.CHistorial">
-		<groupbox id="grx" width="75%" mold="3d" title="Reporte de Historial">
+	<div id="divHistorial" apply="controlador.reporte.CHistorial"
+		align="center">
+		<groupbox closable="false" id="grx" width="75%" mold="3d"
+			title="Reporte de Historial">
+			<div id="botoneraHistorial" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
 					<column label="" width="25%" />
@@ -11,53 +15,63 @@
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Desde:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<datebox width="100%" readonly="true" id="dtbDesde"
-							constraint="no future" onCreate="self.value = new Date()"
-							tooltiptext="Seleccione el inicio del Periodo a buscar" />
-						<hbox>
-							<label class="etiqueta" value="Hasta:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<datebox width="100%" readonly="true" id="dtbHasta"
-							onCreate="self.value = new Date()" tooltiptext="Seleccione el fin del Periodo a buscar" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Desde:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<datebox width="100%" readonly="true" id="dtbDesde"
+									constraint="no future" onCreate="self.value = new Date()"
+									tooltiptext="Seleccione el inicio del Periodo a buscar" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Hasta:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<datebox width="100%" readonly="true" id="dtbHasta"
+									onCreate="self.value = new Date()" tooltiptext="Seleccione el fin del Periodo a buscar" />
+							</vlayout>
+						</cell>
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Trabajador:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<cell colspan="2">
-							<label id="lblTrabajador" />
+						<cell colspan="3">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Paciente:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<label id="lblTrabajador" tooltiptext="Nombre del Paciente" />
+							</vlayout>
 						</cell>
 						<button id="btnBuscarTrabajador" label="Buscar" class="btn"
-							image="/public/imagenes/botones/buscar.png" />
+							image="/public/imagenes/botones/buscar.png" tooltiptext="Catalogo de Pacientes" />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Reporte de Tipo:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<cell colspan="3">
-							<combobox id="cmbTipo" readonly="true" tabindex="1"
-								value="PDF" width="100%" tooltiptext="Seleccione un Tipo"
-								placeholder="Seleccione un Tipo">
-								<comboitem label="PDF" />
-								<comboitem label="EXCEL" />
-							</combobox>
+						<cell colspan="4">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Reporte de Tipo:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox id="cmbTipo" readonly="true" tabindex="1"
+									value="PDF" width="100%" tooltiptext="Seleccione un Tipo"
+									placeholder="Seleccione un Tipo">
+									<comboitem label="PDF" />
+									<comboitem label="EXCEL" />
+								</combobox>
+							</vlayout>
 						</cell>
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraHistorial" />
 			<div id="divCatalogoTrabajador" />
 		</groupbox>
 	</div>

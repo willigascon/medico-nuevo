@@ -59,7 +59,6 @@ public class CCosto extends CGenerico {
 	private Div botoneraCosto;
 	@Wire
 	private Combobox cmbTipo;
-	String nombre;
 
 	@Override
 	public void inicializar() throws IOException {
@@ -69,7 +68,7 @@ public class CCosto extends CGenerico {
 		if (mapa != null) {
 			if (mapa.get("tabsGenerales") != null) {
 				tabs = (List<Tab>) mapa.get("tabsGenerales");
-				nombre = (String) mapa.get("titulo");
+				titulo = (String) mapa.get("titulo");
 				mapa.clear();
 				mapa = null;
 			}
@@ -78,7 +77,7 @@ public class CCosto extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divCosto, nombre, tabs);
+				cerrarVentana(divCosto, titulo, tabs);
 			}
 
 			@Override

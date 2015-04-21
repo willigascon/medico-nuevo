@@ -1,3 +1,4 @@
+<?page id="mainPage" title="Sistema Medico-Pro" contentType="text/html;charset=utf-8"?>
 <zk>
 	<style src="public/Estilo.css" />
 	<zscript>

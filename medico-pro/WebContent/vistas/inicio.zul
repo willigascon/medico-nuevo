@@ -1,4 +1,4 @@
-<?page id="mainPage" title="SIMS" contentType="text/html;charset=utf-8"?>
+<?page id="mainPage" title="Bienvenido" contentType="text/html;charset=utf-8"?>
 <zk>
 	<style src="../public/Estilo.css" />
 	<script src="/public/progress.js" />

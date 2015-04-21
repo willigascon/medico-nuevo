@@ -32,6 +32,7 @@ import componente.Botonera;
 import componente.Catalogo;
 import componente.Mensaje;
 import controlador.medico.CConsulta;
+import controlador.medico.CHistoria;
 import controlador.security.CArbol;
 import controlador.utils.CGenerico;
 
@@ -57,7 +58,7 @@ public class CAccidente extends CGenerico {
 	Catalogo<Accidente> catalogo;
 	long id = 0;
 	private boolean consulta = false;
-	private CConsulta cConsulta = new CConsulta();
+	private CHistoria cConsulta = new CHistoria();
 	List<Accidente> accidentes = new ArrayList<Accidente>();
 	String tipo = "";
 	Listbox listaConsulta;
@@ -123,13 +124,13 @@ public class CAccidente extends CGenerico {
 							nombre, fechaHora, horaAuditoria,
 							nombreUsuarioSesion());
 					servicioAccidente.guardar(accidente);
-					// if (consulta) {
-					// accidente = servicioAccidente.buscar(txtCodigo
-					// .getValue());
-					// accidentes.add(accidente);
-					// cConsulta.recibirAccidente(accidentes, listaConsulta,
-					// tipo);
-					// }
+					if (consulta) {
+						accidente = servicioAccidente.buscar(txtCodigo
+								.getValue());
+						accidentes.add(accidente);
+						cConsulta.recibirAccidente(accidentes, listaConsulta,
+								tipo);
+					}
 					msj.mensajeInformacion(Mensaje.guardado);
 					limpiar();
 				}

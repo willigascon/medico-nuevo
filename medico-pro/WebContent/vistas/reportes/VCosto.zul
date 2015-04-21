@@ -1,7 +1,10 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divCosto" apply="controlador.reporte.CCosto">
-		<groupbox width="75%" mold="3d" title="Costos por Accidentes">
+	<div id="divCosto" apply="controlador.reporte.CCosto" align="center">
+		<groupbox closable="false" width="75%" mold="3d"
+			title="Gastos por Accidentes">
+			<div id="botoneraCosto" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
 					<column label="" width="18%" />
@@ -11,67 +14,85 @@
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Desde:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<datebox width="100%" readonly="true" id="dtbDesde"
-							constraint="no future" onCreate="self.value = new Date()"
-							tooltiptext="Seleccione el inicio del Periodo a buscar" />
-						<hbox>
-							<label class="etiqueta" value="Hasta:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<datebox width="100%" readonly="true" id="dtbHasta"
-							onCreate="self.value = new Date()" tooltiptext="Seleccione el fin del Periodo a buscar" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Desde:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<datebox width="100%" readonly="true" id="dtbDesde"
+									constraint="no future" onCreate="self.value = new Date()"
+									tooltiptext="Seleccione el inicio del Periodo a buscar" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Hasta:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<datebox width="100%" readonly="true" id="dtbHasta"
+									onCreate="self.value = new Date()" tooltiptext="Seleccione el fin del Periodo a buscar" />
+							</vlayout>
+						</cell>
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Area:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox tooltiptext="Seleccione un Area" placeholder="Seleccione un Area"
-							id="cmbArea" readonly="true" width="100%" value="TODOS">
-							<template name="model">
-								<comboitem label="${each.nombre}" context="${each.idArea}" />
-							</template>
-						</combobox>
-						<hbox>
-							<label class="etiqueta" value="Tipo de Diagnostico:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox tooltiptext="Seleccione un Tipo de Diagnostico"
-							placeholder="Seleccione un Tipo de Diagnostico" id="cmbDiagnostico"
-							readonly="true" width="100%" value="TODOS">
-							<comboitem label="TODOS" />
-							<comboitem label="Accidente Laboral" />
-							<comboitem label="Accidente Comun" />
-							<comboitem label="Incidente" />
-						</combobox>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Area:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox tooltiptext="Seleccione un Area" placeholder="Seleccione un Area"
+									id="cmbArea" readonly="true" width="100%" value="TODOS">
+									<template name="model">
+										<comboitem label="${each.nombre}" context="${each.idArea}" />
+									</template>
+								</combobox>
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Tipo de Diagnostico:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox tooltiptext="Seleccione un Tipo de Diagnostico"
+									placeholder="Seleccione un Tipo de Diagnostico" id="cmbDiagnostico"
+									readonly="true" width="100%" value="TODOS">
+									<comboitem label="TODOS" />
+									<comboitem label="Accidente Laboral" />
+									<comboitem label="Accidente Comun" />
+									<comboitem label="Incidente" />
+								</combobox>
+							</vlayout>
+						</cell>
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Reporte de Tipo:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox id="cmbTipo" readonly="true" tabindex="1"
-							value="PDF" width="100%" tooltiptext="Seleccione un Tipo"
-							placeholder="Seleccione un Tipo">
-							<comboitem label="PDF" />
-							<comboitem label="EXCEL" />
-						</combobox>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Reporte de Tipo:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox id="cmbTipo" readonly="true" tabindex="1"
+									value="PDF" width="100%" tooltiptext="Seleccione un Tipo"
+									placeholder="Seleccione un Tipo">
+									<comboitem label="PDF" />
+									<comboitem label="EXCEL" />
+								</combobox>
+							</vlayout>
+						</cell>
 						<hbox />
 						<hbox />
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraCosto" />
 		</groupbox>
 	</div>
 </zk>

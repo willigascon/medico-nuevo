@@ -13,15 +13,16 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Div;
+import org.zkoss.zul.Include;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Tab;
+import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Textbox;
 
 import componente.Botonera;
 import componente.Catalogo;
 import componente.Mensaje;
-
 import controlador.utils.CGenerico;
 
 public class CIntervencion extends CGenerico {
@@ -38,12 +39,17 @@ public class CIntervencion extends CGenerico {
 	private long id = 0;
 	Catalogo<Intervencion> catalogo;
 	private boolean consulta = false;
-	private CConsulta cConsulta = new CConsulta();
+	private CHistoria cConsulta = new CHistoria();
 	List<Intervencion> interConsulta = new ArrayList<Intervencion>();
 	Listbox listaConsulta;
 
 	@Override
 	public void inicializar() throws IOException {
+		contenido = (Include) divIntervencion.getParent();
+		Tabbox tabox = (Tabbox) divIntervencion.getParent().getParent()
+				.getParent().getParent();
+		tabBox = tabox;
+		tab = (Tab) tabox.getTabs().getLastChild();
 		HashMap<String, Object> mapa = (HashMap<String, Object>) Sessions
 				.getCurrent().getAttribute("mapaGeneral");
 		if (mapa != null) {
@@ -59,6 +65,7 @@ public class CIntervencion extends CGenerico {
 		if (map != null) {
 			if (map.get("id") != null) {
 				consulta = true;
+				titulo = (String) map.get("titulo");
 				interConsulta = (List<Intervencion>) map.get("lista");
 				listaConsulta = (Listbox) map.get("listbox");
 				map.clear();
@@ -69,7 +76,7 @@ public class CIntervencion extends CGenerico {
 
 			@Override
 			public void salir() {
-				cerrarVentana(divIntervencion,titulo, tabs);
+				cerrarVentana(divIntervencion, titulo, tabs);
 			}
 
 			@Override
@@ -89,6 +96,16 @@ public class CIntervencion extends CGenerico {
 					Intervencion intervencion = new Intervencion(id, nombre,
 							fechaHora, horaAuditoria, nombreUsuarioSesion());
 					servicioIntervencion.guardar(intervencion);
+					if (consulta) {
+						if (id != 0)
+							intervencion = servicioIntervencion.buscar(id);
+						else {
+							intervencion = servicioIntervencion.buscarUltimo();
+							interConsulta.add(intervencion);
+						}
+						cConsulta.recibirIntervencion(interConsulta,
+								listaConsulta);
+					}
 					msj.mensajeInformacion(Mensaje.guardado);
 					limpiar();
 				}
@@ -141,7 +158,7 @@ public class CIntervencion extends CGenerico {
 	public void mostrarCatalogo() {
 		final List<Intervencion> paises = servicioIntervencion.buscarTodos();
 		catalogo = new Catalogo<Intervencion>(catalogoIntervencion,
-				"Catalogo de Intervenciones", paises,false, "Nombre") {
+				"Catalogo de Intervenciones", paises, false, "Nombre") {
 
 			@Override
 			protected List<Intervencion> buscar(String valor, String combo) {

@@ -18,6 +18,7 @@ import modelo.medico.historia.HistoriaVacuna;
 import modelo.medico.maestro.Intervencion;
 import modelo.medico.maestro.Paciente;
 import modelo.medico.maestro.Vacuna;
+import modelo.security.Arbol;
 import modelo.seguridad.Accidente;
 
 import org.zkoss.zk.ui.Sessions;
@@ -30,6 +31,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Doublespinner;
 import org.zkoss.zul.Image;
+import org.zkoss.zul.Include;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
@@ -39,6 +41,7 @@ import org.zkoss.zul.Radio;
 import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Spinner;
 import org.zkoss.zul.Tab;
+import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.West;
 
@@ -46,7 +49,7 @@ import componente.Botonera;
 import componente.Buscar;
 import componente.Catalogo;
 import componente.Mensaje;
-
+import controlador.security.CArbol;
 import controlador.utils.CGenerico;
 
 public class CHistoria extends CGenerico {
@@ -396,6 +399,7 @@ public class CHistoria extends CGenerico {
 	private Textbox txtBuscadorAccidenteLaboral;
 	@Wire
 	private Textbox txtCedula;
+	CArbol cArbol = new CArbol();
 	List<Listbox> listas = new ArrayList<Listbox>();
 
 	List<Intervencion> intervencionesDisponibles = new ArrayList<Intervencion>();
@@ -418,6 +422,11 @@ public class CHistoria extends CGenerico {
 
 	@Override
 	public void inicializar() throws IOException {
+		contenido = (Include) divHistoria.getParent();
+		Tabbox tabox = (Tabbox) divHistoria.getParent().getParent().getParent()
+				.getParent();
+		tabBox = tabox;
+		tab = (Tab) tabox.getTabs().getLastChild();
 		HashMap<String, Object> mapa = (HashMap<String, Object>) Sessions
 				.getCurrent().getAttribute("mapaGeneral");
 		if (mapa != null) {
@@ -990,7 +999,8 @@ public class CHistoria extends CGenerico {
 				+ paciente.getSegundoApellido());
 		lblCedula.setValue(paciente.getCedula());
 		lblCiudad.setValue(paciente.getCiudadVivienda().getNombre());
-		lblEstado.setValue(paciente.getCiudadVivienda().getEstado().getNombre());
+		lblEstado
+				.setValue(paciente.getCiudadVivienda().getEstado().getNombre());
 
 		lblFicha.setValue(paciente.getFicha());
 		lblAlergias.setValue(paciente.getObservacionAlergias());
@@ -1333,6 +1343,8 @@ public class CHistoria extends CGenerico {
 	}
 
 	private void limpiarCampos() {
+		lblArea.setValue("");
+		lblCargo1.setValue("");
 		btnGuardar.setVisible(true);
 		botonera.getChildren().get(0).setVisible(true);
 		idPaciente = "";
@@ -1652,6 +1664,328 @@ public class CHistoria extends CGenerico {
 			guardarHistoria(paciente, true);
 			limpiarCampos();
 			Mensaje.mensajeInformacion(Mensaje.guardado);
+		}
+	}
+
+	@Listen("onClick = #pasar1AccidentesLaborales")
+	public void derechaLaborales() {
+		List<Listitem> listitemEliminar = new ArrayList<Listitem>();
+		List<Listitem> listItem = ltbAccidentesLaborales.getItems();
+		if (listItem.size() != 0) {
+			for (int i = 0; i < listItem.size(); i++) {
+				if (listItem.get(i).isSelected()) {
+					Accidente accidente = listItem.get(i).getValue();
+					accidentesLaboralesDisponibles.remove(accidente);
+					HistoriaAccidente historia = new HistoriaAccidente();
+					historia.setAccidente(accidente);
+					accidentesLaboralesAgregadas.clear();
+					for (int j = 0; j < ltbAccidentesLaboralesAgregados
+							.getItemCount(); j++) {
+
+						Listitem listItemj = ltbAccidentesLaboralesAgregados
+								.getItemAtIndex(j);
+						long id = ((Spinner) ((listItemj.getChildren().get(6)))
+								.getFirstChild()).getValue();
+						Accidente accidentej = servicioAccidente.buscar(id);
+						Date fechaA = new Date();
+						Timestamp fechaAccidente = new Timestamp(
+								fechaA.getTime());
+						if (((Datebox) ((listItemj.getChildren().get(1)))
+								.getFirstChild()).getValue() != null) {
+							fechaA = ((Datebox) ((listItemj.getChildren()
+									.get(1))).getFirstChild()).getValue();
+							fechaAccidente = new Timestamp(fechaA.getTime());
+						}
+						String lugar = ((Textbox) ((listItemj.getChildren()
+								.get(2))).getFirstChild()).getValue();
+						String tipoAccidente = ((Textbox) ((listItemj
+								.getChildren().get(3))).getFirstChild())
+								.getValue();
+						int reposo = ((Spinner) ((listItemj.getChildren()
+								.get(4))).getFirstChild()).getValue();
+						String secuelas = ((Textbox) ((listItemj.getChildren()
+								.get(5))).getFirstChild()).getValue();
+						HistoriaAccidente historiaAccidente = new HistoriaAccidente(
+								null, accidentej, fechaAccidente, lugar,
+								tipoAccidente, reposo, secuelas,
+								"Accidente Laboral");
+						accidentesLaboralesAgregadas.add(historiaAccidente);
+					}
+					accidentesLaboralesAgregadas.add(historia);
+					ltbAccidentesLaboralesAgregados
+							.setModel(new ListModelList<HistoriaAccidente>(
+									accidentesLaboralesAgregadas));
+					ltbAccidentesLaboralesAgregados.renderAll();
+					listitemEliminar.add(listItem.get(i));
+				}
+			}
+		}
+		for (int i = 0; i < listitemEliminar.size(); i++) {
+			ltbAccidentesLaborales.removeItemAt(listitemEliminar.get(i)
+					.getIndex());
+		}
+		listasMultiples();
+	}
+
+	@Listen("onClick = #pasar2AccidentesLaborales")
+	public void izquierdaLAborales() {
+		List<Listitem> listitemEliminar = new ArrayList<Listitem>();
+		List<Listitem> listItem2 = ltbAccidentesLaboralesAgregados.getItems();
+		if (listItem2.size() != 0) {
+			for (int i = 0; i < listItem2.size(); i++) {
+				if (listItem2.get(i).isSelected()) {
+					HistoriaAccidente historia = listItem2.get(i).getValue();
+					accidentesLaboralesAgregadas.remove(historia);
+					accidentesLaboralesDisponibles.add(historia.getAccidente());
+					ltbAccidentesLaborales
+							.setModel(new ListModelList<Accidente>(
+									accidentesLaboralesDisponibles));
+					listitemEliminar.add(listItem2.get(i));
+				}
+			}
+		}
+		for (int i = 0; i < listitemEliminar.size(); i++) {
+			ltbAccidentesLaboralesAgregados.removeItemAt(listitemEliminar
+					.get(i).getIndex());
+		}
+		listasMultiples();
+	}
+
+	@Listen("onClick = #pasar1AccidentesComunes")
+	public void derechaComunes() {
+		List<Listitem> listitemEliminar = new ArrayList<Listitem>();
+		List<Listitem> listItem = ltbAccidentesComunes.getItems();
+		if (listItem.size() != 0) {
+			for (int i = 0; i < listItem.size(); i++) {
+				if (listItem.get(i).isSelected()) {
+					Accidente accidente = listItem.get(i).getValue();
+					accidentesComunesDisponibles.remove(accidente);
+					HistoriaAccidente historia = new HistoriaAccidente();
+					historia.setAccidente(accidente);
+					accidentesComunesAgregadas.clear();
+					for (int j = 0; j < ltbAccidentesComunesAgregados
+							.getItemCount(); j++) {
+
+						Listitem listItemj = ltbAccidentesComunesAgregados
+								.getItemAtIndex(j);
+						long id = ((Spinner) ((listItemj.getChildren().get(6)))
+								.getFirstChild()).getValue();
+						Accidente accidentej = servicioAccidente.buscar(id);
+						Date fechaA = new Date();
+						Timestamp fechaAccidente = new Timestamp(
+								fechaA.getTime());
+						if (((Datebox) ((listItemj.getChildren().get(1)))
+								.getFirstChild()).getValue() != null) {
+							fechaA = ((Datebox) ((listItemj.getChildren()
+									.get(1))).getFirstChild()).getValue();
+							fechaAccidente = new Timestamp(fechaA.getTime());
+						}
+						String lugar = ((Textbox) ((listItemj.getChildren()
+								.get(2))).getFirstChild()).getValue();
+						String tipoAccidente = ((Textbox) ((listItemj
+								.getChildren().get(3))).getFirstChild())
+								.getValue();
+						int reposo = ((Spinner) ((listItemj.getChildren()
+								.get(4))).getFirstChild()).getValue();
+						String secuelas = ((Textbox) ((listItemj.getChildren()
+								.get(5))).getFirstChild()).getValue();
+						HistoriaAccidente historiaAccidente = new HistoriaAccidente(
+								null, accidentej, fechaAccidente, lugar,
+								tipoAccidente, reposo, secuelas,
+								"Accidente Comun");
+						accidentesComunesAgregadas.add(historiaAccidente);
+					}
+					accidentesComunesAgregadas.add(historia);
+					ltbAccidentesComunesAgregados
+							.setModel(new ListModelList<HistoriaAccidente>(
+									accidentesComunesAgregadas));
+					ltbAccidentesComunesAgregados.renderAll();
+					listitemEliminar.add(listItem.get(i));
+				}
+			}
+		}
+		for (int i = 0; i < listitemEliminar.size(); i++) {
+			ltbAccidentesComunes.removeItemAt(listitemEliminar.get(i)
+					.getIndex());
+		}
+		listasMultiples();
+	}
+
+	@Listen("onClick = #pasar2AccidentesComunes")
+	public void izquierdaComunes() {
+		List<Listitem> listitemEliminar = new ArrayList<Listitem>();
+		List<Listitem> listItem2 = ltbAccidentesComunesAgregados.getItems();
+		if (listItem2.size() != 0) {
+			for (int i = 0; i < listItem2.size(); i++) {
+				if (listItem2.get(i).isSelected()) {
+					HistoriaAccidente historia = listItem2.get(i).getValue();
+					accidentesComunesAgregadas.remove(historia);
+					accidentesComunesDisponibles.add(historia.getAccidente());
+					ltbAccidentesComunes.setModel(new ListModelList<Accidente>(
+							accidentesComunesDisponibles));
+					listitemEliminar.add(listItem2.get(i));
+				}
+			}
+		}
+		for (int i = 0; i < listitemEliminar.size(); i++) {
+			ltbAccidentesComunesAgregados.removeItemAt(listitemEliminar.get(i)
+					.getIndex());
+		}
+		listasMultiples();
+	}
+
+	@Listen("onClick = #pasar1Intervenciones")
+	public void derechaIntervencion() {
+		List<Listitem> listitemEliminar = new ArrayList<Listitem>();
+		List<Listitem> listItem = ltbIntervenciones.getItems();
+		if (listItem.size() != 0) {
+			for (int i = 0; i < listItem.size(); i++) {
+				if (listItem.get(i).isSelected()) {
+					Intervencion intervencion = listItem.get(i).getValue();
+					intervencionesDisponibles.remove(intervencion);
+					HistoriaIntervencion historia = new HistoriaIntervencion();
+					historia.setIntervencion(intervencion);
+					intervencionesAgregadas.clear();
+					for (int j = 0; j < ltbIntervencionesAgregadas
+							.getItemCount(); j++) {
+						Listitem listItemj = ltbIntervencionesAgregadas
+								.getItemAtIndex(j);
+						long id = ((Spinner) ((listItemj.getChildren().get(6)))
+								.getFirstChild()).getValue();
+						Intervencion intervencionj = servicioIntervencion
+								.buscar(id);
+						Date fechaI = new Date();
+						Timestamp fechaIntervencion = new Timestamp(
+								fechaI.getTime());
+						if (((Datebox) ((listItemj.getChildren().get(1)))
+								.getFirstChild()).getValue() != null) {
+							fechaI = ((Datebox) ((listItemj.getChildren()
+									.get(1))).getFirstChild()).getValue();
+							fechaIntervencion = new Timestamp(fechaI.getTime());
+						}
+						String motivo = ((Textbox) ((listItemj.getChildren()
+								.get(2))).getFirstChild()).getValue();
+						String diagnostico = ((Textbox) ((listItemj
+								.getChildren().get(3))).getFirstChild())
+								.getValue();
+						int reposo = ((Spinner) ((listItemj.getChildren()
+								.get(4))).getFirstChild()).getValue();
+						String secuelas = ((Textbox) ((listItemj.getChildren()
+								.get(5))).getFirstChild()).getValue();
+						HistoriaIntervencion historiaIntervencion = new HistoriaIntervencion(
+								null, intervencionj, fechaIntervencion, motivo,
+								diagnostico, reposo, secuelas);
+						intervencionesAgregadas.add(historiaIntervencion);
+					}
+					intervencionesAgregadas.add(historia);
+					ltbIntervencionesAgregadas
+							.setModel(new ListModelList<HistoriaIntervencion>(
+									intervencionesAgregadas));
+					ltbIntervencionesAgregadas.renderAll();
+					listitemEliminar.add(listItem.get(i));
+				}
+			}
+		}
+		for (int i = 0; i < listitemEliminar.size(); i++) {
+			ltbIntervenciones.removeItemAt(listitemEliminar.get(i).getIndex());
+		}
+		listasMultiples();
+	}
+
+	@Listen("onClick = #pasar2Intervenciones")
+	public void izquierdaIntervencion() {
+		List<Listitem> listitemEliminar = new ArrayList<Listitem>();
+		List<Listitem> listItem2 = ltbIntervencionesAgregadas.getItems();
+		if (listItem2.size() != 0) {
+			for (int i = 0; i < listItem2.size(); i++) {
+				if (listItem2.get(i).isSelected()) {
+					HistoriaIntervencion historia = listItem2.get(i).getValue();
+					intervencionesAgregadas.remove(historia);
+					intervencionesDisponibles.add(historia.getIntervencion());
+					ltbIntervenciones.setModel(new ListModelList<Intervencion>(
+							intervencionesDisponibles));
+					listitemEliminar.add(listItem2.get(i));
+				}
+			}
+		}
+		for (int i = 0; i < listitemEliminar.size(); i++) {
+			ltbIntervencionesAgregadas.removeItemAt(listitemEliminar.get(i)
+					.getIndex());
+		}
+		listasMultiples();
+	}
+
+	@Listen("onClick = #btnAbrirIntervencion")
+	public void divIntervencion() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", "consulta");
+		map.put("lista", intervencionesDisponibles);
+		map.put("listbox", ltbIntervenciones);
+		map.put("titulo", "Intervencion");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
+		List<Arbol> arboles = servicioArbol
+				.buscarPorNombreArbol("Intervencion");
+		if (!arboles.isEmpty()) {
+			Arbol arbolItem = arboles.get(0);
+			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
+		}
+	}
+
+	@Listen("onClick = #btnAbrirAccidenteLaboral, #btnAbrirAccidenteComun ")
+	public void divAccidente(Event evento) {
+		String idBotonAn = evento.getTarget().getId();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", "consulta");
+		if (idBotonAn.equals("btnAbrirAccidenteLaboral")) {
+			map.put("tipo", "Laboral");
+			map.put("lista", accidentesLaboralesDisponibles);
+			map.put("listbox", ltbAccidentesLaborales);
+		} else {
+			map.put("tipo", "Comun");
+			map.put("lista", accidentesComunesDisponibles);
+			map.put("listbox", ltbAccidentesComunes);
+		}
+		map.put("titulo", "Accidente");
+		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
+		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Accidente");
+		if (!arboles.isEmpty()) {
+			Arbol arbolItem = arboles.get(0);
+			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
+		}
+	}
+
+	public void recibirIntervencion(List<Intervencion> interConsulta,
+			Listbox listaConsulta) {
+		ltbIntervenciones = listaConsulta;
+		intervencionesDisponibles = interConsulta;
+		ltbIntervenciones.setModel(new ListModelList<Intervencion>(
+				intervencionesDisponibles));
+		ltbIntervenciones.setMultiple(false);
+		ltbIntervenciones.setCheckmark(false);
+		ltbIntervenciones.setMultiple(true);
+		ltbIntervenciones.setCheckmark(true);
+	}
+
+	public void recibirAccidente(List<Accidente> accidentes,
+			Listbox listaConsulta, String tipo) {
+		if (tipo.equals("Laboral")) {
+			ltbAccidentesLaborales = listaConsulta;
+			accidentesLaboralesDisponibles = accidentes;
+			ltbAccidentesLaborales.setModel(new ListModelList<Accidente>(
+					accidentesLaboralesDisponibles));
+			ltbAccidentesLaborales.setMultiple(false);
+			ltbAccidentesLaborales.setCheckmark(false);
+			ltbAccidentesLaborales.setMultiple(true);
+			ltbAccidentesLaborales.setCheckmark(true);
+		} else {
+			ltbAccidentesComunes = listaConsulta;
+			accidentesComunesDisponibles = accidentes;
+			ltbAccidentesComunes.setModel(new ListModelList<Accidente>(
+					accidentesComunesDisponibles));
+			ltbAccidentesComunes.setMultiple(false);
+			ltbAccidentesComunes.setCheckmark(false);
+			ltbAccidentesComunes.setMultiple(true);
+			ltbAccidentesComunes.setCheckmark(true);
 		}
 	}
 }

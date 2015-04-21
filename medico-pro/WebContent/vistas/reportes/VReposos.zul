@@ -1,7 +1,10 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divReposo" apply="controlador.reporte.CReposo">
-		<groupbox width="75%" mold="3d" title="Reporte de Reposos">
+	<div id="divReposo" apply="controlador.reporte.CReposo" align="center">
+		<groupbox closable="false" width="75%" mold="3d"
+			title="Reporte de Reposos">
+			<div id="botoneraReposo" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
 					<column label="" width="16%" />
@@ -11,142 +14,182 @@
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Desde:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<datebox width="100%" readonly="true" id="dtbDesde"
-							constraint="no future" onCreate="self.value = new Date()"
-							tooltiptext="Seleccione el inicio del Periodo a buscar" />
-						<hbox>
-							<label class="etiqueta" value="Hasta:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<datebox width="100%" readonly="true" id="dtbHasta"
-							onCreate="self.value = new Date()" tooltiptext="Seleccione el fin del Periodo a buscar" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Desde:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<datebox width="100%" readonly="true" id="dtbDesde"
+									constraint="no future" onCreate="self.value = new Date()"
+									tooltiptext="Seleccione el inicio del Periodo a buscar" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Hasta:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<datebox width="100%" readonly="true" id="dtbHasta"
+									onCreate="self.value = new Date()" tooltiptext="Seleccione el fin del Periodo a buscar" />
+							</vlayout>
+						</cell>
 					</row>
 					<row id="rowArea">
-						<hbox>
-							<label class="etiqueta" value="Area:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox tooltiptext="Seleccione un Area" placeholder="Seleccione un Area"
-							id="cmbArea" readonly="true" width="100%" value="TODAS">
-							<template name="model">
-								<comboitem label="${each.nombre}" context="${each.idArea}" />
-							</template>
-						</combobox>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Area:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox tooltiptext="Seleccione un Area" placeholder="Seleccione un Area"
+									id="cmbArea" readonly="true" width="100%" value="TODAS">
+									<template name="model">
+										<comboitem label="${each.nombre}" context="${each.idArea}" />
+									</template>
+								</combobox>
+							</vlayout>
+						</cell>
 						<hbox />
 						<hbox />
 					</row>
 					<row id="rowPaciente">
-						<hbox>
-							<label class="etiqueta" value="Paciente:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<label id="lblPaciente" />
-						<button id="btnBuscarPaciente" label="Buscar" class="btn"
-							image="/public/imagenes/botones/buscar.png" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Paciente:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<label id="lblPaciente" tooltiptext="Nombre del Paciente" />
+							</vlayout>
+						</cell>
+						<button dir="reverse" id="btnBuscarPaciente" label="Buscar"
+							class="btn" image="/public/imagenes/botones/buscar.png"
+							tooltiptext="Catalogo de Pacientes" />
 
 						<hbox />
 					</row>
 					<row id="rowCargo">
-						<hbox>
-							<label class="etiqueta" value="Cargo:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox tooltiptext="Seleccione un Cargo" placeholder="Seleccione un Cargo"
-							id="cmbCargo" readonly="true" width="100%" value="TODOS">
-							<template name="model">
-								<comboitem label="${each.nombre}" context="${each.idCargo}" />
-							</template>
-						</combobox>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Cargo:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox tooltiptext="Seleccione un Cargo"
+									placeholder="Seleccione un Cargo" id="cmbCargo" readonly="true"
+									width="100%" value="TODOS">
+									<template name="model">
+										<comboitem label="${each.nombre}" context="${each.idCargo}" />
+									</template>
+								</combobox>
+							</vlayout>
+						</cell>
 						<hbox />
 						<hbox />
 					</row>
 					<row id="rowEmpresa">
-						<hbox>
-							<label class="etiqueta" value="Empresa:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox tooltiptext="Seleccione una Empresa"
-							placeholder="Seleccione una Empresa" id="cmbEmpresa" readonly="true"
-							width="100%" value="TODAS">
-							<template name="model">
-								<comboitem label="${each.nombre}" context="${each.idEmpresa}" />
-							</template>
-						</combobox>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Empresa:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox tooltiptext="Seleccione una Empresa"
+									placeholder="Seleccione una Empresa" id="cmbEmpresa" readonly="true"
+									width="100%" value="TODAS">
+									<template name="model">
+										<comboitem label="${each.nombre}" context="${each.idEmpresa}" />
+									</template>
+								</combobox>
+							</vlayout>
+						</cell>
 						<hbox />
 						<hbox />
 					</row>
 					<row id="rowNomina">
-						<hbox>
-							<label class="etiqueta" value="Nomina:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox tooltiptext="Seleccione una Nomina"
-							placeholder="Seleccione una Nomina" id="cmbNomina" readonly="true"
-							width="100%" value="TODAS">
-							<comboitem label="Empleado" />
-							<comboitem label="Obrero" />
-							<comboitem label="TODAS" />
-						</combobox>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Nomina:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox tooltiptext="Seleccione una Nomina"
+									placeholder="Seleccione una Nomina" id="cmbNomina" readonly="true"
+									width="100%" value="TODAS">
+									<comboitem label="Empleado" />
+									<comboitem label="Obrero" />
+									<comboitem label="TODAS" />
+								</combobox>
+							</vlayout>
+						</cell>
 						<hbox />
 						<hbox />
 					</row>
 					<row id="rowDiagnostico">
-						<hbox>
-							<label class="etiqueta" value="Tipo de Diagnostico:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox tooltiptext="Seleccione el Tipo de Diagnostico"
-							value="TODOS" placeholder="Seleccione el Tipo" width="98%"
-							readonly="true" id="cmbDiagnostico">
-							<comboitem label="TODOS" />
-							<comboitem label="Accidente Laboral" />
-							<comboitem label="Accidente Comun" />
-							<comboitem label="Enfermedad Laboral" />
-							<comboitem label="Enfermedad Comun" />
-							<comboitem label="Otro" />
-						</combobox>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Tipo de Diagnostico:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox tooltiptext="Seleccione el Tipo de Diagnostico"
+									value="TODOS" placeholder="Seleccione el Tipo" width="98%"
+									readonly="true" id="cmbDiagnostico">
+									<comboitem label="TODOS" />
+									<comboitem label="Accidente Laboral" />
+									<comboitem label="Accidente Comun" />
+									<comboitem label="Enfermedad Laboral" />
+									<comboitem label="Enfermedad Comun" />
+									<comboitem label="Otro" />
+								</combobox>
+							</vlayout>
+						</cell>
 						<hbox />
 						<hbox />
 					</row>
 					<row id="rowDoctor">
-						<hbox>
-							<label class="etiqueta" value="Doctor:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<hbox>
-							<button id="btnBuscarDoctor" label="Buscar" class="btn"
-								image="/public/imagenes/botones/buscar.png" />
-							<separator />
-							<label id="lblNombreDoctor" />
-						</hbox>
-						<hbox />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Doctor:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<hbox>
+									<label id="lblNombreDoctor" tooltiptext="Nombre del Doctor" />
+								</hbox>
+							</vlayout>
+						</cell>
+						<button dir="reverse" id="btnBuscarDoctor" label="Buscar" class="btn"
+							image="/public/imagenes/botones/buscar.png" tooltiptext="Catalogo de Doctores" />
 						<hbox />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Reporte de Tipo:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox id="cmbTipo" readonly="true" tabindex="1"
-							value="PDF" width="100%" tooltiptext="Seleccione un Tipo"
-							placeholder="Seleccione un Tipo">
-							<comboitem label="PDF" />
-							<comboitem label="EXCEL" />
-						</combobox>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Reporte de Tipo:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox id="cmbTipo" readonly="true" tabindex="1"
+									value="PDF" width="100%" tooltiptext="Seleccione un Tipo"
+									placeholder="Seleccione un Tipo">
+									<comboitem label="PDF" />
+									<comboitem label="EXCEL" />
+								</combobox>
+							</vlayout>
+						</cell>
 						<hbox />
 						<hbox />
 					</row>
@@ -157,12 +200,6 @@
 				<textbox tooltiptext="Ingrese el Nombre del Diagnostico"
 					placeholder="Ingrese el Diagnostico a Buscar" width="195px"
 					id="txtBuscadorDiagnostico"></textbox>
-				<separator />
-				<button class="abrir" id="btnAbrirDiagnostico" label=""
-					tooltiptext="Crear un Nuevo Diagnostico" image="/public/imagenes/botones/agregar.png" />
-				<button class="abrir" id="btnRefrescarDiagnostico" label=""
-					tooltiptext="Presione para actualizar la lista de los diagnosticos (actualizara tambien la lista de los diagnosticos agregados)"
-					image="/public/imagenes/botones/refresh2.png" />
 			</hbox>
 			<separator />
 			<hbox id="box" widths="48%,4%,48%" visible="false">
@@ -209,8 +246,6 @@
 					</template>
 				</listbox>
 			</hbox>
-			<separator />
-			<div id="botoneraReposo" />
 			<div id="divCatalogoPaciente" />
 			<div id="catalogoUsuarios" />
 		</groupbox>

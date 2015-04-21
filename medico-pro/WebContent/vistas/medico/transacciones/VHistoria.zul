@@ -258,105 +258,14 @@
 					<tabpanel>
 						<tabbox height="auto" id="taxHistoria" orient="horizontal">
 							<tabs id="tbsHistoria" width="auto">
-								<tab label="Medidas" id="tabDiente"/>
 								<tab label="Habitos" id="tabHabitos" />
 								<tab label="Antecedentes Personales" id="tabIAntecedentesI" />
 								<tab label="Accidentes" id="tabIAntecedentesII" />
 								<tab label="Paciente Mujer" id="tabMujer" />
 								<tab label="Vacunas" id="tabVacunas" />
+								<tab label="Medidas" id="tabDiente" visible="false"/>
 							</tabs>
 							<tabpanels>
-								<tabpanel>
-									<grid width="100%">
-										<columns visible="false">
-											<column label="" width="16.6%" />
-											<column label="" width="16.6%" />
-											<column label="" width="16.6%" />
-											<column label="" width="16.6%" />
-											<column label="" width="16.6%" />
-											<column label="" width="17%" />
-										</columns>
-										<rows>
-											<row>
-												<label class="etiqueta" value="Lectura con carta Snell" />
-												<combobox
-													tooltiptext="Seleccione el Nivel de visión respecto a la fila en la Gráfica de Snell observada en el Paciente"
-													placeholder="Seleccione" id="cmbCarta" width="98%"
-													readonly="true">
-													<comboitem label="20/10" />
-													<comboitem label="20/12" />
-													<comboitem label="20/15" />
-													<comboitem label="20/20" />
-													<comboitem label="20/25" />
-													<comboitem label="20/30" />
-													<comboitem label="20/35" />
-													<comboitem label="20/40" />
-													<comboitem label="20/50" />
-													<comboitem label="20/70" />
-													<comboitem label="20/100" />
-													<comboitem label="20/200" />
-												</combobox>
-												<label class="etiqueta" value="¿Vision de Colores?" />
-												<radiogroup id="rdgColores">
-													<radio label="SI" value="si" id="rdoSiColores" />
-													<radio label="NO" value="no" id="rdoNoColores" />
-												</radiogroup>
-												<hbox />
-												<hbox />
-											</row>
-											<row>
-												<cell colspan="6">
-													<label style="color:black; font-size: 12px; font-weight:bold"
-														value="Antropometria" />
-												</cell>
-											</row>
-											<row>
-												<label class="etiqueta" value="Altura de Hombro(cms)" />
-												<doublespinner value="0" id="spnAlturaHombro"
-													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Anchura de Hombro(cms)" />
-												<doublespinner value="0" id="spnAnchuraHombro"
-													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Altura de Codo(cms)" />
-												<doublespinner value="0" id="spnAlturaCodo"
-													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-											</row>
-											<row>
-												<label class="etiqueta" value="Long Miembro Superior Izquierdo(cms)" />
-												<doublespinner value="0" id="spnLongIzquierdo"
-													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Long Miembro Superior Derecho(cms)" />
-												<doublespinner value="0" id="spnLongDerecho"
-													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Altura Poplitea(cms)" />
-												<doublespinner value="0" id="spnPoplitea"
-													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-											</row>
-											<row>
-												<label class="etiqueta" value="Altura silla ojo(cms)" />
-												<doublespinner value="0" id="spnSillaOjo"
-													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Altura codo silla(cms)" />
-												<doublespinner value="0" id="spnCodoSilla"
-													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Circunferencia Abdominal(cms)" />
-												<doublespinner value="0" id="spnCircunferenciaA"
-													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-											</row>
-											<row>
-												<label class="etiqueta" value="Distancia Mano Piso(cms)" />
-												<doublespinner value="0" id="spnManoPiso"
-													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Circunferencia de Cadera(cms)" />
-												<doublespinner value="0" id="spnCircunferenciaC"
-													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-												<label class="etiqueta" value="Indice cadera Abdominal(cms)" />
-												<doublespinner value="0" id="spnCaderaAbdominal"
-													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
-											</row>
-										</rows>
-									</grid>
-								</tabpanel>
 								<tabpanel>
 									<grid width="100%">
 										<columns visible="false">
@@ -641,6 +550,31 @@
 												</cell>
 											</row>
 											<row>
+												<label class="etiqueta" value="Lectura con carta Snell" />
+												<combobox
+													tooltiptext="Seleccione el Nivel de visión respecto a la fila en la Gráfica de Snell observada en el Paciente"
+													placeholder="Seleccione" id="cmbCarta" width="98%"
+													readonly="true">
+													<comboitem label="20/10" />
+													<comboitem label="20/12" />
+													<comboitem label="20/15" />
+													<comboitem label="20/20" />
+													<comboitem label="20/25" />
+													<comboitem label="20/30" />
+													<comboitem label="20/35" />
+													<comboitem label="20/40" />
+													<comboitem label="20/50" />
+													<comboitem label="20/70" />
+													<comboitem label="20/100" />
+													<comboitem label="20/200" />
+												</combobox>
+												<label class="etiqueta" value="¿Vision de Colores?" />
+												<radiogroup id="rdgColores">
+													<radio label="SI" value="si" id="rdoSiColores" />
+													<radio label="NO" value="no" id="rdoNoColores" />
+												</radiogroup>
+											</row>
+											<row>
 												<label class="etiqueta" value="¿Padece de Alguna enfermedad?" />
 												<radiogroup id="rdgEnfermedad">
 													<radio label="SI" value="si" id="rdoSiEnfermedad" />
@@ -693,17 +627,17 @@
 												</cell>
 											</row>
 											<row>
-											<cell colspan="4">
-												<hbox>
-													<textbox tooltiptext="Ingrese el Nombre de la Intervencion"
-														placeholder="Ingrese la Intervencion a Buscar" width="300px"
-														id="txtBuscadorIntervencion"></textbox>
-													<separator />
-													<a href="">
-														<label id="btnAbrirIntervencion" sclass="pointer"
-															value="Crear nueva Intervencion" class="abrir" />
-													</a>
-												</hbox>
+												<cell colspan="4">
+													<hbox>
+														<textbox tooltiptext="Ingrese el Nombre de la Intervencion"
+															placeholder="Ingrese la Intervencion a Buscar" width="300px"
+															id="txtBuscadorIntervencion"></textbox>
+														<separator />
+														<a href="">
+															<label id="btnAbrirIntervencion" sclass="pointer"
+																value="Crear nueva Intervencion" class="abrir" />
+														</a>
+													</hbox>
 												</cell>
 											</row>
 										</rows>
@@ -1149,6 +1083,70 @@
 											</listitem>
 										</template>
 									</listbox>
+								</tabpanel>
+								<tabpanel visible="false">
+									<grid width="100%">
+										<columns visible="false">
+											<column label="" width="16.6%" />
+											<column label="" width="16.6%" />
+											<column label="" width="16.6%" />
+											<column label="" width="16.6%" />
+											<column label="" width="16.6%" />
+											<column label="" width="17%" />
+										</columns>
+										<rows>
+											<row>
+												<cell colspan="6">
+													<label style="color:black; font-size: 12px; font-weight:bold"
+														value="Antropometria" />
+												</cell>
+											</row>
+											<row>
+												<label class="etiqueta" value="Altura de Hombro(cms)" />
+												<doublespinner value="0" id="spnAlturaHombro"
+													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
+												<label class="etiqueta" value="Anchura de Hombro(cms)" />
+												<doublespinner value="0" id="spnAnchuraHombro"
+													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
+												<label class="etiqueta" value="Altura de Codo(cms)" />
+												<doublespinner value="0" id="spnAlturaCodo"
+													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
+											</row>
+											<row>
+												<label class="etiqueta" value="Long Miembro Superior Izquierdo(cms)" />
+												<doublespinner value="0" id="spnLongIzquierdo"
+													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
+												<label class="etiqueta" value="Long Miembro Superior Derecho(cms)" />
+												<doublespinner value="0" id="spnLongDerecho"
+													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
+												<label class="etiqueta" value="Altura Poplitea(cms)" />
+												<doublespinner value="0" id="spnPoplitea"
+													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
+											</row>
+											<row>
+												<label class="etiqueta" value="Altura silla ojo(cms)" />
+												<doublespinner value="0" id="spnSillaOjo"
+													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
+												<label class="etiqueta" value="Altura codo silla(cms)" />
+												<doublespinner value="0" id="spnCodoSilla"
+													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
+												<label class="etiqueta" value="Circunferencia Abdominal(cms)" />
+												<doublespinner value="0" id="spnCircunferenciaA"
+													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
+											</row>
+											<row>
+												<label class="etiqueta" value="Distancia Mano Piso(cms)" />
+												<doublespinner value="0" id="spnManoPiso"
+													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
+												<label class="etiqueta" value="Circunferencia de Cadera(cms)" />
+												<doublespinner value="0" id="spnCircunferenciaC"
+													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
+												<label class="etiqueta" value="Indice cadera Abdominal(cms)" />
+												<doublespinner value="0" id="spnCaderaAbdominal"
+													step="1" format="#.#" constraint="min 0 max 100000" width="98%" />
+											</row>
+										</rows>
+									</grid>
 								</tabpanel>
 							</tabpanels>
 						</tabbox>

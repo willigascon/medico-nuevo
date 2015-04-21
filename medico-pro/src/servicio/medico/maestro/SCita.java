@@ -99,12 +99,19 @@ public class SCita {
 		calendario.set(Calendar.MINUTE, 0);
 		value = calendario.getTime();
 		Timestamp fecha = new Timestamp(value.getTime());
+		calendario.set(Calendar.HOUR, 11);
+		calendario.set(Calendar.HOUR_OF_DAY, 23);
+		calendario.set(Calendar.SECOND, 59);
+		calendario.set(Calendar.MILLISECOND, 0);
+		calendario.set(Calendar.MINUTE, 59);
+		value = calendario.getTime();
+		Timestamp fecha2 = new Timestamp(value.getTime());
 		List<String> ordenar = new ArrayList<String>();
 		ordenar.add("estado");
 		ordenar.add("pacienteCedula");
 		Sort o = new Sort(Sort.Direction.ASC, ordenar);
-		return citaDAO.findByDoctorInternoAndEstadoLikeAndFechaCita(usuario,
-				estado, fecha, o);
+		return citaDAO.findByDoctorInternoAndEstadoLikeAndFechaCitaBetween(
+				usuario, estado, fecha, fecha2, o);
 	}
 
 	public List<Cita> filtroFecha(Timestamp fecha, Date date, String idDoctor) {

@@ -1,7 +1,11 @@
 <zk>
 	<style src="/public/Estilo.css" />
-	<div id="divOrdenProveedor" apply="controlador.reporte.COrdenProveedor">
-		<groupbox width="75%" mold="3d" title="Reporte de Ordenes">
+	<div id="divOrdenProveedor" apply="controlador.reporte.COrdenProveedor"
+		align="center">
+		<groupbox closable="false" width="75%" mold="3d"
+			title="Reporte de Ordenes">
+			<div id="botoneraOrdenProveedor" />
+			<separator />
 			<grid width="100%">
 				<columns visible="false">
 					<column label="" width="18%" />
@@ -11,64 +15,81 @@
 				</columns>
 				<rows>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Desde:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<datebox width="100%" readonly="true" id="dtbDesde"
-							onCreate="self.value = new Date()"
-							tooltiptext="Seleccione el inicio del Periodo a buscar" />
-						<hbox>
-							<label class="etiqueta" value="Hasta:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<datebox width="100%" readonly="true" id="dtbHasta"
-							onCreate="self.value = new Date()" tooltiptext="Seleccione el fin del Periodo a buscar" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Desde:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<datebox width="100%" readonly="true" id="dtbDesde"
+									onCreate="self.value = new Date()" tooltiptext="Seleccione el inicio del Periodo a buscar" />
+							</vlayout>
+						</cell>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Hasta:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<datebox width="100%" readonly="true" id="dtbHasta"
+									onCreate="self.value = new Date()" tooltiptext="Seleccione el fin del Periodo a buscar" />
+							</vlayout>
+						</cell>
 					</row>
 					<row id="rowProveedor" visible="false">
-						<hbox>
-							<label class="etiqueta" value="Proveedor:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<label id="lblProveedor" />
-						<button id="btnBuscarProveedor" label="Buscar" class="btn"
-							image="/public/imagenes/botones/buscar.png" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Proveedor:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<label id="lblProveedor" tooltiptext="Nombre del Proveedor" />
+							</vlayout>
+						</cell>
+						<button dir="reverse" id="btnBuscarProveedor" label="Buscar" class="btn"
+							image="/public/imagenes/botones/buscar.png" tooltiptext="Catalogo de Proveedores" />
 
 						<hbox />
 					</row>
 					<row id="rowEspecialista" visible="false">
-						<hbox>
-							<label class="etiqueta" value="Especialista:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<label id="lblEspecialista" />
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Especialista:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<label id="lblEspecialista" tooltiptext="Nombre del Especialista" />
+							</vlayout>
+						</cell>
 						<button id="btnBuscarEspecialista" label="Buscar" class="btn"
-							image="/public/imagenes/botones/buscar.png" />
+							image="/public/imagenes/botones/buscar.png" tooltiptext="Catalogo de Especialistas" />
 						<hbox />
 					</row>
 					<row>
-						<hbox>
-							<label class="etiqueta" value="Reporte de Tipo:" />
-							<space />
-							<label value="*" style="font-weight:bold;color:red" />
-						</hbox>
-						<combobox id="cmbTipo" readonly="true" tabindex="1"
-							value="PDF" width="100%" tooltiptext="Seleccione un Tipo"
-							placeholder="Seleccione un Tipo">
-							<comboitem label="PDF" />
-							<comboitem label="EXCEL" />
-						</combobox>
+						<cell colspan="2">
+							<vlayout>
+								<hbox>
+									<label class="etiqueta" value="Reporte de Tipo:" />
+									<space />
+									<label value="*" style="font-weight:bold;color:red" />
+								</hbox>
+								<combobox id="cmbTipo" readonly="true" tabindex="1"
+									value="PDF" width="100%" tooltiptext="Seleccione un Tipo"
+									placeholder="Seleccione un Tipo">
+									<comboitem label="PDF" />
+									<comboitem label="EXCEL" />
+								</combobox>
+							</vlayout>
+						</cell>
 						<hbox />
 						<hbox />
 					</row>
 				</rows>
 			</grid>
-			<separator />
-			<div id="botoneraOrdenProveedor" />
 			<div id="catalogoEspecialista" />
 			<div id="catalogoProveedor" />
 		</groupbox>

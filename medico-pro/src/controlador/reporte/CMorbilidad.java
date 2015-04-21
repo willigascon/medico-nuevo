@@ -105,8 +105,6 @@ public class CMorbilidad extends CGenerico {
 	@Wire
 	private Row rowDoctor;
 	@Wire
-	private Row rowFamiliar;
-	@Wire
 	private Row rowCargo;
 	@Wire
 	private Row rowEmpresa;
@@ -124,14 +122,6 @@ public class CMorbilidad extends CGenerico {
 	private Button btnBuscarDoctor;
 	@Wire
 	private Combobox cmbDiagnostico;
-	@Wire
-	private Radiogroup rdgFamiliar;
-	@Wire
-	private Radio rdoFamiliares;
-	@Wire
-	private Radio rdoTrabajadores;
-	@Wire
-	private Radio rdoTodos;
 	@Wire
 	private Label lblPaciente;
 	@Wire
@@ -189,7 +179,6 @@ public class CMorbilidad extends CGenerico {
 			rowArea.setVisible(false);
 			rowDiagnostico.setVisible(false);
 			rowDoctor.setVisible(false);
-			rowFamiliar.setVisible(false);
 			rowPaciente.setVisible(false);
 			rowTipoConsulta.setVisible(false);
 			tipo = "clasificacion";
@@ -216,7 +205,6 @@ public class CMorbilidad extends CGenerico {
 			rowArea.setVisible(false);
 			rowDiagnostico.setVisible(false);
 			rowDoctor.setVisible(false);
-			rowFamiliar.setVisible(false);
 			rowPaciente.setVisible(false);
 			rowTipoConsulta.setVisible(false);
 			tipo = "empresa";
@@ -233,7 +221,6 @@ public class CMorbilidad extends CGenerico {
 			rowArea.setVisible(false);
 			rowDiagnostico.setVisible(false);
 			rowDoctor.setVisible(false);
-			rowFamiliar.setVisible(false);
 			rowPaciente.setVisible(false);
 			rowTipoConsulta.setVisible(false);
 			tipo = "cargo";
@@ -249,7 +236,6 @@ public class CMorbilidad extends CGenerico {
 			rowArea.setVisible(true);
 			rowDiagnostico.setVisible(false);
 			rowDoctor.setVisible(false);
-			rowFamiliar.setVisible(false);
 			rowPaciente.setVisible(false);
 			rowTipoConsulta.setVisible(false);
 			tipo = "area";
@@ -258,7 +244,6 @@ public class CMorbilidad extends CGenerico {
 			rowArea.setVisible(false);
 			rowDiagnostico.setVisible(false);
 			rowDoctor.setVisible(false);
-			rowFamiliar.setVisible(false);
 			rowPaciente.setVisible(false);
 			rowTipoConsulta.setVisible(true);
 			tipo = "tipoConsulta";
@@ -268,7 +253,6 @@ public class CMorbilidad extends CGenerico {
 			rowArea.setVisible(false);
 			rowDiagnostico.setVisible(true);
 			rowDoctor.setVisible(false);
-			rowFamiliar.setVisible(true);
 			rowPaciente.setVisible(false);
 			rowTipoConsulta.setVisible(false);
 			box.setVisible(true);
@@ -280,7 +264,6 @@ public class CMorbilidad extends CGenerico {
 			rowArea.setVisible(false);
 			rowDiagnostico.setVisible(false);
 			rowDoctor.setVisible(true);
-			rowFamiliar.setVisible(false);
 			rowPaciente.setVisible(false);
 			rowTipoConsulta.setVisible(false);
 			tipo = "doctor";
@@ -290,7 +273,6 @@ public class CMorbilidad extends CGenerico {
 			rowArea.setVisible(false);
 			rowDiagnostico.setVisible(false);
 			rowDoctor.setVisible(false);
-			rowFamiliar.setVisible(false);
 			rowPaciente.setVisible(false);
 			rowTipoConsulta.setVisible(false);
 			tipo = "nomina";
@@ -325,9 +307,7 @@ public class CMorbilidad extends CGenerico {
 					cmbDiagnostico.setValue("TODOS");
 					spnDe.setValue(0);
 					spnA.setValue(100);
-					rdoFamiliares.setChecked(false);
-					rdoTodos.setChecked(false);
-					rdoTrabajadores.setChecked(false);
+					limpiarColores(spnA, spnDe);
 					cargarLista();
 					break;
 				case "doctor":
@@ -703,9 +683,8 @@ public class CMorbilidad extends CGenerico {
 	public boolean validarDiagnostico() {
 		if (cmbDiagnostico.getText().compareTo("") == 0
 				|| spnA.getText().compareTo("") == 0
-				|| spnDe.getText().compareTo("") == 0
-				|| (!rdoFamiliares.isChecked() && !rdoTrabajadores.isChecked() && !rdoTodos
-						.isChecked())) {
+				|| spnDe.getText().compareTo("") == 0) {
+			aplicarColores(spnA, spnDe);
 			Mensaje.mensajeError(Mensaje.camposVacios);
 			return false;
 		} else {
@@ -989,7 +968,7 @@ public class CMorbilidad extends CGenerico {
 		String fecha1 = fecha.format(desde);
 		String fecha2 = fecha.format(hasta);
 		String diagnostico = "";
-		String radio = "";
+		String radio = "Todos";
 		String tipoReporte = cmbTipo.getValue();
 		if (cmbDiagnostico.getValue().equals("TODOS"))
 			diagnostico = "";
@@ -1018,14 +997,6 @@ public class CMorbilidad extends CGenerico {
 				i = diagnosticosAgregados.size();
 			}
 		}
-
-		if (rdoFamiliares.isChecked())
-			radio = "Familiares";
-		if (rdoTodos.isChecked())
-			radio = "Todos";
-		if (rdoTrabajadores.isChecked())
-			radio = "Trabajadores";
-
 		int aa = spnA.getValue();
 		int dea = spnDe.getValue();
 		String a = String.valueOf(aa);
@@ -1290,7 +1261,7 @@ public class CMorbilidad extends CGenerico {
 		String fecha2 = fecha.format(hasta);
 		String unidad = "";
 		String tipoReporte = cmbTipo.getValue();
-			unidad = "";
+		unidad = "";
 
 		if ((unidad.equals("") && idDoctor.equals("TODOS") && servicioConsulta
 				.buscarEntreFechasOrdenadasPorUnidad(desde, hasta).isEmpty())
