@@ -71,6 +71,7 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.ListitemRenderer;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Radio;
+import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.Spinner;
 import org.zkoss.zul.Tab;
@@ -296,6 +297,10 @@ public class CConsulta extends CGenerico {
 	private Radio rdoNoLaboral;
 	// --------------------------
 	@Wire
+	private Radiogroup rdgDias;
+	@Wire
+	private Radiogroup rdgMaternal;
+	@Wire
 	private Row rowReposoDias;
 	@Wire
 	private Radio rdoSiReposoDias;
@@ -319,6 +324,10 @@ public class CConsulta extends CGenerico {
 	private Datebox dtbReposo;
 	//
 	@Wire
+	private Radiogroup rdgReposo;
+	@Wire
+	private Radiogroup rdgLaboral;
+	@Wire
 	private Radio rdoSiReposo;
 	@Wire
 	private Radio rdoNoReposo;
@@ -326,6 +335,8 @@ public class CConsulta extends CGenerico {
 	private Radio rdoSiApto;
 	@Wire
 	private Radio rdoNoApto;
+	@Wire
+	private Radiogroup rdgApto;
 	@Wire
 	private Row row;
 	@Wire
@@ -1082,8 +1093,14 @@ public class CConsulta extends CGenerico {
 	}
 
 	public boolean validar() {
+		limpiarColores(cmbPrioridadEspecialista, cmbPrioridadExamen,
+				cmbPrioridadServicio, rdgApto, cmbArea, cmbCargo, cmbPrioridad,
+				cmbEspecialista, cmbReposo, rdgDias, rdgMaternal, txtMotivo,
+				txtEnfermedad, rdgReposo, rdgLaboral, cmbTipoConsulta,
+				cmbTipoPreventiva, txtCedula);
 		if (txtCedula.getText().compareTo("") == 0) {
 			Mensaje.mensajeError("Debe Seleccionar un Paciente");
+			aplicarColores(txtCedula);
 			return false;
 		} else {
 			if (dtbFechaConsulta.getText().compareTo("") == 0
@@ -1091,11 +1108,9 @@ public class CConsulta extends CGenerico {
 					|| dtbValido.getText().compareTo("") == 0
 					|| cmbTipoPreventiva.getText().compareTo("") == 0) {
 				Mensaje.mensajeError(Mensaje.camposVacios);
+				aplicarColores(cmbTipoConsulta, cmbTipoPreventiva);
 				return false;
 			} else {
-				// if (!validarDoctor())
-				// return false;
-				// else {
 				if (txtMotivo.getText().compareTo("") == 0
 						|| txtEnfermedad.getText().compareTo("") == 0
 						|| (!rdoSiReposo.isChecked() && !rdoNoReposo
@@ -1103,6 +1118,8 @@ public class CConsulta extends CGenerico {
 						|| (!rdoSiLaboral.isChecked() && !rdoNoLaboral
 								.isChecked())) {
 					Mensaje.mensajeError("Debe Llenar los campos secundarios de la Consulta (Motivo de la Consulta, Enfermedad Actual, si hubo accidente laboral o si Amerita o no Reposo)");
+					aplicarColores(txtMotivo, txtEnfermedad, rdgReposo,
+							rdgLaboral);
 					return false;
 				} else {
 					if (rdoSiReposo.isChecked()
@@ -1110,6 +1127,7 @@ public class CConsulta extends CGenerico {
 									.isChecked()) || (!rdoSiMaternal
 									.isChecked() && !rdoNoMaternal.isChecked()))) {
 						Mensaje.mensajeError("Debe indicar las opciones del reposo");
+						aplicarColores(rdgDias, rdgMaternal);
 						return false;
 					} else {
 						if (!validarAccidente()) {
@@ -1119,6 +1137,7 @@ public class CConsulta extends CGenerico {
 
 							if (rdoSiMaternal.isChecked()
 									&& cmbReposo.getText().compareTo("") == 0) {
+								aplicarColores(cmbReposo);
 								Mensaje.mensajeError("Debe indicar el tipo del reposo maternal");
 								return false;
 							} else {
@@ -1134,9 +1153,6 @@ public class CConsulta extends CGenerico {
 											Mensaje.mensajeError("Debe Llenar Todos los Campos de la Lista de Examenes");
 											return false;
 										} else {
-											// if (!validarProveedor()) {
-											// return false;
-											// } else {
 											if (!agregarEspecialista()) {
 												Mensaje.mensajeError("Debe Llenar Todos los Campos de la Lista de Especialistas");
 												return false;
@@ -1167,6 +1183,7 @@ public class CConsulta extends CGenerico {
 																			.compareTo(
 																					"") == 0) {
 																Mensaje.mensajeError("Debe Seleccionar el Especialista al cual asistio el paciente");
+																aplicarColores(cmbEspecialista);
 																return false;
 															} else {
 																if (ltbMedicinasAgregadas
@@ -1176,6 +1193,7 @@ public class CConsulta extends CGenerico {
 																				.compareTo(
 																						"") == 0) {
 																	Mensaje.mensajeError("Debe Seleccionar la Prioridad del Recipe");
+																	aplicarColores(cmbPrioridad);
 																	return false;
 																} else {
 																	if (ltbDiagnosticosAgregados
@@ -1199,6 +1217,9 @@ public class CConsulta extends CGenerico {
 																						.compareTo(
 																								"") == 0)) {
 																			Mensaje.mensajeError("Debe Seleccionar el Cargo y el Area a la cual Aspira el Paciente");
+																			aplicarColores(
+																					cmbArea,
+																					cmbCargo);
 																			return false;
 																		} else {
 																			if ((cmbTipoPreventiva
@@ -1213,6 +1234,7 @@ public class CConsulta extends CGenerico {
 																							.isChecked() && !rdoNoApto
 																							.isChecked())) {
 																				Mensaje.mensajeError("Debe Indicar si el Paciente es Apto, o no para el Cargo que Aspira");
+																				aplicarColores(rdgApto);
 																				return false;
 																			} else {
 																				if (ltbServicioExternoAgregados
@@ -1222,6 +1244,7 @@ public class CConsulta extends CGenerico {
 																								.compareTo(
 																										"") == 0) {
 																					Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Estudios Externos");
+																					aplicarColores(cmbPrioridadServicio);
 																					return false;
 																				} else {
 																					if (ltbExamenesAgregados
@@ -1230,6 +1253,7 @@ public class CConsulta extends CGenerico {
 																									.getText()
 																									.compareTo(
 																											"") == 0) {
+																						aplicarColores(cmbPrioridadExamen);
 																						Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Examenes");
 																						return false;
 																					} else {
@@ -1240,6 +1264,7 @@ public class CConsulta extends CGenerico {
 																										.compareTo(
 																												"") == 0) {
 																							Mensaje.mensajeError("Debe Seleccionar la Prioridad de la orden de los Especialistas");
+																							aplicarColores(cmbPrioridadEspecialista);
 																							return false;
 																						} else {
 																							return true;
@@ -1255,9 +1280,6 @@ public class CConsulta extends CGenerico {
 													}
 												}
 											}
-
-											// }
-											// }
 										}
 									}
 								}
@@ -1558,8 +1580,7 @@ public class CConsulta extends CGenerico {
 						calendario.set(Calendar.MINUTE, 0);
 						fecha1 = calendario.getTime();
 						Timestamp fecha2 = new Timestamp(fecha1.getTime());
-						return servicioConsulta.filtroFecha(fecha2,
-								fecha2);
+						return servicioConsulta.filtroFecha(fecha2, fecha2);
 					}
 					return consultasPaciente;
 				case "Doctor":
@@ -2584,6 +2605,11 @@ public class CConsulta extends CGenerico {
 	}
 
 	public void limpiarCampos() {
+		limpiarColores(cmbPrioridadEspecialista, cmbPrioridadExamen,
+				cmbPrioridadServicio, rdgApto, cmbArea, cmbCargo, cmbPrioridad,
+				cmbEspecialista, cmbReposo, rdgDias, rdgMaternal, txtMotivo,
+				txtEnfermedad, rdgReposo, rdgLaboral, cmbTipoConsulta,
+				cmbTipoPreventiva, txtCedula);
 		rowPostVacacional.setVisible(false);
 		if (!botonera.getChildren().get(0).isVisible()) {
 			botonera.getChildren().get(0).setVisible(true);
@@ -2721,7 +2747,8 @@ public class CConsulta extends CGenerico {
 		map.put("listbox", ltbExamenFisico);
 		map.put("titulo", "Parte del Cuerpo");
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
-		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Parte del Cuerpo");
+		List<Arbol> arboles = servicioArbol
+				.buscarPorNombreArbol("Parte del Cuerpo");
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
@@ -2754,7 +2781,7 @@ public class CConsulta extends CGenerico {
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
 		List<Arbol> arboles = servicioArbol
 				.buscarPorNombreArbol("Especialista");
-		
+
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);
@@ -2769,8 +2796,7 @@ public class CConsulta extends CGenerico {
 		map.put("listbox", ltbServicioExterno);
 		map.put("titulo", "Estudios");
 		Sessions.getCurrent().setAttribute("itemsCatalogo", map);
-		List<Arbol> arboles = servicioArbol
-				.buscarPorNombreArbol("Estudios");
+		List<Arbol> arboles = servicioArbol.buscarPorNombreArbol("Estudios");
 		if (!arboles.isEmpty()) {
 			Arbol arbolItem = arboles.get(0);
 			cArbol.abrirVentanas(arbolItem, tabBox, contenido, tab, tabs);

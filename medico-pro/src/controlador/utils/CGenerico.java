@@ -358,16 +358,17 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 	public boolean enviarEmailNotificacion(String correo, String mensajes) {
 		try {
 
-			String cc = "NOTIFICACION SIMS";
+			String cc = "NOTIFICACION MEDICO-PRO";
 			Properties props = new Properties();
-			props.setProperty("mail.smtp.host", "172.23.20.66");
+			props.setProperty("mail.smtp.host", "smtp.gmail.com");
 			props.setProperty("mail.smtp.starttls.enable", "true");
-			props.setProperty("mail.smtp.port", "2525");
+			props.setProperty("mail.smtp.port", "587");
 			props.setProperty("mail.smtp.auth", "true");
 
 			Authenticator auth = new SMTPAuthenticator();
 			Session session = Session.getInstance(props, auth);
 			String remitente = "cdusa@dusa.com.ve";
+			String contrasena = "Equipo.2";
 			String destino = correo;
 			String mensaje = mensajes;
 			String destinos[] = destino.split(",");
@@ -385,9 +386,11 @@ public abstract class CGenerico extends SelectorComposer<Component> {
 			message.addRecipients(Message.RecipientType.TO, receptores);
 			message.setSubject(cc);
 			message.setText(mensaje);
-
-			Transport.send(message);
-
+			Transport t = session.getTransport("smtp");
+			t.connect(remitente, contrasena);
+			t.sendMessage(message,
+					message.getRecipients(Message.RecipientType.TO));
+			t.close();
 			return true;
 		}
 

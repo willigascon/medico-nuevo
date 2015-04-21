@@ -970,7 +970,7 @@ public class CPaciente extends CGenerico {
 				String valores[] = paciente.getTransporte().split(",");
 				int j = 0;
 				while (j < valores.length) {
-					if (valores[j].equals("Transporte Dusa"))
+					if (valores[j].equals("Transporte Empresa"))
 						chkDusa.setChecked(true);
 					if (valores[j].equals("Transporte Publico"))
 						chkPublico.setChecked(true);

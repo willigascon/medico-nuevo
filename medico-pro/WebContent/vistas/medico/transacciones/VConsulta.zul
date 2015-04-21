@@ -466,7 +466,7 @@
 															<space />
 															<label value="*" style="font-weight:bold;color:red" />
 														</hbox>
-														<radiogroup>
+														<radiogroup id="rdgLaboral">
 															<radio label="SI" value="si" id="rdoSiLaboral" />
 															<radio label="NO" value="no" id="rdoNoLaboral" />
 														</radiogroup>
@@ -764,7 +764,7 @@
 															<space />
 															<label value="*" style="font-weight:bold;color:red" />
 														</hbox>
-														<radiogroup>
+														<radiogroup id="rdgDias">
 															<radio label="Dias" value="si" id="rdoSiReposoDias" />
 															<radio label="Horas" value="no" id="rdoNoReposoHoras" />
 														</radiogroup>
@@ -784,7 +784,7 @@
 															<space />
 															<label value="*" style="font-weight:bold;color:red" />
 														</hbox>
-														<radiogroup>
+														<radiogroup id="rdgMaternal">
 															<radio label="SI" value="si" id="rdoSiMaternal" />
 															<radio label="NO" value="no" id="rdoNoMaternal" />
 														</radiogroup>

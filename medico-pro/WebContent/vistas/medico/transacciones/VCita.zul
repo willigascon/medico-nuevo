@@ -144,10 +144,15 @@
 							</a>
 						</cell>
 					</row>
+					<row>
+						<cell colspan="8">
+						<label class="etiqueta3" value="CITAS ASOCIADAS AL DOCTOR" />
+						</cell>
+					</row>
 				</rows>
 			</grid>
-			<groupbox closable="false" width="100%" title="Citas Asociadas al Doctor">
 				<separator />
+				<div align="left">
 				<hbox>
 					<separator />
 					<label class="etiqueta" id="lblBuscar" value="Filtrar por: " />
@@ -160,6 +165,7 @@
 					<textbox id="txtBuscador" width="300px"
 						tooltiptext="Ingrese el Criterio de Busqueda" placeholder="Ingrese el Criterio de Busqueda"></textbox>
 				</hbox>
+				</div>
 				<separator />
 				<hbox>
 					<listbox id="ltbCitas" height="100%" mold="paging"
@@ -214,6 +220,5 @@
 			</groupbox>
 			<div id="catalogoUsuarios" />
 			<div id="divCatalogoPacientes" />
-		</groupbox>
 	</div>
 </zk>

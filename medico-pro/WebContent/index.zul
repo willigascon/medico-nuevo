@@ -1,4 +1,4 @@
-<?page id="mainPage" title="Sistema Medico-Pro" contentType="text/html;charset=utf-8"?>
+<?page id="mainPage" title="Sistema SSyS" contentType="text/html;charset=utf-8"?>
 <zk>
 	<style src="public/Estilo.css" />
 	<zscript>
@@ -33,7 +33,7 @@
 			<east border="none" class="gris">
 			</east>
 			<west size="70%" class="gris">
-				<div width="100%" style="background:Black" vflex="1">
+				<div align="center" width="100%" style="background:#99999999" vflex="1">
 					<vbox width="100%">
 						<image width="100%" height="100%"
 							src="/public/imagenes/generales/north.png" />

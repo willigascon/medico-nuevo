@@ -5,7 +5,7 @@
 	<window title="" border="0" height="100%" width="100%"
 		apply="controlador.security.CArbol">
 		<borderlayout height="100%" style="background-color:#fff;">
-			<north height="14%" class="banner">
+			<north height="15%" class="banner">
 				<borderlayout>
 					<north style="background:#8A0808" size="20%">
 						<label style="font-size:12px;color:white;font-weight: bold"
@@ -54,10 +54,10 @@
 										<separator></separator>
 										<vbox>
 											<button id="lblEditarCuenta" label="Editar Usuario"
-												style="font-size:12px;color:#8A0808;cursor: pointer;width: 100px;height: 25px;background:white;font-weight: bold" />
+												style="font-size:12px;color:#8A0808;cursor: pointer;width: 105px;height: 25px;background:white;font-weight: bold" />
 											<button id="btnSalir" href="../j_spring_security_logout"
 												label="SALIR"
-												style="font-size:14px;color:#8A0808;cursor: pointer;width: 100px;height: 25px;background:white;font-weight: bold" />
+												style="font-size:14px;color:#8A0808;cursor: pointer;width: 105px;height: 25px;background:white;font-weight: bold" />
 										</vbox>
 									</hbox>
 								</div>
